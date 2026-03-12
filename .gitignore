@@ -1,6 +1,16 @@
+# dependencies
 node_modules/
+**/node_modules/
+
+# env files
 .env
-revhire-backend/.env
-revhire-frontend/.env
+**/.env
+**/.env.local
+
+# build output
+dist/
+**/dist/
+
+# Mac
 .DS_Store
 **/.DS_Store
