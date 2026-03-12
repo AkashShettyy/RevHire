@@ -1,0 +1,6 @@
+node_modules/
+.env
+revhire-backend/.env
+revhire-frontend/.env
+.DS_Store
+**/.DS_Store
