@@ -25,7 +25,7 @@ function ResumeBuilder() {
       const data = await getResume(token);
       setResume(data.resume);
     } catch (error) {
-      // no resume yet, use default empty state
+      // no resume yet
     }
   }
 
@@ -35,6 +35,7 @@ function ResumeBuilder() {
     try {
       await saveResume(resume, token);
       setMessage("Resume saved successfully ✅");
+      setTimeout(() => setMessage(""), 3000);
     } catch (error) {
       setMessage("Something went wrong");
     } finally {
@@ -61,235 +62,349 @@ function ResumeBuilder() {
     setResume({ ...resume, [field]: updated });
   }
 
+  const inputClass =
+    "w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary text-sm";
+  const sectionClass =
+    "bg-white rounded-xl p-6 shadow-sm border border-gray-100";
+
   return (
-    <div>
-      <h1>Resume Builder</h1>
-      {message && <p>{message}</p>}
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-3xl mx-auto px-4 py-8">
+        <div className="flex items-center justify-between mb-6">
+          <h1 className="text-2xl font-bold text-gray-900">Resume Builder</h1>
+          {message && (
+            <p className="bg-green-50 text-green-700 px-4 py-2 rounded-lg text-sm">
+              {message}
+            </p>
+          )}
+        </div>
 
-      <form onSubmit={handleSave}>
-        {/* Objective */}
-        <section>
-          <h2>Objective</h2>
-          <textarea
-            placeholder="Write a short objective"
-            value={resume.objective}
-            onChange={(e) => updateField("objective", e.target.value)}
-            rows={3}
-          />
-        </section>
+        <form onSubmit={handleSave} className="space-y-6">
+          {/* Objective */}
+          <div className={sectionClass}>
+            <h2 className="font-semibold text-gray-900 mb-4">🎯 Objective</h2>
+            <textarea
+              placeholder="Write a short professional objective..."
+              value={resume.objective}
+              onChange={(e) => updateField("objective", e.target.value)}
+              rows={3}
+              className={`${inputClass} resize-none`}
+            />
+          </div>
 
-        {/* Skills */}
-        <section>
-          <h2>Skills</h2>
-          {resume.skills.map((skill, i) => (
-            <div key={i}>
-              <input
-                type="text"
-                placeholder="Skill"
-                value={skill}
-                onChange={(e) => {
-                  const updated = [...resume.skills];
-                  updated[i] = e.target.value;
-                  updateField("skills", updated);
-                }}
-              />
-              <button type="button" onClick={() => removeItem("skills", i)}>
-                Remove
-              </button>
+          {/* Skills */}
+          <div className={sectionClass}>
+            <h2 className="font-semibold text-gray-900 mb-4">⚡ Skills</h2>
+            <div className="flex flex-wrap gap-2 mb-3">
+              {resume.skills.map((skill, i) => (
+                <div
+                  key={i}
+                  className="flex items-center gap-1 bg-blue-50 rounded-lg px-3 py-1.5"
+                >
+                  <input
+                    type="text"
+                    placeholder="Skill"
+                    value={skill}
+                    onChange={(e) => {
+                      const updated = [...resume.skills];
+                      updated[i] = e.target.value;
+                      updateField("skills", updated);
+                    }}
+                    className="bg-transparent outline-none text-sm text-blue-700 w-24"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => removeItem("skills", i)}
+                    className="text-blue-400 hover:text-red-500 text-xs"
+                  >
+                    ✕
+                  </button>
+                </div>
+              ))}
             </div>
-          ))}
-          <button type="button" onClick={() => addItem("skills", "")}>
-            + Add Skill
-          </button>
-        </section>
+            <button
+              type="button"
+              onClick={() => addItem("skills", "")}
+              className="text-primary text-sm hover:underline"
+            >
+              + Add Skill
+            </button>
+          </div>
 
-        {/* Education */}
-        <section>
-          <h2>Education</h2>
-          {resume.education.map((edu, i) => (
-            <div key={i}>
-              <input
-                type="text"
-                placeholder="Institution"
-                value={edu.institution}
-                onChange={(e) =>
-                  updateArrayField(
-                    "education",
-                    i,
-                    "institution",
-                    e.target.value,
-                  )
-                }
-              />
-              <input
-                type="text"
-                placeholder="Degree"
-                value={edu.degree}
-                onChange={(e) =>
-                  updateArrayField("education", i, "degree", e.target.value)
-                }
-              />
-              <input
-                type="text"
-                placeholder="Year"
-                value={edu.year}
-                onChange={(e) =>
-                  updateArrayField("education", i, "year", e.target.value)
-                }
-              />
-              <button type="button" onClick={() => removeItem("education", i)}>
-                Remove
-              </button>
+          {/* Education */}
+          <div className={sectionClass}>
+            <h2 className="font-semibold text-gray-900 mb-4">🎓 Education</h2>
+            <div className="space-y-4">
+              {resume.education.map((edu, i) => (
+                <div
+                  key={i}
+                  className="border border-gray-100 rounded-lg p-4 space-y-3"
+                >
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <input
+                      type="text"
+                      placeholder="Institution"
+                      value={edu.institution}
+                      onChange={(e) =>
+                        updateArrayField(
+                          "education",
+                          i,
+                          "institution",
+                          e.target.value,
+                        )
+                      }
+                      className={inputClass}
+                    />
+                    <input
+                      type="text"
+                      placeholder="Degree"
+                      value={edu.degree}
+                      onChange={(e) =>
+                        updateArrayField(
+                          "education",
+                          i,
+                          "degree",
+                          e.target.value,
+                        )
+                      }
+                      className={inputClass}
+                    />
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <input
+                      type="text"
+                      placeholder="Year (e.g. 2020-2024)"
+                      value={edu.year}
+                      onChange={(e) =>
+                        updateArrayField("education", i, "year", e.target.value)
+                      }
+                      className={inputClass}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => removeItem("education", i)}
+                      className="text-red-400 hover:text-red-600 text-sm whitespace-nowrap"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
+            <button
+              type="button"
+              onClick={() =>
+                addItem("education", { institution: "", degree: "", year: "" })
+              }
+              className="mt-3 text-primary text-sm hover:underline"
+            >
+              + Add Education
+            </button>
+          </div>
+
+          {/* Experience */}
+          <div className={sectionClass}>
+            <h2 className="font-semibold text-gray-900 mb-4">💼 Experience</h2>
+            <div className="space-y-4">
+              {resume.experience.map((exp, i) => (
+                <div
+                  key={i}
+                  className="border border-gray-100 rounded-lg p-4 space-y-3"
+                >
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <input
+                      type="text"
+                      placeholder="Company"
+                      value={exp.company}
+                      onChange={(e) =>
+                        updateArrayField(
+                          "experience",
+                          i,
+                          "company",
+                          e.target.value,
+                        )
+                      }
+                      className={inputClass}
+                    />
+                    <input
+                      type="text"
+                      placeholder="Role"
+                      value={exp.role}
+                      onChange={(e) =>
+                        updateArrayField(
+                          "experience",
+                          i,
+                          "role",
+                          e.target.value,
+                        )
+                      }
+                      className={inputClass}
+                    />
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="Duration (e.g. Jan 2023 - Dec 2023)"
+                    value={exp.duration}
+                    onChange={(e) =>
+                      updateArrayField(
+                        "experience",
+                        i,
+                        "duration",
+                        e.target.value,
+                      )
+                    }
+                    className={inputClass}
+                  />
+                  <textarea
+                    placeholder="Description"
+                    value={exp.description}
+                    onChange={(e) =>
+                      updateArrayField(
+                        "experience",
+                        i,
+                        "description",
+                        e.target.value,
+                      )
+                    }
+                    rows={2}
+                    className={`${inputClass} resize-none`}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => removeItem("experience", i)}
+                    className="text-red-400 hover:text-red-600 text-sm"
+                  >
+                    Remove
+                  </button>
+                </div>
+              ))}
+            </div>
+            <button
+              type="button"
+              onClick={() =>
+                addItem("experience", {
+                  company: "",
+                  role: "",
+                  duration: "",
+                  description: "",
+                })
+              }
+              className="mt-3 text-primary text-sm hover:underline"
+            >
+              + Add Experience
+            </button>
+          </div>
+
+          {/* Projects */}
+          <div className={sectionClass}>
+            <h2 className="font-semibold text-gray-900 mb-4">🚀 Projects</h2>
+            <div className="space-y-4">
+              {resume.projects.map((proj, i) => (
+                <div
+                  key={i}
+                  className="border border-gray-100 rounded-lg p-4 space-y-3"
+                >
+                  <input
+                    type="text"
+                    placeholder="Project name"
+                    value={proj.name}
+                    onChange={(e) =>
+                      updateArrayField("projects", i, "name", e.target.value)
+                    }
+                    className={inputClass}
+                  />
+                  <textarea
+                    placeholder="Description"
+                    value={proj.description}
+                    onChange={(e) =>
+                      updateArrayField(
+                        "projects",
+                        i,
+                        "description",
+                        e.target.value,
+                      )
+                    }
+                    rows={2}
+                    className={`${inputClass} resize-none`}
+                  />
+                  <input
+                    type="text"
+                    placeholder="Link (optional)"
+                    value={proj.link}
+                    onChange={(e) =>
+                      updateArrayField("projects", i, "link", e.target.value)
+                    }
+                    className={inputClass}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => removeItem("projects", i)}
+                    className="text-red-400 hover:text-red-600 text-sm"
+                  >
+                    Remove
+                  </button>
+                </div>
+              ))}
+            </div>
+            <button
+              type="button"
+              onClick={() =>
+                addItem("projects", { name: "", description: "", link: "" })
+              }
+              className="mt-3 text-primary text-sm hover:underline"
+            >
+              + Add Project
+            </button>
+          </div>
+
+          {/* Certifications */}
+          <div className={sectionClass}>
+            <h2 className="font-semibold text-gray-900 mb-4">
+              🏆 Certifications
+            </h2>
+            <div className="space-y-3">
+              {resume.certifications.map((cert, i) => (
+                <div key={i} className="flex items-center gap-3">
+                  <input
+                    type="text"
+                    placeholder="Certification name"
+                    value={cert}
+                    onChange={(e) => {
+                      const updated = [...resume.certifications];
+                      updated[i] = e.target.value;
+                      updateField("certifications", updated);
+                    }}
+                    className={inputClass}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => removeItem("certifications", i)}
+                    className="text-red-400 hover:text-red-600 text-sm whitespace-nowrap"
+                  >
+                    Remove
+                  </button>
+                </div>
+              ))}
+            </div>
+            <button
+              type="button"
+              onClick={() => addItem("certifications", "")}
+              className="mt-3 text-primary text-sm hover:underline"
+            >
+              + Add Certification
+            </button>
+          </div>
+
+          {/* Save Button */}
           <button
-            type="button"
-            onClick={() =>
-              addItem("education", { institution: "", degree: "", year: "" })
-            }
+            type="submit"
+            disabled={isLoading}
+            className="w-full bg-primary text-white py-3 rounded-xl font-semibold hover:bg-secondary transition-colors disabled:opacity-50 text-lg"
           >
-            + Add Education
+            {isLoading ? "Saving..." : "Save Resume"}
           </button>
-        </section>
-
-        {/* Experience */}
-        <section>
-          <h2>Experience</h2>
-          {resume.experience.map((exp, i) => (
-            <div key={i}>
-              <input
-                type="text"
-                placeholder="Company"
-                value={exp.company}
-                onChange={(e) =>
-                  updateArrayField("experience", i, "company", e.target.value)
-                }
-              />
-              <input
-                type="text"
-                placeholder="Role"
-                value={exp.role}
-                onChange={(e) =>
-                  updateArrayField("experience", i, "role", e.target.value)
-                }
-              />
-              <input
-                type="text"
-                placeholder="Duration (e.g. Jan 2023 - Dec 2023)"
-                value={exp.duration}
-                onChange={(e) =>
-                  updateArrayField("experience", i, "duration", e.target.value)
-                }
-              />
-              <textarea
-                placeholder="Description"
-                value={exp.description}
-                onChange={(e) =>
-                  updateArrayField(
-                    "experience",
-                    i,
-                    "description",
-                    e.target.value,
-                  )
-                }
-                rows={2}
-              />
-              <button type="button" onClick={() => removeItem("experience", i)}>
-                Remove
-              </button>
-            </div>
-          ))}
-          <button
-            type="button"
-            onClick={() =>
-              addItem("experience", {
-                company: "",
-                role: "",
-                duration: "",
-                description: "",
-              })
-            }
-          >
-            + Add Experience
-          </button>
-        </section>
-
-        {/* Projects */}
-        <section>
-          <h2>Projects</h2>
-          {resume.projects.map((proj, i) => (
-            <div key={i}>
-              <input
-                type="text"
-                placeholder="Project name"
-                value={proj.name}
-                onChange={(e) =>
-                  updateArrayField("projects", i, "name", e.target.value)
-                }
-              />
-              <textarea
-                placeholder="Description"
-                value={proj.description}
-                onChange={(e) =>
-                  updateArrayField("projects", i, "description", e.target.value)
-                }
-                rows={2}
-              />
-              <input
-                type="text"
-                placeholder="Link (optional)"
-                value={proj.link}
-                onChange={(e) =>
-                  updateArrayField("projects", i, "link", e.target.value)
-                }
-              />
-              <button type="button" onClick={() => removeItem("projects", i)}>
-                Remove
-              </button>
-            </div>
-          ))}
-          <button
-            type="button"
-            onClick={() =>
-              addItem("projects", { name: "", description: "", link: "" })
-            }
-          >
-            + Add Project
-          </button>
-        </section>
-
-        {/* Certifications */}
-        <section>
-          <h2>Certifications</h2>
-          {resume.certifications.map((cert, i) => (
-            <div key={i}>
-              <input
-                type="text"
-                placeholder="Certification"
-                value={cert}
-                onChange={(e) => {
-                  const updated = [...resume.certifications];
-                  updated[i] = e.target.value;
-                  updateField("certifications", updated);
-                }}
-              />
-              <button
-                type="button"
-                onClick={() => removeItem("certifications", i)}
-              >
-                Remove
-              </button>
-            </div>
-          ))}
-          <button type="button" onClick={() => addItem("certifications", "")}>
-            + Add Certification
-          </button>
-        </section>
-
-        <button type="submit" disabled={isLoading}>
-          {isLoading ? "Saving..." : "Save Resume"}
-        </button>
-      </form>
+        </form>
+      </div>
     </div>
   );
 }

@@ -23,7 +23,7 @@ function JobSeekerDashboard() {
         getAllJobs(),
       ]);
       setApplications(appsData.applications);
-      setRecentJobs(jobsData.jobs.slice(0, 5));
+      setRecentJobs(jobsData.jobs.slice(0, 4));
     } catch (error) {
       console.error(error);
     } finally {
@@ -31,94 +31,211 @@ function JobSeekerDashboard() {
     }
   }
 
-  function getStatusColor(status) {
-    switch (status) {
-      case "applied":
-        return "blue";
-      case "shortlisted":
-        return "green";
-      case "rejected":
-        return "red";
-      case "withdrawn":
-        return "gray";
-      default:
-        return "black";
-    }
-  }
-
   const stats = {
     total: applications.length,
     shortlisted: applications.filter((a) => a.status === "shortlisted").length,
-    rejected: applications.filter((a) => a.status === "rejected").length,
     applied: applications.filter((a) => a.status === "applied").length,
+    rejected: applications.filter((a) => a.status === "rejected").length,
   };
 
-  if (isLoading) return <p>Loading...</p>;
+  const statusColors = {
+    applied: "bg-blue-100 text-blue-700",
+    shortlisted: "bg-green-100 text-green-700",
+    rejected: "bg-red-100 text-red-700",
+    withdrawn: "bg-gray-100 text-gray-600",
+  };
+
+  const jobTypeColors = {
+    fulltime: "bg-green-100 text-green-700",
+    parttime: "bg-yellow-100 text-yellow-700",
+    internship: "bg-purple-100 text-purple-700",
+    remote: "bg-blue-100 text-blue-700",
+  };
+
+  if (isLoading)
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <p className="text-gray-500">Loading...</p>
+      </div>
+    );
 
   return (
-    <div>
-      <h1>Welcome back, {user?.name}! 👋</h1>
-
-      {/* Stats */}
-      <div>
-        <div>
-          <h3>Total Applied</h3>
-          <p>{stats.total}</p>
-        </div>
-        <div>
-          <h3>Shortlisted</h3>
-          <p>{stats.shortlisted}</p>
-        </div>
-        <div>
-          <h3>Pending</h3>
-          <p>{stats.applied}</p>
-        </div>
-        <div>
-          <h3>Rejected</h3>
-          <p>{stats.rejected}</p>
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <div className="bg-primary text-white py-8 px-4">
+        <div className="max-w-6xl mx-auto">
+          <h1 className="text-2xl font-bold">Welcome back, {user?.name}! 👋</h1>
+          <p className="text-blue-100 mt-1">Here's your job search overview</p>
         </div>
       </div>
 
-      {/* Recent Applications */}
-      <section>
-        <div>
-          <h2>Recent Applications</h2>
-          <button onClick={() => navigate("/applications")}>View All</button>
-        </div>
-        {applications.length === 0 ? (
-          <p>
-            No applications yet —{" "}
-            <button onClick={() => navigate("/jobs")}>Find Jobs</button>
-          </p>
-        ) : (
-          applications.slice(0, 3).map((app) => (
-            <div key={app._id}>
-              <h3>{app.job?.title}</h3>
-              <p>
-                {app.job?.location} • {app.job?.jobType}
+      <div className="max-w-6xl mx-auto px-4 py-8">
+        {/* Stats */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          {[
+            {
+              label: "Total Applied",
+              value: stats.total,
+              color: "text-blue-600",
+              bg: "bg-blue-50",
+            },
+            {
+              label: "Shortlisted",
+              value: stats.shortlisted,
+              color: "text-green-600",
+              bg: "bg-green-50",
+            },
+            {
+              label: "Pending",
+              value: stats.applied,
+              color: "text-yellow-600",
+              bg: "bg-yellow-50",
+            },
+            {
+              label: "Rejected",
+              value: stats.rejected,
+              color: "text-red-600",
+              bg: "bg-red-50",
+            },
+          ].map((stat) => (
+            <div
+              key={stat.label}
+              className="bg-white rounded-xl p-5 shadow-sm border border-gray-100"
+            >
+              <p className="text-gray-500 text-sm">{stat.label}</p>
+              <p className={`text-3xl font-bold mt-1 ${stat.color}`}>
+                {stat.value}
               </p>
-              <p style={{ color: getStatusColor(app.status) }}>{app.status}</p>
             </div>
-          ))
-        )}
-      </section>
-
-      {/* Recent Jobs */}
-      <section>
-        <div>
-          <h2>Recent Jobs</h2>
-          <button onClick={() => navigate("/jobs")}>View All</button>
+          ))}
         </div>
-        {recentJobs.map((job) => (
-          <div key={job._id} onClick={() => navigate(`/jobs/${job._id}`)}>
-            <h3>{job.title}</h3>
-            <p>{job.employer?.name}</p>
-            <p>
-              {job.location} • {job.jobType}
-            </p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Recent Applications */}
+          <div className="bg-white rounded-xl shadow-sm border border-gray-100">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+              <h2 className="font-semibold text-gray-900">
+                Recent Applications
+              </h2>
+              <button
+                onClick={() => navigate("/applications")}
+                className="text-primary text-sm hover:underline"
+              >
+                View all
+              </button>
+            </div>
+            <div className="divide-y divide-gray-50">
+              {applications.length === 0 ? (
+                <div className="px-6 py-8 text-center">
+                  <p className="text-gray-400 text-sm">No applications yet</p>
+                  <button
+                    onClick={() => navigate("/jobs")}
+                    className="mt-3 bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-secondary transition-colors"
+                  >
+                    Find Jobs
+                  </button>
+                </div>
+              ) : (
+                applications.slice(0, 4).map((app) => (
+                  <div key={app._id} className="px-6 py-4">
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <p className="font-medium text-gray-900 text-sm">
+                          {app.job?.title}
+                        </p>
+                        <p className="text-gray-400 text-xs mt-1">
+                          {app.job?.location} •{" "}
+                          {new Date(app.createdAt).toLocaleDateString()}
+                        </p>
+                      </div>
+                      <span
+                        className={`text-xs font-semibold px-2 py-1 rounded-full ${statusColors[app.status]}`}
+                      >
+                        {app.status}
+                      </span>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
           </div>
-        ))}
-      </section>
+
+          {/* Recent Jobs */}
+          <div className="bg-white rounded-xl shadow-sm border border-gray-100">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+              <h2 className="font-semibold text-gray-900">Recent Jobs</h2>
+              <button
+                onClick={() => navigate("/jobs")}
+                className="text-primary text-sm hover:underline"
+              >
+                View all
+              </button>
+            </div>
+            <div className="divide-y divide-gray-50">
+              {recentJobs.map((job) => (
+                <div
+                  key={job._id}
+                  onClick={() => navigate(`/jobs/${job._id}`)}
+                  className="px-6 py-4 hover:bg-gray-50 cursor-pointer transition-colors"
+                >
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <p className="font-medium text-gray-900 text-sm">
+                        {job.title}
+                      </p>
+                      <p className="text-gray-400 text-xs mt-1">
+                        {job.employer?.name} • {job.location}
+                      </p>
+                    </div>
+                    <span
+                      className={`text-xs font-semibold px-2 py-1 rounded-full ${jobTypeColors[job.jobType]}`}
+                    >
+                      {job.jobType}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Quick Actions */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
+          {[
+            {
+              label: "Find Jobs",
+              desc: "Browse latest openings",
+              icon: "🔍",
+              path: "/jobs",
+              color: "bg-blue-50 border-blue-100",
+            },
+            {
+              label: "My Resume",
+              desc: "Update your resume",
+              icon: "📄",
+              path: "/resume",
+              color: "bg-green-50 border-green-100",
+            },
+            {
+              label: "Applications",
+              desc: "Track your applications",
+              icon: "📋",
+              path: "/applications",
+              color: "bg-purple-50 border-purple-100",
+            },
+          ].map((action) => (
+            <button
+              key={action.label}
+              onClick={() => navigate(action.path)}
+              className={`${action.color} border rounded-xl p-5 text-left hover:shadow-md transition-all`}
+            >
+              <span className="text-2xl">{action.icon}</span>
+              <p className="font-semibold text-gray-900 mt-2">{action.label}</p>
+              <p className="text-gray-500 text-sm mt-1">{action.desc}</p>
+            </button>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
