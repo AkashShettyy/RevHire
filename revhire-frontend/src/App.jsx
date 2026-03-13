@@ -7,6 +7,9 @@ import JobSearch from "./pages/JobSearch";
 import JobDetails from "./pages/JobDetails";
 import ApplicationHistory from "./pages/ApplicationHistory";
 import ResumeBuilder from "./pages/ResumeBuilder";
+import EmployerDashboard from "./pages/employer/EmployerDashboard";
+import PostJob from "./pages/employer/PostJob";
+import Applicants from "./pages/employer/Applicants";
 
 function ProtectedRoute({ children, role }) {
   const { user } = useAuth();
@@ -77,7 +80,23 @@ function App() {
               path="/employer/dashboard"
               element={
                 <ProtectedRoute role="employer">
-                  <h1>Employer Dashboard</h1>
+                  <EmployerDashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/employer/post-job"
+              element={
+                <ProtectedRoute role="employer">
+                  <PostJob />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/employer/applicants/:jobId"
+              element={
+                <ProtectedRoute role="employer">
+                  <Applicants />
                 </ProtectedRoute>
               }
             />
