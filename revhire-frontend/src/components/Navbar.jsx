@@ -14,6 +14,10 @@ function Navbar() {
     if (user && token) fetchNotifications();
   }, [user]);
 
+  useEffect(() => {
+    setShowNotifications(false);
+  }, [location.pathname]);
+
   async function fetchNotifications() {
     try {
       const data = await getNotifications(token);
