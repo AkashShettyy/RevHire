@@ -21,7 +21,7 @@ function ProtectedRoute({ children, role }) {
 
 function Layout({ children }) {
   return (
-    <div>
+    <div className="min-h-screen bg-slate-50">
       <Navbar />
       <main>{children}</main>
     </div>

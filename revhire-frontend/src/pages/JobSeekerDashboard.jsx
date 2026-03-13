@@ -54,23 +54,23 @@ function JobSeekerDashboard() {
 
   if (isLoading)
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <p className="text-gray-500">Loading...</p>
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+        <p className="text-slate-500">Loading...</p>
       </div>
     );
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-primary text-white py-8 px-4">
+    <div className="min-h-screen bg-slate-50">
+      <div className="bg-white border-b border-slate-200 py-8 px-4">
         <div className="max-w-6xl mx-auto">
-          <h1 className="text-2xl font-bold">Welcome back, {user?.name}! 👋</h1>
-          <p className="text-blue-100 mt-1">Here's your job search overview</p>
+          <h1 className="text-3xl font-bold text-slate-900">
+            Welcome back, {user?.name}
+          </h1>
+          <p className="text-slate-500 mt-2">Here&apos;s your job search overview</p>
         </div>
       </div>
 
       <div className="max-w-6xl mx-auto px-4 py-8">
-        {/* Stats */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           {[
             {
@@ -100,9 +100,9 @@ function JobSeekerDashboard() {
           ].map((stat) => (
             <div
               key={stat.label}
-              className="bg-white rounded-xl p-5 shadow-sm border border-gray-100"
+              className="bg-white rounded-xl p-5 shadow-sm border border-slate-200"
             >
-              <p className="text-gray-500 text-sm">{stat.label}</p>
+              <p className="text-slate-500 text-sm">{stat.label}</p>
               <p className={`text-3xl font-bold mt-1 ${stat.color}`}>
                 {stat.value}
               </p>
@@ -111,10 +111,9 @@ function JobSeekerDashboard() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Recent Applications */}
-          <div className="bg-white rounded-xl shadow-sm border border-gray-100">
-            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
-              <h2 className="font-semibold text-gray-900">
+          <div className="bg-white rounded-xl shadow-sm border border-slate-200">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100">
+              <h2 className="font-semibold text-slate-900">
                 Recent Applications
               </h2>
               <button
@@ -124,10 +123,10 @@ function JobSeekerDashboard() {
                 View all
               </button>
             </div>
-            <div className="divide-y divide-gray-50">
+            <div className="divide-y divide-slate-100">
               {applications.length === 0 ? (
                 <div className="px-6 py-8 text-center">
-                  <p className="text-gray-400 text-sm">No applications yet</p>
+                  <p className="text-slate-400 text-sm">No applications yet</p>
                   <button
                     onClick={() => navigate("/jobs")}
                     className="mt-3 bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-secondary transition-colors"
@@ -140,10 +139,10 @@ function JobSeekerDashboard() {
                   <div key={app._id} className="px-6 py-4">
                     <div className="flex items-start justify-between">
                       <div>
-                        <p className="font-medium text-gray-900 text-sm">
+                        <p className="font-medium text-slate-900 text-sm">
                           {app.job?.title}
                         </p>
-                        <p className="text-gray-400 text-xs mt-1">
+                        <p className="text-slate-400 text-xs mt-1">
                           {app.job?.location} •{" "}
                           {new Date(app.createdAt).toLocaleDateString()}
                         </p>
@@ -160,10 +159,9 @@ function JobSeekerDashboard() {
             </div>
           </div>
 
-          {/* Recent Jobs */}
-          <div className="bg-white rounded-xl shadow-sm border border-gray-100">
-            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
-              <h2 className="font-semibold text-gray-900">Recent Jobs</h2>
+          <div className="bg-white rounded-xl shadow-sm border border-slate-200">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100">
+              <h2 className="font-semibold text-slate-900">Recent Jobs</h2>
               <button
                 onClick={() => navigate("/jobs")}
                 className="text-primary text-sm hover:underline"
@@ -171,19 +169,19 @@ function JobSeekerDashboard() {
                 View all
               </button>
             </div>
-            <div className="divide-y divide-gray-50">
+            <div className="divide-y divide-slate-100">
               {recentJobs.map((job) => (
                 <div
                   key={job._id}
                   onClick={() => navigate(`/jobs/${job._id}`)}
-                  className="px-6 py-4 hover:bg-gray-50 cursor-pointer transition-colors"
+                  className="px-6 py-4 hover:bg-slate-50 cursor-pointer transition-colors"
                 >
                   <div className="flex items-start justify-between">
                     <div>
-                      <p className="font-medium text-gray-900 text-sm">
+                      <p className="font-medium text-slate-900 text-sm">
                         {job.title}
                       </p>
-                      <p className="text-gray-400 text-xs mt-1">
+                      <p className="text-slate-400 text-xs mt-1">
                         {job.employer?.name} • {job.location}
                       </p>
                     </div>
@@ -199,7 +197,6 @@ function JobSeekerDashboard() {
           </div>
         </div>
 
-        {/* Quick Actions */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
           {[
             {

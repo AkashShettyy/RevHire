@@ -45,19 +45,19 @@ function JobSearch() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-primary text-white py-12 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-4xl font-bold mb-2">Find Your Dream Job</h1>
-          <p className="text-blue-100 mb-8">
-            Thousands of jobs waiting for you
+    <div className="min-h-screen bg-slate-50">
+      <div className="bg-white border-b border-slate-200 px-4 py-10">
+        <div className="max-w-5xl mx-auto">
+          <h1 className="text-3xl font-bold text-slate-900 text-center">
+            Find Your Dream Job
+          </h1>
+          <p className="text-slate-500 mt-2 mb-8 text-center">
+            Browse the latest openings and filter by role, location, or type.
           </p>
 
-          {/* Search Form */}
           <form
             onSubmit={handleSearch}
-            className="bg-white rounded-2xl p-2 flex flex-wrap gap-2"
+            className="bg-slate-50 border border-slate-200 rounded-2xl p-3 grid gap-3 md:grid-cols-2 lg:grid-cols-[1.3fr_1fr_0.8fr_auto]"
           >
             <input
               type="text"
@@ -65,7 +65,7 @@ function JobSearch() {
               placeholder="Job title or skill"
               value={filters.search}
               onChange={handleFilterChange}
-              className="flex-1 min-w-48 px-4 py-2 text-gray-800 outline-none rounded-xl"
+              className="w-full px-4 py-3 text-slate-800 outline-none rounded-xl border border-slate-200 bg-white"
             />
             <input
               type="text"
@@ -73,13 +73,13 @@ function JobSearch() {
               placeholder="Location"
               value={filters.location}
               onChange={handleFilterChange}
-              className="flex-1 min-w-32 px-4 py-2 text-gray-800 outline-none rounded-xl"
+              className="w-full px-4 py-3 text-slate-800 outline-none rounded-xl border border-slate-200 bg-white"
             />
             <select
               name="jobType"
               value={filters.jobType}
               onChange={handleFilterChange}
-              className="px-4 py-2 text-gray-800 outline-none rounded-xl"
+              className="w-full px-4 py-3 text-slate-800 outline-none rounded-xl border border-slate-200 bg-white"
             >
               <option value="">All Types</option>
               <option value="fulltime">Full Time</option>
@@ -89,7 +89,7 @@ function JobSearch() {
             </select>
             <button
               type="submit"
-              className="bg-primary text-white px-6 py-2 rounded-xl font-semibold hover:bg-secondary transition-colors"
+              className="bg-primary text-white px-6 py-3 rounded-xl font-semibold hover:bg-secondary transition-colors"
             >
               Search
             </button>
@@ -98,26 +98,26 @@ function JobSearch() {
       </div>
 
       {/* Results */}
-      <div className="max-w-4xl mx-auto px-4 py-8">
-        <p className="text-gray-500 mb-4 text-sm">
+      <div className="max-w-5xl mx-auto px-4 py-8">
+        <p className="text-slate-500 mb-4 text-sm">
           {isLoading ? "Searching..." : `${jobs.length} jobs found`}
         </p>
 
         {isLoading ? (
           <div className="space-y-4">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="bg-white rounded-xl p-6 animate-pulse">
-                <div className="h-4 bg-gray-200 rounded w-1/3 mb-3"></div>
-                <div className="h-3 bg-gray-200 rounded w-1/4 mb-2"></div>
-                <div className="h-3 bg-gray-200 rounded w-1/2"></div>
+              <div key={i} className="bg-white rounded-xl border border-slate-200 p-6 animate-pulse">
+                <div className="h-4 bg-slate-200 rounded w-1/3 mb-3"></div>
+                <div className="h-3 bg-slate-200 rounded w-1/4 mb-2"></div>
+                <div className="h-3 bg-slate-200 rounded w-1/2"></div>
               </div>
             ))}
           </div>
         ) : jobs.length === 0 ? (
           <div className="text-center py-16">
             <p className="text-5xl mb-4">🔍</p>
-            <p className="text-gray-500 text-lg">No jobs found</p>
-            <p className="text-gray-400 text-sm mt-1">Try different filters</p>
+            <p className="text-slate-500 text-lg">No jobs found</p>
+            <p className="text-slate-400 text-sm mt-1">Try different filters</p>
           </div>
         ) : (
           <div className="space-y-4">
@@ -125,14 +125,14 @@ function JobSearch() {
               <div
                 key={job._id}
                 onClick={() => navigate(`/jobs/${job._id}`)}
-                className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md hover:border-primary transition-all cursor-pointer"
+                className="bg-white rounded-xl p-6 shadow-sm border border-slate-200 hover:shadow-md hover:border-primary transition-all cursor-pointer"
               >
                 <div className="flex items-start justify-between">
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900">
+                    <h3 className="text-lg font-semibold text-slate-900">
                       {job.title}
                     </h3>
-                    <p className="text-gray-500 text-sm mt-1">
+                    <p className="text-slate-500 text-sm mt-1">
                       {job.employer?.name}
                     </p>
                   </div>
@@ -143,7 +143,7 @@ function JobSearch() {
                   </span>
                 </div>
 
-                <div className="flex flex-wrap gap-4 mt-4 text-sm text-gray-500">
+                <div className="flex flex-wrap gap-4 mt-4 text-sm text-slate-500">
                   <span>📍 {job.location}</span>
                   <span>
                     💰 ₹{job.salaryRange?.min?.toLocaleString()} - ₹
@@ -156,7 +156,7 @@ function JobSearch() {
                   {job.skillsRequired?.slice(0, 4).map((skill, i) => (
                     <span
                       key={i}
-                      className="bg-gray-100 text-gray-600 text-xs px-3 py-1 rounded-full"
+                      className="bg-slate-100 text-slate-600 text-xs px-3 py-1 rounded-full"
                     >
                       {skill}
                     </span>

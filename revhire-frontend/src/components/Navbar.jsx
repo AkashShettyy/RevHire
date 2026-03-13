@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useState, useEffect } from "react";
 import { getNotifications, markAllRead } from "../services/notificationService";
@@ -6,6 +6,7 @@ import { getNotifications, markAllRead } from "../services/notificationService";
 function Navbar() {
   const { user, logout, token } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const [notifications, setNotifications] = useState([]);
   const [showNotifications, setShowNotifications] = useState(false);
 
@@ -37,45 +38,47 @@ function Navbar() {
   }
 
   const unreadCount = notifications.filter((n) => n.status === "unread").length;
+  const isJobSeekerDashboard = location.pathname === "/dashboard";
+  const isEmployerDashboard = location.pathname === "/employer/dashboard";
 
   return (
-    <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-        {/* Logo */}
+    <nav className="sticky top-0 z-50 border-b border-slate-200 bg-white">
+      <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
         <Link
           to={user?.role === "employer" ? "/employer/dashboard" : "/dashboard"}
-          className="text-2xl font-bold text-primary"
+          className="text-2xl font-bold tracking-tight text-slate-900"
         >
           RevHire
         </Link>
 
-        {/* Links */}
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-4 md:gap-6">
           {user ? (
             <>
               {user.role === "jobseeker" && (
                 <>
-                  <Link
-                    to="/dashboard"
-                    className="text-gray-600 hover:text-primary font-medium transition-colors"
-                  >
-                    Dashboard
-                  </Link>
+                  {!isJobSeekerDashboard && (
+                    <Link
+                      to="/dashboard"
+                      className="text-sm font-medium text-slate-600 transition-colors hover:text-primary"
+                    >
+                      Dashboard
+                    </Link>
+                  )}
                   <Link
                     to="/jobs"
-                    className="text-gray-600 hover:text-primary font-medium transition-colors"
+                    className="text-sm font-medium text-slate-600 transition-colors hover:text-primary"
                   >
                     Find Jobs
                   </Link>
                   <Link
                     to="/applications"
-                    className="text-gray-600 hover:text-primary font-medium transition-colors"
+                    className="hidden text-sm font-medium text-slate-600 transition-colors hover:text-primary sm:inline"
                   >
                     Applications
                   </Link>
                   <Link
                     to="/resume"
-                    className="text-gray-600 hover:text-primary font-medium transition-colors"
+                    className="hidden text-sm font-medium text-slate-600 transition-colors hover:text-primary sm:inline"
                   >
                     Resume
                   </Link>
@@ -84,29 +87,30 @@ function Navbar() {
 
               {user.role === "employer" && (
                 <>
-                  <Link
-                    to="/employer/dashboard"
-                    className="text-gray-600 hover:text-primary font-medium transition-colors"
-                  >
-                    Dashboard
-                  </Link>
+                  {!isEmployerDashboard && (
+                    <Link
+                      to="/employer/dashboard"
+                      className="text-sm font-medium text-slate-600 transition-colors hover:text-primary"
+                    >
+                      Dashboard
+                    </Link>
+                  )}
                   <Link
                     to="/employer/post-job"
-                    className="text-gray-600 hover:text-primary font-medium transition-colors"
+                    className="text-sm font-medium text-slate-600 transition-colors hover:text-primary"
                   >
                     Post a Job
                   </Link>
                 </>
               )}
 
-              {/* Notification Bell */}
               <div className="relative">
                 <button
                   onClick={() => {
                     setShowNotifications(!showNotifications);
                     if (!showNotifications) fetchNotifications();
                   }}
-                  className="relative p-2 text-gray-600 hover:text-primary transition-colors"
+                  className="relative rounded-lg p-2 text-slate-600 transition-colors hover:bg-slate-100 hover:text-primary"
                 >
                   🔔
                   {unreadCount > 0 && (
@@ -117,9 +121,9 @@ function Navbar() {
                 </button>
 
                 {showNotifications && (
-                  <div className="absolute right-0 mt-2 w-80 bg-white rounded-xl shadow-lg border border-gray-100 z-50">
-                    <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
-                      <p className="font-semibold text-gray-900">
+                  <div className="absolute right-0 mt-2 w-80 rounded-xl border border-slate-200 bg-white shadow-lg z-50">
+                    <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100">
+                      <p className="font-semibold text-slate-900">
                         Notifications
                       </p>
                       {unreadCount > 0 && (
@@ -133,23 +137,23 @@ function Navbar() {
                     </div>
                     <div className="max-h-64 overflow-y-auto">
                       {notifications.length === 0 ? (
-                        <p className="text-gray-500 text-sm text-center py-6">
+                        <p className="text-slate-500 text-sm text-center py-6">
                           No notifications
                         </p>
                       ) : (
                         notifications.slice(0, 5).map((n) => (
                           <div
                             key={n._id}
-                            className={`px-4 py-3 border-b border-gray-50 ${
+                            className={`px-4 py-3 border-b border-slate-100 ${
                               n.status === "unread" ? "bg-blue-50" : ""
                             }`}
                           >
                             <p
-                              className={`text-sm ${n.status === "unread" ? "font-semibold text-gray-900" : "text-gray-600"}`}
+                              className={`text-sm ${n.status === "unread" ? "font-semibold text-slate-900" : "text-slate-600"}`}
                             >
                               {n.message}
                             </p>
-                            <p className="text-xs text-gray-400 mt-1">
+                            <p className="text-xs text-slate-400 mt-1">
                               {new Date(n.createdAt).toLocaleDateString()}
                             </p>
                           </div>
@@ -160,7 +164,7 @@ function Navbar() {
                 )}
               </div>
 
-              <span className="text-gray-600 text-sm font-medium">
+              <span className="hidden text-slate-600 text-sm font-medium lg:inline">
                 {user.name}
               </span>
               <button
@@ -174,13 +178,13 @@ function Navbar() {
             <>
               <Link
                 to="/login"
-                className="text-gray-600 hover:text-primary font-medium"
+                className="text-sm font-medium text-slate-600 hover:text-primary"
               >
                 Login
               </Link>
               <Link
                 to="/register"
-                className="bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-secondary transition-colors"
+                className="bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-secondary transition-colors"
               >
                 Register
               </Link>
