@@ -12,27 +12,35 @@ function Navbar() {
 
   return (
     <nav>
-      <Link to="/">
+      {/* Logo */}
+      <Link
+        to={user?.role === "employer" ? "/employer/dashboard" : "/dashboard"}
+      >
         <h2>RevHire</h2>
       </Link>
 
       <div>
         {user ? (
           <>
-            <span>Hello, {user.name}</span>
+            {/* Job Seeker Links */}
             {user.role === "jobseeker" && (
               <>
+                <Link to="/dashboard">Dashboard</Link>
                 <Link to="/jobs">Find Jobs</Link>
                 <Link to="/applications">My Applications</Link>
                 <Link to="/resume">My Resume</Link>
               </>
             )}
+
+            {/* Employer Links */}
             {user.role === "employer" && (
               <>
                 <Link to="/employer/dashboard">Dashboard</Link>
                 <Link to="/employer/post-job">Post a Job</Link>
               </>
             )}
+
+            <span>| {user.name}</span>
             <button onClick={handleLogout}>Logout</button>
           </>
         ) : (
