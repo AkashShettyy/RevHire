@@ -3,12 +3,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#2563eb",
-        secondary: "#1e40af",
-        accent: "#3b82f6",
-        success: "#22c55e",
-        danger: "#ef4444",
-        warning: "#f59e0b",
+        primary: "#4f46e5",
+        secondary: "#4338ca",
+        accent: "#6366f1",
+      },
+      fontFamily: {
+        sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
       },
     },
   },

@@ -8,18 +8,11 @@ function PostJob() {
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
   const [formData, setFormData] = useState({
-    title: "",
-    description: "",
-    skillsRequired: "",
-    experienceRequired: "",
-    educationRequired: "",
-    location: "",
-    salaryMin: "",
-    salaryMax: "",
-    jobType: "fulltime",
-    deadline: "",
+    title: "", description: "", skillsRequired: "",
+    experienceRequired: "", educationRequired: "",
+    location: "", salaryMin: "", salaryMax: "",
+    jobType: "fulltime", deadline: "",
   });
 
   function handleChange(e) {
@@ -30,20 +23,12 @@ function PostJob() {
     e.preventDefault();
     setIsLoading(true);
     try {
-      await createJob(
-        {
-          ...formData,
-          skillsRequired: formData.skillsRequired
-            .split(",")
-            .map((s) => s.trim()),
-          salaryRange: {
-            min: Number(formData.salaryMin),
-            max: Number(formData.salaryMax),
-          },
-        },
-        token,
-      );
-      setMessage("Job posted successfully ✅");
+      await createJob({
+        ...formData,
+        skillsRequired: formData.skillsRequired.split(",").map((s) => s.trim()).filter(Boolean),
+        salaryRange: { min: Number(formData.salaryMin), max: Number(formData.salaryMax) },
+      }, token);
+      setMessage("success");
       setTimeout(() => navigate("/employer/dashboard"), 1500);
     } catch (error) {
       setMessage(error.response?.data?.message || "Something went wrong");
@@ -52,148 +37,75 @@ function PostJob() {
     }
   }
 
-  const inputClass =
-    "w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary text-sm";
-
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-3xl mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="flex items-center gap-4 mb-6">
-          <button
-            onClick={() => navigate("/employer/dashboard")}
-            className="text-primary hover:underline text-sm"
-          >
-            ← Back
-          </button>
-          <h1 className="text-2xl font-bold text-gray-900">Post a Job</h1>
+    <div className="min-h-screen bg-slate-50">
+      <div className="bg-white border-b border-slate-200 px-6 py-8">
+        <div className="max-w-3xl mx-auto flex items-center gap-4">
+          <button onClick={() => navigate("/employer/dashboard")} className="text-sm text-slate-500 hover:text-indigo-600 font-medium transition-colors">← Back</button>
+          <div>
+            <h1 className="text-2xl font-bold text-slate-900">Post a Job</h1>
+            <p className="text-slate-500 text-sm mt-0.5">Fill in the details to attract the right candidates</p>
+          </div>
         </div>
+      </div>
 
-        {message && (
-          <p
-            className={`px-4 py-3 rounded-lg mb-4 text-sm ${
-              message.includes("✅")
-                ? "bg-green-50 text-green-700"
-                : "bg-red-50 text-red-500"
-            }`}
-          >
-            {message}
-          </p>
+      <div className="max-w-3xl mx-auto px-6 py-8">
+        {message === "success" && (
+          <div className="bg-emerald-50 border border-emerald-100 text-emerald-700 px-4 py-3 rounded-lg mb-6 text-sm font-medium">
+            ✅ Job posted successfully! Redirecting...
+          </div>
+        )}
+        {message && message !== "success" && (
+          <div className="bg-red-50 border border-red-100 text-red-600 px-4 py-3 rounded-lg mb-6 text-sm">
+            ⚠️ {message}
+          </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Basic Info */}
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 space-y-4">
-            <h2 className="font-semibold text-gray-900">
-              📋 Basic Information
-            </h2>
+          <div className="card p-6 space-y-5">
+            <h2 className="font-semibold text-slate-900 flex items-center gap-2">📋 Basic Information</h2>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Job Title
-              </label>
-              <input
-                type="text"
-                name="title"
-                placeholder="e.g. Senior React Developer"
-                value={formData.title}
-                onChange={handleChange}
-                required
-                className={inputClass}
-              />
+              <label className="block text-sm font-medium text-slate-700 mb-1.5">Job Title</label>
+              <input type="text" name="title" placeholder="e.g. Senior React Developer" value={formData.title} onChange={handleChange} required className="input-field" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Description
-              </label>
-              <textarea
-                name="description"
-                placeholder="Describe the role, responsibilities..."
-                value={formData.description}
-                onChange={handleChange}
-                rows={4}
-                required
-                className={`${inputClass} resize-none`}
-              />
+              <label className="block text-sm font-medium text-slate-700 mb-1.5">Description</label>
+              <textarea name="description" placeholder="Describe the role, responsibilities, and what you're looking for..." value={formData.description} onChange={handleChange} rows={4} required className="input-field resize-none" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Skills Required
-              </label>
-              <input
-                type="text"
-                name="skillsRequired"
-                placeholder="React, Node.js, MongoDB (comma separated)"
-                value={formData.skillsRequired}
-                onChange={handleChange}
-                required
-                className={inputClass}
-              />
+              <label className="block text-sm font-medium text-slate-700 mb-1.5">Skills Required</label>
+              <input type="text" name="skillsRequired" placeholder="React, Node.js, MongoDB (comma separated)" value={formData.skillsRequired} onChange={handleChange} required className="input-field" />
+              <p className="text-xs text-slate-400 mt-1.5">Separate skills with commas</p>
             </div>
           </div>
 
           {/* Requirements */}
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 space-y-4">
-            <h2 className="font-semibold text-gray-900">📚 Requirements</h2>
+          <div className="card p-6 space-y-5">
+            <h2 className="font-semibold text-slate-900">📚 Requirements</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Experience Required
-                </label>
-                <input
-                  type="text"
-                  name="experienceRequired"
-                  placeholder="e.g. 1-2 years"
-                  value={formData.experienceRequired}
-                  onChange={handleChange}
-                  required
-                  className={inputClass}
-                />
+                <label className="block text-sm font-medium text-slate-700 mb-1.5">Experience Required</label>
+                <input type="text" name="experienceRequired" placeholder="e.g. 1-2 years" value={formData.experienceRequired} onChange={handleChange} required className="input-field" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Education Required
-                </label>
-                <input
-                  type="text"
-                  name="educationRequired"
-                  placeholder="e.g. Bachelor's degree"
-                  value={formData.educationRequired}
-                  onChange={handleChange}
-                  required
-                  className={inputClass}
-                />
+                <label className="block text-sm font-medium text-slate-700 mb-1.5">Education Required</label>
+                <input type="text" name="educationRequired" placeholder="e.g. Bachelor's degree" value={formData.educationRequired} onChange={handleChange} required className="input-field" />
               </div>
             </div>
           </div>
 
           {/* Job Details */}
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 space-y-4">
-            <h2 className="font-semibold text-gray-900">💼 Job Details</h2>
+          <div className="card p-6 space-y-5">
+            <h2 className="font-semibold text-slate-900">💼 Job Details</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Location
-                </label>
-                <input
-                  type="text"
-                  name="location"
-                  placeholder="e.g. Bangalore"
-                  value={formData.location}
-                  onChange={handleChange}
-                  required
-                  className={inputClass}
-                />
+                <label className="block text-sm font-medium text-slate-700 mb-1.5">Location</label>
+                <input type="text" name="location" placeholder="e.g. Bangalore" value={formData.location} onChange={handleChange} required className="input-field" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Job Type
-                </label>
-                <select
-                  name="jobType"
-                  value={formData.jobType}
-                  onChange={handleChange}
-                  className={inputClass}
-                >
+                <label className="block text-sm font-medium text-slate-700 mb-1.5">Job Type</label>
+                <select name="jobType" value={formData.jobType} onChange={handleChange} className="input-field">
                   <option value="fulltime">Full Time</option>
                   <option value="parttime">Part Time</option>
                   <option value="internship">Internship</option>
@@ -201,52 +113,21 @@ function PostJob() {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Min Salary (₹)
-                </label>
-                <input
-                  type="number"
-                  name="salaryMin"
-                  placeholder="e.g. 500000"
-                  value={formData.salaryMin}
-                  onChange={handleChange}
-                  className={inputClass}
-                />
+                <label className="block text-sm font-medium text-slate-700 mb-1.5">Min Salary (₹)</label>
+                <input type="number" name="salaryMin" placeholder="e.g. 500000" value={formData.salaryMin} onChange={handleChange} className="input-field" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Max Salary (₹)
-                </label>
-                <input
-                  type="number"
-                  name="salaryMax"
-                  placeholder="e.g. 800000"
-                  value={formData.salaryMax}
-                  onChange={handleChange}
-                  className={inputClass}
-                />
+                <label className="block text-sm font-medium text-slate-700 mb-1.5">Max Salary (₹)</label>
+                <input type="number" name="salaryMax" placeholder="e.g. 800000" value={formData.salaryMax} onChange={handleChange} className="input-field" />
               </div>
               <div className="sm:col-span-2">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Application Deadline
-                </label>
-                <input
-                  type="date"
-                  name="deadline"
-                  value={formData.deadline}
-                  onChange={handleChange}
-                  required
-                  className={inputClass}
-                />
+                <label className="block text-sm font-medium text-slate-700 mb-1.5">Application Deadline</label>
+                <input type="date" name="deadline" value={formData.deadline} onChange={handleChange} required className="input-field" />
               </div>
             </div>
           </div>
 
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="w-full bg-primary text-white py-3 rounded-xl font-semibold hover:bg-secondary transition-colors disabled:opacity-50 text-lg"
-          >
+          <button type="submit" disabled={isLoading} className="btn-primary w-full py-3.5 text-base">
             {isLoading ? "Posting..." : "Post Job"}
           </button>
         </form>
