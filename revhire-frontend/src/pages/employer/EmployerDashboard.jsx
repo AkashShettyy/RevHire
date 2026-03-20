@@ -149,11 +149,11 @@ function EmployerDashboard() {
                       </button>
                       <button
                         onClick={() => handleToggleStatus(job)}
-                        className={`text-sm font-semibold px-4 py-2 rounded-lg transition-colors whitespace-nowrap ${job.status === "open" ? "bg-amber-50 text-amber-700 hover:bg-amber-100 border border-amber-100" : "bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-100"}`}
+                        className={`rounded-xl border px-4 py-2 text-sm font-semibold transition-colors whitespace-nowrap ${job.status === "open" ? "border-amber-100 bg-amber-50 text-amber-700 hover:bg-amber-100" : "border-emerald-100 bg-emerald-50 text-emerald-700 hover:bg-emerald-100"}`}
                       >
                         {job.status === "open" ? "Close Job" : "Reopen Job"}
                       </button>
-                      <button onClick={() => handleDelete(job._id)} className="text-sm font-semibold px-4 py-2 rounded-lg bg-red-50 text-red-500 hover:bg-red-100 border border-red-100 transition-colors">
+                      <button onClick={() => handleDelete(job._id)} className="rounded-xl border border-red-100 bg-red-50 px-4 py-2 text-sm font-semibold text-red-500 transition-colors hover:bg-red-100">
                         Delete
                       </button>
                     </div>

@@ -57,11 +57,14 @@ function JobDetails() {
 
   return (
     <div className="min-h-screen bg-slate-50">
+      <div className="page-shell border-b border-white/60 px-6 py-8">
+        <div className="max-w-5xl mx-auto">
+          <button onClick={() => navigate("/jobs")} className="mb-6 flex items-center gap-1.5 text-sm font-medium text-slate-500 transition-colors hover:text-blue-700">
+            ← Back to Jobs
+          </button>
+        </div>
+      </div>
       <div className="max-w-5xl mx-auto px-6 py-8">
-        <button onClick={() => navigate("/jobs")} className="mb-6 flex items-center gap-1.5 text-sm font-medium text-slate-500 transition-colors hover:text-blue-700">
-          ← Back to Jobs
-        </button>
-
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Main */}
           <div className="lg:col-span-2 space-y-5">
@@ -92,7 +95,7 @@ function JobDetails() {
               <h2 className="font-semibold text-slate-900 mb-4">Skills Required</h2>
               <div className="flex flex-wrap gap-2">
                 {job.skillsRequired?.map((skill, i) => (
-                  <span key={i} className="bg-indigo-50 text-indigo-700 text-sm px-3 py-1.5 rounded-full font-medium border border-indigo-100">{skill}</span>
+                  <span key={i} className="rounded-full border border-blue-100 bg-blue-50 px-3 py-1.5 text-sm font-medium text-blue-700">{skill}</span>
                 ))}
               </div>
             </div>

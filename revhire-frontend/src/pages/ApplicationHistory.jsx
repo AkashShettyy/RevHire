@@ -86,7 +86,7 @@ function ApplicationHistory() {
           <div className="space-y-4">
             {applications.map((app) => (
               <div key={app._id} className="card p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-xl">
-                <div className="flex items-start justify-between gap-4">
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                   <div className="flex-1 min-w-0">
                     <h3
                       className="cursor-pointer font-semibold text-slate-900 transition-colors hover:text-blue-700"
@@ -94,7 +94,7 @@ function ApplicationHistory() {
                     >
                       {app.job?.title}
                     </h3>
-                    <div className="flex flex-wrap items-center gap-3 mt-2 text-sm text-slate-500">
+                    <div className="mt-3 grid gap-2 text-sm text-slate-500 sm:grid-cols-3">
                       <span>📍 {app.job?.location}</span>
                       <span>📅 Applied {new Date(app.createdAt).toLocaleDateString()}</span>
                       {app.job?.jobType && (
