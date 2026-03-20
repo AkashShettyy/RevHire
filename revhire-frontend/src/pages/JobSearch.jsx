@@ -46,14 +46,14 @@ function JobSearch() {
           <h1 className="section-title text-center">Find Your Dream Job</h1>
           <p className="text-slate-500 text-center mt-2 mb-8">Browse the latest openings and filter by role, location, or type.</p>
 
-          <form onSubmit={handleSearch} className="flex flex-col md:flex-row gap-3">
+          <form onSubmit={handleSearch} className="card grid grid-cols-1 gap-3 p-4 md:grid-cols-[minmax(0,1.5fr)_minmax(0,0.8fr)_minmax(0,0.7fr)_auto]">
             <input
               type="text"
               name="search"
               placeholder="Job title or skill..."
               value={filters.search}
               onChange={handleFilterChange}
-              className="input-field flex-1"
+              className="input-field"
             />
             <input
               type="text"
@@ -61,13 +61,13 @@ function JobSearch() {
               placeholder="Location"
               value={filters.location}
               onChange={handleFilterChange}
-              className="input-field md:w-44"
+              className="input-field"
             />
             <select
               name="jobType"
               value={filters.jobType}
               onChange={handleFilterChange}
-              className="input-field md:w-40"
+              className="input-field"
             >
               <option value="">All Types</option>
               <option value="fulltime">Full Time</option>
@@ -75,7 +75,7 @@ function JobSearch() {
               <option value="internship">Internship</option>
               <option value="remote">Remote</option>
             </select>
-            <button type="submit" className="btn-primary px-8 whitespace-nowrap">Search</button>
+            <button type="submit" className="btn-primary whitespace-nowrap">Search Jobs</button>
           </form>
         </div>
       </div>
@@ -108,20 +108,20 @@ function JobSearch() {
         ) : (
           <div className="space-y-4">
             {jobs.map((job) => (
-              <div
+              <article
                 key={job._id}
                 onClick={() => navigate(`/jobs/${job._id}`)}
-                className="card group cursor-pointer p-6 transition-all duration-200 hover:-translate-y-1 hover:border-cyan-200"
+                className="card group cursor-pointer p-6 transition-all duration-200 hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl"
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-3 flex-wrap">
-                      <h3 className="text-base font-semibold text-slate-900 group-hover:text-indigo-600 transition-colors">{job.title}</h3>
+                      <h3 className="text-lg font-semibold text-slate-900 group-hover:text-blue-700 transition-colors">{job.title}</h3>
                       <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${jobTypeColors[job.jobType] || "bg-slate-100 text-slate-600"}`}>
                         {job.jobType}
                       </span>
                     </div>
-                    <p className="text-slate-500 text-sm mt-1">{job.employer?.name}</p>
+                    <p className="text-slate-600 text-sm mt-1 font-medium">{job.employer?.name}</p>
                     <div className="flex flex-wrap gap-4 mt-3 text-sm text-slate-500">
                       <span>📍 {job.location}</span>
                       {job.salaryRange?.min && (
@@ -135,9 +135,14 @@ function JobSearch() {
                       ))}
                     </div>
                   </div>
-                  <span className="text-slate-300 group-hover:text-indigo-400 transition-colors text-xl shrink-0">→</span>
+                  <div className="hidden sm:flex shrink-0 flex-col items-end gap-3">
+                    <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">
+                      View Details
+                    </span>
+                    <span className="text-slate-300 group-hover:text-blue-500 transition-colors text-xl">→</span>
+                  </div>
                 </div>
-              </div>
+              </article>
             ))}
           </div>
         )}

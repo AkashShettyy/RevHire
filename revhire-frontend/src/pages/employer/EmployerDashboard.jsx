@@ -54,9 +54,9 @@ function EmployerDashboard() {
   }
 
   const stats = [
-    { label: "Total Jobs", value: jobs.length, color: "text-indigo-600", bg: "bg-indigo-50", icon: "📋" },
-    { label: "Active", value: jobs.filter((j) => j.status === "open").length, color: "text-emerald-600", bg: "bg-emerald-50", icon: "✅" },
-    { label: "Closed", value: jobs.filter((j) => j.status === "closed").length, color: "text-slate-500", bg: "bg-slate-100", icon: "🔒" },
+    { label: "Total Jobs", value: jobs.length, color: "text-blue-700", bg: "bg-blue-100", icon: "📋" },
+    { label: "Active Jobs", value: jobs.filter((j) => j.status === "open").length, color: "text-emerald-600", bg: "bg-emerald-100", icon: "✅" },
+    { label: "Closed Jobs", value: jobs.filter((j) => j.status === "closed").length, color: "text-slate-500", bg: "bg-slate-100", icon: "🔒" },
   ];
 
   if (isLoading)
@@ -73,7 +73,7 @@ function EmployerDashboard() {
     <div className="min-h-screen bg-slate-50">
       {/* Header */}
       <div className="page-shell border-b border-white/60 px-6 py-8">
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
+        <div className="max-w-6xl mx-auto flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
             <h1 className="section-title text-2xl">Welcome, {user?.name} 👋</h1>
             <p className="text-slate-500 text-sm mt-1">Manage your job postings</p>
@@ -86,12 +86,18 @@ function EmployerDashboard() {
 
       <div className="max-w-6xl mx-auto px-6 py-8 space-y-8">
         {/* Stats */}
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
           {stats.map((s) => (
-            <div key={s.label} className="card p-5">
-              <div className={`w-10 h-10 ${s.bg} rounded-lg flex items-center justify-center text-lg mb-3`}>{s.icon}</div>
-              <p className={`text-2xl font-bold ${s.color}`}>{s.value}</p>
-              <p className="text-slate-500 text-sm mt-0.5">{s.label}</p>
+            <div key={s.label} className="stat-card">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <p className="text-sm font-medium text-slate-500">{s.label}</p>
+                  <p className={`mt-3 text-3xl font-bold ${s.color}`}>{s.value}</p>
+                </div>
+                <div className={`flex h-12 w-12 items-center justify-center rounded-2xl ${s.bg} text-lg`}>
+                  {s.icon}
+                </div>
+              </div>
             </div>
           ))}
         </div>
@@ -115,8 +121,8 @@ function EmployerDashboard() {
           ) : (
             <div className="space-y-4">
               {jobs.map((job) => (
-                <div key={job._id} className="card p-6 transition-all duration-200 hover:-translate-y-1">
-                  <div className="flex items-start justify-between gap-4">
+                <div key={job._id} className="card p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-xl">
+                  <div className="flex flex-col gap-5 xl:flex-row xl:items-start xl:justify-between">
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-3 flex-wrap">
                         <h3 className="font-semibold text-slate-900">{job.title}</h3>
@@ -137,7 +143,7 @@ function EmployerDashboard() {
                       </div>
                     </div>
 
-                    <div className="flex flex-col gap-2 shrink-0">
+                    <div className="flex flex-wrap gap-2 xl:flex-col xl:shrink-0">
                       <button onClick={() => navigate(`/employer/applicants/${job._id}`)} className="btn-primary text-sm px-4 py-2 whitespace-nowrap">
                         View Applicants
                       </button>

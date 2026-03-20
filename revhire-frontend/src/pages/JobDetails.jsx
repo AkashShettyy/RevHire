@@ -58,7 +58,7 @@ function JobDetails() {
   return (
     <div className="min-h-screen bg-slate-50">
       <div className="max-w-5xl mx-auto px-6 py-8">
-        <button onClick={() => navigate("/jobs")} className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-indigo-600 transition-colors mb-6 font-medium">
+        <button onClick={() => navigate("/jobs")} className="mb-6 flex items-center gap-1.5 text-sm font-medium text-slate-500 transition-colors hover:text-blue-700">
           ← Back to Jobs
         </button>
 
@@ -101,11 +101,11 @@ function JobDetails() {
             <div className="card p-6">
               <h2 className="font-semibold text-slate-900 mb-4">Requirements</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="bg-slate-50 rounded-lg p-4">
+                  <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
                   <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-1">Experience</p>
                   <p className="text-slate-700 font-medium text-sm">{job.experienceRequired}</p>
                 </div>
-                <div className="bg-slate-50 rounded-lg p-4">
+                  <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
                   <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-1">Education</p>
                   <p className="text-slate-700 font-medium text-sm">{job.educationRequired}</p>
                 </div>

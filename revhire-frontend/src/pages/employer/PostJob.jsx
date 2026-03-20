@@ -39,11 +39,11 @@ function PostJob() {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      <div className="bg-white border-b border-slate-200 px-6 py-8">
+      <div className="page-shell border-b border-white/60 px-6 py-8">
         <div className="max-w-3xl mx-auto flex items-center gap-4">
-          <button onClick={() => navigate("/employer/dashboard")} className="text-sm text-slate-500 hover:text-indigo-600 font-medium transition-colors">← Back</button>
+          <button onClick={() => navigate("/employer/dashboard")} className="text-sm text-slate-500 hover:text-blue-700 font-medium transition-colors">← Back</button>
           <div>
-            <h1 className="text-2xl font-bold text-slate-900">Post a Job</h1>
+            <h1 className="section-title text-2xl">Post a Job</h1>
             <p className="text-slate-500 text-sm mt-0.5">Fill in the details to attract the right candidates</p>
           </div>
         </div>
@@ -63,7 +63,7 @@ function PostJob() {
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Basic Info */}
-          <div className="card p-6 space-y-5">
+          <div className="form-panel space-y-5">
             <h2 className="font-semibold text-slate-900 flex items-center gap-2">📋 Basic Information</h2>
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1.5">Job Title</label>
@@ -81,7 +81,7 @@ function PostJob() {
           </div>
 
           {/* Requirements */}
-          <div className="card p-6 space-y-5">
+          <div className="form-panel space-y-5">
             <h2 className="font-semibold text-slate-900">📚 Requirements</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
@@ -96,7 +96,7 @@ function PostJob() {
           </div>
 
           {/* Job Details */}
-          <div className="card p-6 space-y-5">
+          <div className="form-panel space-y-5">
             <h2 className="font-semibold text-slate-900">💼 Job Details</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>

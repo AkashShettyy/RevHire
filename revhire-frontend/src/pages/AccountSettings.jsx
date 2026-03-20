@@ -44,15 +44,15 @@ function AccountSettings() {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      <div className="bg-white border-b border-slate-200 px-6 py-8">
+      <div className="page-shell border-b border-white/60 px-6 py-8">
         <div className="max-w-3xl mx-auto">
-          <h1 className="text-2xl font-bold text-slate-900">Account Settings</h1>
+          <h1 className="section-title text-2xl">Account Settings</h1>
           <p className="text-sm text-slate-500 mt-1">Manage your sign-in credentials.</p>
         </div>
       </div>
 
       <div className="max-w-3xl mx-auto px-6 py-8">
-        <div className="card p-6 sm:p-8">
+        <div className="form-panel">
           <div className="mb-6">
             <h2 className="text-lg font-semibold text-slate-900">Change Password</h2>
             <p className="text-sm text-slate-500 mt-1">Use a password you do not reuse elsewhere.</p>

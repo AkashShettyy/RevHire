@@ -41,10 +41,10 @@ function JobSeekerDashboard() {
   }
 
   const stats = [
-    { label: "Total Applied", value: applications.length, color: "text-indigo-600", bg: "bg-indigo-50", icon: "📨" },
-    { label: "Shortlisted", value: applications.filter((a) => a.status === "shortlisted").length, color: "text-emerald-600", bg: "bg-emerald-50", icon: "✅" },
-    { label: "Pending", value: applications.filter((a) => a.status === "applied").length, color: "text-amber-600", bg: "bg-amber-50", icon: "⏳" },
-    { label: "Rejected", value: applications.filter((a) => a.status === "rejected").length, color: "text-red-500", bg: "bg-red-50", icon: "❌" },
+    { label: "Total Applied", value: applications.length, color: "text-blue-700", bg: "bg-blue-100", icon: "📨" },
+    { label: "Shortlisted", value: applications.filter((a) => a.status === "shortlisted").length, color: "text-emerald-600", bg: "bg-emerald-100", icon: "✅" },
+    { label: "Pending", value: applications.filter((a) => a.status === "applied").length, color: "text-amber-600", bg: "bg-amber-100", icon: "⏳" },
+    { label: "Rejected", value: applications.filter((a) => a.status === "rejected").length, color: "text-red-500", bg: "bg-red-100", icon: "❌" },
   ];
 
   if (isLoading)
@@ -61,7 +61,7 @@ function JobSeekerDashboard() {
     <div className="min-h-screen bg-slate-50">
       {/* Header */}
       <div className="page-shell border-b border-white/60 px-6 py-8">
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
+        <div className="max-w-6xl mx-auto flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
             <h1 className="section-title text-2xl">Good to see you, {user?.name} 👋</h1>
             <p className="text-slate-500 text-sm mt-1">Here's your job search overview</p>
@@ -74,12 +74,18 @@ function JobSeekerDashboard() {
 
       <div className="max-w-6xl mx-auto px-6 py-8 space-y-8">
         {/* Stats */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
           {stats.map((s) => (
-            <div key={s.label} className="card p-5">
-              <div className={`w-10 h-10 ${s.bg} rounded-lg flex items-center justify-center text-lg mb-3`}>{s.icon}</div>
-              <p className={`text-2xl font-bold ${s.color}`}>{s.value}</p>
-              <p className="text-slate-500 text-sm mt-0.5">{s.label}</p>
+            <div key={s.label} className="stat-card">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <p className="text-sm font-medium text-slate-500">{s.label}</p>
+                  <p className={`mt-3 text-3xl font-bold ${s.color}`}>{s.value}</p>
+                </div>
+                <div className={`flex h-12 w-12 items-center justify-center rounded-2xl ${s.bg} text-lg`}>
+                  {s.icon}
+                </div>
+              </div>
             </div>
           ))}
         </div>
@@ -87,15 +93,15 @@ function JobSeekerDashboard() {
         {/* Quick Actions */}
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
           {[
-            { label: "Find Jobs", desc: "Browse latest openings", icon: "🔍", path: "/jobs", color: "from-indigo-500 to-indigo-600" },
-            { label: "My Resume", desc: "Update your resume", icon: "📄", path: "/resume", color: "from-emerald-500 to-emerald-600" },
-            { label: "Applications", desc: "Track your applications", icon: "📋", path: "/applications", color: "from-purple-500 to-purple-600" },
-            { label: "Settings", desc: "Change account password", icon: "⚙️", path: "/settings", color: "from-slate-700 to-slate-800" },
+            { label: "Find Jobs", desc: "Browse latest openings", icon: "🔍", path: "/jobs", color: "from-blue-600 to-blue-700" },
+            { label: "My Resume", desc: "Update your resume", icon: "📄", path: "/resume", color: "from-sky-500 to-blue-600" },
+            { label: "Applications", desc: "Track your applications", icon: "📋", path: "/applications", color: "from-indigo-500 to-blue-700" },
+            { label: "Settings", desc: "Change account password", icon: "⚙️", path: "/settings", color: "from-slate-700 to-slate-900" },
           ].map((a) => (
             <button
               key={a.label}
               onClick={() => navigate(a.path)}
-              className={`bg-gradient-to-br ${a.color} text-white rounded-xl p-5 text-left hover:opacity-90 transition-opacity shadow-sm`}
+              className={`bg-gradient-to-br ${a.color} rounded-2xl p-5 text-left text-white shadow-lg shadow-blue-900/10 transition-all duration-200 hover:-translate-y-1`}
             >
               <span className="text-2xl">{a.icon}</span>
               <p className="font-semibold mt-3">{a.label}</p>

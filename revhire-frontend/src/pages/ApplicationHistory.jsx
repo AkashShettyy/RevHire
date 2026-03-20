@@ -61,9 +61,9 @@ function ApplicationHistory() {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      <div className="bg-white border-b border-slate-200 px-6 py-8">
+      <div className="page-shell border-b border-white/60 px-6 py-8">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-2xl font-bold text-slate-900">My Applications</h1>
+          <h1 className="section-title text-2xl">My Applications</h1>
           <p className="text-slate-500 text-sm mt-1">{applications.length} total application{applications.length !== 1 ? "s" : ""}</p>
         </div>
       </div>
@@ -85,11 +85,11 @@ function ApplicationHistory() {
         ) : (
           <div className="space-y-4">
             {applications.map((app) => (
-              <div key={app._id} className="card p-6 hover:shadow-md transition-shadow">
+              <div key={app._id} className="card p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-xl">
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1 min-w-0">
                     <h3
-                      className="font-semibold text-slate-900 hover:text-indigo-600 cursor-pointer transition-colors"
+                      className="cursor-pointer font-semibold text-slate-900 transition-colors hover:text-blue-700"
                       onClick={() => navigate(`/jobs/${app.job?._id}`)}
                     >
                       {app.job?.title}

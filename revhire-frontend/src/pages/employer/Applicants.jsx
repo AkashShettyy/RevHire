@@ -67,20 +67,21 @@ function Applicants() {
   return (
     <div className="min-h-screen bg-slate-50">
       <div className="page-shell border-b border-white/60 px-6 py-8">
-        <div className="max-w-4xl mx-auto flex items-center gap-4">
-          <button onClick={() => navigate("/employer/dashboard")} className="text-sm text-slate-500 hover:text-indigo-600 font-medium transition-colors">← Back</button>
+        <div className="max-w-5xl mx-auto flex items-center gap-4">
+          <button onClick={() => navigate("/employer/dashboard")} className="text-sm font-medium text-slate-500 transition-colors hover:text-blue-700">← Back</button>
           <div className="flex-1">
             <div className="flex items-center gap-3 flex-wrap">
-              <h1 className="text-2xl font-bold text-slate-900">Applicants</h1>
-              <span className="bg-slate-100 text-slate-600 text-sm font-semibold px-3 py-1 rounded-full">{applications.length} total</span>
-              {shortlisted > 0 && <span className="bg-emerald-50 text-emerald-700 text-sm font-semibold px-3 py-1 rounded-full border border-emerald-100">{shortlisted} shortlisted</span>}
-              {pending > 0 && <span className="bg-blue-50 text-blue-700 text-sm font-semibold px-3 py-1 rounded-full border border-blue-100">{pending} pending</span>}
+              <h1 className="section-title text-2xl">Applicants</h1>
+              <span className="rounded-full border border-slate-200 bg-white px-3 py-1 text-sm font-semibold text-slate-600">{applications.length} total</span>
+              {shortlisted > 0 && <span className="rounded-full border border-emerald-100 bg-emerald-50 px-3 py-1 text-sm font-semibold text-emerald-700">{shortlisted} shortlisted</span>}
+              {pending > 0 && <span className="rounded-full border border-blue-100 bg-blue-50 px-3 py-1 text-sm font-semibold text-blue-700">{pending} pending</span>}
             </div>
+            <p className="mt-2 text-sm text-slate-500">Review resumes, read cover letters, and update applicant status from one place.</p>
           </div>
         </div>
       </div>
 
-      <div className="max-w-4xl mx-auto px-6 py-8">
+      <div className="max-w-5xl mx-auto px-6 py-8">
         {message && (
           <div className="bg-emerald-50 border border-emerald-100 text-emerald-700 px-4 py-3 rounded-lg mb-5 text-sm font-medium">
             ✅ {message.charAt(0).toUpperCase() + message.slice(1)}
@@ -96,19 +97,19 @@ function Applicants() {
         ) : (
           <div className="space-y-4">
             {applications.map((app) => (
-              <div key={app._id} className="card p-6 hover:shadow-lg transition-shadow">
-                <div className="flex items-start justify-between gap-4">
+              <div key={app._id} className="card p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-xl">
+                <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center font-bold text-sm shrink-0">
+                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-blue-100 text-sm font-bold text-blue-700">
                         {app.jobSeeker?.name?.charAt(0).toUpperCase()}
                       </div>
                       <div>
-                        <h3 className="font-semibold text-slate-900">{app.jobSeeker?.name}</h3>
-                        <p className="text-slate-500 text-sm">{app.jobSeeker?.email}</p>
+                        <h3 className="text-lg font-semibold text-slate-900">{app.jobSeeker?.name}</h3>
+                        <p className="text-sm text-slate-500">{app.jobSeeker?.email}</p>
                       </div>
                     </div>
-                    <p className="text-slate-400 text-xs mt-3 ml-13">Applied {new Date(app.createdAt).toLocaleDateString()}</p>
+                    <p className="mt-3 text-xs text-slate-400">Applied {new Date(app.createdAt).toLocaleDateString()}</p>
                   </div>
                   <span className={`text-xs font-semibold px-3 py-1.5 rounded-full shrink-0 ${statusColors[app.status]}`}>
                     {app.status.charAt(0).toUpperCase() + app.status.slice(1)}
@@ -127,7 +128,7 @@ function Applicants() {
                     <button
                       type="button"
                       onClick={() => handleResumeDownload(app)}
-                      className="rounded-xl border border-indigo-200 bg-indigo-50 px-4 py-2 text-sm font-semibold text-indigo-700 transition-colors hover:bg-indigo-100"
+                      className="rounded-xl border border-blue-200 bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-700 transition-colors hover:bg-blue-100"
                     >
                       Download Resume
                     </button>

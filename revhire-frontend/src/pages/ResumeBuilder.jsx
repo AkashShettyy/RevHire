@@ -6,6 +6,31 @@ import { downloadResumePdf } from "../utils/resumeDocument";
 
 const inputClass = "input-field";
 
+function Section({ title, children }) {
+  return (
+    <div className="form-panel">
+      <h2 className="mb-5 font-semibold text-slate-900">{title}</h2>
+      {children}
+    </div>
+  );
+}
+
+function AddButton({ onClick, label }) {
+  return (
+    <button type="button" onClick={onClick} className="mt-4 flex items-center gap-1 text-sm font-medium text-blue-700 hover:underline">
+      + {label}
+    </button>
+  );
+}
+
+function RemoveButton({ onClick }) {
+  return (
+    <button type="button" onClick={onClick} className="text-xs font-medium text-red-400 transition-colors hover:text-red-600">
+      Remove
+    </button>
+  );
+}
+
 function ResumeBuilder() {
   const { token, user } = useAuth();
   const [message, setMessage] = useState("");
@@ -72,38 +97,19 @@ function ResumeBuilder() {
     }
   }
 
-  const Section = ({ title, children }) => (
-    <div className="card p-6">
-      <h2 className="font-semibold text-slate-900 mb-5">{title}</h2>
-      {children}
-    </div>
-  );
-
-  const AddButton = ({ onClick, label }) => (
-    <button type="button" onClick={onClick} className="mt-4 text-sm text-indigo-600 font-medium hover:underline flex items-center gap-1">
-      + {label}
-    </button>
-  );
-
-  const RemoveButton = ({ onClick }) => (
-    <button type="button" onClick={onClick} className="text-xs text-red-400 hover:text-red-600 font-medium transition-colors">
-      Remove
-    </button>
-  );
-
   return (
     <div className="min-h-screen bg-slate-50">
-      <div className="bg-white border-b border-slate-200 px-6 py-8">
+      <div className="page-shell border-b border-white/60 px-6 py-8">
         <div className="max-w-3xl mx-auto flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-slate-900">Resume Builder</h1>
+            <h1 className="section-title text-2xl">Resume Builder</h1>
             <p className="text-slate-500 text-sm mt-1">Build your professional profile</p>
           </div>
           <div className="flex flex-wrap items-center gap-3">
             <button
               type="button"
               onClick={() => setShowPreview(true)}
-              className="rounded-lg border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors"
+              className="rounded-xl border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors"
             >
               Preview Resume
             </button>
@@ -111,7 +117,7 @@ function ResumeBuilder() {
               type="button"
               onClick={handleDownloadPdf}
               disabled={isDownloading}
-              className="rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800 disabled:opacity-50"
+              className="btn-primary px-4 py-2 text-sm"
             >
               {isDownloading ? "Preparing PDF..." : "Download PDF"}
             </button>
@@ -146,7 +152,7 @@ function ResumeBuilder() {
           <Section title="⚡ Skills">
             <div className="flex flex-wrap gap-2 mb-3">
               {resume.skills.map((skill, i) => (
-                <div key={i} className="flex items-center gap-1.5 bg-indigo-50 border border-indigo-100 rounded-lg px-3 py-1.5">
+                <div key={i} className="flex items-center gap-1.5 rounded-xl border border-blue-100 bg-blue-50 px-3 py-1.5">
                   <input
                     type="text"
                     placeholder="Skill"
@@ -156,9 +162,9 @@ function ResumeBuilder() {
                       updated[i] = e.target.value;
                       updateField("skills", updated);
                     }}
-                    className="bg-transparent outline-none text-sm text-indigo-700 w-24 font-medium"
+                    className="w-24 bg-transparent text-sm font-medium text-blue-700 outline-none"
                   />
-                  <button type="button" onClick={() => removeItem("skills", i)} className="text-indigo-300 hover:text-red-500 transition-colors text-xs font-bold">✕</button>
+                  <button type="button" onClick={() => removeItem("skills", i)} className="text-xs font-bold text-blue-300 transition-colors hover:text-red-500">✕</button>
                 </div>
               ))}
             </div>
