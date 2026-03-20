@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { getJobApplicants, updateApplicationStatus } from "../../services/applicationService";
+import ResumePreview from "../../components/ResumePreview";
+import { downloadResumePdf } from "../../utils/resumeDocument";
 
 const statusColors = {
   applied: "bg-blue-50 text-blue-700 border border-blue-100",
@@ -17,6 +19,7 @@ function Applicants() {
   const [applications, setApplications] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [selectedApplication, setSelectedApplication] = useState(null);
 
   useEffect(() => { fetchApplicants(); }, [jobId]);
 
@@ -56,9 +59,14 @@ function Applicants() {
   const shortlisted = applications.filter((a) => a.status === "shortlisted").length;
   const pending = applications.filter((a) => a.status === "applied").length;
 
+  function handleResumeDownload(application) {
+    if (!application?.resume) return;
+    downloadResumePdf(application.jobSeeker, application.resume);
+  }
+
   return (
     <div className="min-h-screen bg-slate-50">
-      <div className="bg-white border-b border-slate-200 px-6 py-8">
+      <div className="page-shell border-b border-white/60 px-6 py-8">
         <div className="max-w-4xl mx-auto flex items-center gap-4">
           <button onClick={() => navigate("/employer/dashboard")} className="text-sm text-slate-500 hover:text-indigo-600 font-medium transition-colors">← Back</button>
           <div className="flex-1">
@@ -88,7 +96,7 @@ function Applicants() {
         ) : (
           <div className="space-y-4">
             {applications.map((app) => (
-              <div key={app._id} className="card p-6 hover:shadow-md transition-shadow">
+              <div key={app._id} className="card p-6 hover:shadow-lg transition-shadow">
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-3">
@@ -106,6 +114,31 @@ function Applicants() {
                     {app.status.charAt(0).toUpperCase() + app.status.slice(1)}
                   </span>
                 </div>
+
+                {app.resume && (
+                  <div className="mt-4 flex flex-wrap gap-3">
+                    <button
+                      type="button"
+                      onClick={() => setSelectedApplication(app)}
+                      className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50"
+                    >
+                      View Resume
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleResumeDownload(app)}
+                      className="rounded-xl border border-indigo-200 bg-indigo-50 px-4 py-2 text-sm font-semibold text-indigo-700 transition-colors hover:bg-indigo-100"
+                    >
+                      Download Resume
+                    </button>
+                  </div>
+                )}
+
+                {!app.resume && (
+                  <div className="mt-4 rounded-xl border border-amber-100 bg-amber-50 px-4 py-3 text-sm text-amber-700">
+                    This applicant has not saved a resume yet.
+                  </div>
+                )}
 
                 {app.coverLetter && (
                   <div className="mt-4 bg-slate-50 rounded-lg p-4 border border-slate-100">
@@ -135,6 +168,37 @@ function Applicants() {
           </div>
         )}
       </div>
+
+      {selectedApplication && (
+        <div className="fixed inset-0 z-50 bg-slate-950/60 px-4 py-8 backdrop-blur-sm overflow-y-auto">
+          <div className="mx-auto max-w-5xl">
+            <div className="mb-4 flex flex-col gap-4 rounded-3xl border border-white/15 bg-slate-900/85 p-5 text-white sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-200/75">Applicant Resume</p>
+                <h2 className="mt-1 text-2xl font-bold">{selectedApplication.jobSeeker?.name}</h2>
+                <p className="mt-1 text-sm text-slate-300">{selectedApplication.jobSeeker?.email}</p>
+              </div>
+              <div className="flex flex-wrap gap-3">
+                <button
+                  type="button"
+                  onClick={() => handleResumeDownload(selectedApplication)}
+                  className="rounded-xl bg-white px-4 py-2 text-sm font-semibold text-slate-900 transition-colors hover:bg-slate-100"
+                >
+                  Download Resume
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setSelectedApplication(null)}
+                  className="rounded-xl border border-white/20 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+            <ResumePreview user={selectedApplication.jobSeeker} resume={selectedApplication.resume} />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

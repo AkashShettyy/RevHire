@@ -12,6 +12,7 @@ import EmployerDashboard from "./pages/employer/EmployerDashboard";
 import PostJob from "./pages/employer/PostJob";
 import Applicants from "./pages/employer/Applicants";
 import JobSeekerDashboard from "./pages/JobSeekerDashboard";
+import AccountSettings from "./pages/AccountSettings";
 
 function ProtectedRoute({ children, role }) {
   const { user } = useAuth();
@@ -75,6 +76,14 @@ function App() {
               element={
                 <ProtectedRoute role="jobseeker">
                   <JobSeekerDashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/settings"
+              element={
+                <ProtectedRoute>
+                  <AccountSettings />
                 </ProtectedRoute>
               }
             />

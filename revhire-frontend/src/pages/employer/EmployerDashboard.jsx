@@ -72,10 +72,10 @@ function EmployerDashboard() {
   return (
     <div className="min-h-screen bg-slate-50">
       {/* Header */}
-      <div className="bg-white border-b border-slate-200 px-6 py-8">
+      <div className="page-shell border-b border-white/60 px-6 py-8">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-slate-900">Welcome, {user?.name} 👋</h1>
+            <h1 className="section-title text-2xl">Welcome, {user?.name} 👋</h1>
             <p className="text-slate-500 text-sm mt-1">Manage your job postings</p>
           </div>
           <button onClick={() => navigate("/employer/post-job")} className="btn-primary flex items-center gap-2">
@@ -115,7 +115,7 @@ function EmployerDashboard() {
           ) : (
             <div className="space-y-4">
               {jobs.map((job) => (
-                <div key={job._id} className="card p-6 hover:shadow-md transition-shadow">
+                <div key={job._id} className="card p-6 transition-all duration-200 hover:-translate-y-1">
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-3 flex-wrap">

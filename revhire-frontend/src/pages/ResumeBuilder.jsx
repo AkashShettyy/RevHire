@@ -1,13 +1,17 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { getResume, saveResume } from "../services/resumeService";
+import ResumePreview from "../components/ResumePreview";
+import { downloadResumePdf } from "../utils/resumeDocument";
 
 const inputClass = "input-field";
 
 function ResumeBuilder() {
-  const { token } = useAuth();
+  const { token, user } = useAuth();
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isDownloading, setIsDownloading] = useState(false);
+  const [showPreview, setShowPreview] = useState(false);
   const [resume, setResume] = useState({
     objective: "",
     education: [{ institution: "", degree: "", year: "" }],
@@ -51,6 +55,23 @@ function ResumeBuilder() {
   function addItem(field, emptyItem) { setResume({ ...resume, [field]: [...resume[field], emptyItem] }); }
   function removeItem(field, index) { setResume({ ...resume, [field]: resume[field].filter((_, i) => i !== index) }); }
 
+  async function handleDownloadPdf() {
+    setIsDownloading(true);
+    try {
+      downloadResumePdf(user, resume);
+    } catch {
+      setMessage("error");
+    } finally {
+      setTimeout(() => setIsDownloading(false), 800);
+    }
+  }
+
+  function handleFormKeyDown(event) {
+    if (event.key === "Enter" && event.target.tagName !== "TEXTAREA") {
+      event.preventDefault();
+    }
+  }
+
   const Section = ({ title, children }) => (
     <div className="card p-6">
       <h2 className="font-semibold text-slate-900 mb-5">{title}</h2>
@@ -73,10 +94,27 @@ function ResumeBuilder() {
   return (
     <div className="min-h-screen bg-slate-50">
       <div className="bg-white border-b border-slate-200 px-6 py-8">
-        <div className="max-w-3xl mx-auto flex items-center justify-between">
+        <div className="max-w-3xl mx-auto flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
             <h1 className="text-2xl font-bold text-slate-900">Resume Builder</h1>
             <p className="text-slate-500 text-sm mt-1">Build your professional profile</p>
+          </div>
+          <div className="flex flex-wrap items-center gap-3">
+            <button
+              type="button"
+              onClick={() => setShowPreview(true)}
+              className="rounded-lg border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors"
+            >
+              Preview Resume
+            </button>
+            <button
+              type="button"
+              onClick={handleDownloadPdf}
+              disabled={isDownloading}
+              className="rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800 disabled:opacity-50"
+            >
+              {isDownloading ? "Preparing PDF..." : "Download PDF"}
+            </button>
           </div>
           {message === "saved" && (
             <div className="bg-emerald-50 border border-emerald-100 text-emerald-700 px-4 py-2 rounded-lg text-sm font-medium">
@@ -92,7 +130,7 @@ function ResumeBuilder() {
       </div>
 
       <div className="max-w-3xl mx-auto px-6 py-8">
-        <form onSubmit={handleSave} className="space-y-6">
+        <form onSubmit={handleSave} onKeyDown={handleFormKeyDown} className="space-y-6">
           {/* Objective */}
           <Section title="🎯 Professional Objective">
             <textarea
@@ -207,6 +245,27 @@ function ResumeBuilder() {
           </button>
         </form>
       </div>
+
+      {showPreview && (
+        <div className="fixed inset-0 z-50 bg-slate-950/55 backdrop-blur-sm px-4 py-8 overflow-y-auto">
+          <div className="max-w-4xl mx-auto">
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <h2 className="text-xl font-semibold text-white">Resume Preview</h2>
+                <p className="text-sm text-slate-200 mt-1">Review layout before downloading or submitting.</p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowPreview(false)}
+                className="rounded-lg border border-white/20 px-4 py-2 text-sm font-medium text-white hover:bg-white/10"
+              >
+                Close
+              </button>
+            </div>
+            <ResumePreview user={user} resume={resume} />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

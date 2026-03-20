@@ -1,5 +1,6 @@
 import Application from "../models/Application.js";
 import Job from "../models/Job.js";
+import Resume from "../models/Resume.js";
 import { createNotification } from "./notificationController.js";
 
 export const applyForJob = async (req, res) => {
@@ -47,6 +48,7 @@ export const getUserApplications = async (req, res) => {
   }
 };
 
+//Withdraw
 export const withdrawApplication = async (req, res) => {
   try {
     const application = await Application.findById(req.params.id);
@@ -74,7 +76,24 @@ export const getJobApplicants = async (req, res) => {
     const applications = await Application.find({ job: req.params.jobId })
       .populate("jobSeeker", "name email")
       .sort({ createdAt: -1 });
-    res.status(200).json({ applications });
+
+    const resumes = await Resume.find({
+      jobSeeker: { $in: applications.map((application) => application.jobSeeker?._id).filter(Boolean) },
+    }).lean();
+
+    const resumeMap = new Map(
+      resumes.map((resume) => [resume.jobSeeker.toString(), resume]),
+    );
+
+    const applicationsWithResumes = applications.map((application) => {
+      const current = application.toObject();
+      return {
+        ...current,
+        resume: resumeMap.get(current.jobSeeker?._id?.toString()) || null,
+      };
+    });
+
+    res.status(200).json({ applications: applicationsWithResumes });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

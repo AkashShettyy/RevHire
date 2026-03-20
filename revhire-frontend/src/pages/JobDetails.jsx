@@ -69,7 +69,7 @@ function JobDetails() {
             <div className="card p-6">
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <h1 className="text-2xl font-bold text-slate-900">{job.title}</h1>
+                  <h1 className="section-title text-2xl">{job.title}</h1>
                   <p className="text-slate-500 mt-1 font-medium">{job.employer?.name}</p>
                 </div>
                 <span className={`text-xs font-semibold px-3 py-1.5 rounded-full shrink-0 ${jobTypeColors[job.jobType]}`}>{job.jobType}</span>
@@ -115,7 +115,7 @@ function JobDetails() {
 
           {/* Sidebar */}
           <div>
-            <div className="card p-6 sticky top-20">
+            <div className="card sticky top-20 p-6">
               <h2 className="font-semibold text-slate-900 mb-4">Apply for this role</h2>
 
               {job.status === "closed" ? (

@@ -60,10 +60,10 @@ function JobSeekerDashboard() {
   return (
     <div className="min-h-screen bg-slate-50">
       {/* Header */}
-      <div className="bg-white border-b border-slate-200 px-6 py-8">
+      <div className="page-shell border-b border-white/60 px-6 py-8">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-slate-900">Good to see you, {user?.name} 👋</h1>
+            <h1 className="section-title text-2xl">Good to see you, {user?.name} 👋</h1>
             <p className="text-slate-500 text-sm mt-1">Here's your job search overview</p>
           </div>
           <button onClick={() => navigate("/jobs")} className="btn-primary hidden sm:flex items-center gap-2">
@@ -85,11 +85,12 @@ function JobSeekerDashboard() {
         </div>
 
         {/* Quick Actions */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
           {[
             { label: "Find Jobs", desc: "Browse latest openings", icon: "🔍", path: "/jobs", color: "from-indigo-500 to-indigo-600" },
             { label: "My Resume", desc: "Update your resume", icon: "📄", path: "/resume", color: "from-emerald-500 to-emerald-600" },
             { label: "Applications", desc: "Track your applications", icon: "📋", path: "/applications", color: "from-purple-500 to-purple-600" },
+            { label: "Settings", desc: "Change account password", icon: "⚙️", path: "/settings", color: "from-slate-700 to-slate-800" },
           ].map((a) => (
             <button
               key={a.label}

@@ -41,9 +41,9 @@ function JobSearch() {
   return (
     <div className="min-h-screen bg-slate-50">
       {/* Search Header */}
-      <div className="bg-white border-b border-slate-200 px-6 py-10">
+      <div className="page-shell border-b border-white/60 px-6 py-10">
         <div className="max-w-5xl mx-auto">
-          <h1 className="text-3xl font-bold text-slate-900 text-center">Find Your Dream Job</h1>
+          <h1 className="section-title text-center">Find Your Dream Job</h1>
           <p className="text-slate-500 text-center mt-2 mb-8">Browse the latest openings and filter by role, location, or type.</p>
 
           <form onSubmit={handleSearch} className="flex flex-col md:flex-row gap-3">
@@ -111,7 +111,7 @@ function JobSearch() {
               <div
                 key={job._id}
                 onClick={() => navigate(`/jobs/${job._id}`)}
-                className="card p-6 hover:shadow-md hover:border-indigo-200 cursor-pointer transition-all duration-200 group"
+                className="card group cursor-pointer p-6 transition-all duration-200 hover:-translate-y-1 hover:border-cyan-200"
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1 min-w-0">

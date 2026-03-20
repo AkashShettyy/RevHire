@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { loginUser } from "../services/authService";
 import { useNavigate, Link } from "react-router-dom";
+import PasswordInput from "../components/PasswordInput";
 
 function Login() {
   const { login } = useAuth();
@@ -52,18 +53,15 @@ function Login() {
                 className="input-field"
               />
             </div>
-            <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">Password</label>
-              <input
-                type="password"
-                name="password"
-                placeholder="••••••••"
-                value={formData.password}
-                onChange={handleChange}
-                required
-                className="input-field"
-              />
-            </div>
+            <PasswordInput
+              label="Password"
+              name="password"
+              placeholder="••••••••"
+              value={formData.password}
+              onChange={handleChange}
+              autoComplete="current-password"
+              required
+            />
 
             {error && (
               <div className="flex items-center gap-2 bg-red-50 border border-red-100 text-red-600 text-sm px-4 py-3 rounded-lg">
