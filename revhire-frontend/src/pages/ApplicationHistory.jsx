@@ -3,6 +3,14 @@ import { useAuth } from "../context/AuthContext";
 import { getUserApplications, withdrawApplication } from "../services/applicationService";
 import { useNavigate } from "react-router-dom";
 
+const applicationFilters = [
+  { label: "All", value: "all" },
+  { label: "Pending", value: "applied" },
+  { label: "Shortlisted", value: "shortlisted" },
+  { label: "Rejected", value: "rejected" },
+  { label: "Withdrawn", value: "withdrawn" },
+];
+
 const statusColors = {
   applied: "bg-blue-50 text-blue-700 border border-blue-100",
   shortlisted: "bg-emerald-50 text-emerald-700 border border-emerald-100",
@@ -21,8 +29,13 @@ function ApplicationHistory() {
   const { token } = useAuth();
   const navigate = useNavigate();
   const [applications, setApplications] = useState([]);
+  const [activeFilter, setActiveFilter] = useState("all");
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
+
+  const filteredApplications = activeFilter === "all"
+    ? applications
+    : applications.filter((app) => app.status === activeFilter);
 
   useEffect(() => { fetchApplications(); }, []);
 
@@ -65,7 +78,9 @@ function ApplicationHistory() {
         <div className="app-shell max-w-4xl py-8">
           <span className="app-eyebrow">Application history</span>
           <h1 className="mt-4 text-3xl font-bold tracking-tight text-stone-950">My Applications</h1>
-          <p className="mt-2 text-sm text-stone-500">{applications.length} total application{applications.length !== 1 ? "s" : ""}</p>
+          <p className="mt-2 text-sm text-stone-500">
+            {filteredApplications.length} of {applications.length} application{applications.length !== 1 ? "s" : ""}
+          </p>
         </div>
       </div>
 
@@ -83,7 +98,31 @@ function ApplicationHistory() {
           </div>
         ) : (
           <div className="space-y-4">
-            {applications.map((app) => (
+            <div className="flex flex-wrap gap-2">
+              {applicationFilters.map((filter) => {
+                const isActive = filter.value === activeFilter;
+                return (
+                  <button
+                    key={filter.value}
+                    type="button"
+                    onClick={() => setActiveFilter(filter.value)}
+                    className={`rounded-full border px-4 py-2 text-sm font-medium transition-colors ${
+                      isActive
+                        ? "border-blue-600 bg-blue-600 text-white shadow-sm"
+                        : "border-stone-200 bg-white text-stone-600 hover:border-blue-200 hover:text-blue-700"
+                    }`}
+                  >
+                    {filter.label}
+                  </button>
+                );
+              })}
+            </div>
+
+            {filteredApplications.length === 0 ? (
+              <div className="app-panel p-8 text-center text-sm text-stone-500">
+                No {applicationFilters.find((filter) => filter.value === activeFilter)?.label.toLowerCase()} applications found.
+              </div>
+            ) : filteredApplications.map((app) => (
               <div key={app._id} className="app-panel p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-xl">
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                   <div className="flex-1 min-w-0">

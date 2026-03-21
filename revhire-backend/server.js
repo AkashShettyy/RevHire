@@ -9,8 +9,6 @@ import resumeRoutes from "./src/routes/resumeRoutes.js";
 import notificationRoutes from "./src/routes/notificationRoutes.js";
 
 dotenv.config();
-connectDB();
-
 const app = express();
 
 app.use(
@@ -35,6 +33,16 @@ app.get("/", (req, res) => {
 });
 
 const PORT = process.env.PORT || 8000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT} 🚀`);
-});
+
+const startServer = async () => {
+  const isDbConnected = await connectDB();
+
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT} 🚀`);
+    if (!isDbConnected) {
+      console.warn("Running without MongoDB connection. Check Atlas network access.");
+    }
+  });
+};
+
+startServer();
