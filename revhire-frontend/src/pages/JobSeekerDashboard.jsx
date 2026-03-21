@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { getUserApplications } from "../services/applicationService";
+import { getMyInterviews } from "../services/interviewService";
 import { getAllJobs } from "../services/jobService";
 import { useNavigate } from "react-router-dom";
 
@@ -22,6 +23,7 @@ function JobSeekerDashboard() {
   const { user, token } = useAuth();
   const navigate = useNavigate();
   const [applications, setApplications] = useState([]);
+  const [interviews, setInterviews] = useState([]);
   const [recentJobs, setRecentJobs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -30,8 +32,13 @@ function JobSeekerDashboard() {
   async function fetchData() {
     setIsLoading(true);
     try {
-      const [appsData, jobsData] = await Promise.all([getUserApplications(token), getAllJobs()]);
+      const [appsData, interviewsData, jobsData] = await Promise.all([
+        getUserApplications(token),
+        getMyInterviews(token),
+        getAllJobs(),
+      ]);
       setApplications(appsData.applications);
+      setInterviews(interviewsData.interviews);
       setRecentJobs(jobsData.jobs.slice(0, 4));
     } catch (error) {
       console.error(error);
@@ -44,7 +51,7 @@ function JobSeekerDashboard() {
     { label: "Total Applied", value: applications.length, color: "text-blue-700", bg: "bg-blue-100", icon: "📨" },
     { label: "Shortlisted", value: applications.filter((a) => a.status === "shortlisted").length, color: "text-emerald-600", bg: "bg-emerald-100", icon: "✅" },
     { label: "Pending", value: applications.filter((a) => a.status === "applied").length, color: "text-sky-700", bg: "bg-sky-100", icon: "⏳" },
-    { label: "Rejected", value: applications.filter((a) => a.status === "rejected").length, color: "text-red-500", bg: "bg-red-100", icon: "❌" },
+    { label: "Interviews", value: interviews.length, color: "text-violet-700", bg: "bg-violet-100", icon: "🗓️" },
   ];
 
   if (isLoading)
@@ -108,7 +115,7 @@ function JobSeekerDashboard() {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
           <div className="app-panel overflow-hidden">
             <div className="flex items-center justify-between border-b border-stone-100 px-6 py-4">
               <h2 className="font-semibold text-stone-900">Recent Applications</h2>
@@ -129,6 +136,29 @@ function JobSeekerDashboard() {
                       <p className="mt-0.5 text-xs text-stone-400">{app.job?.location} · {new Date(app.createdAt).toLocaleDateString()}</p>
                     </div>
                     <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${statusColors[app.status]}`}>{app.status}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <div className="app-panel overflow-hidden">
+            <div className="flex items-center justify-between border-b border-stone-100 px-6 py-4">
+              <h2 className="font-semibold text-stone-900">Scheduled Interviews</h2>
+              <span className="text-sm text-stone-400">{interviews.length} total</span>
+            </div>
+            {interviews.length === 0 ? (
+              <div className="px-6 py-12 text-center">
+                <p className="text-3xl mb-3">🗓️</p>
+                <p className="text-sm text-stone-500">No interviews scheduled yet</p>
+              </div>
+            ) : (
+              <div className="divide-y divide-stone-100">
+                {interviews.slice(0, 4).map((interview) => (
+                  <div key={interview._id} className="px-6 py-4">
+                    <p className="text-sm font-medium text-stone-900">{interview.job?.title}</p>
+                    <p className="mt-1 text-xs text-stone-500">{new Date(interview.scheduledAt).toLocaleString()}</p>
+                    <p className="mt-1 text-xs text-stone-400">{interview.employer?.name} · {interview.job?.location}</p>
                   </div>
                 ))}
               </div>

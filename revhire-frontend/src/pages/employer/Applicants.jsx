@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { getJobApplicants, updateApplicationStatus } from "../../services/applicationService";
+import { cancelInterview, getJobInterviews, scheduleInterview } from "../../services/interviewService";
 import ResumePreview from "../../components/ResumePreview";
 import { downloadResumePdf } from "../../utils/resumeDocument";
 
@@ -20,14 +21,20 @@ function Applicants() {
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [selectedApplication, setSelectedApplication] = useState(null);
+  const [interviews, setInterviews] = useState([]);
+  const [scheduleInputs, setScheduleInputs] = useState({});
 
   useEffect(() => { fetchApplicants(); }, [jobId]);
 
   async function fetchApplicants() {
     setIsLoading(true);
     try {
-      const data = await getJobApplicants(jobId, token);
-      setApplications(data.applications);
+      const [applicantsData, interviewsData] = await Promise.all([
+        getJobApplicants(jobId, token),
+        getJobInterviews(jobId, token),
+      ]);
+      setApplications(applicantsData.applications);
+      setInterviews(interviewsData.interviews);
     } catch (error) {
       console.error(error);
     } finally {
@@ -46,6 +53,35 @@ function Applicants() {
     }
   }
 
+  async function handleScheduleInterview(applicationId) {
+    const scheduledAt = scheduleInputs[applicationId];
+    if (!scheduledAt) {
+      setMessage("Select interview date and time");
+      return;
+    }
+
+    try {
+      await scheduleInterview(applicationId, scheduledAt, token);
+      setMessage("Interview scheduled");
+      setScheduleInputs((current) => ({ ...current, [applicationId]: "" }));
+      setTimeout(() => setMessage(""), 3000);
+      fetchApplicants();
+    } catch (error) {
+      setMessage(error.response?.data?.message || "Something went wrong");
+    }
+  }
+
+  async function handleCancelInterview(interviewId) {
+    try {
+      await cancelInterview(interviewId, token);
+      setMessage("Interview cancelled");
+      setTimeout(() => setMessage(""), 3000);
+      fetchApplicants();
+    } catch (error) {
+      setMessage(error.response?.data?.message || "Something went wrong");
+    }
+  }
+
   if (isLoading)
     return (
       <div className="app-page flex items-center justify-center">
@@ -58,6 +94,7 @@ function Applicants() {
 
   const shortlisted = applications.filter((a) => a.status === "shortlisted").length;
   const pending = applications.filter((a) => a.status === "applied").length;
+  const interviewMap = new Map(interviews.map((interview) => [interview.application?._id, interview]));
 
   function handleResumeDownload(application) {
     if (!application?.resume) return;
@@ -96,7 +133,10 @@ function Applicants() {
           </div>
         ) : (
           <div className="space-y-4">
-            {applications.map((app) => (
+            {applications.map((app) => {
+              const interview = interviewMap.get(app._id);
+
+              return (
               <div key={app._id} className="app-panel p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-xl">
                 <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
                   <div className="flex-1 min-w-0">
@@ -148,6 +188,48 @@ function Applicants() {
                   </div>
                 )}
 
+                {app.status === "shortlisted" && (
+                  <div className="mt-4 rounded-2xl border border-blue-100 bg-blue-50/60 p-4">
+                    <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
+                      <div className="flex-1">
+                        <p className="text-xs font-semibold uppercase tracking-wide text-blue-700">Interview Scheduling</p>
+                        {interview?.status === "scheduled" ? (
+                          <div className="mt-2 space-y-1">
+                            <p className="text-sm font-medium text-stone-800">Scheduled for {new Date(interview.scheduledAt).toLocaleString()}</p>
+                            <p className="text-xs text-stone-500">Scheduling again will reschedule the interview.</p>
+                          </div>
+                        ) : (
+                          <p className="mt-2 text-sm text-stone-500">Pick a date and time to invite this candidate.</p>
+                        )}
+                      </div>
+                      <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+                        <input
+                          type="datetime-local"
+                          value={scheduleInputs[app._id] || ""}
+                          onChange={(event) => setScheduleInputs((current) => ({ ...current, [app._id]: event.target.value }))}
+                          className="rounded-2xl border border-stone-200 bg-white px-4 py-2.5 text-sm text-stone-700 outline-none transition-colors focus:border-blue-500"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => handleScheduleInterview(app._id)}
+                          className="app-button px-4 py-2.5"
+                        >
+                          {interview?.status === "scheduled" ? "Reschedule" : "Schedule"}
+                        </button>
+                        {interview?.status === "scheduled" && (
+                          <button
+                            type="button"
+                            onClick={() => handleCancelInterview(interview._id)}
+                            className="rounded-2xl border border-red-200 bg-white px-4 py-2.5 text-sm font-semibold text-red-500 transition-colors hover:bg-red-50"
+                          >
+                            Cancel
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
                 {app.status === "applied" && (
                   <div className="mt-4 flex gap-3 border-t border-stone-100 pt-4">
                     <button
@@ -165,7 +247,7 @@ function Applicants() {
                   </div>
                 )}
               </div>
-            ))}
+            )})}
           </div>
         )}
       </div>
