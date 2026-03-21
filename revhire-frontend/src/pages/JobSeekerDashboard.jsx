@@ -13,7 +13,7 @@ const statusColors = {
 
 const jobTypeColors = {
   fulltime: "bg-emerald-50 text-emerald-700",
-  parttime: "bg-amber-50 text-amber-700",
+  parttime: "bg-sky-50 text-sky-700",
   internship: "bg-purple-50 text-purple-700",
   remote: "bg-sky-50 text-sky-700",
 };
@@ -43,43 +43,42 @@ function JobSeekerDashboard() {
   const stats = [
     { label: "Total Applied", value: applications.length, color: "text-blue-700", bg: "bg-blue-100", icon: "📨" },
     { label: "Shortlisted", value: applications.filter((a) => a.status === "shortlisted").length, color: "text-emerald-600", bg: "bg-emerald-100", icon: "✅" },
-    { label: "Pending", value: applications.filter((a) => a.status === "applied").length, color: "text-amber-600", bg: "bg-amber-100", icon: "⏳" },
+    { label: "Pending", value: applications.filter((a) => a.status === "applied").length, color: "text-sky-700", bg: "bg-sky-100", icon: "⏳" },
     { label: "Rejected", value: applications.filter((a) => a.status === "rejected").length, color: "text-red-500", bg: "bg-red-100", icon: "❌" },
   ];
 
   if (isLoading)
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
-        <div className="flex items-center gap-3 text-slate-500">
-          <div className="w-5 h-5 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin" />
+      <div className="app-page flex items-center justify-center">
+        <div className="flex items-center gap-3 text-stone-500">
+          <div className="h-5 w-5 animate-spin rounded-full border-2 border-blue-600 border-t-transparent" />
           Loading...
         </div>
       </div>
     );
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      {/* Header */}
-      <div className="page-shell border-b border-white/60 px-6 py-8">
-        <div className="max-w-6xl mx-auto flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+    <div className="app-page">
+      <div className="app-hero">
+        <div className="app-shell flex flex-col gap-4 py-8 md:flex-row md:items-center md:justify-between">
           <div>
-            <h1 className="section-title text-2xl">Good to see you, {user?.name} 👋</h1>
-            <p className="text-slate-500 text-sm mt-1">Here's your job search overview</p>
+            <span className="app-eyebrow">Job seeker dashboard</span>
+            <h1 className="mt-4 text-3xl font-bold tracking-tight text-stone-950">Good to see you, {user?.name}</h1>
+            <p className="mt-2 text-sm text-stone-500">Track applications, monitor activity, and jump back into the search.</p>
           </div>
-          <button onClick={() => navigate("/jobs")} className="btn-primary hidden sm:flex items-center gap-2">
-            <span>🔍</span> Find Jobs
+          <button onClick={() => navigate("/jobs")} className="app-button hidden sm:inline-flex">
+            Find Jobs
           </button>
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-6 py-8 space-y-8">
-        {/* Stats */}
+      <div className="app-shell space-y-8 py-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
           {stats.map((s) => (
-            <div key={s.label} className="stat-card">
+            <div key={s.label} className="app-stat">
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <p className="text-sm font-medium text-slate-500">{s.label}</p>
+                  <p className="text-sm font-medium text-stone-500">{s.label}</p>
                   <p className={`mt-3 text-3xl font-bold ${s.color}`}>{s.value}</p>
                 </div>
                 <div className={`flex h-12 w-12 items-center justify-center rounded-2xl ${s.bg} text-lg`}>
@@ -90,47 +89,44 @@ function JobSeekerDashboard() {
           ))}
         </div>
 
-        {/* Quick Actions */}
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
           {[
-            { label: "Find Jobs", desc: "Browse latest openings", icon: "🔍", path: "/jobs", color: "from-blue-600 to-blue-700" },
-            { label: "My Resume", desc: "Update your resume", icon: "📄", path: "/resume", color: "from-sky-500 to-blue-600" },
-            { label: "Applications", desc: "Track your applications", icon: "📋", path: "/applications", color: "from-indigo-500 to-blue-700" },
-            { label: "Settings", desc: "Change account password", icon: "⚙️", path: "/settings", color: "from-slate-700 to-slate-900" },
+            { label: "Find Jobs", desc: "Browse available openings", icon: "Search", path: "/jobs", color: "from-blue-600 to-blue-700" },
+            { label: "My Resume", desc: "Refresh your profile", icon: "Resume", path: "/resume", color: "from-sky-500 to-blue-600" },
+            { label: "Applications", desc: "Review recent submissions", icon: "Track", path: "/applications", color: "from-indigo-500 to-blue-700" },
+            { label: "Settings", desc: "Update sign-in details", icon: "Account", path: "/settings", color: "from-slate-600 to-slate-800" },
           ].map((a) => (
             <button
               key={a.label}
               onClick={() => navigate(a.path)}
-              className={`bg-gradient-to-br ${a.color} rounded-2xl p-5 text-left text-white shadow-lg shadow-blue-900/10 transition-all duration-200 hover:-translate-y-1`}
+              className={`rounded-[28px] bg-gradient-to-br ${a.color} p-5 text-left text-white shadow-xl shadow-stone-900/10 transition-all duration-200 hover:-translate-y-1`}
             >
-              <span className="text-2xl">{a.icon}</span>
+              <span className="text-xs font-semibold uppercase tracking-[0.22em] text-white/75">{a.icon}</span>
               <p className="font-semibold mt-3">{a.label}</p>
-              <p className="text-white/70 text-sm mt-0.5">{a.desc}</p>
+              <p className="text-sm text-white/70 mt-0.5">{a.desc}</p>
             </button>
           ))}
         </div>
 
-        {/* Tables */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Recent Applications */}
-          <div className="card overflow-hidden">
-            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100">
-              <h2 className="font-semibold text-slate-900">Recent Applications</h2>
-              <button onClick={() => navigate("/applications")} className="text-blue-600 text-sm font-medium hover:underline">View all</button>
+          <div className="app-panel overflow-hidden">
+            <div className="flex items-center justify-between border-b border-stone-100 px-6 py-4">
+              <h2 className="font-semibold text-stone-900">Recent Applications</h2>
+              <button onClick={() => navigate("/applications")} className="text-sm font-medium text-blue-600 hover:underline">View all</button>
             </div>
             {applications.length === 0 ? (
               <div className="px-6 py-12 text-center">
                 <p className="text-3xl mb-3">📭</p>
-                <p className="text-slate-500 text-sm">No applications yet</p>
-                <button onClick={() => navigate("/jobs")} className="btn-primary mt-4 text-sm px-4 py-2">Browse Jobs</button>
+                <p className="text-sm text-stone-500">No applications yet</p>
+                <button onClick={() => navigate("/jobs")} className="app-button mt-4 px-4 py-2">Browse Jobs</button>
               </div>
             ) : (
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-stone-100">
                 {applications.slice(0, 4).map((app) => (
                   <div key={app._id} className="px-6 py-4 flex items-center justify-between">
                     <div>
-                      <p className="font-medium text-slate-900 text-sm">{app.job?.title}</p>
-                      <p className="text-slate-400 text-xs mt-0.5">{app.job?.location} · {new Date(app.createdAt).toLocaleDateString()}</p>
+                      <p className="text-sm font-medium text-stone-900">{app.job?.title}</p>
+                      <p className="mt-0.5 text-xs text-stone-400">{app.job?.location} · {new Date(app.createdAt).toLocaleDateString()}</p>
                     </div>
                     <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${statusColors[app.status]}`}>{app.status}</span>
                   </div>
@@ -139,18 +135,17 @@ function JobSeekerDashboard() {
             )}
           </div>
 
-          {/* Recent Jobs */}
-          <div className="card overflow-hidden">
-            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100">
-              <h2 className="font-semibold text-slate-900">Latest Jobs</h2>
-              <button onClick={() => navigate("/jobs")} className="text-blue-600 text-sm font-medium hover:underline">View all</button>
+          <div className="app-panel overflow-hidden">
+            <div className="flex items-center justify-between border-b border-stone-100 px-6 py-4">
+              <h2 className="font-semibold text-stone-900">Latest Jobs</h2>
+              <button onClick={() => navigate("/jobs")} className="text-sm font-medium text-blue-600 hover:underline">View all</button>
             </div>
-            <div className="divide-y divide-slate-100">
+            <div className="divide-y divide-stone-100">
               {recentJobs.map((job) => (
-                <div key={job._id} onClick={() => navigate(`/jobs/${job._id}`)} className="px-6 py-4 flex items-center justify-between hover:bg-slate-50 cursor-pointer transition-colors">
+                <div key={job._id} onClick={() => navigate(`/jobs/${job._id}`)} className="cursor-pointer px-6 py-4 transition-colors hover:bg-blue-50/60 flex items-center justify-between">
                   <div>
-                    <p className="font-medium text-slate-900 text-sm">{job.title}</p>
-                    <p className="text-slate-400 text-xs mt-0.5">{job.employer?.name} · {job.location}</p>
+                    <p className="text-sm font-medium text-stone-900">{job.title}</p>
+                    <p className="mt-0.5 text-xs text-stone-400">{job.employer?.name} · {job.location}</p>
                   </div>
                   <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${jobTypeColors[job.jobType]}`}>{job.jobType}</span>
                 </div>

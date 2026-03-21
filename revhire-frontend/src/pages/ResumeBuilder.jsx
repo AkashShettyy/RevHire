@@ -4,12 +4,12 @@ import { getResume, saveResume } from "../services/resumeService";
 import ResumePreview from "../components/ResumePreview";
 import { downloadResumePdf } from "../utils/resumeDocument";
 
-const inputClass = "input-field";
+const inputClass = "app-input";
 
 function Section({ title, children }) {
   return (
-    <div className="form-panel">
-      <h2 className="mb-5 font-semibold text-slate-900">{title}</h2>
+    <div className="app-panel p-6 sm:p-8">
+      <h2 className="mb-5 font-semibold text-stone-900">{title}</h2>
       {children}
     </div>
   );
@@ -98,44 +98,45 @@ function ResumeBuilder() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      <div className="page-shell border-b border-white/60 px-6 py-8">
-        <div className="max-w-3xl mx-auto flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <div>
-            <h1 className="section-title text-2xl">Resume Builder</h1>
-            <p className="text-slate-500 text-sm mt-1">Build your professional profile</p>
-          </div>
-          <div className="flex flex-wrap items-center gap-3">
-            <button
-              type="button"
-              onClick={() => setShowPreview(true)}
-              className="rounded-xl border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors"
-            >
-              Preview Resume
-            </button>
-            <button
-              type="button"
-              onClick={handleDownloadPdf}
-              disabled={isDownloading}
-              className="btn-primary px-4 py-2 text-sm"
-            >
-              {isDownloading ? "Preparing PDF..." : "Download PDF"}
-            </button>
-          </div>
-          {message === "saved" && (
-            <div className="bg-emerald-50 border border-emerald-100 text-emerald-700 px-4 py-2 rounded-lg text-sm font-medium">
-              ✅ Saved successfully
+    <div className="app-page">
+      <div className="app-hero">
+        <div className="app-shell max-w-3xl py-8">
+          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div>
+              <span className="app-eyebrow">Resume workspace</span>
+              <h1 className="mt-4 text-3xl font-bold tracking-tight text-stone-950">Resume Builder</h1>
+              <p className="mt-2 text-sm text-stone-500">Build your professional profile and export it when ready.</p>
             </div>
-          )}
-          {message === "error" && (
-            <div className="bg-red-50 border border-red-100 text-red-600 px-4 py-2 rounded-lg text-sm">
-              Something went wrong
+            <div className="flex flex-wrap items-center gap-3">
+              <button
+                type="button"
+                onClick={() => setShowPreview(true)}
+                className="app-button-secondary px-4 py-2"
+              >
+                Preview Resume
+              </button>
+              <button
+                type="button"
+                onClick={handleDownloadPdf}
+                disabled={isDownloading}
+                className="app-button px-4 py-2"
+              >
+                {isDownloading ? "Preparing PDF..." : "Download PDF"}
+              </button>
             </div>
-          )}
+            {message === "saved" && (
+              <div className="app-message-success">Saved successfully</div>
+            )}
+            {message === "error" && (
+              <div className="app-message-error">
+                Something went wrong
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
-      <div className="max-w-3xl mx-auto px-6 py-8">
+      <div className="app-shell max-w-3xl py-8">
         <form onSubmit={handleSave} onKeyDown={handleFormKeyDown} className="space-y-6">
           {/* Objective */}
           <Section title="🎯 Professional Objective">
@@ -152,7 +153,7 @@ function ResumeBuilder() {
           <Section title="⚡ Skills">
             <div className="flex flex-wrap gap-2 mb-3">
               {resume.skills.map((skill, i) => (
-                <div key={i} className="flex items-center gap-1.5 rounded-xl border border-blue-100 bg-blue-50 px-3 py-1.5">
+                <div key={i} className="flex items-center gap-1.5 rounded-2xl border border-blue-100 bg-blue-50 px-3 py-1.5">
                   <input
                     type="text"
                     placeholder="Skill"
@@ -175,7 +176,7 @@ function ResumeBuilder() {
           <Section title="🎓 Education">
             <div className="space-y-4">
               {resume.education.map((edu, i) => (
-                <div key={i} className="border border-slate-100 rounded-lg p-4 space-y-3 bg-slate-50/50">
+                <div key={i} className="space-y-3 rounded-2xl border border-stone-200 bg-white/55 p-4">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <input type="text" placeholder="Institution" value={edu.institution} onChange={(e) => updateArrayField("education", i, "institution", e.target.value)} className={inputClass} />
                     <input type="text" placeholder="Degree" value={edu.degree} onChange={(e) => updateArrayField("education", i, "degree", e.target.value)} className={inputClass} />
@@ -194,7 +195,7 @@ function ResumeBuilder() {
           <Section title="💼 Experience">
             <div className="space-y-4">
               {resume.experience.map((exp, i) => (
-                <div key={i} className="border border-slate-100 rounded-lg p-4 space-y-3 bg-slate-50/50">
+                <div key={i} className="space-y-3 rounded-2xl border border-stone-200 bg-white/55 p-4">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <input type="text" placeholder="Company" value={exp.company} onChange={(e) => updateArrayField("experience", i, "company", e.target.value)} className={inputClass} />
                     <input type="text" placeholder="Role" value={exp.role} onChange={(e) => updateArrayField("experience", i, "role", e.target.value)} className={inputClass} />
@@ -212,7 +213,7 @@ function ResumeBuilder() {
           <Section title="🚀 Projects">
             <div className="space-y-4">
               {resume.projects.map((proj, i) => (
-                <div key={i} className="border border-slate-100 rounded-lg p-4 space-y-3 bg-slate-50/50">
+                <div key={i} className="space-y-3 rounded-2xl border border-stone-200 bg-white/55 p-4">
                   <input type="text" placeholder="Project name" value={proj.name} onChange={(e) => updateArrayField("projects", i, "name", e.target.value)} className={inputClass} />
                   <textarea placeholder="Description" value={proj.description} onChange={(e) => updateArrayField("projects", i, "description", e.target.value)} rows={2} className={`${inputClass} resize-none`} />
                   <input type="text" placeholder="Link (optional)" value={proj.link} onChange={(e) => updateArrayField("projects", i, "link", e.target.value)} className={inputClass} />
@@ -246,7 +247,7 @@ function ResumeBuilder() {
             <AddButton onClick={() => addItem("certifications", "")} label="Add Certification" />
           </Section>
 
-          <button type="submit" disabled={isLoading} className="btn-primary w-full py-3.5 text-base">
+          <button type="submit" disabled={isLoading} className="app-button w-full py-3.5 text-base">
             {isLoading ? "Saving..." : "Save Resume"}
           </button>
         </form>

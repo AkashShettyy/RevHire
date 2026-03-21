@@ -4,7 +4,7 @@ import { getAllJobs } from "../services/jobService";
 
 const jobTypeColors = {
   fulltime: "bg-emerald-50 text-emerald-700",
-  parttime: "bg-amber-50 text-amber-700",
+  parttime: "bg-sky-50 text-sky-700",
   internship: "bg-purple-50 text-purple-700",
   remote: "bg-sky-50 text-sky-700",
 };
@@ -39,21 +39,24 @@ function JobSearch() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      {/* Search Header */}
-      <div className="page-shell border-b border-white/60 px-6 py-10">
-        <div className="max-w-5xl mx-auto">
-          <h1 className="section-title text-center">Find Your Dream Job</h1>
-          <p className="text-slate-500 text-center mt-2 mb-8">Browse the latest openings and filter by role, location, or type.</p>
+    <div className="app-page">
+      <div className="app-hero">
+        <div className="app-shell py-10">
+          <div className="mx-auto max-w-5xl">
+            <div className="text-center">
+              <span className="app-eyebrow">Job discovery</span>
+              <h1 className="mt-5 text-4xl font-bold tracking-tight text-stone-950">Find roles that fit your search.</h1>
+              <p className="mt-3 mb-8 text-center text-stone-500">Browse posted openings and narrow them by title, location, or job type.</p>
+            </div>
 
-          <form onSubmit={handleSearch} className="card grid grid-cols-1 gap-3 p-4 md:grid-cols-[minmax(0,1.5fr)_minmax(0,0.8fr)_minmax(0,0.7fr)_auto]">
+            <form onSubmit={handleSearch} className="app-panel grid grid-cols-1 gap-3 p-4 md:grid-cols-[minmax(0,1.5fr)_minmax(0,0.8fr)_minmax(0,0.7fr)_auto]">
             <input
               type="text"
               name="search"
               placeholder="Job title or skill..."
               value={filters.search}
               onChange={handleFilterChange}
-              className="input-field"
+              className="app-input"
             />
             <input
               type="text"
@@ -61,13 +64,13 @@ function JobSearch() {
               placeholder="Location"
               value={filters.location}
               onChange={handleFilterChange}
-              className="input-field"
+              className="app-input"
             />
             <select
               name="jobType"
               value={filters.jobType}
               onChange={handleFilterChange}
-              className="input-field"
+              className="app-input"
             >
               <option value="">All Types</option>
               <option value="fulltime">Full Time</option>
@@ -75,35 +78,35 @@ function JobSearch() {
               <option value="internship">Internship</option>
               <option value="remote">Remote</option>
             </select>
-            <button type="submit" className="btn-primary whitespace-nowrap">Search Jobs</button>
-          </form>
+            <button type="submit" className="app-button whitespace-nowrap">Search Jobs</button>
+            </form>
+          </div>
         </div>
       </div>
 
-      {/* Results */}
-      <div className="max-w-5xl mx-auto px-6 py-8">
-        <p className="text-slate-500 text-sm mb-5 font-medium">
+      <div className="app-shell mx-auto max-w-5xl py-8">
+        <p className="mb-5 text-sm font-medium text-stone-500">
           {isLoading ? "Searching..." : `${jobs.length} job${jobs.length !== 1 ? "s" : ""} found`}
         </p>
 
         {isLoading ? (
           <div className="space-y-4">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="card p-6 animate-pulse">
-                <div className="h-4 bg-slate-200 rounded w-1/3 mb-3" />
-                <div className="h-3 bg-slate-200 rounded w-1/4 mb-4" />
+              <div key={i} className="app-panel p-6 animate-pulse">
+                <div className="mb-3 h-4 w-1/3 rounded bg-stone-200" />
+                <div className="mb-4 h-3 w-1/4 rounded bg-stone-200" />
                 <div className="flex gap-2">
-                  <div className="h-6 bg-slate-200 rounded-full w-16" />
-                  <div className="h-6 bg-slate-200 rounded-full w-20" />
+                  <div className="h-6 w-16 rounded-full bg-stone-200" />
+                  <div className="h-6 w-20 rounded-full bg-stone-200" />
                 </div>
               </div>
             ))}
           </div>
         ) : jobs.length === 0 ? (
-          <div className="card p-16 text-center">
+          <div className="app-empty">
             <p className="text-5xl mb-4">🔍</p>
-            <p className="text-slate-600 font-medium">No jobs found</p>
-            <p className="text-slate-400 text-sm mt-1">Try adjusting your search filters</p>
+            <p className="font-medium text-stone-700">No jobs found</p>
+            <p className="mt-1 text-sm text-stone-400">Try adjusting your search filters</p>
           </div>
         ) : (
           <div className="space-y-4">
@@ -111,18 +114,18 @@ function JobSearch() {
               <article
                 key={job._id}
                 onClick={() => navigate(`/jobs/${job._id}`)}
-                className="card group cursor-pointer p-6 transition-all duration-200 hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl"
+                className="app-panel group cursor-pointer p-6 transition-all duration-200 hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl"
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-3 flex-wrap">
-                      <h3 className="text-lg font-semibold text-slate-900 group-hover:text-blue-700 transition-colors">{job.title}</h3>
+                      <h3 className="text-lg font-semibold text-stone-900 transition-colors group-hover:text-blue-700">{job.title}</h3>
                       <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${jobTypeColors[job.jobType] || "bg-slate-100 text-slate-600"}`}>
                         {job.jobType}
                       </span>
                     </div>
-                    <p className="text-slate-600 text-sm mt-1 font-medium">{job.employer?.name}</p>
-                    <div className="flex flex-wrap gap-4 mt-3 text-sm text-slate-500">
+                    <p className="mt-1 text-sm font-medium text-stone-600">{job.employer?.name}</p>
+                    <div className="mt-3 flex flex-wrap gap-4 text-sm text-stone-500">
                       <span>📍 {job.location}</span>
                       {job.salaryRange?.min && (
                         <span>💰 ₹{job.salaryRange.min.toLocaleString()} – ₹{job.salaryRange.max?.toLocaleString()}</span>
@@ -131,7 +134,7 @@ function JobSearch() {
                     </div>
                     <div className="flex flex-wrap gap-2 mt-3">
                       {job.skillsRequired?.slice(0, 5).map((skill, i) => (
-                        <span key={i} className="bg-slate-100 text-slate-600 text-xs px-2.5 py-1 rounded-full">{skill}</span>
+                        <span key={i} className="rounded-full bg-stone-100 px-2.5 py-1 text-xs text-stone-600">{skill}</span>
                       ))}
                     </div>
                   </div>
@@ -139,7 +142,7 @@ function JobSearch() {
                     <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">
                       View Details
                     </span>
-                    <span className="text-slate-300 group-hover:text-blue-500 transition-colors text-xl">→</span>
+                    <span className="text-xl text-stone-300 transition-colors group-hover:text-blue-700">→</span>
                   </div>
                 </div>
               </article>

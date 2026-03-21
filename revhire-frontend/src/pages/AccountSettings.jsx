@@ -43,19 +43,20 @@ function AccountSettings() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      <div className="page-shell border-b border-white/60 px-6 py-8">
-        <div className="max-w-3xl mx-auto">
-          <h1 className="section-title text-2xl">Account Settings</h1>
-          <p className="text-sm text-slate-500 mt-1">Manage your sign-in credentials.</p>
+    <div className="app-page">
+      <div className="app-hero">
+        <div className="app-shell max-w-3xl py-8">
+          <span className="app-eyebrow">Account settings</span>
+          <h1 className="mt-4 text-3xl font-bold tracking-tight text-stone-950">Account Settings</h1>
+          <p className="mt-2 text-sm text-stone-500">Manage your sign-in credentials.</p>
         </div>
       </div>
 
-      <div className="max-w-3xl mx-auto px-6 py-8">
-        <div className="form-panel">
+      <div className="app-shell max-w-3xl py-8">
+        <div className="app-panel p-6 sm:p-8">
           <div className="mb-6">
-            <h2 className="text-lg font-semibold text-slate-900">Change Password</h2>
-            <p className="text-sm text-slate-500 mt-1">Use a password you do not reuse elsewhere.</p>
+            <h2 className="text-lg font-semibold text-stone-900">Change Password</h2>
+            <p className="mt-1 text-sm text-stone-500">Use a password you do not reuse elsewhere.</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-5">
@@ -66,6 +67,7 @@ function AccountSettings() {
               onChange={handleChange}
               placeholder="Enter current password"
               autoComplete="current-password"
+              className="app-input"
               required
             />
             <PasswordInput
@@ -75,6 +77,7 @@ function AccountSettings() {
               onChange={handleChange}
               placeholder="At least 6 characters"
               autoComplete="new-password"
+              className="app-input"
               required
             />
             <PasswordInput
@@ -84,16 +87,17 @@ function AccountSettings() {
               onChange={handleChange}
               placeholder="Re-enter new password"
               autoComplete="new-password"
+              className="app-input"
               required
             />
 
             {message.text && (
-              <div className={`rounded-lg border px-4 py-3 text-sm ${message.type === "success" ? "border-emerald-100 bg-emerald-50 text-emerald-700" : "border-red-100 bg-red-50 text-red-600"}`}>
+              <div className={message.type === "success" ? "app-message-success" : "app-message-error"}>
                 {message.text}
               </div>
             )}
 
-            <button type="submit" disabled={isLoading} className="btn-primary">
+            <button type="submit" disabled={isLoading} className="app-button">
               {isLoading ? "Updating..." : "Update Password"}
             </button>
           </form>

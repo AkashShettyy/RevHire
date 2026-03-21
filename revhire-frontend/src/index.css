@@ -35,6 +35,100 @@
 }
 
 @layer components {
+  .app-frame {
+    background:
+      radial-gradient(circle at top left, rgba(96, 165, 250, 0.16), transparent 28%),
+      radial-gradient(circle at top right, rgba(125, 211, 252, 0.14), transparent 24%),
+      linear-gradient(180deg, #f8fbff 0%, #eef6ff 100%);
+  }
+
+  .app-page {
+    @apply min-h-screen text-stone-900;
+  }
+
+  .app-shell {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-6 lg:px-8;
+  }
+
+  .app-hero {
+    background:
+      radial-gradient(circle at top left, rgba(59, 130, 246, 0.16), transparent 24%),
+      radial-gradient(circle at 80% 0%, rgba(125, 211, 252, 0.14), transparent 20%),
+      linear-gradient(180deg, rgba(245, 250, 255, 0.96) 0%, rgba(237, 246, 255, 0.76) 100%);
+    @apply border-b border-blue-100/80;
+  }
+
+  .app-panel {
+    background: rgba(255, 255, 255, 0.86);
+    box-shadow: 0 28px 70px -42px rgba(37, 99, 235, 0.18);
+    @apply rounded-[28px] border border-blue-100/90 backdrop-blur-sm;
+  }
+
+  .app-soft-panel {
+    @apply rounded-3xl border border-blue-100 bg-white/75;
+  }
+
+  .app-button {
+    background-image: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    box-shadow: 0 20px 40px -26px rgba(37, 99, 235, 0.6);
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl px-5 py-3 text-sm font-semibold text-white transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .app-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 24px 50px -28px rgba(37, 99, 235, 0.64);
+  }
+
+  .app-button-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl border border-blue-200 bg-white/85 px-5 py-3 text-sm font-semibold text-slate-700 transition-all duration-200 hover:border-blue-300 hover:bg-white;
+  }
+
+  .app-button-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl border border-transparent px-4 py-2.5 text-sm font-semibold text-slate-600 transition-all duration-200 hover:border-blue-200 hover:bg-white/70 hover:text-slate-900;
+  }
+
+  .app-input {
+    background: rgba(255, 255, 255, 0.92);
+    @apply w-full rounded-2xl border border-blue-200 px-4 py-3 text-sm text-slate-800 shadow-sm outline-none transition-all duration-200 placeholder:text-slate-400 focus:border-blue-600 focus:ring-4 focus:ring-blue-100;
+  }
+
+  .app-label {
+    @apply mb-1.5 block text-sm font-medium text-slate-700;
+  }
+
+  .app-eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50/90 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-blue-700;
+  }
+
+  .app-heading {
+    font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+    @apply text-4xl font-extrabold tracking-tight text-stone-950 sm:text-5xl;
+  }
+
+  .app-subtle {
+    @apply text-sm text-stone-500;
+  }
+
+  .app-stat {
+    @apply app-panel p-5 sm:p-6;
+  }
+
+  .app-badge {
+    @apply inline-flex items-center rounded-full border border-stone-200 bg-stone-100 px-3 py-1 text-xs font-semibold capitalize text-stone-700;
+  }
+
+  .app-empty {
+    @apply app-panel px-8 py-14 text-center;
+  }
+
+  .app-message-success {
+    @apply rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-800;
+  }
+
+  .app-message-error {
+    @apply rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700;
+  }
+
   .btn-primary {
     background-image: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
     box-shadow: 0 18px 38px -22px rgba(37, 99, 235, 0.55);

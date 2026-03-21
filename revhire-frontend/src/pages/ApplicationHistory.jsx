@@ -12,7 +12,7 @@ const statusColors = {
 
 const jobTypeColors = {
   fulltime: "bg-emerald-50 text-emerald-700",
-  parttime: "bg-amber-50 text-amber-700",
+  parttime: "bg-sky-50 text-sky-700",
   internship: "bg-purple-50 text-purple-700",
   remote: "bg-sky-50 text-sky-700",
 };
@@ -51,50 +51,49 @@ function ApplicationHistory() {
 
   if (isLoading)
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
-        <div className="flex items-center gap-3 text-slate-500">
-          <div className="w-5 h-5 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin" />
+      <div className="app-page flex items-center justify-center">
+        <div className="flex items-center gap-3 text-stone-500">
+          <div className="h-5 w-5 animate-spin rounded-full border-2 border-blue-600 border-t-transparent" />
           Loading...
         </div>
       </div>
     );
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      <div className="page-shell border-b border-white/60 px-6 py-8">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="section-title text-2xl">My Applications</h1>
-          <p className="text-slate-500 text-sm mt-1">{applications.length} total application{applications.length !== 1 ? "s" : ""}</p>
+    <div className="app-page">
+      <div className="app-hero">
+        <div className="app-shell max-w-4xl py-8">
+          <span className="app-eyebrow">Application history</span>
+          <h1 className="mt-4 text-3xl font-bold tracking-tight text-stone-950">My Applications</h1>
+          <p className="mt-2 text-sm text-stone-500">{applications.length} total application{applications.length !== 1 ? "s" : ""}</p>
         </div>
       </div>
 
-      <div className="max-w-4xl mx-auto px-6 py-8">
+      <div className="app-shell max-w-4xl py-8">
         {message && (
-          <div className="bg-emerald-50 border border-emerald-100 text-emerald-700 px-4 py-3 rounded-lg mb-5 text-sm font-medium">
-            ✅ {message}
-          </div>
+          <div className="app-message-success mb-5">{message}</div>
         )}
 
         {applications.length === 0 ? (
-          <div className="card p-16 text-center">
+          <div className="app-empty">
             <p className="text-4xl mb-4">📭</p>
-            <p className="text-slate-600 font-medium">No applications yet</p>
-            <p className="text-slate-400 text-sm mt-1 mb-6">Start applying to jobs to track them here</p>
-            <button onClick={() => navigate("/jobs")} className="btn-primary">Browse Jobs</button>
+            <p className="font-medium text-stone-700">No applications yet</p>
+            <p className="mb-6 mt-1 text-sm text-stone-400">Start applying to jobs to track them here</p>
+            <button onClick={() => navigate("/jobs")} className="app-button">Browse Jobs</button>
           </div>
         ) : (
           <div className="space-y-4">
             {applications.map((app) => (
-              <div key={app._id} className="card p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-xl">
+              <div key={app._id} className="app-panel p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-xl">
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                   <div className="flex-1 min-w-0">
                     <h3
-                      className="cursor-pointer font-semibold text-slate-900 transition-colors hover:text-blue-700"
+                      className="cursor-pointer font-semibold text-stone-900 transition-colors hover:text-blue-700"
                       onClick={() => navigate(`/jobs/${app.job?._id}`)}
                     >
                       {app.job?.title}
                     </h3>
-                    <div className="mt-3 grid gap-2 text-sm text-slate-500 sm:grid-cols-3">
+                    <div className="mt-3 grid gap-2 text-sm text-stone-500 sm:grid-cols-3">
                       <span>📍 {app.job?.location}</span>
                       <span>📅 Applied {new Date(app.createdAt).toLocaleDateString()}</span>
                       {app.job?.jobType && (
@@ -110,10 +109,10 @@ function ApplicationHistory() {
                 </div>
 
                 {app.status === "applied" && (
-                  <div className="mt-4 pt-4 border-t border-slate-100">
+                  <div className="mt-4 border-t border-stone-100 pt-4">
                     <button
                       onClick={() => handleWithdraw(app._id)}
-                      className="text-sm text-red-500 hover:text-red-600 font-medium transition-colors"
+                      className="text-sm font-medium text-red-500 transition-colors hover:text-red-600"
                     >
                       Withdraw Application
                     </button>

@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import Navbar from "./components/Navbar";
 import Landing from "./pages/Landing";
@@ -22,8 +22,11 @@ function ProtectedRoute({ children, role }) {
 }
 
 function Layout({ children }) {
+  const location = useLocation();
+  const isAuthPage = location.pathname === "/login" || location.pathname === "/register";
+
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className={isAuthPage ? "min-h-screen" : "app-frame min-h-screen"}>
       <Navbar />
       <main>{children}</main>
     </div>
