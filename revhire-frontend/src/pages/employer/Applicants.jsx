@@ -19,6 +19,17 @@ const responseColors = {
   declined: "border-red-200 bg-red-50 text-red-600",
 };
 
+function toLocalDateTimeInputValue(value) {
+  if (!value) return "";
+
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "";
+
+  const offset = date.getTimezoneOffset();
+  const localDate = new Date(date.getTime() - offset * 60 * 1000);
+  return localDate.toISOString().slice(0, 16);
+}
+
 function Applicants() {
   const { jobId } = useParams();
   const { token } = useAuth();
@@ -68,7 +79,7 @@ function Applicants() {
 
   function getScheduleState(applicationId, interview) {
     return scheduleInputs[applicationId] || {
-      scheduledAt: interview?.scheduledAt ? new Date(interview.scheduledAt).toISOString().slice(0, 16) : "",
+      scheduledAt: toLocalDateTimeInputValue(interview?.scheduledAt),
       interviewType: interview?.interviewType || "online",
       meetingLink: interview?.meetingLink || "",
       location: interview?.location || "",
@@ -97,7 +108,7 @@ function Applicants() {
       await scheduleInterview(
         {
           applicationId,
-          scheduledAt: form.scheduledAt,
+          scheduledAt: new Date(form.scheduledAt).toISOString(),
           interviewType: form.interviewType,
           meetingLink: form.meetingLink || "",
           location: form.location || "",

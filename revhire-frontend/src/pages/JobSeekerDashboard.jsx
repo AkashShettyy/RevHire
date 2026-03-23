@@ -19,6 +19,11 @@ const jobTypeColors = {
   remote: "bg-sky-50 text-sky-700",
 };
 
+function getInterviewTimestamp(value) {
+  const timestamp = new Date(value).getTime();
+  return Number.isNaN(timestamp) ? null : timestamp;
+}
+
 function JobSeekerDashboard() {
   const { user, token } = useAuth();
   const navigate = useNavigate();
@@ -27,17 +32,21 @@ function JobSeekerDashboard() {
   const [recentJobs, setRecentJobs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const authToken = token || null;
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    if (authToken) {
+      fetchData(authToken);
+    }
+  }, [authToken]);
 
-  async function fetchData() {
+  async function fetchData(activeToken = authToken) {
+    if (!activeToken) return;
     setIsLoading(true);
     try {
       const [appsData, interviewsData, jobsData] = await Promise.all([
-        getUserApplications(token),
-        getMyInterviews(token),
+        getUserApplications(activeToken),
+        getMyInterviews(activeToken),
         getAllJobs(),
       ]);
       setApplications(appsData.applications);
@@ -68,9 +77,16 @@ function JobSeekerDashboard() {
     { label: "Interviews", value: interviews.length, color: "text-violet-700", bg: "bg-violet-100", icon: "🗓️" },
   ];
 
-  const now = new Date();
-  const upcomingInterviews = interviews.filter((interview) => new Date(interview.scheduledAt) >= now);
-  const pastInterviews = interviews.filter((interview) => new Date(interview.scheduledAt) < now);
+  const now = Date.now();
+  const normalizedInterviews = interviews
+    .map((interview) => ({
+      ...interview,
+      scheduledTimestamp: getInterviewTimestamp(interview.scheduledAt),
+    }))
+    .filter((interview) => interview.scheduledTimestamp !== null)
+    .sort((a, b) => a.scheduledTimestamp - b.scheduledTimestamp);
+  const upcomingInterviews = normalizedInterviews.filter((interview) => interview.scheduledTimestamp >= now);
+  const pastInterviews = normalizedInterviews.filter((interview) => interview.scheduledTimestamp < now);
 
   if (isLoading)
     return (
