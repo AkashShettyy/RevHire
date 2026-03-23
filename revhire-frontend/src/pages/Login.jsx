@@ -22,7 +22,9 @@ function Login() {
     try {
       const data = await loginUser(formData);
       login(data.user, data.token);
-      navigate(data.user.role === "employer" ? "/employer/dashboard" : "/dashboard");
+      navigate(
+        data.user.role === "employer" ? "/employer/dashboard" : "/dashboard",
+      );
     } catch (err) {
       setError(err.response?.data?.message || "Something went wrong");
     } finally {
@@ -34,31 +36,40 @@ function Login() {
     <div className="min-h-screen px-4 py-10">
       <div className="mx-auto grid w-full max-w-6xl items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
         <div className="hidden lg:block">
-          <p className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-700">RevHire Portal</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-700">
+            RevHire Portal
+          </p>
           <h1 className="mt-4 max-w-lg font-['Plus_Jakarta_Sans'] text-5xl font-bold leading-tight text-slate-900">
             Professional hiring, built for speed and clarity.
           </h1>
           <p className="mt-5 max-w-xl text-lg leading-8 text-slate-600">
-            Sign in to manage applications, discover jobs, and keep every hiring action in one clean workspace.
+            Sign in to manage applications, discover jobs, and keep every hiring
+            action in one clean workspace.
           </p>
-          <div className="mt-8 grid max-w-xl grid-cols-2 gap-4">
-            {["Trusted blue-and-white layout", "Responsive hiring dashboard", "Clean applicant tracking", "Polished resume workflows"].map((item) => (
-              <div key={item} className="card px-4 py-4 text-sm font-medium text-slate-700">{item}</div>
-            ))}
-          </div>
         </div>
 
         <div className="w-full max-w-md justify-self-center">
           <div className="text-center mb-8">
-            <Link to="/" className="text-2xl font-extrabold tracking-tight text-blue-700">RevHire</Link>
-            <h1 className="mt-4 text-3xl font-bold text-slate-900">Welcome back</h1>
-            <p className="mt-1 text-sm text-slate-500">Sign in to your account</p>
+            <Link
+              to="/"
+              className="text-2xl font-extrabold tracking-tight text-blue-700"
+            >
+              RevHire
+            </Link>
+            <h1 className="mt-4 text-3xl font-bold text-slate-900">
+              Welcome back
+            </h1>
+            <p className="mt-1 text-sm text-slate-500">
+              Sign in to your account
+            </p>
           </div>
 
           <div className="form-panel">
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1.5">Email address</label>
+                <label className="block text-sm font-medium text-slate-700 mb-1.5">
+                  Email address
+                </label>
                 <input
                   type="email"
                   name="email"
@@ -85,7 +96,11 @@ function Login() {
                 </div>
               )}
 
-              <button type="submit" disabled={isLoading} className="btn-primary w-full py-3 text-base">
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="btn-primary w-full py-3 text-base"
+              >
                 {isLoading ? "Signing in..." : "Sign In"}
               </button>
             </form>
@@ -93,7 +108,12 @@ function Login() {
 
           <p className="text-center text-slate-500 text-sm mt-6">
             Don't have an account?{" "}
-            <Link to="/register" className="font-semibold text-blue-700 hover:underline">Create one</Link>
+            <Link
+              to="/register"
+              className="font-semibold text-blue-700 hover:underline"
+            >
+              Create one
+            </Link>
           </p>
         </div>
       </div>

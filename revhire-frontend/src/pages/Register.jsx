@@ -7,7 +7,12 @@ import PasswordInput from "../components/PasswordInput";
 function Register() {
   const { login } = useAuth();
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({ name: "", email: "", password: "", role: "jobseeker" });
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    role: "jobseeker",
+  });
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -22,7 +27,9 @@ function Register() {
     try {
       const data = await registerUser(formData);
       login(data.user, data.token);
-      navigate(data.user.role === "employer" ? "/employer/dashboard" : "/dashboard");
+      navigate(
+        data.user.role === "employer" ? "/employer/dashboard" : "/dashboard",
+      );
     } catch (err) {
       setError(err.response?.data?.message || "Something went wrong");
     } finally {
@@ -34,25 +41,32 @@ function Register() {
     <div className="min-h-screen px-4 py-10">
       <div className="mx-auto grid w-full max-w-6xl items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
         <div className="hidden lg:block">
-          <p className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-700">Start Hiring Better</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-700">
+            Start Hiring Better
+          </p>
           <h1 className="mt-4 max-w-lg font-['Plus_Jakarta_Sans'] text-5xl font-bold leading-tight text-slate-900">
             Build a profile that looks ready for a real job portal.
           </h1>
           <p className="mt-5 max-w-xl text-lg leading-8 text-slate-600">
-            Join as a job seeker or employer and manage resumes, jobs, and applicants with a polished hiring workflow.
+            Join as a job seeker or employer and manage resumes, jobs, and
+            applicants with a polished hiring workflow.
           </p>
-          <div className="mt-8 grid max-w-xl grid-cols-2 gap-4">
-            {["Responsive dashboards", "Professional resume tools", "Clean job search layout", "Employer-ready applicant review"].map((item) => (
-              <div key={item} className="card px-4 py-4 text-sm font-medium text-slate-700">{item}</div>
-            ))}
-          </div>
         </div>
 
         <div className="w-full max-w-md justify-self-center">
           <div className="text-center mb-8">
-            <Link to="/" className="text-2xl font-extrabold tracking-tight text-blue-700">RevHire</Link>
-            <h1 className="mt-4 text-3xl font-bold text-slate-900">Create your account</h1>
-            <p className="mt-1 text-sm text-slate-500">Join thousands of professionals</p>
+            <Link
+              to="/"
+              className="text-2xl font-extrabold tracking-tight text-blue-700"
+            >
+              RevHire
+            </Link>
+            <h1 className="mt-4 text-3xl font-bold text-slate-900">
+              Create your account
+            </h1>
+            <p className="mt-1 text-sm text-slate-500">
+              Join thousands of professionals
+            </p>
           </div>
 
           <div className="form-panel">
@@ -63,7 +77,9 @@ function Register() {
                   type="button"
                   onClick={() => setFormData({ ...formData, role: r })}
                   className={`flex-1 rounded-lg py-2.5 text-sm font-semibold transition-all duration-200 ${
-                    formData.role === r ? "bg-white text-blue-700 shadow-sm" : "text-slate-500 hover:text-slate-700"
+                    formData.role === r
+                      ? "bg-white text-blue-700 shadow-sm"
+                      : "text-slate-500 hover:text-slate-700"
                   }`}
                 >
                   {r === "jobseeker" ? "Job Seeker" : "Employer"}
@@ -73,12 +89,32 @@ function Register() {
 
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1.5">Full Name</label>
-                <input type="text" name="name" placeholder="John Doe" value={formData.name} onChange={handleChange} required className="input-field" />
+                <label className="block text-sm font-medium text-slate-700 mb-1.5">
+                  Full Name
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="John Doe"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  className="input-field"
+                />
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1.5">Email address</label>
-                <input type="email" name="email" placeholder="you@example.com" value={formData.email} onChange={handleChange} required className="input-field" />
+                <label className="block text-sm font-medium text-slate-700 mb-1.5">
+                  Email address
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="you@example.com"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  className="input-field"
+                />
               </div>
               <PasswordInput
                 label="Password"
@@ -96,7 +132,11 @@ function Register() {
                 </div>
               )}
 
-              <button type="submit" disabled={isLoading} className="btn-primary w-full py-3 text-base">
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="btn-primary w-full py-3 text-base"
+              >
                 {isLoading ? "Creating account..." : "Create Account"}
               </button>
             </form>
@@ -104,7 +144,12 @@ function Register() {
 
           <p className="text-center text-slate-500 text-sm mt-6">
             Already have an account?{" "}
-            <Link to="/login" className="font-semibold text-blue-700 hover:underline">Sign in</Link>
+            <Link
+              to="/login"
+              className="font-semibold text-blue-700 hover:underline"
+            >
+              Sign in
+            </Link>
           </p>
         </div>
       </div>
