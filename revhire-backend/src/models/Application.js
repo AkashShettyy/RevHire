@@ -18,9 +18,27 @@ const applicationSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ["applied", "shortlisted", "rejected", "withdrawn"],
+      enum: ["applied", "shortlisted", "interviewing", "offered", "hired", "rejected", "withdrawn"],
       default: "applied",
     },
+    answers: [
+      {
+        question: { type: String },
+        answer: { type: String },
+      },
+    ],
+    notes: [
+      {
+        author: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+          required: true,
+        },
+        text: { type: String, required: true },
+        rating: { type: Number, min: 1, max: 5 },
+        createdAt: { type: Date, default: Date.now },
+      },
+    ],
   },
   { timestamps: true },
 );

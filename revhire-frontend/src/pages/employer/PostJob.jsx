@@ -14,6 +14,15 @@ function PostJob() {
     location: "", salaryMin: "", salaryMax: "",
     jobType: "fulltime", deadline: "",
   });
+  const [screeningQuestions, setScreeningQuestions] = useState([]);
+
+  const addQuestion = () => setScreeningQuestions([...screeningQuestions, { question: "", requiredAnswer: "" }]);
+  const updateQuestion = (index, field, value) => {
+    const newQs = [...screeningQuestions];
+    newQs[index][field] = value;
+    setScreeningQuestions(newQs);
+  };
+  const removeQuestion = (index) => setScreeningQuestions(screeningQuestions.filter((_, i) => i !== index));
 
   function handleChange(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -27,6 +36,7 @@ function PostJob() {
         ...formData,
         skillsRequired: formData.skillsRequired.split(",").map((s) => s.trim()).filter(Boolean),
         salaryRange: { min: Number(formData.salaryMin), max: Number(formData.salaryMax) },
+        screeningQuestions: screeningQuestions.filter(q => q.question.trim()),
       }, token);
       setMessage("success");
       setTimeout(() => navigate("/employer/dashboard"), 1500);
@@ -120,6 +130,34 @@ function PostJob() {
                 <input type="date" name="deadline" value={formData.deadline} onChange={handleChange} required className="app-input" />
               </div>
             </div>
+          </div>
+
+          <div className="app-panel space-y-5 p-6 sm:p-8">
+            <div className="flex items-center justify-between">
+              <h2 className="font-semibold text-stone-900">🤖 Screening Questions (Optional)</h2>
+              <button type="button" onClick={addQuestion} className="text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors">+ Add Question</button>
+            </div>
+            {screeningQuestions.length === 0 ? (
+              <p className="text-sm text-stone-500">Add questions to auto-filter candidates. If they provide the wrong answer to a required question, they will be auto-rejected.</p>
+            ) : (
+              <div className="space-y-4">
+                {screeningQuestions.map((q, i) => (
+                  <div key={i} className="flex gap-4 items-start border border-stone-200 p-4 rounded-xl bg-stone-50/50">
+                    <div className="flex-1 space-y-3">
+                      <div>
+                        <label className="app-label">Question</label>
+                        <input type="text" value={q.question} onChange={(e) => updateQuestion(i, "question", e.target.value)} className="app-input" placeholder="e.g. Do you require visa sponsorship?" required />
+                      </div>
+                      <div>
+                        <label className="app-label">Required Answer (Optional Knockout)</label>
+                        <input type="text" value={q.requiredAnswer} onChange={(e) => updateQuestion(i, "requiredAnswer", e.target.value)} className="app-input" placeholder="e.g. No (Leave blank if not a strict filter)" />
+                      </div>
+                    </div>
+                    <button type="button" onClick={() => removeQuestion(i)} className="text-stone-400 hover:text-red-600 p-2 transition-colors">✕</button>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           <button type="submit" disabled={isLoading} className="app-button w-full py-3.5 text-base">

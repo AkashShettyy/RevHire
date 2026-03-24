@@ -17,6 +17,7 @@ function JobDetails() {
   const navigate = useNavigate();
   const [job, setJob] = useState(null);
   const [coverLetter, setCoverLetter] = useState("");
+  const [answers, setAnswers] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [isApplied, setIsApplied] = useState(false);
@@ -35,8 +36,14 @@ function JobDetails() {
   async function handleApply(e) {
     e.preventDefault();
     setIsLoading(true);
+
+    const formattedAnswers = job.screeningQuestions?.map(q => ({
+      question: q.question,
+      answer: answers[q.question] || ""
+    })) || [];
+
     try {
-      await applyForJob(id, { coverLetter }, token);
+      await applyForJob(id, { coverLetter, answers: formattedAnswers }, token);
       setIsApplied(true);
     } catch (error) {
       setMessage(error.response?.data?.message || "Something went wrong");
@@ -127,9 +134,27 @@ function JobDetails() {
                     <p className="text-xs text-emerald-600 mt-1">We'll notify you of any updates</p>
                   </div>
                 ) : (
-                  <form onSubmit={handleApply} className="space-y-4">
-                    <div>
-                      <label className="app-label">Cover Letter <span className="font-normal text-stone-400">(optional)</span></label>
+                <form onSubmit={handleApply} className="space-y-4">
+                  {job.screeningQuestions?.length > 0 && (
+                    <div className="space-y-4 pt-2 pb-4 border-b border-stone-100">
+                      <h3 className="text-sm font-semibold text-stone-800">Screening Questions</h3>
+                      {job.screeningQuestions.map((q, i) => (
+                        <div key={i}>
+                          <label className="app-label break-words whitespace-pre-wrap">{q.question}</label>
+                          <input
+                            type="text"
+                            required
+                            value={answers[q.question] || ""}
+                            onChange={(e) => setAnswers(prev => ({...prev, [q.question]: e.target.value}))}
+                            className="app-input"
+                            placeholder="Your answer"
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  <div>
+                    <label className="app-label">Cover Letter <span className="font-normal text-stone-400">(optional)</span></label>
                       <textarea
                         placeholder="Tell the employer why you're a great fit..."
                         value={coverLetter}

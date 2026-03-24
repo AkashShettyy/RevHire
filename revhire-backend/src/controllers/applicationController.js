@@ -19,10 +19,30 @@ export const applyForJob = async (req, res) => {
       return res.status(400).json({ message: "Already applied for this job" });
     }
 
+    let initialStatus = "applied";
+    const userAnswers = req.body.answers || [];
+
+    // Knockout logic: if required return answer is strict, mark rejected
+    if (job.screeningQuestions && job.screeningQuestions.length > 0) {
+      for (const sq of job.screeningQuestions) {
+        if (sq.requiredAnswer && sq.requiredAnswer.trim() !== "") {
+          const uq = userAnswers.find(
+            (a) => a.question.toLowerCase() === sq.question.toLowerCase()
+          );
+          if (!uq || uq.answer.toLowerCase() !== sq.requiredAnswer.toLowerCase()) {
+            initialStatus = "rejected";
+            break;
+          }
+        }
+      }
+    }
+
     const application = await Application.create({
       job: req.params.jobId,
       jobSeeker: req.user.id,
       coverLetter: req.body.coverLetter || "",
+      answers: userAnswers,
+      status: initialStatus,
     });
 
     // notify employer
@@ -125,6 +145,36 @@ export const updateApplicationStatus = async (req, res) => {
     );
 
     res.status(200).json({ message: "Status updated", application });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const addApplicationNote = async (req, res) => {
+  try {
+    const { text, rating } = req.body;
+    const application = await Application.findById(req.params.id).populate("job");
+
+    if (!application) {
+      return res.status(404).json({ message: "Application not found" });
+    }
+
+    if (application.job.employer.toString() !== req.user.id) {
+      return res.status(403).json({ message: "Not authorized to add notes" });
+    }
+
+    application.notes.push({
+      author: req.user.id,
+      text,
+      rating: rating || null,
+    });
+
+    await application.save();
+    
+    // Populate the author data before sending the response back so frontend has name
+    await application.populate("notes.author", "name email");
+    
+    res.status(200).json({ message: "Note added successfully", application });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

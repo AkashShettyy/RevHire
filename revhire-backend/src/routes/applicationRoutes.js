@@ -5,6 +5,7 @@ import {
   withdrawApplication,
   getJobApplicants,
   updateApplicationStatus,
+  addApplicationNote,
 } from "../controllers/applicationController.js";
 import {
   protect,
@@ -19,5 +20,6 @@ router.get("/my", protect, isJobSeeker, getUserApplications);
 router.put("/:id/withdraw", protect, isJobSeeker, withdrawApplication);
 router.get("/:jobId/applicants", protect, isEmployer, getJobApplicants);
 router.put("/:id/status", protect, isEmployer, updateApplicationStatus);
+router.post("/:id/notes", protect, isEmployer, addApplicationNote);
 
 export default router;

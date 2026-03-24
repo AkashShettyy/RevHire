@@ -45,3 +45,12 @@ export const updateApplicationStatus = async (id, status, token) => {
   );
   return response.data;
 };
+
+export const addApplicationNote = async (id, data, token) => {
+  const response = await axios.post(
+    `${API}/applications/${id}/notes`,
+    data,
+    getHeaders(token),
+  );
+  return response.data;
+};

@@ -53,6 +53,12 @@ const jobSchema = new mongoose.Schema(
       enum: ["open", "closed"],
       default: "open",
     },
+    screeningQuestions: [
+      {
+        question: { type: String, required: true },
+        requiredAnswer: { type: String, default: "" }, // Expected exact string match for pass/fail. Empty if no strict filter.
+      },
+    ],
   },
   { timestamps: true },
 );
