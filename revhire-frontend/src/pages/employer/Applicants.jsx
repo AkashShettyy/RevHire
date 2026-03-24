@@ -4,7 +4,7 @@ import { useAuth } from "../../context/AuthContext";
 import { getJobApplicants, updateApplicationStatus } from "../../services/applicationService";
 import { getJobInterviews } from "../../services/interviewService";
 import ApplicationModal from "../../components/employer/ApplicationModal";
-import { DndContext, closestCorners, useDroppable, useDraggable, DragOverlay } from '@dnd-kit/core';
+import { DndContext, closestCorners, useDroppable, useDraggable, DragOverlay, useSensor, useSensors, PointerSensor } from '@dnd-kit/core';
 
 const STATUSES = ["applied", "shortlisted", "interviewing", "offered", "hired", "rejected"];
 
@@ -128,6 +128,14 @@ export default function Applicants() {
 
   const activeApp = activeDragId ? applications.find(a => a._id === activeDragId) : null;
 
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 5, // 5px movement required before drag starts, allows firing click events
+      },
+    })
+  );
+
   if (isLoading && applications.length === 0) {
     return (
       <div className="app-page flex items-center justify-center">
@@ -164,7 +172,7 @@ export default function Applicants() {
                <p className="mt-1 text-sm text-stone-500">Wait for candidates to apply or share your job posting.</p>
              </div>
           ) : (
-            <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd} collisionDetection={closestCorners}>
+            <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd} collisionDetection={closestCorners}>
               <div className="flex gap-5 h-full items-start">
                 {STATUSES.map(status => (
                   <DroppableColumn 
