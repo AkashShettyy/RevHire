@@ -23,6 +23,14 @@ const userSchema = new mongoose.Schema({
     enum: ["jobseeker", "employer"],
     required: true,
   },
+  organization: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Organization",
+  },
+  orgRole: {
+    type: String,
+    enum: ["owner", "recruiter"],
+  },
   createdAt: {
     type: Date,
     default: Date.now,

@@ -1,10 +1,15 @@
 import User from "../models/User.js";
+import Organization from "../models/Organization.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
+function generateJoinCode() {
+  return Math.random().toString(36).substring(2, 8).toUpperCase();
+}
+
 export const register = async (req, res) => {
   try {
-    const { name, email, password, role } = req.body;
+    const { name, email, password, role, companyName, joinCode } = req.body;
 
     // check if user already exists
     const existingUser = await User.findOne({ email });
@@ -15,20 +20,52 @@ export const register = async (req, res) => {
     // encrypt password
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    let organizationId = null;
+    let orgRole = null;
+
+    if (role === "employer") {
+      if (companyName) {
+        // Create new organization
+        const org = await Organization.create({
+          name: companyName,
+          joinCode: generateJoinCode(),
+          members: []
+        });
+        organizationId = org._id;
+        orgRole = "owner";
+      } else if (joinCode) {
+        // Join existing
+        const org = await Organization.findOne({ joinCode: joinCode.toUpperCase() });
+        if (!org) return res.status(400).json({ message: "Invalid join code" });
+        organizationId = org._id;
+        orgRole = "recruiter";
+      } else {
+        return res.status(400).json({ message: "Employers must provide a Company Name or an Invite Join Code." });
+      }
+    }
+
     // create user
     const user = await User.create({
       name,
       email,
       password: hashedPassword,
       role,
+      organization: organizationId,
+      orgRole
     });
+
+    if (organizationId) {
+      await Organization.findByIdAndUpdate(organizationId, { $push: { members: user._id } });
+    }
 
     // create token
     const token = jwt.sign(
-      { id: user._id, role: user.role },
+      { id: user._id, role: user.role, organizationId: user.organization },
       process.env.JWT_SECRET,
       { expiresIn: "7d" },
     );
+
+    await user.populate("organization", "name joinCode");
 
     res.status(201).json({
       message: "Account created successfully",
@@ -38,6 +75,8 @@ export const register = async (req, res) => {
         name: user.name,
         email: user.email,
         role: user.role,
+        organization: user.organization,
+        orgRole: user.orgRole
       },
     });
   } catch (error) {
@@ -53,7 +92,7 @@ export const login = async (req, res) => {
     const { email, password } = req.body;
 
     // find user
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email }).populate("organization", "name joinCode");
     if (!user) {
       return res.status(400).json({ message: "Invalid email or password" });
     }
@@ -66,7 +105,7 @@ export const login = async (req, res) => {
 
     // create token
     const token = jwt.sign(
-      { id: user._id, role: user.role },
+      { id: user._id, role: user.role, organizationId: user.organization },
       process.env.JWT_SECRET,
       { expiresIn: "7d" },
     );
@@ -79,6 +118,8 @@ export const login = async (req, res) => {
         name: user.name,
         email: user.email,
         role: user.role,
+        organization: user.organization,
+        orgRole: user.orgRole
       },
     });
   } catch (error) {

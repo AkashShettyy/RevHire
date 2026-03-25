@@ -2,9 +2,9 @@ import mongoose from "mongoose";
 
 const jobSchema = new mongoose.Schema(
   {
-    employer: {
+    organization: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      ref: "Organization",
       required: true,
     },
     title: {

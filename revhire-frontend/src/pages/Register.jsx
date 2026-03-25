@@ -12,7 +12,10 @@ function Register() {
     email: "",
     password: "",
     role: "jobseeker",
+    companyName: "",
+    joinCode: "",
   });
+  const [orgFlow, setOrgFlow] = useState("create");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -116,6 +119,34 @@ function Register() {
                   className="input-field"
                 />
               </div>
+              
+              {formData.role === "employer" && (
+                <div className="space-y-4 rounded-xl border border-blue-100 bg-blue-50/50 p-4">
+                  <div className="flex gap-4 mb-2">
+                    <label className="flex items-center gap-2 text-sm font-medium text-slate-700 cursor-pointer">
+                      <input type="radio" checked={orgFlow === "create"} onChange={() => setOrgFlow("create")} name="orgFlow" className="w-4 h-4 text-blue-600" />
+                      Create Company
+                    </label>
+                    <label className="flex items-center gap-2 text-sm font-medium text-slate-700 cursor-pointer">
+                      <input type="radio" checked={orgFlow === "join"} onChange={() => setOrgFlow("join")} name="orgFlow" className="w-4 h-4 text-blue-600" />
+                      Join Existing
+                    </label>
+                  </div>
+                  
+                  {orgFlow === "create" ? (
+                    <div>
+                      <label className="block text-sm font-medium text-slate-700 mb-1.5">Company Name</label>
+                      <input type="text" name="companyName" value={formData.companyName} onChange={handleChange} required className="input-field" placeholder="e.g. Acme Corp" />
+                    </div>
+                  ) : (
+                    <div>
+                      <label className="block text-sm font-medium text-slate-700 mb-1.5">Join Code</label>
+                      <input type="text" name="joinCode" value={formData.joinCode} onChange={handleChange} required className="input-field" placeholder="e.g. AB12CD" />
+                    </div>
+                  )}
+                </div>
+              )}
+
               <PasswordInput
                 label="Password"
                 name="password"

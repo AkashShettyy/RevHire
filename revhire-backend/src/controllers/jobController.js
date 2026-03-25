@@ -4,7 +4,7 @@ export const createJob = async (req, res) => {
   try {
     const job = await Job.create({
       ...req.body,
-      employer: req.user.id,
+      organization: req.user.organizationId,
     });
     res.status(201).json({ message: "Job created successfully", job });
   } catch (error) {
@@ -31,7 +31,7 @@ export const getAllJobs = async (req, res) => {
     if (experience) filter.experienceRequired = experience;
 
     const jobs = await Job.find(filter)
-      .populate("employer", "name email")
+      .populate("organization", "name joinCode")
       .sort({ createdAt: -1 });
 
     res.status(200).json({ jobs });
@@ -43,8 +43,8 @@ export const getAllJobs = async (req, res) => {
 export const getJobById = async (req, res) => {
   try {
     const job = await Job.findById(req.params.id).populate(
-      "employer",
-      "name email",
+      "organization",
+      "name joinCode",
     );
 
     if (!job) return res.status(404).json({ message: "Job not found" });
@@ -61,7 +61,7 @@ export const updateJob = async (req, res) => {
 
     if (!job) return res.status(404).json({ message: "Job not found" });
 
-    if (job.employer.toString() !== req.user.id) {
+    if (job.organization.toString() !== req.user.organizationId) {
       return res.status(403).json({ message: "Not authorized" });
     }
 
@@ -81,7 +81,7 @@ export const deleteJob = async (req, res) => {
 
     if (!job) return res.status(404).json({ message: "Job not found" });
 
-    if (job.employer.toString() !== req.user.id) {
+    if (job.organization.toString() !== req.user.organizationId) {
       return res.status(403).json({ message: "Not authorized" });
     }
 
@@ -95,7 +95,7 @@ export const deleteJob = async (req, res) => {
 
 export const getEmployerJobs = async (req, res) => {
   try {
-    const jobs = await Job.find({ employer: req.user.id }).sort({
+    const jobs = await Job.find({ organization: req.user.organizationId }).sort({
       createdAt: -1,
     });
 

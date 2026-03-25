@@ -46,10 +46,10 @@ export const applyForJob = async (req, res) => {
     });
 
     // notify employer
-    await createNotification(
-      job.employer,
-      `New application received for ${job.title}`,
-    );
+    // await createNotification(
+    //   job.organization,
+    //   `New application received for ${job.title}`,
+    // );
 
     res.status(201).json({ message: "Applied successfully", application });
   } catch (error) {
@@ -90,7 +90,7 @@ export const getJobApplicants = async (req, res) => {
   try {
     const job = await Job.findById(req.params.jobId);
     if (!job) return res.status(404).json({ message: "Job not found" });
-    if (job.employer.toString() !== req.user.id) {
+    if (job.organization.toString() !== req.user.organizationId) {
       return res.status(403).json({ message: "Not authorized" });
     }
     const applications = await Application.find({ job: req.params.jobId })
@@ -131,7 +131,7 @@ export const updateApplicationStatus = async (req, res) => {
     }
 
     const job = await Job.findById(application.job);
-    if (job.employer.toString() !== req.user.id) {
+    if (job.organization.toString() !== req.user.organizationId) {
       return res.status(403).json({ message: "Not authorized" });
     }
 
@@ -159,7 +159,7 @@ export const addApplicationNote = async (req, res) => {
       return res.status(404).json({ message: "Application not found" });
     }
 
-    if (application.job.employer.toString() !== req.user.id) {
+    if (application.job.organization.toString() !== req.user.organizationId) {
       return res.status(403).json({ message: "Not authorized to add notes" });
     }
 

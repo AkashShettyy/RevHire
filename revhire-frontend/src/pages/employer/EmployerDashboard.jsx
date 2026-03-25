@@ -78,9 +78,17 @@ function EmployerDashboard() {
             <h1 className="mt-4 text-3xl font-bold tracking-tight text-stone-950">Welcome, {user?.name}</h1>
             <p className="mt-2 text-sm text-stone-500">Manage active roles, applicants, and posting status from one place.</p>
           </div>
-          <button onClick={() => navigate("/employer/post-job")} className="app-button">
-            Post a Job
-          </button>
+          <div className="flex flex-col items-end gap-3 text-right">
+            {user?.organization && (
+               <div className="bg-blue-50 border border-blue-100 px-4 py-2 rounded-xl text-sm">
+                 <p className="font-bold text-blue-900">{user.organization.name}</p>
+                 <p className="text-blue-700 flex items-center gap-2">Join Code: <span className="font-mono bg-white px-1.5 py-0.5 rounded border border-blue-200 select-all tracking-wider font-semibold">{user.organization.joinCode}</span></p>
+               </div>
+            )}
+            <button onClick={() => navigate("/employer/post-job")} className="app-button w-full sm:w-auto">
+              Post a Job
+            </button>
+          </div>
         </div>
       </div>
 
