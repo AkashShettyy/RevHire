@@ -139,6 +139,7 @@ function EmployerDashboard() {
                         <span>📍 {job.location}</span>
                         <span>📅 Deadline: {new Date(job.deadline).toLocaleDateString()}</span>
                         {job.salaryRange?.min && <span>💰 ₹{job.salaryRange.min.toLocaleString()} – ₹{job.salaryRange.max?.toLocaleString()}</span>}
+                        <span>👥 Applicants: {job.applicantCount || 0}</span>
                       </div>
                       <div className="flex flex-wrap gap-2 mt-3">
                         {job.skillsRequired?.slice(0, 4).map((skill, i) => (
@@ -149,7 +150,7 @@ function EmployerDashboard() {
 
                     <div className="flex flex-wrap gap-2 xl:flex-col xl:shrink-0">
                       <button onClick={() => navigate(`/employer/applicants/${job._id}`)} className="app-button whitespace-nowrap px-4 py-2">
-                        View Applicants
+                        View Applicants ({job.applicantCount || 0})
                       </button>
                       <button
                         onClick={() => handleToggleStatus(job)}

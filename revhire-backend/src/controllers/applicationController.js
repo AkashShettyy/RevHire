@@ -2,6 +2,7 @@ import Application from "../models/Application.js";
 import Job from "../models/Job.js";
 import Resume from "../models/Resume.js";
 import { createNotification } from "./notificationController.js";
+import { canAccessOrganization } from "../utils/organizationAccess.js";
 
 export const applyForJob = async (req, res) => {
   try {
@@ -90,7 +91,7 @@ export const getJobApplicants = async (req, res) => {
   try {
     const job = await Job.findById(req.params.jobId);
     if (!job) return res.status(404).json({ message: "Job not found" });
-    if (job.organization.toString() !== req.user.organizationId) {
+    if (!(await canAccessOrganization(job.organization, req.user.organizationId))) {
       return res.status(403).json({ message: "Not authorized" });
     }
     const applications = await Application.find({ job: req.params.jobId })
@@ -131,7 +132,7 @@ export const updateApplicationStatus = async (req, res) => {
     }
 
     const job = await Job.findById(application.job);
-    if (job.organization.toString() !== req.user.organizationId) {
+    if (!(await canAccessOrganization(job.organization, req.user.organizationId))) {
       return res.status(403).json({ message: "Not authorized" });
     }
 
@@ -159,7 +160,7 @@ export const addApplicationNote = async (req, res) => {
       return res.status(404).json({ message: "Application not found" });
     }
 
-    if (application.job.organization.toString() !== req.user.organizationId) {
+    if (!(await canAccessOrganization(application.job.organization, req.user.organizationId))) {
       return res.status(403).json({ message: "Not authorized to add notes" });
     }
 

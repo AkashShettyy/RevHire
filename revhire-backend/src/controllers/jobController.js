@@ -1,5 +1,7 @@
 import Job from "../models/Job.js";
 import Organization from "../models/Organization.js";
+import Application from "../models/Application.js";
+import { getAccessibleOrganizationIds, canAccessOrganization } from "../utils/organizationAccess.js";
 
 export const createJob = async (req, res) => {
   try {
@@ -68,7 +70,7 @@ export const updateJob = async (req, res) => {
 
     if (!job) return res.status(404).json({ message: "Job not found" });
 
-    if (job.organization.toString() !== req.user.organizationId) {
+    if (!(await canAccessOrganization(job.organization, req.user.organizationId))) {
       return res.status(403).json({ message: "Not authorized" });
     }
 
@@ -88,7 +90,7 @@ export const deleteJob = async (req, res) => {
 
     if (!job) return res.status(404).json({ message: "Job not found" });
 
-    if (job.organization.toString() !== req.user.organizationId) {
+    if (!(await canAccessOrganization(job.organization, req.user.organizationId))) {
       return res.status(403).json({ message: "Not authorized" });
     }
 
@@ -102,11 +104,43 @@ export const deleteJob = async (req, res) => {
 
 export const getEmployerJobs = async (req, res) => {
   try {
-    const jobs = await Job.find({ organization: req.user.organizationId }).sort({
+    const accessibleOrganizationIds = await getAccessibleOrganizationIds(
+      req.user.organizationId,
+    );
+
+    const jobs = await Job.find({
+      organization: { $in: accessibleOrganizationIds },
+    }).sort({
       createdAt: -1,
     });
 
-    res.status(200).json({ jobs });
+    const applicantCounts = await Application.aggregate([
+      {
+        $match: {
+          job: { $in: jobs.map((job) => job._id) },
+        },
+      },
+      {
+        $group: {
+          _id: "$job",
+          count: { $sum: 1 },
+        },
+      },
+    ]);
+
+    const applicantCountMap = new Map(
+      applicantCounts.map((entry) => [entry._id.toString(), entry.count]),
+    );
+
+    const jobsWithApplicantCounts = jobs.map((job) => {
+      const current = job.toObject();
+      return {
+        ...current,
+        applicantCount: applicantCountMap.get(current._id.toString()) || 0,
+      };
+    });
+
+    res.status(200).json({ jobs: jobsWithApplicantCounts });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

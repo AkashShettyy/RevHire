@@ -75,25 +75,45 @@ export default function Applicants() {
   const [selectedApplication, setSelectedApplication] = useState(null);
   const [activeDragId, setActiveDragId] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => { fetchApplicants(); }, [jobId]);
 
   async function fetchApplicants() {
     setIsLoading(true);
+    setErrorMessage("");
     try {
-      const [appData, intData] = await Promise.all([
+      const [appResult, interviewResult] = await Promise.allSettled([
         getJobApplicants(jobId, token),
         getJobInterviews(jobId, token),
       ]);
-      setApplications(appData.applications);
-      setInterviews(intData.interviews);
+
+      if (appResult.status === "fulfilled") {
+        setApplications(appResult.value.applications);
+
+        if (selectedApplication) {
+          const updated = appResult.value.applications.find((a) => a._id === selectedApplication._id);
+          if (updated) setSelectedApplication(updated);
+        }
+      } else {
+        setApplications([]);
+        setErrorMessage(
+          appResult.reason?.response?.data?.message || "Unable to load applicants right now.",
+        );
+      }
+
+      if (interviewResult.status === "fulfilled") {
+        setInterviews(interviewResult.value.interviews);
+      } else {
+        setInterviews([]);
+      }
       
-      if (selectedApplication) {
-         const updated = appData.applications.find(a => a._id === selectedApplication._id);
-         if (updated) setSelectedApplication(updated);
+      if (appResult.status === "fulfilled" && interviewResult.status === "rejected") {
+        setErrorMessage("Applicants loaded, but interview details are temporarily unavailable.");
       }
     } catch (e) {
       console.error(e);
+      setErrorMessage("Unable to load applicants right now.");
     }
     setIsLoading(false);
   }
@@ -165,6 +185,11 @@ export default function Applicants() {
 
       <div className="flex-1 overflow-x-auto bg-stone-50/30">
         <div className="app-shell max-w-none py-8 h-full">
+          {errorMessage && (
+            <div className="mb-6 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
+              {errorMessage}
+            </div>
+          )}
           {applications.length === 0 && !isLoading ? (
              <div className="app-empty mt-10 max-w-2xl mx-auto bg-white border shadow-sm rounded-2xl p-10 text-center flex flex-col items-center">
                <p className="mb-4 text-4xl">👥</p>

@@ -7,6 +7,13 @@ function generateJoinCode() {
   return Math.random().toString(36).substring(2, 8).toUpperCase();
 }
 
+function getOrganizationIdValue(organization) {
+  if (!organization) return null;
+  if (typeof organization === "string") return organization;
+  if (organization._id) return organization._id.toString();
+  return organization.toString();
+}
+
 export const register = async (req, res) => {
   try {
     const { name, email, password, role, companyName, joinCode } = req.body;
@@ -60,7 +67,11 @@ export const register = async (req, res) => {
 
     // create token
     const token = jwt.sign(
-      { id: user._id, role: user.role, organizationId: user.organization },
+      {
+        id: user._id.toString(),
+        role: user.role,
+        organizationId: getOrganizationIdValue(user.organization),
+      },
       process.env.JWT_SECRET,
       { expiresIn: "7d" },
     );
@@ -105,7 +116,11 @@ export const login = async (req, res) => {
 
     // create token
     const token = jwt.sign(
-      { id: user._id, role: user.role, organizationId: user.organization },
+      {
+        id: user._id.toString(),
+        role: user.role,
+        organizationId: getOrganizationIdValue(user.organization),
+      },
       process.env.JWT_SECRET,
       { expiresIn: "7d" },
     );

@@ -2,6 +2,7 @@ import Application from "../models/Application.js";
 import Interview from "../models/Interview.js";
 import Job from "../models/Job.js";
 import { createNotification } from "./notificationController.js";
+import { canAccessOrganization } from "../utils/organizationAccess.js";
 
 function formatInterviewDate(date) {
   return new Intl.DateTimeFormat("en-US", {
@@ -46,12 +47,12 @@ export const scheduleInterview = async (req, res) => {
       return res.status(400).json({ message: "Address is required for in-person interviews" });
     }
 
-    const application = await Application.findById(applicationId).populate("job", "title employer");
+    const application = await Application.findById(applicationId).populate("job", "title organization");
     if (!application) {
       return res.status(404).json({ message: "Application not found" });
     }
 
-    if (application.job?.employer?.toString() !== req.user.id) {
+    if (!(await canAccessOrganization(application.job?.organization, req.user.organizationId))) {
       return res.status(403).json({ message: "Not authorized" });
     }
 
@@ -112,7 +113,7 @@ export const getJobInterviews = async (req, res) => {
       return res.status(404).json({ message: "Job not found" });
     }
 
-    if (job.employer.toString() !== req.user.id) {
+    if (!(await canAccessOrganization(job.organization, req.user.organizationId))) {
       return res.status(403).json({ message: "Not authorized" });
     }
 
@@ -129,12 +130,12 @@ export const getJobInterviews = async (req, res) => {
 
 export const cancelInterview = async (req, res) => {
   try {
-    const interview = await Interview.findById(req.params.id).populate("job", "title");
+    const interview = await Interview.findById(req.params.id).populate("job", "title organization");
     if (!interview) {
       return res.status(404).json({ message: "Interview not found" });
     }
 
-    if (interview.employer.toString() !== req.user.id) {
+    if (!(await canAccessOrganization(interview.job.organization, req.user.organizationId))) {
       return res.status(403).json({ message: "Not authorized" });
     }
 
