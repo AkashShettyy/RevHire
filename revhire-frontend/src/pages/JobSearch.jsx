@@ -12,7 +12,7 @@ const jobTypeColors = {
 function JobSearch() {
   const [jobs, setJobs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [filters, setFilters] = useState({ search: "", location: "", jobType: "" });
+  const [filters, setFilters] = useState({ search: "", location: "", jobType: "", company: "" });
   const navigate = useNavigate();
 
   useEffect(() => { fetchJobs(); }, []);
@@ -49,12 +49,20 @@ function JobSearch() {
               <p className="mt-3 mb-8 text-center text-stone-500">Browse posted openings and narrow them by title, location, or job type.</p>
             </div>
 
-            <form onSubmit={handleSearch} className="app-panel grid grid-cols-1 gap-3 p-4 md:grid-cols-[minmax(0,1.5fr)_minmax(0,0.8fr)_minmax(0,0.7fr)_auto]">
+            <form onSubmit={handleSearch} className="app-panel grid grid-cols-1 gap-3 p-4 md:grid-cols-5 items-center">
             <input
               type="text"
               name="search"
               placeholder="Job title or skill..."
               value={filters.search}
+              onChange={handleFilterChange}
+              className="app-input"
+            />
+            <input
+              type="text"
+              name="company"
+              placeholder="Company Name"
+              value={filters.company}
               onChange={handleFilterChange}
               className="app-input"
             />
@@ -124,7 +132,7 @@ function JobSearch() {
                         {job.jobType}
                       </span>
                     </div>
-                    <p className="mt-1 text-sm font-medium text-stone-600">{job.employer?.name}</p>
+                    <p className="mt-1 text-sm font-medium text-stone-600">{job.organization?.name || "Company Name Hidden"}</p>
                     <div className="mt-3 flex flex-wrap gap-4 text-sm text-stone-500">
                       <span>📍 {job.location}</span>
                       {job.salaryRange?.min && (

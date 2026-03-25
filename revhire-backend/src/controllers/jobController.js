@@ -1,4 +1,5 @@
 import Job from "../models/Job.js";
+import Organization from "../models/Organization.js";
 
 export const createJob = async (req, res) => {
   try {
@@ -14,7 +15,7 @@ export const createJob = async (req, res) => {
 
 export const getAllJobs = async (req, res) => {
   try {
-    const { search, location, jobType, experience } = req.query;
+    const { search, location, jobType, experience, company } = req.query;
 
     let filter = { status: "open" };
 
@@ -22,13 +23,19 @@ export const getAllJobs = async (req, res) => {
       filter.$or = [
         { title: { $regex: search, $options: "i" } },
         { description: { $regex: search, $options: "i" } },
-        { skillsRequired: { $regex: search, $options: "i" } },
+        { skillsRequired: { $regex: search, $options: "i" } }
       ];
     }
 
     if (location) filter.location = { $regex: location, $options: "i" };
     if (jobType) filter.jobType = jobType;
     if (experience) filter.experienceRequired = experience;
+
+    if (company) {
+      const matchedOrgs = await Organization.find({ name: { $regex: company, $options: "i" } }).select('_id');
+      const orgIds = matchedOrgs.map(org => org._id);
+      filter.organization = { $in: orgIds };
+    }
 
     const jobs = await Job.find(filter)
       .populate("organization", "name joinCode")

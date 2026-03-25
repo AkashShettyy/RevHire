@@ -78,7 +78,7 @@ function JobDetails() {
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <h1 className="text-3xl font-bold tracking-tight text-stone-950">{job.title}</h1>
-                  <p className="mt-1 font-medium text-stone-500">{job.employer?.name}</p>
+                  <p className="mt-1 font-medium text-stone-500">{job.organization?.name || "Company Name Hidden"}</p>
                 </div>
                 <span className={`text-xs font-semibold px-3 py-1.5 rounded-full shrink-0 ${jobTypeColors[job.jobType]}`}>{job.jobType}</span>
               </div>
