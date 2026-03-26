@@ -11,7 +11,7 @@ const resumeSchema = new mongoose.Schema(
       type: String,
       required: true,
       trim: true,
-      default: "Primary Resume",
+      default: "Resume Version 1",
     },
     isDefault: {
       type: Boolean,

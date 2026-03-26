@@ -6,7 +6,7 @@ import { downloadResumePdf } from "../utils/resumeDocument";
 
 const inputClass = "app-input";
 const emptyResume = {
-  title: "Primary Resume",
+  title: "",
   objective: "",
   education: [{ institution: "", degree: "", year: "" }],
   experience: [{ company: "", role: "", duration: "", description: "" }],
@@ -125,7 +125,6 @@ function ResumeBuilder() {
     setActiveResumeId("");
     setResume({
       ...emptyResume,
-      title: `Resume Version ${resumes.length + 1}`,
     });
   }
 
@@ -226,6 +225,7 @@ function ResumeBuilder() {
                   type="text"
                   value={resume.title || ""}
                   onChange={(event) => updateField("title", event.target.value)}
+                  placeholder={activeResumeId ? "Resume title" : `Resume Version ${resumes.length + 1}`}
                   className={inputClass}
                 />
               </div>

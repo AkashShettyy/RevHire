@@ -35,10 +35,12 @@ export const createOrUpdateResume = async (req, res) => {
     let resume;
 
     if (resumeId) {
+      const normalizedTitle = resumePayload.title?.trim();
       resume = await Resume.findOneAndUpdate(
         { _id: resumeId, jobSeeker: req.user.id },
         {
           ...resumePayload,
+          title: normalizedTitle || "Resume Version 1",
           jobSeeker: req.user.id,
           ...(setAsDefault ? { isDefault: true } : {}),
           ...(uploadedFile
@@ -54,8 +56,10 @@ export const createOrUpdateResume = async (req, res) => {
       );
     } else {
       const existingCount = await Resume.countDocuments({ jobSeeker: req.user.id });
+      const normalizedTitle = resumePayload.title?.trim();
       resume = await Resume.create({
         ...resumePayload,
+        title: normalizedTitle || `Resume Version ${existingCount + 1}`,
         jobSeeker: req.user.id,
         isDefault: setAsDefault || existingCount === 0,
         uploadedFile: uploadedFile?.dataUrl
