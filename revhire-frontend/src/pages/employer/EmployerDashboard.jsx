@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useAuth } from "../../context/AuthContext";
-import { getEmployerJobs, deleteJob, updateJob } from "../../services/jobService";
+import { getEmployerJobs, deleteJob, updateJob, getEmployerAnalytics } from "../../services/jobService";
 import { useNavigate } from "react-router-dom";
 
 const jobTypeColors = {
@@ -14,22 +14,27 @@ function EmployerDashboard() {
   const { token, user } = useAuth();
   const navigate = useNavigate();
   const [jobs, setJobs] = useState([]);
+  const [analytics, setAnalytics] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
 
-  useEffect(() => { fetchJobs(); }, []);
-
-  async function fetchJobs() {
+  const fetchJobs = useCallback(async () => {
     setIsLoading(true);
     try {
-      const data = await getEmployerJobs(token);
-      setJobs(data.jobs);
+      const [jobsData, analyticsData] = await Promise.all([
+        getEmployerJobs(token),
+        getEmployerAnalytics(token),
+      ]);
+      setJobs(jobsData.jobs);
+      setAnalytics(analyticsData);
     } catch (error) {
       console.error(error);
     } finally {
       setIsLoading(false);
     }
-  }
+  }, [token]);
+
+  useEffect(() => { fetchJobs(); }, [fetchJobs]);
 
   async function handleDelete(id) {
     if (!window.confirm("Delete this job posting?")) return;
@@ -57,6 +62,9 @@ function EmployerDashboard() {
     { label: "Total Jobs", value: jobs.length, color: "text-blue-700", bg: "bg-blue-100", icon: "📋" },
     { label: "Active Jobs", value: jobs.filter((j) => j.status === "open").length, color: "text-emerald-600", bg: "bg-emerald-100", icon: "✅" },
     { label: "Closed Jobs", value: jobs.filter((j) => j.status === "closed").length, color: "text-slate-500", bg: "bg-slate-100", icon: "🔒" },
+    { label: "Applications", value: analytics?.summary?.totalApplications || 0, color: "text-indigo-700", bg: "bg-indigo-100", icon: "📨" },
+    { label: "Shortlisted", value: analytics?.summary?.shortlistedCandidates || 0, color: "text-amber-700", bg: "bg-amber-100", icon: "⭐" },
+    { label: "Saved by Candidates", value: analytics?.summary?.savedByCandidates || 0, color: "text-pink-700", bg: "bg-pink-100", icon: "🔖" },
   ];
 
   if (isLoading)
@@ -111,6 +119,51 @@ function EmployerDashboard() {
 
         {message && (
           <div className="app-message-success">{message}</div>
+        )}
+
+        {analytics && (
+          <div className="app-panel p-6">
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <h2 className="text-lg font-semibold text-stone-900">Hiring Analytics</h2>
+                <p className="mt-1 text-sm text-stone-500">Track funnel health across saved jobs, applications, interviews, and hires.</p>
+              </div>
+            </div>
+
+            <div className="mt-5 grid gap-4 xl:grid-cols-2">
+              {analytics.jobs?.slice(0, 6).map((job) => (
+                <div key={job.jobId} className="rounded-3xl border border-stone-200 bg-stone-50/70 p-5">
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <p className="font-semibold text-stone-900">{job.title}</p>
+                      <p className="mt-1 text-xs uppercase tracking-[0.18em] text-stone-400">{job.status}</p>
+                    </div>
+                    <div className="rounded-full bg-white px-3 py-1 text-xs font-semibold text-stone-600">
+                      {job.applicationCount} apps
+                    </div>
+                  </div>
+                  <div className="mt-4 grid grid-cols-2 gap-3 text-sm">
+                    <div className="rounded-2xl bg-white px-3 py-3">
+                      <p className="text-stone-400">Saved</p>
+                      <p className="mt-1 font-semibold text-stone-900">{job.savedCount}</p>
+                    </div>
+                    <div className="rounded-2xl bg-white px-3 py-3">
+                      <p className="text-stone-400">Shortlist Rate</p>
+                      <p className="mt-1 font-semibold text-stone-900">{job.shortlistRate}%</p>
+                    </div>
+                    <div className="rounded-2xl bg-white px-3 py-3">
+                      <p className="text-stone-400">Interviews</p>
+                      <p className="mt-1 font-semibold text-stone-900">{job.interviewCount}</p>
+                    </div>
+                    <div className="rounded-2xl bg-white px-3 py-3">
+                      <p className="text-stone-400">Hire Rate</p>
+                      <p className="mt-1 font-semibold text-stone-900">{job.hireRate}%</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         )}
 
         <div>

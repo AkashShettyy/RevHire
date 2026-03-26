@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useAuth } from "../context/AuthContext";
 import { getUserApplications, withdrawApplication } from "../services/applicationService";
 import { useNavigate } from "react-router-dom";
@@ -37,9 +37,7 @@ function ApplicationHistory() {
     ? applications
     : applications.filter((app) => app.status === activeFilter);
 
-  useEffect(() => { fetchApplications(); }, []);
-
-  async function fetchApplications() {
+  const fetchApplications = useCallback(async () => {
     setIsLoading(true);
     try {
       const data = await getUserApplications(token);
@@ -49,7 +47,9 @@ function ApplicationHistory() {
     } finally {
       setIsLoading(false);
     }
-  }
+  }, [token]);
+
+  useEffect(() => { fetchApplications(); }, [fetchApplications]);
 
   async function handleWithdraw(id) {
     try {

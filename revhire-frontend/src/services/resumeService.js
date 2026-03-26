@@ -15,3 +15,8 @@ export const saveResume = async (data, token) => {
   const response = await axios.post(`${API}/resume`, data, getHeaders(token));
   return response.data;
 };
+
+export const deleteResume = async (resumeId, token) => {
+  const response = await axios.delete(`${API}/resume/${resumeId}`, getHeaders(token));
+  return response.data;
+};
