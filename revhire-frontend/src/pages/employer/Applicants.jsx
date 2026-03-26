@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { getJobApplicants, updateApplicationStatus } from "../../services/applicationService";
@@ -77,9 +77,7 @@ export default function Applicants() {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  useEffect(() => { fetchApplicants(); }, [jobId]);
-
-  async function fetchApplicants() {
+  const fetchApplicants = useCallback(async () => {
     setIsLoading(true);
     setErrorMessage("");
     try {
@@ -116,7 +114,15 @@ export default function Applicants() {
       setErrorMessage("Unable to load applicants right now.");
     }
     setIsLoading(false);
-  }
+  }, [jobId, selectedApplication, token]);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      fetchApplicants();
+    }, 0);
+
+    return () => window.clearTimeout(timer);
+  }, [fetchApplicants]);
 
   const interviewMap = new Map(interviews.map(i => [i.application?._id, i]));
 

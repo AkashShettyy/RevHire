@@ -1,8 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getJobById } from "../services/jobService";
 import { applyForJob } from "../services/applicationService";
 import { useAuth } from "../context/AuthContext";
+import { getResume } from "../services/resumeService";
+import { removeSavedJob, saveJob, getSavedJobs } from "../services/savedJobService";
 
 const jobTypeColors = {
   fulltime: "bg-emerald-50 text-emerald-700",
@@ -21,17 +23,46 @@ function JobDetails() {
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [isApplied, setIsApplied] = useState(false);
+  const [resumes, setResumes] = useState([]);
+  const [selectedResumeId, setSelectedResumeId] = useState("");
+  const [isSaved, setIsSaved] = useState(false);
 
-  useEffect(() => { fetchJob(); }, [id]);
-
-  async function fetchJob() {
+  const fetchJob = useCallback(async () => {
     try {
       const data = await getJobById(id);
       setJob(data.job);
     } catch (error) {
       console.error(error);
     }
-  }
+  }, [id]);
+
+  const fetchResumes = useCallback(async () => {
+    try {
+      const data = await getResume(token);
+      setResumes(data.resumes || []);
+      setSelectedResumeId(data.resume?._id || "");
+    } catch {
+      setResumes([]);
+      setSelectedResumeId("");
+    }
+  }, [token]);
+
+  const fetchSavedState = useCallback(async () => {
+    try {
+      const data = await getSavedJobs(token);
+      setIsSaved(data.savedJobs.some((entry) => entry.job?._id === id));
+    } catch {
+      setIsSaved(false);
+    }
+  }, [id, token]);
+
+  useEffect(() => {
+    fetchJob();
+    if (user?.role === "jobseeker" && token) {
+      fetchResumes();
+      fetchSavedState();
+    }
+  }, [fetchJob, fetchResumes, fetchSavedState, token, user]);
 
   async function handleApply(e) {
     e.preventDefault();
@@ -43,12 +74,26 @@ function JobDetails() {
     })) || [];
 
     try {
-      await applyForJob(id, { coverLetter, answers: formattedAnswers }, token);
+      await applyForJob(id, { coverLetter, answers: formattedAnswers, resumeVersionId: selectedResumeId || undefined }, token);
       setIsApplied(true);
     } catch (error) {
       setMessage(error.response?.data?.message || "Something went wrong");
     } finally {
       setIsLoading(false);
+    }
+  }
+
+  async function handleToggleSavedJob() {
+    try {
+      if (isSaved) {
+        await removeSavedJob(id, token);
+        setIsSaved(false);
+      } else {
+        await saveJob(id, token);
+        setIsSaved(true);
+      }
+    } catch (error) {
+      setMessage(error.response?.data?.message || "Unable to update saved jobs.");
     }
   }
 
@@ -80,7 +125,20 @@ function JobDetails() {
                   <h1 className="text-3xl font-bold tracking-tight text-stone-950">{job.title}</h1>
                   <p className="mt-1 font-medium text-stone-500">{job.organization?.name || "Company Name Hidden"}</p>
                 </div>
-                <span className={`text-xs font-semibold px-3 py-1.5 rounded-full shrink-0 ${jobTypeColors[job.jobType]}`}>{job.jobType}</span>
+                <div className="flex flex-col items-end gap-2">
+                  <span className={`text-xs font-semibold px-3 py-1.5 rounded-full shrink-0 ${jobTypeColors[job.jobType]}`}>{job.jobType}</span>
+                  {user?.role === "jobseeker" && (
+                    <button
+                      type="button"
+                      onClick={handleToggleSavedJob}
+                      className={`rounded-full px-3 py-1 text-xs font-semibold ${
+                        isSaved ? "bg-amber-100 text-amber-800" : "bg-stone-100 text-stone-700"
+                      }`}
+                    >
+                      {isSaved ? "Saved" : "Save Job"}
+                    </button>
+                  )}
+                </div>
               </div>
               <div className="flex flex-wrap gap-5 mt-5 border-t border-stone-100 pt-5 text-sm text-stone-500">
                 <span className="flex items-center gap-1.5">📍 {job.location}</span>
@@ -135,6 +193,30 @@ function JobDetails() {
                   </div>
                 ) : (
                 <form onSubmit={handleApply} className="space-y-4">
+                  <div>
+                    <label className="app-label">Resume Version</label>
+                    <select
+                      value={selectedResumeId}
+                      onChange={(event) => setSelectedResumeId(event.target.value)}
+                      className="app-input"
+                      disabled={resumes.length === 0}
+                    >
+                      {resumes.length === 0 ? (
+                        <option value="">No resume versions available</option>
+                      ) : (
+                        resumes.map((resume) => (
+                          <option key={resume._id} value={resume._id}>
+                            {resume.title}{resume.isDefault ? " (Default)" : ""}
+                          </option>
+                        ))
+                      )}
+                    </select>
+                    {resumes.length === 0 && (
+                      <p className="mt-2 text-xs text-stone-500">
+                        Create a resume in the builder before applying.
+                      </p>
+                    )}
+                  </div>
                   {job.screeningQuestions?.length > 0 && (
                     <div className="space-y-4 pt-2 pb-4 border-b border-stone-100">
                       <h3 className="text-sm font-semibold text-stone-800">Screening Questions</h3>
@@ -166,7 +248,7 @@ function JobDetails() {
                     {message && (
                       <div className="app-message-error">{message}</div>
                     )}
-                    <button type="submit" disabled={isLoading} className="app-button w-full py-3">
+                    <button type="submit" disabled={isLoading || resumes.length === 0} className="app-button w-full py-3">
                       {isLoading ? "Submitting..." : "Submit Application"}
                     </button>
                   </form>

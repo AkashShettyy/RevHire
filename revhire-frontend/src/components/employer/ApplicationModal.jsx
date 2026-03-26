@@ -36,7 +36,7 @@ export default function ApplicationModal({
       onRefresh(); // Refresh parent to get new notes
       setMessage("Note added");
       setTimeout(() => setMessage(""), 3000);
-    } catch (err) {
+    } catch {
       setMessage("Failed to add note");
     }
   }
@@ -148,6 +148,15 @@ export default function ApplicationModal({
               {application.resume ? (
                 <>
                   <button onClick={() => downloadResumePdf(application.jobSeeker, application.resume)} className="app-button px-4 py-2 text-sm text-white">Download PDF</button>
+                  {application.resume.uploadedFile?.dataUrl && (
+                    <a
+                      href={application.resume.uploadedFile.dataUrl}
+                      download={application.resume.uploadedFile.fileName || "resume-file"}
+                      className="inline-flex rounded-2xl border border-stone-200 px-4 py-2 text-sm font-semibold text-stone-700 transition-colors hover:bg-stone-50"
+                    >
+                      Download Uploaded File
+                    </a>
+                  )}
                   <ResumePreview user={application.jobSeeker} resume={application.resume} />
                 </>
               ) : (

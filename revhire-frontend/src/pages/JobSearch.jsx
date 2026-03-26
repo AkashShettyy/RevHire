@@ -1,6 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAllJobs } from "../services/jobService";
+import { useAuth } from "../context/AuthContext";
+import { getSavedJobs, removeSavedJob, saveJob } from "../services/savedJobService";
 
 const jobTypeColors = {
   fulltime: "bg-emerald-50 text-emerald-700",
@@ -10,24 +12,57 @@ const jobTypeColors = {
 };
 
 function JobSearch() {
+  const { token, user } = useAuth();
   const [jobs, setJobs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [filters, setFilters] = useState({ search: "", location: "", jobType: "", company: "" });
+  const [savedJobIds, setSavedJobIds] = useState([]);
+  const [pagination, setPagination] = useState({ page: 1, totalPages: 1, total: 0 });
+  const [filters, setFilters] = useState({
+    search: "",
+    location: "",
+    jobType: "",
+    company: "",
+    skills: "",
+    salaryMin: "",
+    salaryMax: "",
+    sortBy: "newest",
+    daysPosted: "",
+    page: 1,
+    limit: 9,
+  });
   const navigate = useNavigate();
 
-  useEffect(() => { fetchJobs(); }, []);
-
-  async function fetchJobs() {
+  const fetchJobs = useCallback(async (activeFilters) => {
     setIsLoading(true);
     try {
-      const data = await getAllJobs(filters);
+      const data = await getAllJobs(activeFilters);
       setJobs(data.jobs);
+      setPagination(data.pagination || { page: 1, totalPages: 1, total: data.jobs.length });
     } catch (error) {
       console.error(error);
     } finally {
       setIsLoading(false);
     }
-  }
+  }, []);
+
+  const fetchSavedJobs = useCallback(async () => {
+    try {
+      const data = await getSavedJobs(token);
+      setSavedJobIds(data.savedJobs.map((entry) => entry.job?._id).filter(Boolean));
+    } catch (error) {
+      console.error(error);
+    }
+  }, [token]);
+
+  useEffect(() => {
+    fetchJobs(filters);
+  }, [fetchJobs, filters]);
+
+  useEffect(() => {
+    if (user?.role === "jobseeker" && token) {
+      fetchSavedJobs();
+    }
+  }, [fetchSavedJobs, token, user]);
 
   function handleFilterChange(e) {
     setFilters({ ...filters, [e.target.name]: e.target.value });
@@ -35,7 +70,31 @@ function JobSearch() {
 
   function handleSearch(e) {
     e.preventDefault();
-    fetchJobs();
+    setFilters((current) => ({ ...current, page: 1 }));
+  }
+
+  async function handleToggleSave(event, jobId) {
+    event.stopPropagation();
+    if (!token) {
+      navigate("/login");
+      return;
+    }
+
+    try {
+      if (savedJobIds.includes(jobId)) {
+        await removeSavedJob(jobId, token);
+        setSavedJobIds((current) => current.filter((id) => id !== jobId));
+      } else {
+        await saveJob(jobId, token);
+        setSavedJobIds((current) => [...current, jobId]);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  function handlePageChange(nextPage) {
+    setFilters((current) => ({ ...current, page: nextPage }));
   }
 
   return (
@@ -49,7 +108,7 @@ function JobSearch() {
               <p className="mt-3 mb-8 text-center text-stone-500">Browse posted openings and narrow them by title, location, or job type.</p>
             </div>
 
-            <form onSubmit={handleSearch} className="app-panel grid grid-cols-1 gap-3 p-4 md:grid-cols-5 items-center">
+            <form onSubmit={handleSearch} className="app-panel grid grid-cols-1 gap-3 p-4 md:grid-cols-3 xl:grid-cols-4 items-center">
             <input
               type="text"
               name="search"
@@ -63,6 +122,14 @@ function JobSearch() {
               name="company"
               placeholder="Company Name"
               value={filters.company}
+              onChange={handleFilterChange}
+              className="app-input"
+            />
+            <input
+              type="text"
+              name="skills"
+              placeholder="Skills, comma separated"
+              value={filters.skills}
               onChange={handleFilterChange}
               className="app-input"
             />
@@ -86,6 +153,45 @@ function JobSearch() {
               <option value="internship">Internship</option>
               <option value="remote">Remote</option>
             </select>
+            <input
+              type="number"
+              name="salaryMin"
+              placeholder="Min salary"
+              value={filters.salaryMin}
+              onChange={handleFilterChange}
+              className="app-input"
+            />
+            <input
+              type="number"
+              name="salaryMax"
+              placeholder="Max salary"
+              value={filters.salaryMax}
+              onChange={handleFilterChange}
+              className="app-input"
+            />
+            <select
+              name="daysPosted"
+              value={filters.daysPosted}
+              onChange={handleFilterChange}
+              className="app-input"
+            >
+              <option value="">Any date</option>
+              <option value="1">Last 24 hours</option>
+              <option value="7">Last 7 days</option>
+              <option value="14">Last 14 days</option>
+              <option value="30">Last 30 days</option>
+            </select>
+            <select
+              name="sortBy"
+              value={filters.sortBy}
+              onChange={handleFilterChange}
+              className="app-input"
+            >
+              <option value="newest">Newest</option>
+              <option value="deadline">Deadline</option>
+              <option value="salary_high">Highest salary</option>
+              <option value="salary_low">Lowest salary</option>
+            </select>
             <button type="submit" className="app-button whitespace-nowrap">Search Jobs</button>
             </form>
           </div>
@@ -94,7 +200,7 @@ function JobSearch() {
 
       <div className="app-shell mx-auto max-w-5xl py-8">
         <p className="mb-5 text-sm font-medium text-stone-500">
-          {isLoading ? "Searching..." : `${jobs.length} job${jobs.length !== 1 ? "s" : ""} found`}
+          {isLoading ? "Searching..." : `${pagination.total} job${pagination.total !== 1 ? "s" : ""} found`}
         </p>
 
         {isLoading ? (
@@ -147,6 +253,19 @@ function JobSearch() {
                     </div>
                   </div>
                   <div className="hidden sm:flex shrink-0 flex-col items-end gap-3">
+                    {user?.role === "jobseeker" && (
+                      <button
+                        type="button"
+                        onClick={(event) => handleToggleSave(event, job._id)}
+                        className={`rounded-full px-3 py-1 text-xs font-semibold ${
+                          savedJobIds.includes(job._id)
+                            ? "bg-amber-100 text-amber-800"
+                            : "bg-stone-100 text-stone-700"
+                        }`}
+                      >
+                        {savedJobIds.includes(job._id) ? "Saved" : "Save Job"}
+                      </button>
+                    )}
                     <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">
                       View Details
                     </span>
@@ -155,6 +274,30 @@ function JobSearch() {
                 </div>
               </article>
             ))}
+          </div>
+        )}
+
+        {!isLoading && pagination.totalPages > 1 && (
+          <div className="mt-8 flex items-center justify-center gap-3">
+            <button
+              type="button"
+              onClick={() => handlePageChange(pagination.page - 1)}
+              disabled={pagination.page <= 1}
+              className="rounded-2xl border border-stone-200 px-4 py-2 text-sm font-medium text-stone-700 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              Previous
+            </button>
+            <span className="text-sm text-stone-500">
+              Page {pagination.page} of {pagination.totalPages}
+            </span>
+            <button
+              type="button"
+              onClick={() => handlePageChange(pagination.page + 1)}
+              disabled={pagination.page >= pagination.totalPages}
+              className="rounded-2xl border border-stone-200 px-4 py-2 text-sm font-medium text-stone-700 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              Next
+            </button>
           </div>
         )}
       </div>

@@ -8,6 +8,7 @@ import applicationRoutes from "./src/routes/applicationRoutes.js";
 import resumeRoutes from "./src/routes/resumeRoutes.js";
 import notificationRoutes from "./src/routes/notificationRoutes.js";
 import interviewRoutes from "./src/routes/interviewRoutes.js";
+import savedJobRoutes from "./src/routes/savedJobRoutes.js";
 
 dotenv.config();
 const app = express();
@@ -29,6 +30,7 @@ app.use("/api/applications", applicationRoutes);
 app.use("/api/resume", resumeRoutes);
 app.use("/api/notifications", notificationRoutes);
 app.use("/api/interviews", interviewRoutes);
+app.use("/api/saved-jobs", savedJobRoutes);
 
 app.get("/", (req, res) => {
   res.json({ message: "RevHire API is running ✅" });

@@ -1,10 +1,25 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useAuth } from "../context/AuthContext";
-import { getResume, saveResume } from "../services/resumeService";
+import { getResume, saveResume, deleteResume } from "../services/resumeService";
 import ResumePreview from "../components/ResumePreview";
 import { downloadResumePdf } from "../utils/resumeDocument";
 
 const inputClass = "app-input";
+const emptyResume = {
+  title: "Primary Resume",
+  objective: "",
+  education: [{ institution: "", degree: "", year: "" }],
+  experience: [{ company: "", role: "", duration: "", description: "" }],
+  skills: [""],
+  projects: [{ name: "", description: "", link: "" }],
+  certifications: [""],
+  uploadedFile: {
+    fileName: "",
+    mimeType: "",
+    size: 0,
+    dataUrl: "",
+  },
+};
 
 function Section({ title, children }) {
   return (
@@ -37,31 +52,40 @@ function ResumeBuilder() {
   const [isLoading, setIsLoading] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
-  const [resume, setResume] = useState({
-    objective: "",
-    education: [{ institution: "", degree: "", year: "" }],
-    experience: [{ company: "", role: "", duration: "", description: "" }],
-    skills: [""],
-    projects: [{ name: "", description: "", link: "" }],
-    certifications: [""],
-  });
+  const [resumes, setResumes] = useState([]);
+  const [activeResumeId, setActiveResumeId] = useState("");
+  const [resume, setResume] = useState(emptyResume);
 
-  useEffect(() => { fetchResume(); }, []);
-
-  async function fetchResume() {
+  const fetchResume = useCallback(async () => {
     try {
       const data = await getResume(token);
-      setResume(data.resume);
+      setResumes(data.resumes || []);
+      setResume(data.resume || emptyResume);
+      setActiveResumeId(data.resume?._id || "");
     } catch {
-      // no resume yet
+      setResume(emptyResume);
+      setResumes([]);
+      setActiveResumeId("");
     }
-  }
+  }, [token]);
+
+  useEffect(() => { fetchResume(); }, [fetchResume]);
 
   async function handleSave(e) {
     e.preventDefault();
     setIsLoading(true);
     try {
-      await saveResume(resume, token);
+      const data = await saveResume(
+        {
+          ...resume,
+          resumeId: activeResumeId || undefined,
+          setAsDefault: true,
+        },
+        token,
+      );
+      setResumes(data.resumes || []);
+      setResume(data.resume || resume);
+      setActiveResumeId(data.resume?._id || activeResumeId);
       setMessage("saved");
       setTimeout(() => setMessage(""), 3000);
     } catch {
@@ -97,6 +121,59 @@ function ResumeBuilder() {
     }
   }
 
+  function handleCreateVersion() {
+    setActiveResumeId("");
+    setResume({
+      ...emptyResume,
+      title: `Resume Version ${resumes.length + 1}`,
+    });
+  }
+
+  function handleSwitchVersion(resumeId) {
+    const selectedResume = resumes.find((entry) => entry._id === resumeId);
+    if (!selectedResume) return;
+    setActiveResumeId(resumeId);
+    setResume(selectedResume);
+  }
+
+  async function handleDeleteResume() {
+    if (!activeResumeId) return;
+    try {
+      const data = await deleteResume(activeResumeId, token);
+      const nextResume = data.resumes?.[0] || emptyResume;
+      setResumes(data.resumes || []);
+      setResume(nextResume);
+      setActiveResumeId(nextResume._id || "");
+      setMessage("saved");
+      setTimeout(() => setMessage(""), 3000);
+    } catch {
+      setMessage("error");
+    }
+  }
+
+  function handleFileUpload(event) {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    if (file.size > 2 * 1024 * 1024) {
+      setMessage("error");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      setResume((current) => ({
+        ...current,
+        uploadedFile: {
+          fileName: file.name,
+          mimeType: file.type,
+          size: file.size,
+          dataUrl: typeof reader.result === "string" ? reader.result : "",
+        },
+      }));
+    };
+    reader.readAsDataURL(file);
+  }
+
   return (
     <div className="app-page">
       <div className="app-hero">
@@ -105,9 +182,12 @@ function ResumeBuilder() {
             <div>
               <span className="app-eyebrow">Resume workspace</span>
               <h1 className="mt-4 text-3xl font-bold tracking-tight text-stone-950">Resume Builder</h1>
-              <p className="mt-2 text-sm text-stone-500">Build your professional profile and export it when ready.</p>
+              <p className="mt-2 text-sm text-stone-500">Manage multiple resume versions, upload a PDF copy, and export the current draft.</p>
             </div>
             <div className="flex flex-wrap items-center gap-3">
+              <button type="button" onClick={handleCreateVersion} className="app-button-secondary px-4 py-2">
+                New Version
+              </button>
               <button
                 type="button"
                 onClick={() => setShowPreview(true)}
@@ -138,6 +218,52 @@ function ResumeBuilder() {
 
       <div className="app-shell max-w-3xl py-8">
         <form onSubmit={handleSave} onKeyDown={handleFormKeyDown} className="space-y-6">
+          <Section title="Resume Version">
+            <div className="grid gap-4 sm:grid-cols-[1fr,auto]">
+              <div>
+                <label className="app-label">Version Name</label>
+                <input
+                  type="text"
+                  value={resume.title || ""}
+                  onChange={(event) => updateField("title", event.target.value)}
+                  className={inputClass}
+                />
+              </div>
+              <div className="sm:pt-8">
+                <select
+                  value={activeResumeId}
+                  onChange={(event) => handleSwitchVersion(event.target.value)}
+                  className={inputClass}
+                >
+                  <option value="">Unsaved Version</option>
+                  {resumes.map((entry) => (
+                    <option key={entry._id} value={entry._id}>
+                      {entry.title}{entry.isDefault ? " (Default)" : ""}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            <div className="mt-4 grid gap-4 sm:grid-cols-2">
+              <div>
+                <label className="app-label">Upload Resume File</label>
+                <input type="file" accept=".pdf,.doc,.docx" onChange={handleFileUpload} className={inputClass} />
+                {resume.uploadedFile?.fileName && (
+                  <p className="mt-2 text-sm text-stone-500">
+                    Attached: {resume.uploadedFile.fileName}
+                  </p>
+                )}
+              </div>
+              {activeResumeId && (
+                <div className="sm:pt-8">
+                  <button type="button" onClick={handleDeleteResume} className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-600 transition-colors hover:bg-red-100">
+                    Delete This Version
+                  </button>
+                </div>
+              )}
+            </div>
+          </Section>
+
           {/* Objective */}
           <Section title="🎯 Professional Objective">
             <textarea

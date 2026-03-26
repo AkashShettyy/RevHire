@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useAuth } from "../context/AuthContext";
 import { getUserApplications } from "../services/applicationService";
 import { getMyInterviews, respondToInterview } from "../services/interviewService";
 import { getAllJobs } from "../services/jobService";
+import { getJobAlerts, getSavedJobs } from "../services/savedJobService";
 import { useNavigate } from "react-router-dom";
 
 const statusColors = {
@@ -30,17 +31,13 @@ function JobSeekerDashboard() {
   const [applications, setApplications] = useState([]);
   const [interviews, setInterviews] = useState([]);
   const [recentJobs, setRecentJobs] = useState([]);
+  const [savedJobs, setSavedJobs] = useState([]);
+  const [jobAlerts, setJobAlerts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
   const authToken = token || null;
 
-  useEffect(() => {
-    if (authToken) {
-      fetchData(authToken);
-    }
-  }, [authToken]);
-
-  async function fetchData(activeToken = authToken) {
+  const fetchData = useCallback(async (activeToken) => {
     if (!activeToken) return;
     setIsLoading(true);
     try {
@@ -52,19 +49,38 @@ function JobSeekerDashboard() {
       setApplications(appsData.applications);
       setInterviews(interviewsData.interviews);
       setRecentJobs(jobsData.jobs.slice(0, 4));
+
+      const [savedData, alertsData] = await Promise.allSettled([
+        getSavedJobs(activeToken),
+        getJobAlerts(activeToken),
+      ]);
+
+      if (savedData.status === "fulfilled") {
+        setSavedJobs(savedData.value.savedJobs || []);
+      }
+
+      if (alertsData.status === "fulfilled") {
+        setJobAlerts(alertsData.value.alerts || []);
+      }
     } catch (error) {
       console.error(error);
     } finally {
       setIsLoading(false);
     }
-  }
+  }, []);
+
+  useEffect(() => {
+    if (authToken) {
+      fetchData(authToken);
+    }
+  }, [authToken, fetchData]);
 
   async function handleInterviewResponse(interviewId, responseStatus) {
     try {
       await respondToInterview(interviewId, responseStatus, token);
       setMessage(`Interview ${responseStatus}`);
       setTimeout(() => setMessage(""), 3000);
-      fetchData();
+      fetchData(authToken);
     } catch (error) {
       setMessage(error.response?.data?.message || "Something went wrong");
     }
@@ -134,6 +150,7 @@ function JobSeekerDashboard() {
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {[
             { label: "My Resume", desc: "Refresh your profile", icon: "Resume", path: "/resume", color: "from-sky-500 to-blue-600" },
+            { label: "Saved Jobs", desc: "Track interesting roles", icon: "Saved", path: "/saved-jobs", color: "from-amber-500 to-orange-600" },
             { label: "Applications", desc: "Review recent submissions", icon: "Track", path: "/applications", color: "from-indigo-500 to-blue-700" },
             { label: "Settings", desc: "Update sign-in details", icon: "Account", path: "/settings", color: "from-slate-600 to-slate-800" },
           ].map((a) => (
@@ -256,6 +273,62 @@ function JobSeekerDashboard() {
                 <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${jobTypeColors[job.jobType]}`}>{job.jobType}</span>
               </div>
             ))}
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
+          <div className="app-panel overflow-hidden">
+            <div className="flex items-center justify-between border-b border-stone-100 px-6 py-4">
+              <h2 className="font-semibold text-stone-900">Saved Jobs</h2>
+              <button onClick={() => navigate("/saved-jobs")} className="text-sm font-medium text-blue-600 hover:underline">View all</button>
+            </div>
+            {savedJobs.length === 0 ? (
+              <div className="px-6 py-10 text-center text-sm text-stone-500">No saved jobs yet.</div>
+            ) : (
+              <div className="divide-y divide-stone-100">
+                {savedJobs.slice(0, 4).map((entry) => (
+                  <button
+                    key={entry._id}
+                    type="button"
+                    onClick={() => navigate(`/jobs/${entry.job?._id}`)}
+                    className="flex w-full items-center justify-between px-6 py-4 text-left transition-colors hover:bg-blue-50/60"
+                  >
+                    <div>
+                      <p className="text-sm font-medium text-stone-900">{entry.job?.title}</p>
+                      <p className="mt-0.5 text-xs text-stone-400">{entry.job?.organization?.name} · {entry.job?.location}</p>
+                    </div>
+                    <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${jobTypeColors[entry.job?.jobType]}`}>{entry.job?.jobType}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <div className="app-panel overflow-hidden">
+            <div className="flex items-center justify-between border-b border-stone-100 px-6 py-4">
+              <h2 className="font-semibold text-stone-900">Job Alerts</h2>
+              <span className="text-sm text-stone-400">{jobAlerts.length} matches</span>
+            </div>
+            {jobAlerts.length === 0 ? (
+              <div className="px-6 py-10 text-center text-sm text-stone-500">Save jobs to start receiving matching alerts.</div>
+            ) : (
+              <div className="divide-y divide-stone-100">
+                {jobAlerts.slice(0, 4).map((job) => (
+                  <button
+                    key={job._id}
+                    type="button"
+                    onClick={() => navigate(`/jobs/${job._id}`)}
+                    className="flex w-full items-center justify-between px-6 py-4 text-left transition-colors hover:bg-blue-50/60"
+                  >
+                    <div>
+                      <p className="text-sm font-medium text-stone-900">{job.title}</p>
+                      <p className="mt-0.5 text-xs text-stone-400">{job.organization?.name} · {job.location}</p>
+                    </div>
+                    <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${jobTypeColors[job.jobType]}`}>{job.jobType}</span>
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -8,6 +8,7 @@ import JobSearch from "./pages/JobSearch";
 import JobDetails from "./pages/JobDetails";
 import ApplicationHistory from "./pages/ApplicationHistory";
 import ResumeBuilder from "./pages/ResumeBuilder";
+import SavedJobs from "./pages/SavedJobs";
 import EmployerDashboard from "./pages/employer/EmployerDashboard";
 import PostJob from "./pages/employer/PostJob";
 import Applicants from "./pages/employer/Applicants";
@@ -71,6 +72,14 @@ function App() {
               element={
                 <ProtectedRoute role="jobseeker">
                   <ResumeBuilder />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/saved-jobs"
+              element={
+                <ProtectedRoute role="jobseeker">
+                  <SavedJobs />
                 </ProtectedRoute>
               }
             />

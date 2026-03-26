@@ -7,7 +7,9 @@ const getHeaders = (token) => ({
 });
 
 export const getAllJobs = async (filters = {}) => {
-  const params = new URLSearchParams(filters).toString();
+  const params = new URLSearchParams(
+    Object.entries(filters).filter(([, value]) => value !== "" && value !== null && value !== undefined),
+  ).toString();
   const response = await axios.get(`${API}/jobs?${params}`);
   return response.data;
 };
@@ -39,6 +41,14 @@ export const deleteJob = async (id, token) => {
 export const getEmployerJobs = async (token) => {
   const response = await axios.get(
     `${API}/jobs/employer/myjobs`,
+    getHeaders(token),
+  );
+  return response.data;
+};
+
+export const getEmployerAnalytics = async (token) => {
+  const response = await axios.get(
+    `${API}/jobs/employer/analytics`,
     getHeaders(token),
   );
   return response.data;

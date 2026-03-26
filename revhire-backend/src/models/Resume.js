@@ -6,7 +6,16 @@ const resumeSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
-      unique: true,
+    },
+    title: {
+      type: String,
+      required: true,
+      trim: true,
+      default: "Primary Resume",
+    },
+    isDefault: {
+      type: Boolean,
+      default: false,
     },
     objective: { type: String, default: "" },
     education: [
@@ -33,9 +42,18 @@ const resumeSchema = new mongoose.Schema(
       },
     ],
     certifications: [{ type: String }],
+    uploadedFile: {
+      fileName: { type: String, default: "" },
+      mimeType: { type: String, default: "" },
+      size: { type: Number, default: 0 },
+      dataUrl: { type: String, default: "" },
+      uploadedAt: { type: Date },
+    },
   },
   { timestamps: true },
 );
+
+resumeSchema.index({ jobSeeker: 1, isDefault: 1 });
 
 const Resume = mongoose.model("Resume", resumeSchema);
 
