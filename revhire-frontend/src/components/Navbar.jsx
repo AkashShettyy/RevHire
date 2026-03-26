@@ -44,6 +44,7 @@ function Navbar() {
       ? [
           !isJobSeekerDashboard && { to: "/dashboard", label: "Dashboard" },
           { to: "/jobs", label: "Find Jobs" },
+          { to: "/saved-jobs", label: "Saved" },
           { to: "/applications", label: "Applications" },
           { to: "/resume", label: "Resume" },
           { to: "/settings", label: "Settings" },
