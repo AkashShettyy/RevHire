@@ -2,9 +2,19 @@ import Resume from "../models/Resume.js";
 
 export const getResume = async (req, res) => {
   try {
-    const resume = await Resume.findOne({ jobSeeker: req.user.id });
-    if (!resume) return res.status(404).json({ message: "Resume not found" });
-    res.status(200).json({ resume });
+    const resumes = await Resume.find({ jobSeeker: req.user.id }).sort({
+      isDefault: -1,
+      updatedAt: -1,
+    });
+
+    if (resumes.length === 0) {
+      return res.status(404).json({ message: "Resume not found" });
+    }
+
+    res.status(200).json({
+      resumes,
+      resume: resumes[0],
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -12,12 +22,92 @@ export const getResume = async (req, res) => {
 
 export const createOrUpdateResume = async (req, res) => {
   try {
-    const resume = await Resume.findOneAndUpdate(
-      { jobSeeker: req.user.id },
-      { ...req.body, jobSeeker: req.user.id },
-      { returnDocument: "after", upsert: true },
-    );
-    res.status(200).json({ message: "Resume saved", resume });
+    const { resumeId, setAsDefault = false, uploadedFile, ...resumePayload } = req.body;
+
+    if (uploadedFile?.dataUrl && uploadedFile.dataUrl.length > 3_000_000) {
+      return res.status(400).json({ message: "Uploaded file is too large" });
+    }
+
+    if (setAsDefault) {
+      await Resume.updateMany({ jobSeeker: req.user.id }, { isDefault: false });
+    }
+
+    let resume;
+
+    if (resumeId) {
+      resume = await Resume.findOneAndUpdate(
+        { _id: resumeId, jobSeeker: req.user.id },
+        {
+          ...resumePayload,
+          jobSeeker: req.user.id,
+          ...(setAsDefault ? { isDefault: true } : {}),
+          ...(uploadedFile
+            ? {
+                uploadedFile: {
+                  ...uploadedFile,
+                  uploadedAt: uploadedFile.dataUrl ? new Date() : undefined,
+                },
+              }
+            : {}),
+        },
+        { returnDocument: "after" },
+      );
+    } else {
+      const existingCount = await Resume.countDocuments({ jobSeeker: req.user.id });
+      resume = await Resume.create({
+        ...resumePayload,
+        jobSeeker: req.user.id,
+        isDefault: setAsDefault || existingCount === 0,
+        uploadedFile: uploadedFile?.dataUrl
+          ? {
+              ...uploadedFile,
+              uploadedAt: new Date(),
+            }
+          : undefined,
+      });
+    }
+
+    if (!resume) {
+      return res.status(404).json({ message: "Resume not found" });
+    }
+
+    const resumes = await Resume.find({ jobSeeker: req.user.id }).sort({
+      isDefault: -1,
+      updatedAt: -1,
+    });
+
+    res.status(200).json({ message: "Resume saved", resume, resumes });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const deleteResume = async (req, res) => {
+  try {
+    const resume = await Resume.findOneAndDelete({
+      _id: req.params.id,
+      jobSeeker: req.user.id,
+    });
+
+    if (!resume) {
+      return res.status(404).json({ message: "Resume not found" });
+    }
+
+    const fallbackResume = await Resume.findOne({ jobSeeker: req.user.id }).sort({
+      updatedAt: -1,
+    });
+
+    if (resume.isDefault && fallbackResume) {
+      fallbackResume.isDefault = true;
+      await fallbackResume.save();
+    }
+
+    const resumes = await Resume.find({ jobSeeker: req.user.id }).sort({
+      isDefault: -1,
+      updatedAt: -1,
+    });
+
+    res.status(200).json({ message: "Resume deleted", resumes });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

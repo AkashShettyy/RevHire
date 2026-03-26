@@ -22,6 +22,22 @@ export const applyForJob = async (req, res) => {
 
     let initialStatus = "applied";
     const userAnswers = req.body.answers || [];
+    let resumeVersion = null;
+
+    if (req.body.resumeVersionId) {
+      resumeVersion = await Resume.findOne({
+        _id: req.body.resumeVersionId,
+        jobSeeker: req.user.id,
+      });
+      if (!resumeVersion) {
+        return res.status(400).json({ message: "Selected resume version not found" });
+      }
+    } else {
+      resumeVersion = await Resume.findOne({ jobSeeker: req.user.id }).sort({
+        isDefault: -1,
+        updatedAt: -1,
+      });
+    }
 
     // Knockout logic: if required return answer is strict, mark rejected
     if (job.screeningQuestions && job.screeningQuestions.length > 0) {
@@ -43,6 +59,7 @@ export const applyForJob = async (req, res) => {
       jobSeeker: req.user.id,
       coverLetter: req.body.coverLetter || "",
       answers: userAnswers,
+      resumeVersion: resumeVersion?._id || null,
       status: initialStatus,
     });
 
@@ -96,22 +113,15 @@ export const getJobApplicants = async (req, res) => {
     }
     const applications = await Application.find({ job: req.params.jobId })
       .populate("jobSeeker", "name email")
+      .populate("resumeVersion")
       .populate("notes.author", "name email")
       .sort({ createdAt: -1 });
-
-    const resumes = await Resume.find({
-      jobSeeker: { $in: applications.map((application) => application.jobSeeker?._id).filter(Boolean) },
-    }).lean();
-
-    const resumeMap = new Map(
-      resumes.map((resume) => [resume.jobSeeker.toString(), resume]),
-    );
 
     const applicationsWithResumes = applications.map((application) => {
       const current = application.toObject();
       return {
         ...current,
-        resume: resumeMap.get(current.jobSeeker?._id?.toString()) || null,
+        resume: current.resumeVersion || null,
       };
     });
 
