@@ -7,13 +7,9 @@ export const getResume = async (req, res) => {
       updatedAt: -1,
     });
 
-    if (resumes.length === 0) {
-      return res.status(404).json({ message: "Resume not found" });
-    }
-
     res.status(200).json({
       resumes,
-      resume: resumes[0],
+      resume: resumes[0] || null,
     });
   } catch (error) {
     res.status(500).json({ message: error.message });

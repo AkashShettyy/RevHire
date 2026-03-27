@@ -5,7 +5,7 @@ import ResumePreview from "../components/ResumePreview";
 import { downloadResumePdf } from "../utils/resumeDocument";
 
 const inputClass = "app-input";
-const emptyResume = {
+const createEmptyResume = () => ({
   title: "",
   objective: "",
   education: [{ institution: "", degree: "", year: "" }],
@@ -19,7 +19,7 @@ const emptyResume = {
     size: 0,
     dataUrl: "",
   },
-};
+});
 
 function Section({ title, children }) {
   return (
@@ -54,16 +54,16 @@ function ResumeBuilder() {
   const [showPreview, setShowPreview] = useState(false);
   const [resumes, setResumes] = useState([]);
   const [activeResumeId, setActiveResumeId] = useState("");
-  const [resume, setResume] = useState(emptyResume);
+  const [resume, setResume] = useState(() => createEmptyResume());
 
   const fetchResume = useCallback(async () => {
     try {
       const data = await getResume(token);
       setResumes(data.resumes || []);
-      setResume(data.resume || emptyResume);
+      setResume(data.resume || createEmptyResume());
       setActiveResumeId(data.resume?._id || "");
     } catch {
-      setResume(emptyResume);
+      setResume(createEmptyResume());
       setResumes([]);
       setActiveResumeId("");
     }
@@ -123,9 +123,7 @@ function ResumeBuilder() {
 
   function handleCreateVersion() {
     setActiveResumeId("");
-    setResume({
-      ...emptyResume,
-    });
+    setResume(createEmptyResume());
   }
 
   function handleSwitchVersion(resumeId) {
@@ -139,7 +137,7 @@ function ResumeBuilder() {
     if (!activeResumeId) return;
     try {
       const data = await deleteResume(activeResumeId, token);
-      const nextResume = data.resumes?.[0] || emptyResume;
+      const nextResume = data.resumes?.[0] || createEmptyResume();
       setResumes(data.resumes || []);
       setResume(nextResume);
       setActiveResumeId(nextResume._id || "");
