@@ -89,10 +89,13 @@ export default function Applicants() {
       if (appResult.status === "fulfilled") {
         setApplications(appResult.value.applications);
 
-        if (selectedApplication) {
-          const updated = appResult.value.applications.find((a) => a._id === selectedApplication._id);
-          if (updated) setSelectedApplication(updated);
-        }
+        setSelectedApplication(prev => {
+          if (!prev) return null;
+          const updated = appResult.value.applications.find((a) => a._id === prev._id);
+          if (!updated) return prev;
+          // Avoid setting a new reference if the data is same, though removing selectedApplication from hook deps is the main fix
+          return JSON.stringify(prev) === JSON.stringify(updated) ? prev : updated;
+        });
       } else {
         setApplications([]);
         setErrorMessage(
@@ -114,7 +117,7 @@ export default function Applicants() {
       setErrorMessage("Unable to load applicants right now.");
     }
     setIsLoading(false);
-  }, [jobId, selectedApplication, token]);
+  }, [jobId, token]);
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
