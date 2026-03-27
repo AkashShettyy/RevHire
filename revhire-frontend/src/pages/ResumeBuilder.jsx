@@ -127,6 +127,11 @@ function ResumeBuilder() {
   }
 
   function handleSwitchVersion(resumeId) {
+    if (!resumeId) {
+      setActiveResumeId("");
+      setResume(createEmptyResume());
+      return;
+    }
     const selectedResume = resumes.find((entry) => entry._id === resumeId);
     if (!selectedResume) return;
     setActiveResumeId(resumeId);
@@ -233,7 +238,7 @@ function ResumeBuilder() {
                   onChange={(event) => handleSwitchVersion(event.target.value)}
                   className={inputClass}
                 >
-                  <option value="">Unsaved Version</option>
+                  <option value="">New Draft</option>
                   {resumes.map((entry) => (
                     <option key={entry._id} value={entry._id}>
                       {entry.title}{entry.isDefault ? " (Default)" : ""}
