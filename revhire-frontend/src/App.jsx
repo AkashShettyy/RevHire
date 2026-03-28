@@ -14,6 +14,7 @@ import PostJob from "./pages/employer/PostJob";
 import Applicants from "./pages/employer/Applicants";
 import JobSeekerDashboard from "./pages/JobSeekerDashboard";
 import AccountSettings from "./pages/AccountSettings";
+import Notifications from "./pages/Notifications";
 
 function ProtectedRoute({ children, role }) {
   const { user } = useAuth();
@@ -96,6 +97,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <AccountSettings />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/notifications"
+              element={
+                <ProtectedRoute>
+                  <Notifications />
                 </ProtectedRoute>
               }
             />

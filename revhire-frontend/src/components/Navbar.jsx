@@ -46,12 +46,14 @@ function Navbar() {
           { to: "/jobs", label: "Find Jobs" },
           { to: "/saved-jobs", label: "Saved" },
           { to: "/applications", label: "Applications" },
+          { to: "/notifications", label: "Notifications" },
           { to: "/resume", label: "Resume" },
           { to: "/settings", label: "Settings" },
         ].filter(Boolean)
       : [
           !isEmployerDashboard && { to: "/employer/dashboard", label: "Dashboard" },
           { to: "/employer/post-job", label: "Post a Job" },
+          { to: "/notifications", label: "Notifications" },
           { to: "/settings", label: "Settings" },
         ].filter(Boolean)
     : [];
@@ -121,11 +123,20 @@ function Navbar() {
                   <div className="absolute right-0 z-50 mt-3 w-80 overflow-hidden rounded-[26px] border border-blue-100 bg-white shadow-2xl shadow-slate-900/10">
                     <div className="flex items-center justify-between border-b border-blue-50 px-5 py-4">
                       <p className="text-sm font-semibold text-slate-900">Notifications</p>
-                      {unreadCount > 0 && (
-                        <button onClick={handleMarkAllRead} className="text-xs font-semibold text-blue-600 hover:underline">
-                          Mark all read
-                        </button>
-                      )}
+                      <div className="flex items-center gap-3">
+                        <Link
+                          to="/notifications"
+                          onClick={() => setShowNotifications(false)}
+                          className="text-xs font-semibold text-stone-500 hover:text-blue-700"
+                        >
+                          Open center
+                        </Link>
+                        {unreadCount > 0 && (
+                          <button onClick={handleMarkAllRead} className="text-xs font-semibold text-blue-600 hover:underline">
+                            Mark all read
+                          </button>
+                        )}
+                      </div>
                     </div>
                     <div className="max-h-72 overflow-y-auto">
                       {notifications.length === 0 ? (
