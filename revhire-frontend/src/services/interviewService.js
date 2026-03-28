@@ -20,6 +20,11 @@ export const getMyInterviews = async (token) => {
   return response.data;
 };
 
+export const getEmployerInterviews = async (token) => {
+  const response = await axios.get(`${API}/interviews/employer`, getHeaders(token));
+  return response.data;
+};
+
 export const getJobInterviews = async (jobId, token) => {
   const response = await axios.get(
     `${API}/interviews/job/${jobId}`,

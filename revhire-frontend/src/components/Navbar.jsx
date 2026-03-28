@@ -46,6 +46,7 @@ function Navbar() {
           { to: "/jobs", label: "Find Jobs" },
           { to: "/saved-jobs", label: "Saved" },
           { to: "/applications", label: "Applications" },
+          { to: "/interviews", label: "Interviews" },
           { to: "/notifications", label: "Notifications" },
           { to: "/resume", label: "Resume" },
           { to: "/settings", label: "Settings" },
@@ -53,6 +54,7 @@ function Navbar() {
       : [
           !isEmployerDashboard && { to: "/employer/dashboard", label: "Dashboard" },
           { to: "/employer/post-job", label: "Post a Job" },
+          { to: "/interviews", label: "Interviews" },
           { to: "/notifications", label: "Notifications" },
           { to: "/settings", label: "Settings" },
         ].filter(Boolean)

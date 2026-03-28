@@ -15,6 +15,7 @@ import Applicants from "./pages/employer/Applicants";
 import JobSeekerDashboard from "./pages/JobSeekerDashboard";
 import AccountSettings from "./pages/AccountSettings";
 import Notifications from "./pages/Notifications";
+import InterviewCalendar from "./pages/InterviewCalendar";
 
 function ProtectedRoute({ children, role }) {
   const { user } = useAuth();
@@ -105,6 +106,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <Notifications />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/interviews"
+              element={
+                <ProtectedRoute>
+                  <InterviewCalendar />
                 </ProtectedRoute>
               }
             />

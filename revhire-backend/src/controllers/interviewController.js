@@ -2,7 +2,7 @@ import Application from "../models/Application.js";
 import Interview from "../models/Interview.js";
 import Job from "../models/Job.js";
 import { createNotification } from "./notificationController.js";
-import { canAccessOrganization } from "../utils/organizationAccess.js";
+import { canAccessOrganization, getAccessibleOrganizationIds } from "../utils/organizationAccess.js";
 
 function formatInterviewDate(date) {
   return new Intl.DateTimeFormat("en-US", {
@@ -98,6 +98,34 @@ export const getMyInterviews = async (req, res) => {
     const interviews = await Interview.find({ jobSeeker: req.user.id, status: { $ne: "cancelled" } })
       .populate("job", "title location")
       .populate("employer", "name email")
+      .sort({ scheduledAt: 1 });
+
+    res.status(200).json({ interviews });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const getEmployerInterviews = async (req, res) => {
+  try {
+    const accessibleOrganizationIds = await getAccessibleOrganizationIds(
+      req.user.organizationId,
+    );
+
+    const jobs = await Job.find({
+      organization: { $in: accessibleOrganizationIds },
+    })
+      .select("_id")
+      .lean();
+
+    const jobIds = jobs.map((job) => job._id);
+
+    const interviews = await Interview.find({
+      job: { $in: jobIds },
+      status: { $ne: "cancelled" },
+    })
+      .populate("job", "title location")
+      .populate("jobSeeker", "name email")
       .sort({ scheduledAt: 1 });
 
     res.status(200).json({ interviews });
