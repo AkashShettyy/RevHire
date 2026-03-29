@@ -121,6 +121,25 @@ function EmployerDashboard() {
           <div className="app-message-success">{message}</div>
         )}
 
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          {[
+            { label: "Post a Job", desc: "Launch a new opening", path: "/employer/post-job", color: "from-blue-500 to-blue-700" },
+            { label: "Interview Calendar", desc: "Track scheduled candidate conversations", path: "/interviews", color: "from-violet-500 to-indigo-700" },
+            { label: "Notifications", desc: "Review hiring updates", path: "/notifications", color: "from-slate-700 to-slate-900" },
+          ].map((action) => (
+            <button
+              key={action.label}
+              type="button"
+              onClick={() => navigate(action.path)}
+              className={`rounded-[28px] bg-gradient-to-br ${action.color} p-5 text-left text-white shadow-xl shadow-stone-900/10 transition-all duration-200 hover:-translate-y-1`}
+            >
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/75">Quick action</p>
+              <p className="mt-3 font-semibold">{action.label}</p>
+              <p className="mt-0.5 text-sm text-white/70">{action.desc}</p>
+            </button>
+          ))}
+        </div>
+
         {analytics && (
           <div className="app-panel p-6">
             <div className="flex items-center justify-between gap-4">

@@ -152,6 +152,7 @@ function JobSeekerDashboard() {
             { label: "My Resume", desc: "Refresh your profile", icon: "Resume", path: "/resume", color: "from-sky-500 to-blue-600" },
             { label: "Saved Jobs", desc: "Track interesting roles", icon: "Saved", path: "/saved-jobs", color: "from-amber-500 to-orange-600" },
             { label: "Applications", desc: "Review recent submissions", icon: "Track", path: "/applications", color: "from-indigo-500 to-blue-700" },
+            { label: "Interview Calendar", desc: "Manage upcoming conversations", icon: "Calendar", path: "/interviews", color: "from-violet-500 to-indigo-700" },
             { label: "Settings", desc: "Update sign-in details", icon: "Account", path: "/settings", color: "from-slate-600 to-slate-800" },
           ].map((a) => (
             <button
