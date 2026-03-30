@@ -51,12 +51,25 @@ function PostJob() {
     <div className="app-page">
       <div className="app-hero">
         <div className="app-shell max-w-3xl py-8">
-          <div className="flex items-center gap-4">
-          <button onClick={() => navigate("/employer/dashboard")} className="text-sm font-medium text-stone-500 transition-colors hover:text-blue-700">← Back</button>
-          <div>
-            <h1 className="text-3xl font-bold tracking-tight text-stone-950">Post a Job</h1>
-            <p className="mt-0.5 text-sm text-stone-500">Fill in the details to attract the right candidates.</p>
-          </div>
+          <div className="app-hero-card">
+            <button onClick={() => navigate("/employer/dashboard")} className="text-sm font-medium text-stone-500 transition-colors hover:text-blue-700">← Back</button>
+            <div className="mt-5 grid gap-6 lg:grid-cols-[1.15fr,0.85fr] lg:items-end">
+              <div>
+                <span className="app-eyebrow">Create opening</span>
+                <h1 className="mt-4 text-3xl font-bold tracking-tight text-stone-950">Post a Job</h1>
+                <p className="mt-2 text-sm text-stone-500">Fill in the details to attract the right candidates.</p>
+              </div>
+              <div className="grid gap-3 sm:grid-cols-2">
+                <div className="app-mini-stat">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-stone-400">Template</p>
+                  <p className="mt-2 text-sm font-semibold text-stone-800">Structured job form</p>
+                </div>
+                <div className="app-mini-stat">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-stone-400">Optional</p>
+                  <p className="mt-2 text-sm font-semibold text-stone-800">Screening questions</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

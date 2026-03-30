@@ -111,9 +111,32 @@ function JobDetails() {
     <div className="app-page">
       <div className="app-hero">
         <div className="app-shell max-w-5xl py-8">
-          <button onClick={() => navigate("/jobs")} className="mb-6 flex items-center gap-1.5 text-sm font-medium text-stone-500 transition-colors hover:text-blue-700">
-            ← Back to Jobs
-          </button>
+          <div className="app-hero-card">
+            <button onClick={() => navigate("/jobs")} className="flex items-center gap-1.5 text-sm font-medium text-stone-500 transition-colors hover:text-blue-700">
+              ← Back to Jobs
+            </button>
+            <div className="mt-5 flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+              <div>
+                <span className="app-eyebrow">Role details</span>
+                <h1 className="mt-4 text-3xl font-bold tracking-tight text-stone-950">{job.title}</h1>
+                <p className="mt-2 text-sm font-medium text-stone-500">{job.organization?.name || "Company Name Hidden"}</p>
+              </div>
+              <div className="grid gap-3 sm:grid-cols-3 md:min-w-[360px]">
+                <div className="app-mini-stat">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-stone-400">Location</p>
+                  <p className="mt-2 text-sm font-semibold text-stone-800">{job.location}</p>
+                </div>
+                <div className="app-mini-stat">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-stone-400">Type</p>
+                  <p className="mt-2 text-sm font-semibold capitalize text-stone-800">{job.jobType}</p>
+                </div>
+                <div className="app-mini-stat">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-stone-400">Deadline</p>
+                  <p className="mt-2 text-sm font-semibold text-stone-800">{new Date(job.deadline).toLocaleDateString()}</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div className="app-shell max-w-5xl py-8">
@@ -122,7 +145,7 @@ function JobDetails() {
             <div className="app-panel p-6">
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <h1 className="text-3xl font-bold tracking-tight text-stone-950">{job.title}</h1>
+                  <h2 className="text-xl font-bold tracking-tight text-stone-950">Overview</h2>
                   <p className="mt-1 font-medium text-stone-500">{job.organization?.name || "Company Name Hidden"}</p>
                 </div>
                 <div className="flex flex-col items-end gap-2">
@@ -177,7 +200,7 @@ function JobDetails() {
           </div>
 
           <div>
-            <div className="app-panel sticky top-24 p-6">
+            <div className="app-panel sticky top-24 overflow-hidden p-6">
               <h2 className="mb-4 font-semibold text-stone-900">Apply for this role</h2>
 
               {job.status === "closed" ? (

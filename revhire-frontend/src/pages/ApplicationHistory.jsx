@@ -76,11 +76,33 @@ function ApplicationHistory() {
     <div className="app-page">
       <div className="app-hero">
         <div className="app-shell max-w-4xl py-8">
-          <span className="app-eyebrow">Application history</span>
-          <h1 className="mt-4 text-3xl font-bold tracking-tight text-stone-950">My Applications</h1>
-          <p className="mt-2 text-sm text-stone-500">
-            {filteredApplications.length} of {applications.length} application{applications.length !== 1 ? "s" : ""}
-          </p>
+          <div className="app-spotlight px-6 py-7 sm:px-8">
+            <div className="grid gap-6 lg:grid-cols-[1.15fr,0.85fr] lg:items-end">
+              <div>
+                <span className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/80">
+                  Application history
+                </span>
+                <h1 className="mt-4 text-3xl font-bold tracking-tight text-white">My Applications</h1>
+                <p className="mt-3 text-sm leading-6 text-white/76">
+                  Review recent submissions, check where each application sits, and withdraw pending ones when priorities shift.
+                </p>
+              </div>
+              <div className="grid gap-3 sm:grid-cols-3">
+                <div className="rounded-[26px] border border-white/16 bg-white/10 px-4 py-4 backdrop-blur-sm">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/65">Total</p>
+                  <p className="mt-3 text-3xl font-bold text-white">{applications.length}</p>
+                </div>
+                <div className="rounded-[26px] border border-white/16 bg-white/10 px-4 py-4 backdrop-blur-sm">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/65">Pending</p>
+                  <p className="mt-3 text-3xl font-bold text-white">{applications.filter((app) => app.status === "applied").length}</p>
+                </div>
+                <div className="rounded-[26px] border border-white/16 bg-white/10 px-4 py-4 backdrop-blur-sm">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/65">Shown</p>
+                  <p className="mt-3 text-3xl font-bold text-white">{filteredApplications.length}</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -106,10 +128,10 @@ function ApplicationHistory() {
                     key={filter.value}
                     type="button"
                     onClick={() => setActiveFilter(filter.value)}
-                    className={`rounded-full border px-4 py-2 text-sm font-medium transition-colors ${
+                    className={`rounded-full border px-4 py-2 text-sm font-medium transition-all ${
                       isActive
-                        ? "border-blue-600 bg-blue-600 text-white shadow-sm"
-                        : "border-stone-200 bg-white text-stone-600 hover:border-blue-200 hover:text-blue-700"
+                        ? "border-blue-600 bg-blue-600 text-white shadow-lg shadow-blue-100"
+                        : "border-stone-200 bg-white text-stone-600 hover:-translate-y-0.5 hover:border-blue-200 hover:text-blue-700"
                     }`}
                   >
                     {filter.label}

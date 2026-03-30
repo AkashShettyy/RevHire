@@ -102,6 +102,18 @@
     @apply flex items-center justify-between border-b border-stone-100 px-6 py-4;
   }
 
+  .app-hero-card {
+    background:
+      radial-gradient(circle at top right, rgba(255, 255, 255, 0.24), transparent 24%),
+      linear-gradient(135deg, rgba(255, 255, 255, 0.88), rgba(239, 246, 255, 0.82));
+    box-shadow: 0 24px 54px -36px rgba(37, 99, 235, 0.28);
+    @apply rounded-[30px] border border-white/70 p-6 backdrop-blur-sm;
+  }
+
+  .app-mini-stat {
+    @apply rounded-[24px] border border-stone-200 bg-white/80 px-4 py-4;
+  }
+
   .app-button {
     background-image: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
     box-shadow: 0 20px 40px -26px rgba(37, 99, 235, 0.6);

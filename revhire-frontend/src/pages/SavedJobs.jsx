@@ -59,11 +59,29 @@ function SavedJobs() {
     <div className="app-page">
       <div className="app-hero">
         <div className="app-shell max-w-5xl py-8">
-          <span className="app-eyebrow">Saved roles</span>
-          <h1 className="mt-4 text-3xl font-bold tracking-tight text-stone-950">Saved Jobs</h1>
-          <p className="mt-2 text-sm text-stone-500">
-            Keep shortlisted openings in one place and revisit them before applying.
-          </p>
+          <div className="app-spotlight px-6 py-7 sm:px-8">
+            <div className="grid gap-6 lg:grid-cols-[1.2fr,0.8fr] lg:items-end">
+              <div>
+                <span className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/80">
+                  Saved roles
+                </span>
+                <h1 className="mt-4 text-3xl font-bold tracking-tight text-white">Saved Jobs</h1>
+                <p className="mt-3 text-sm leading-6 text-white/76">
+                  Keep shortlisted openings in one place and revisit them before applying.
+                </p>
+              </div>
+              <div className="grid gap-3 sm:grid-cols-2">
+                <div className="rounded-[26px] border border-white/16 bg-white/10 px-4 py-4 backdrop-blur-sm">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/65">Saved</p>
+                  <p className="mt-3 text-3xl font-bold text-white">{savedJobs.length}</p>
+                </div>
+                <div className="rounded-[26px] border border-white/16 bg-white/10 px-4 py-4 backdrop-blur-sm">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/65">Status</p>
+                  <p className="mt-3 text-lg font-bold text-white">{savedJobs.length > 0 ? "Tracked" : "Empty"}</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -82,7 +100,7 @@ function SavedJobs() {
         ) : (
           <div className="space-y-4">
             {savedJobs.map((entry) => (
-              <article key={entry._id} className="app-panel p-6">
+              <article key={entry._id} className="app-panel p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-xl">
                 <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-3 flex-wrap">

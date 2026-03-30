@@ -31,6 +31,9 @@ function JobSearch() {
     limit: 9,
   });
   const navigate = useNavigate();
+  const activeFilterCount = Object.entries(filters).filter(
+    ([key, value]) => !["page", "limit", "sortBy"].includes(key) && value !== "",
+  ).length;
 
   const fetchJobs = useCallback(async (activeFilters) => {
     setIsLoading(true);
@@ -102,13 +105,35 @@ function JobSearch() {
       <div className="app-hero">
         <div className="app-shell py-10">
           <div className="mx-auto max-w-5xl">
-            <div className="text-center">
-              <span className="app-eyebrow">Job discovery</span>
-              <h1 className="mt-5 text-4xl font-bold tracking-tight text-stone-950">Find roles that fit your search.</h1>
-              <p className="mt-3 mb-8 text-center text-stone-500">Browse posted openings and narrow them by title, location, or job type.</p>
+            <div className="app-spotlight px-6 py-7 sm:px-8">
+              <div className="grid gap-8 xl:grid-cols-[1.2fr,0.8fr] xl:items-end">
+                <div>
+                  <span className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/80">
+                    Job discovery
+                  </span>
+                  <h1 className="mt-5 text-4xl font-bold tracking-tight text-white">Find roles that fit your search.</h1>
+                  <p className="mt-3 max-w-2xl text-sm leading-6 text-white/76">
+                    Browse posted openings and narrow them by title, location, skills, compensation, or recency.
+                  </p>
+                </div>
+                <div className="grid gap-3 sm:grid-cols-3">
+                  <div className="rounded-[26px] border border-white/16 bg-white/10 px-4 py-4 backdrop-blur-sm">
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/65">Results</p>
+                    <p className="mt-3 text-3xl font-bold text-white">{pagination.total}</p>
+                  </div>
+                  <div className="rounded-[26px] border border-white/16 bg-white/10 px-4 py-4 backdrop-blur-sm">
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/65">Filters</p>
+                    <p className="mt-3 text-3xl font-bold text-white">{activeFilterCount}</p>
+                  </div>
+                  <div className="rounded-[26px] border border-white/16 bg-white/10 px-4 py-4 backdrop-blur-sm">
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/65">Sort</p>
+                    <p className="mt-3 text-lg font-bold capitalize text-white">{filters.sortBy.replace("_", " ")}</p>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <form onSubmit={handleSearch} className="app-panel grid grid-cols-1 gap-3 p-4 md:grid-cols-3 xl:grid-cols-4 items-center">
+            <form onSubmit={handleSearch} className="app-panel mt-6 grid grid-cols-1 items-center gap-3 p-4 md:grid-cols-3 xl:grid-cols-4">
             <input
               type="text"
               name="search"
@@ -228,7 +253,7 @@ function JobSearch() {
               <article
                 key={job._id}
                 onClick={() => navigate(`/jobs/${job._id}`)}
-                className="app-panel group cursor-pointer p-6 transition-all duration-200 hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl"
+                className="app-panel group cursor-pointer overflow-hidden p-6 transition-all duration-200 hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl"
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1 min-w-0">
@@ -269,7 +294,7 @@ function JobSearch() {
                     <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">
                       View Details
                     </span>
-                    <span className="text-xl text-stone-300 transition-colors group-hover:text-blue-700">→</span>
+                    <span className="rounded-full bg-stone-100 px-3 py-1 text-sm font-semibold text-stone-400 transition-colors group-hover:bg-blue-600 group-hover:text-white">→</span>
                   </div>
                 </div>
               </article>
