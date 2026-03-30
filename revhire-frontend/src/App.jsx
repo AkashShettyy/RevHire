@@ -29,9 +29,11 @@ function Layout({ children }) {
   const isAuthPage = location.pathname === "/login" || location.pathname === "/register";
 
   return (
-    <div className={isAuthPage ? "min-h-screen" : "app-frame min-h-screen"}>
-      <Navbar />
-      <main>{children}</main>
+    <div className="min-h-screen w-full relative">
+      {!isAuthPage && <Navbar />}
+      <main className={isAuthPage ? "w-full" : "pt-24 pb-12 w-full"}>
+        {children}
+      </main>
     </div>
   );
 }
