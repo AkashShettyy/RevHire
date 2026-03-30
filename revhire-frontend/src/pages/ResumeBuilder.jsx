@@ -4,7 +4,7 @@ import { getResume, saveResume, deleteResume } from "../services/resumeService";
 import ResumePreview from "../components/ResumePreview";
 import { downloadResumePdf } from "../utils/resumeDocument";
 
-const inputClass = "app-input";
+const inputClass = "input-field";
 const createEmptyResume = () => ({
   title: "",
   objective: "",
@@ -23,8 +23,8 @@ const createEmptyResume = () => ({
 
 function Section({ title, children }) {
   return (
-    <div className="app-panel p-6 sm:p-8">
-      <h2 className="mb-5 font-semibold text-stone-900">{title}</h2>
+    <div className="premium-card bg-white p-6 sm:p-8 shadow-sm">
+      <h2 className="mb-6 text-xl font-bold text-surface-900 font-['Outfit']">{title}</h2>
       {children}
     </div>
   );
@@ -32,15 +32,15 @@ function Section({ title, children }) {
 
 function AddButton({ onClick, label }) {
   return (
-    <button type="button" onClick={onClick} className="mt-4 flex items-center gap-1 text-sm font-medium text-blue-700 hover:underline">
-      + {label}
+    <button type="button" onClick={onClick} className="mt-5 flex items-center gap-1.5 text-sm font-bold text-brand-600 hover:text-brand-700 transition-colors">
+      <span className="text-lg leading-none">+</span> {label}
     </button>
   );
 }
 
 function RemoveButton({ onClick }) {
   return (
-    <button type="button" onClick={onClick} className="text-xs font-medium text-red-400 transition-colors hover:text-red-600">
+    <button type="button" onClick={onClick} className="text-[13px] font-bold text-error-500 transition-colors hover:text-error-600 bg-error-50 px-3 py-1.5 rounded-lg hover:bg-error-100">
       Remove
     </button>
   );
@@ -177,23 +177,29 @@ function ResumeBuilder() {
   }
 
   return (
-    <div className="app-page">
-      <div className="app-hero">
-        <div className="app-shell max-w-3xl py-8">
-          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+    <div className="min-h-screen relative overflow-hidden bg-surface-50/30 pb-12">
+      <div className="absolute top-0 right-0 -mr-40 w-[600px] h-[600px] bg-brand-500/10 blur-[100px] pointer-events-none rounded-full"></div>
+
+      <div className="pt-10 pb-10 border-b border-surface-200/60 bg-white/50 backdrop-blur-md relative z-10">
+        <div className="layout-container max-w-4xl">
+          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
             <div>
-              <span className="app-eyebrow">Resume workspace</span>
-              <h1 className="mt-4 text-3xl font-bold tracking-tight text-stone-950">Resume Builder</h1>
-              <p className="mt-2 text-sm text-stone-500">Manage multiple resume versions, upload a PDF copy, and export the current draft.</p>
+              <span className="inline-flex rounded-full border border-brand-100 bg-brand-50 px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-brand-700 mb-4">
+                Resume Workspace
+              </span>
+              <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-surface-900 font-['Outfit']">Resume Builder</h1>
+              <p className="mt-3 text-[17px] font-medium text-surface-600 max-w-2xl">
+                Manage multiple resume versions, upload a PDF copy, and export the current draft.
+              </p>
             </div>
             <div className="flex flex-wrap items-center gap-3">
-              <button type="button" onClick={handleCreateVersion} className="app-button-secondary px-4 py-2">
+              <button type="button" onClick={handleCreateVersion} className="btn-secondary">
                 New Version
               </button>
               <button
                 type="button"
                 onClick={() => setShowPreview(true)}
-                className="app-button-secondary px-4 py-2"
+                className="btn-secondary"
               >
                 Preview Resume
               </button>
@@ -201,29 +207,29 @@ function ResumeBuilder() {
                 type="button"
                 onClick={handleDownloadPdf}
                 disabled={isDownloading}
-                className="app-button px-4 py-2"
+                className="btn-primary flex-1 sm:flex-none justify-center"
               >
                 {isDownloading ? "Preparing PDF..." : "Download PDF"}
               </button>
             </div>
-            {message === "saved" && (
-              <div className="app-message-success">Saved successfully</div>
-            )}
-            {message === "error" && (
-              <div className="app-message-error">
-                Something went wrong
-              </div>
-            )}
+          </div>
+          <div className="mt-6 flex gap-4 min-h-[40px]">
+             {message === "saved" && (
+               <div className="rounded-xl border border-success-200 bg-success-50 px-4 py-2 font-semibold text-success-800 shadow-sm animate-fade-in inline-block">Saved successfully</div>
+             )}
+             {message === "error" && (
+               <div className="rounded-xl border border-error-200 bg-error-50 px-4 py-2 font-semibold text-error-800 shadow-sm animate-fade-in inline-block">Something went wrong</div>
+             )}
           </div>
         </div>
       </div>
 
-      <div className="app-shell max-w-3xl py-8">
-        <form onSubmit={handleSave} onKeyDown={handleFormKeyDown} className="space-y-6">
+      <div className="layout-container max-w-4xl py-10 relative z-10">
+        <form onSubmit={handleSave} onKeyDown={handleFormKeyDown} className="space-y-8">
           <Section title="Resume Version">
-            <div className="grid gap-4 sm:grid-cols-[1fr,auto]">
+            <div className="grid gap-5 sm:grid-cols-[1fr,auto]">
               <div>
-                <label className="app-label">Version Name</label>
+                <label className="block text-[13px] font-bold uppercase tracking-widest text-surface-500 mb-2">Version Name</label>
                 <input
                   type="text"
                   value={resume.title || ""}
@@ -232,7 +238,7 @@ function ResumeBuilder() {
                   className={inputClass}
                 />
               </div>
-              <div className="sm:pt-8">
+              <div className="sm:pt-7">
                 <select
                   value={activeResumeId}
                   onChange={(event) => handleSwitchVersion(event.target.value)}
@@ -247,19 +253,19 @@ function ResumeBuilder() {
                 </select>
               </div>
             </div>
-            <div className="mt-4 grid gap-4 sm:grid-cols-2">
+            <div className="mt-5 grid gap-5 sm:grid-cols-2">
               <div>
-                <label className="app-label">Upload Resume File</label>
-                <input type="file" accept=".pdf,.doc,.docx" onChange={handleFileUpload} className={inputClass} />
+                <label className="block text-[13px] font-bold uppercase tracking-widest text-surface-500 mb-2">Upload Resume File</label>
+                <input type="file" accept=".pdf,.doc,.docx" onChange={handleFileUpload} className={`${inputClass} !py-2`} />
                 {resume.uploadedFile?.fileName && (
-                  <p className="mt-2 text-sm text-stone-500">
-                    Attached: {resume.uploadedFile.fileName}
+                  <p className="mt-3 text-[13px] font-medium text-surface-500 bg-surface-100/50 px-3 py-1.5 rounded-lg inline-flex items-center gap-2 border border-surface-200">
+                    <span className="text-lg">📎</span> {resume.uploadedFile.fileName}
                   </p>
                 )}
               </div>
               {activeResumeId && (
-                <div className="sm:pt-8">
-                  <button type="button" onClick={handleDeleteResume} className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-600 transition-colors hover:bg-red-100">
+                <div className="sm:pt-8 flex items-start">
+                  <button type="button" onClick={handleDeleteResume} className="rounded-xl border border-error-200 bg-error-50 px-5 py-3 text-[14px] font-bold text-error-600 transition-colors hover:bg-error-100 w-full sm:w-auto mt-0.5">
                     Delete This Version
                   </button>
                 </div>
@@ -273,16 +279,16 @@ function ResumeBuilder() {
               placeholder="Write a short professional summary..."
               value={resume.objective}
               onChange={(e) => updateField("objective", e.target.value)}
-              rows={3}
+              rows={4}
               className={`${inputClass} resize-none`}
             />
           </Section>
 
           {/* Skills */}
           <Section title="⚡ Skills">
-            <div className="flex flex-wrap gap-2 mb-3">
+            <div className="flex flex-wrap gap-3 mb-4">
               {resume.skills.map((skill, i) => (
-                <div key={i} className="flex items-center gap-1.5 rounded-2xl border border-blue-100 bg-blue-50 px-3 py-1.5">
+                <div key={i} className="flex items-center gap-2 rounded-xl border border-brand-200 bg-brand-50 px-3 py-2 shadow-sm focus-within:ring-2 focus-within:ring-brand-500 focus-within:ring-offset-1">
                   <input
                     type="text"
                     placeholder="Skill"
@@ -292,9 +298,9 @@ function ResumeBuilder() {
                       updated[i] = e.target.value;
                       updateField("skills", updated);
                     }}
-                    className="w-24 bg-transparent text-sm font-medium text-blue-700 outline-none"
+                    className="w-28 bg-transparent text-[14px] font-bold text-brand-700 outline-none placeholder-brand-300"
                   />
-                  <button type="button" onClick={() => removeItem("skills", i)} className="text-xs font-bold text-blue-300 transition-colors hover:text-red-500">✕</button>
+                  <button type="button" onClick={() => removeItem("skills", i)} className="text-sm font-bold text-brand-400 transition-colors hover:text-error-500 p-1 rounded-md hover:bg-white/50">✕</button>
                 </div>
               ))}
             </div>
@@ -303,14 +309,14 @@ function ResumeBuilder() {
 
           {/* Education */}
           <Section title="🎓 Education">
-            <div className="space-y-4">
+            <div className="space-y-5">
               {resume.education.map((edu, i) => (
-                <div key={i} className="space-y-3 rounded-2xl border border-stone-200 bg-white/55 p-4">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div key={i} className="space-y-4 rounded-xl border border-surface-200 bg-surface-50 p-5 transition-colors focus-within:bg-white focus-within:border-brand-200 focus-within:shadow-sm">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <input type="text" placeholder="Institution" value={edu.institution} onChange={(e) => updateArrayField("education", i, "institution", e.target.value)} className={inputClass} />
                     <input type="text" placeholder="Degree" value={edu.degree} onChange={(e) => updateArrayField("education", i, "degree", e.target.value)} className={inputClass} />
                   </div>
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-4">
                     <input type="text" placeholder="Year (e.g. 2020–2024)" value={edu.year} onChange={(e) => updateArrayField("education", i, "year", e.target.value)} className={inputClass} />
                     <RemoveButton onClick={() => removeItem("education", i)} />
                   </div>
@@ -322,16 +328,18 @@ function ResumeBuilder() {
 
           {/* Experience */}
           <Section title="💼 Experience">
-            <div className="space-y-4">
+            <div className="space-y-5">
               {resume.experience.map((exp, i) => (
-                <div key={i} className="space-y-3 rounded-2xl border border-stone-200 bg-white/55 p-4">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div key={i} className="space-y-4 rounded-xl border border-surface-200 bg-surface-50 p-5 transition-colors focus-within:bg-white focus-within:border-brand-200 focus-within:shadow-sm">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <input type="text" placeholder="Company" value={exp.company} onChange={(e) => updateArrayField("experience", i, "company", e.target.value)} className={inputClass} />
                     <input type="text" placeholder="Role" value={exp.role} onChange={(e) => updateArrayField("experience", i, "role", e.target.value)} className={inputClass} />
                   </div>
                   <input type="text" placeholder="Duration (e.g. Jan 2023 – Dec 2023)" value={exp.duration} onChange={(e) => updateArrayField("experience", i, "duration", e.target.value)} className={inputClass} />
-                  <textarea placeholder="Description" value={exp.description} onChange={(e) => updateArrayField("experience", i, "description", e.target.value)} rows={2} className={`${inputClass} resize-none`} />
-                  <RemoveButton onClick={() => removeItem("experience", i)} />
+                  <textarea placeholder="Description" value={exp.description} onChange={(e) => updateArrayField("experience", i, "description", e.target.value)} rows={3} className={`${inputClass} resize-none`} />
+                  <div className="flex justify-end">
+                    <RemoveButton onClick={() => removeItem("experience", i)} />
+                  </div>
                 </div>
               ))}
             </div>
@@ -340,13 +348,15 @@ function ResumeBuilder() {
 
           {/* Projects */}
           <Section title="🚀 Projects">
-            <div className="space-y-4">
+            <div className="space-y-5">
               {resume.projects.map((proj, i) => (
-                <div key={i} className="space-y-3 rounded-2xl border border-stone-200 bg-white/55 p-4">
+                <div key={i} className="space-y-4 rounded-xl border border-surface-200 bg-surface-50 p-5 transition-colors focus-within:bg-white focus-within:border-brand-200 focus-within:shadow-sm">
                   <input type="text" placeholder="Project name" value={proj.name} onChange={(e) => updateArrayField("projects", i, "name", e.target.value)} className={inputClass} />
-                  <textarea placeholder="Description" value={proj.description} onChange={(e) => updateArrayField("projects", i, "description", e.target.value)} rows={2} className={`${inputClass} resize-none`} />
-                  <input type="text" placeholder="Link (optional)" value={proj.link} onChange={(e) => updateArrayField("projects", i, "link", e.target.value)} className={inputClass} />
-                  <RemoveButton onClick={() => removeItem("projects", i)} />
+                  <textarea placeholder="Description" value={proj.description} onChange={(e) => updateArrayField("projects", i, "description", e.target.value)} rows={3} className={`${inputClass} resize-none`} />
+                  <div className="flex items-center gap-4">
+                     <input type="text" placeholder="Link (optional)" value={proj.link} onChange={(e) => updateArrayField("projects", i, "link", e.target.value)} className={inputClass} />
+                     <RemoveButton onClick={() => removeItem("projects", i)} />
+                  </div>
                 </div>
               ))}
             </div>
@@ -355,9 +365,9 @@ function ResumeBuilder() {
 
           {/* Certifications */}
           <Section title="🏆 Certifications">
-            <div className="space-y-3">
+            <div className="space-y-4">
               {resume.certifications.map((cert, i) => (
-                <div key={i} className="flex items-center gap-3">
+                <div key={i} className="flex items-center gap-4">
                   <input
                     type="text"
                     placeholder="Certification name"
@@ -376,29 +386,31 @@ function ResumeBuilder() {
             <AddButton onClick={() => addItem("certifications", "")} label="Add Certification" />
           </Section>
 
-          <button type="submit" disabled={isLoading} className="app-button w-full py-3.5 text-base">
+          <button type="submit" disabled={isLoading} className="btn-primary w-full py-4 text-lg">
             {isLoading ? "Saving..." : "Save Resume"}
           </button>
         </form>
       </div>
 
       {showPreview && (
-        <div className="fixed inset-0 z-50 bg-slate-950/55 backdrop-blur-sm px-4 py-8 overflow-y-auto">
-          <div className="max-w-4xl mx-auto">
-            <div className="flex items-center justify-between mb-4">
-              <div>
-                <h2 className="text-xl font-semibold text-white">Resume Preview</h2>
-                <p className="text-sm text-slate-200 mt-1">Review layout before downloading or submitting.</p>
+        <div className="fixed inset-0 z-50 bg-surface-900/60 backdrop-blur-md px-4 py-8 overflow-y-auto">
+          <div className="max-w-5xl mx-auto">
+            <div className="flex items-center justify-between mb-6 bg-white rounded-2xl p-4 shadow-lg border border-surface-200">
+              <div className="px-2">
+                <h2 className="text-xl font-bold text-surface-900 font-['Outfit']">Resume Preview</h2>
+                <p className="text-[14px] font-medium text-surface-500 mt-0.5">Review layout before downloading or submitting.</p>
               </div>
               <button
                 type="button"
                 onClick={() => setShowPreview(false)}
-                className="rounded-lg border border-white/20 px-4 py-2 text-sm font-medium text-white hover:bg-white/10"
+                className="btn-secondary"
               >
-                Close
+                Close Preview
               </button>
             </div>
-            <ResumePreview user={user} resume={resume} />
+            <div className="bg-white rounded-lg overflow-hidden shadow-2xl">
+              <ResumePreview user={user} resume={resume} />
+            </div>
           </div>
         </div>
       )}

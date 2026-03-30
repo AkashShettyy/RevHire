@@ -4,10 +4,10 @@ import { useAuth } from "../context/AuthContext";
 import { getSavedJobs, removeSavedJob } from "../services/savedJobService";
 
 const jobTypeColors = {
-  fulltime: "bg-emerald-50 text-emerald-700",
-  parttime: "bg-sky-50 text-sky-700",
-  internship: "bg-purple-50 text-purple-700",
-  remote: "bg-sky-50 text-sky-700",
+  fulltime: "badge-success",
+  parttime: "badge-brand",
+  internship: "badge-warning",
+  remote: "badge-brand",
 };
 
 function SavedJobs() {
@@ -46,9 +46,9 @@ function SavedJobs() {
 
   if (isLoading) {
     return (
-      <div className="app-page flex items-center justify-center">
-        <div className="flex items-center gap-3 text-stone-500">
-          <div className="h-5 w-5 animate-spin rounded-full border-2 border-blue-600 border-t-transparent" />
+      <div className="min-h-screen flex items-center justify-center bg-surface-50">
+        <div className="flex items-center gap-3 text-surface-500 font-medium font-['Outfit']">
+          <div className="h-5 w-5 animate-spin rounded-full border-2 border-brand-600 border-t-transparent" />
           Loading...
         </div>
       </div>
@@ -56,83 +56,86 @@ function SavedJobs() {
   }
 
   return (
-    <div className="app-page">
-      <div className="app-hero">
-        <div className="app-shell max-w-5xl py-8">
-          <div className="app-spotlight px-6 py-7 sm:px-8">
-            <div className="grid gap-6 lg:grid-cols-[1.2fr,0.8fr] lg:items-end">
-              <div>
-                <span className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/80">
-                  Saved roles
-                </span>
-                <h1 className="mt-4 text-3xl font-bold tracking-tight text-white">Saved Jobs</h1>
-                <p className="mt-3 text-sm leading-6 text-white/76">
-                  Keep shortlisted openings in one place and revisit them before applying.
-                </p>
+    <div className="min-h-screen relative overflow-hidden bg-surface-50/30 pb-12">
+      <div className="absolute top-0 right-0 -mr-40 w-[600px] h-[600px] bg-amber-500/10 blur-[100px] pointer-events-none rounded-full"></div>
+
+      <div className="pt-10 pb-10 border-b border-surface-200/60 bg-white/50 backdrop-blur-md relative z-10">
+        <div className="layout-container max-w-5xl">
+          <div className="grid gap-6 lg:grid-cols-[1.2fr,0.8fr] lg:items-end">
+            <div>
+              <span className="inline-flex rounded-full border border-brand-100 bg-brand-50 px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-brand-700 mb-4">
+                Saved Roles
+              </span>
+              <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-surface-900 font-['Outfit']">Saved Jobs</h1>
+              <p className="mt-3 text-[17px] font-medium text-surface-600 max-w-2xl">
+                Keep shortlisted openings in one place and revisit them before applying.
+              </p>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="premium-card bg-white p-5 shadow-sm border-surface-200 text-center sm:text-left">
+                <p className="text-[11px] font-bold uppercase tracking-widest text-surface-400">Saved</p>
+                <p className="mt-1.5 text-2xl font-extrabold text-surface-900 font-['Outfit']">{savedJobs.length}</p>
               </div>
-              <div className="grid gap-3 sm:grid-cols-2">
-                <div className="rounded-[26px] border border-white/16 bg-white/10 px-4 py-4 backdrop-blur-sm">
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/65">Saved</p>
-                  <p className="mt-3 text-3xl font-bold text-white">{savedJobs.length}</p>
-                </div>
-                <div className="rounded-[26px] border border-white/16 bg-white/10 px-4 py-4 backdrop-blur-sm">
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/65">Status</p>
-                  <p className="mt-3 text-lg font-bold text-white">{savedJobs.length > 0 ? "Tracked" : "Empty"}</p>
-                </div>
+              <div className="premium-card bg-white p-5 shadow-sm border-surface-200 text-center sm:text-left">
+                <p className="text-[11px] font-bold uppercase tracking-widest text-surface-400">Status</p>
+                <p className="mt-1.5 text-2xl font-extrabold text-surface-900 font-['Outfit']">{savedJobs.length > 0 ? "Tracked" : "Empty"}</p>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="app-shell max-w-5xl py-8">
-        {message && <div className="app-message-success mb-5">{message}</div>}
+      <div className="layout-container max-w-5xl py-10 relative z-10">
+        {message && <div className="rounded-xl border border-success-200 bg-success-50 p-4 font-semibold text-success-800 shadow-sm mb-6 animate-fade-in">{message}</div>}
 
         {savedJobs.length === 0 ? (
-          <div className="app-empty">
-            <p className="mb-4 text-5xl">🔖</p>
-            <p className="font-medium text-stone-700">No saved jobs yet</p>
-            <p className="mt-1 text-sm text-stone-400">Save interesting roles from search or job details.</p>
-            <button onClick={() => navigate("/jobs")} className="app-button mt-6">
+          <div className="premium-card p-16 text-center bg-white border-none shadow-sm">
+            <div className="inline-flex w-24 h-24 rounded-full bg-surface-50 items-center justify-center mb-6">
+              <span className="text-4xl">🔖</span>
+            </div>
+            <h3 className="text-2xl font-bold text-surface-900 font-['Outfit'] mb-2">No saved jobs yet</h3>
+            <p className="mb-8 mt-1 text-[15px] font-medium text-surface-500">Save interesting roles from search or job details.</p>
+            <button onClick={() => navigate("/jobs")} className="btn-primary">
               Browse Jobs
             </button>
           </div>
         ) : (
           <div className="space-y-4">
             {savedJobs.map((entry) => (
-              <article key={entry._id} className="app-panel p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-xl">
-                <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
+              <article key={entry._id} className="premium-card p-6 bg-white overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-brand-200 group relative">
+                <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-brand-400 to-indigo-500 opacity-0 transition-opacity group-hover:opacity-100"></div>
+                <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between ml-2">
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-3 flex-wrap">
                       <button
                         type="button"
                         onClick={() => navigate(`/jobs/${entry.job?._id}`)}
-                        className="text-left text-lg font-semibold text-stone-900 transition-colors hover:text-blue-700"
+                        className="text-left text-lg font-bold text-surface-900 transition-colors hover:text-brand-700 font-['Outfit']"
                       >
                         {entry.job?.title}
                       </button>
-                      <span className={`rounded-full px-2.5 py-1 text-xs font-semibold ${jobTypeColors[entry.job?.jobType] || "bg-stone-100 text-stone-600"}`}>
+                      <span className={`badge shrink-0 ${jobTypeColors[entry.job?.jobType] || "badge-neutral"}`}>
                         {entry.job?.jobType}
                       </span>
                     </div>
-                    <p className="mt-1 text-sm font-medium text-stone-600">{entry.job?.organization?.name}</p>
-                    <div className="mt-3 flex flex-wrap gap-4 text-sm text-stone-500">
-                      <span>📍 {entry.job?.location}</span>
+                    <p className="mt-1.5 text-sm font-medium text-surface-600">{entry.job?.organization?.name}</p>
+                    <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-[14px] font-medium text-surface-500">
+                      <span className="flex items-center gap-1.5"><span className="text-surface-400">📍</span> {entry.job?.location}</span>
                       {entry.job?.salaryRange?.min && (
-                        <span>💰 ₹{entry.job.salaryRange.min.toLocaleString()} - ₹{entry.job.salaryRange.max?.toLocaleString()}</span>
+                        <span className="flex items-center gap-1.5"><span className="text-surface-400">💰</span> ₹{entry.job.salaryRange.min.toLocaleString()} - ₹{entry.job.salaryRange.max?.toLocaleString()}</span>
                       )}
-                      <span>📅 Deadline {new Date(entry.job?.deadline).toLocaleDateString()}</span>
+                      <span className="flex items-center gap-1.5"><span className="text-surface-400">📅</span> Deadline {new Date(entry.job?.deadline).toLocaleDateString()}</span>
                     </div>
                   </div>
 
-                  <div className="flex flex-wrap gap-2">
-                    <button onClick={() => navigate(`/jobs/${entry.job?._id}`)} className="app-button px-4 py-2">
+                  <div className="flex flex-wrap gap-3">
+                    <button onClick={() => navigate(`/jobs/${entry.job?._id}`)} className="btn-secondary px-4 py-2 text-sm">
                       View Details
                     </button>
                     <button
                       type="button"
                       onClick={() => handleRemove(entry.job?._id)}
-                      className="rounded-2xl border border-red-200 bg-red-50 px-4 py-2 text-sm font-semibold text-red-600 transition-colors hover:bg-red-100"
+                      className="px-4 py-2 rounded-xl text-[13px] font-bold text-error-600 border border-error-200 bg-error-50 hover:bg-error-100 transition-colors"
                     >
                       Remove
                     </button>

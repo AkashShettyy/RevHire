@@ -48,25 +48,29 @@ function PostJob() {
   }
 
   return (
-    <div className="app-page">
-      <div className="app-hero">
-        <div className="app-shell max-w-3xl py-8">
-          <div className="app-hero-card">
-            <button onClick={() => navigate("/employer/dashboard")} className="text-sm font-medium text-stone-500 transition-colors hover:text-blue-700">← Back</button>
-            <div className="mt-5 grid gap-6 lg:grid-cols-[1.15fr,0.85fr] lg:items-end">
+    <div className="min-h-screen relative overflow-hidden bg-surface-50/30 pb-12">
+      <div className="absolute top-0 right-0 -mr-40 w-[600px] h-[600px] bg-brand-500/10 blur-[100px] pointer-events-none rounded-full"></div>
+
+      <div className="pt-10 pb-10 border-b border-surface-200/60 bg-white/50 backdrop-blur-md relative z-10">
+        <div className="layout-container max-w-4xl">
+          <div className="premium-card p-6 sm:p-8 bg-white shadow-sm border-surface-200">
+            <button onClick={() => navigate("/employer/dashboard")} className="text-sm font-bold text-surface-500 transition-colors hover:text-brand-700 flex items-center gap-1.5 mb-6"><span>←</span> Back</button>
+            <div className="grid gap-6 lg:grid-cols-[1.15fr,0.85fr] lg:items-end">
               <div>
-                <span className="app-eyebrow">Create opening</span>
-                <h1 className="mt-4 text-3xl font-bold tracking-tight text-stone-950">Post a Job</h1>
-                <p className="mt-2 text-sm text-stone-500">Fill in the details to attract the right candidates.</p>
+                <span className="inline-flex rounded-full border border-brand-100 bg-brand-50 px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-brand-700 mb-4">
+                  Create opening
+                </span>
+                <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-surface-900 font-['Outfit']">Post a Job</h1>
+                <p className="mt-3 text-[17px] font-medium text-surface-600">Fill in the details to attract the right candidates.</p>
               </div>
-              <div className="grid gap-3 sm:grid-cols-2">
-                <div className="app-mini-stat">
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-stone-400">Template</p>
-                  <p className="mt-2 text-sm font-semibold text-stone-800">Structured job form</p>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div className="rounded-xl border border-surface-100 bg-surface-50 p-4 text-center sm:text-left shadow-sm">
+                  <p className="text-[11px] font-bold uppercase tracking-widest text-surface-400">Template</p>
+                  <p className="mt-1.5 text-[15px] font-bold text-surface-900">Structured form</p>
                 </div>
-                <div className="app-mini-stat">
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-stone-400">Optional</p>
-                  <p className="mt-2 text-sm font-semibold text-stone-800">Screening questions</p>
+                <div className="rounded-xl border border-surface-100 bg-surface-50 p-4 text-center sm:text-left shadow-sm">
+                  <p className="text-[11px] font-bold uppercase tracking-widest text-surface-400">Optional</p>
+                  <p className="mt-1.5 text-[15px] font-bold text-surface-900">Screening Qs</p>
                 </div>
               </div>
             </div>
@@ -74,56 +78,58 @@ function PostJob() {
         </div>
       </div>
 
-      <div className="app-shell max-w-3xl py-8">
+      <div className="layout-container max-w-4xl py-10 relative z-10">
         {message === "success" && (
-          <div className="app-message-success mb-6">Job posted successfully. Redirecting...</div>
+          <div className="rounded-xl border border-success-200 bg-success-50 p-4 font-semibold text-success-800 shadow-sm animate-fade-in mb-8">Job posted successfully. Redirecting...</div>
         )}
         {message && message !== "success" && (
-          <div className="app-message-error mb-6">{message}</div>
+          <div className="rounded-xl border border-error-200 bg-error-50 p-4 font-semibold text-error-800 shadow-sm animate-fade-in mb-8">{message}</div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="app-panel space-y-5 p-6 sm:p-8">
-            <h2 className="flex items-center gap-2 font-semibold text-stone-900">📋 Basic Information</h2>
-            <div>
-              <label className="app-label">Job Title</label>
-              <input type="text" name="title" placeholder="e.g. Senior React Developer" value={formData.title} onChange={handleChange} required className="app-input" />
-            </div>
-            <div>
-              <label className="app-label">Description</label>
-              <textarea name="description" placeholder="Describe the role, responsibilities, and what you're looking for..." value={formData.description} onChange={handleChange} rows={4} required className="app-input resize-none" />
-            </div>
-            <div>
-              <label className="app-label">Skills Required</label>
-              <input type="text" name="skillsRequired" placeholder="React, Node.js, MongoDB (comma separated)" value={formData.skillsRequired} onChange={handleChange} required className="app-input" />
-              <p className="mt-1.5 text-xs text-stone-400">Separate skills with commas</p>
-            </div>
-          </div>
-
-          <div className="app-panel space-y-5 p-6 sm:p-8">
-            <h2 className="font-semibold text-stone-900">📚 Requirements</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <form onSubmit={handleSubmit} className="space-y-8">
+          <div className="premium-card bg-white p-6 sm:p-8 shadow-sm">
+            <h2 className="flex items-center gap-2 text-xl font-bold text-surface-900 font-['Outfit'] mb-6">📋 Basic Information</h2>
+            <div className="space-y-5">
               <div>
-                <label className="app-label">Experience Required</label>
-                <input type="text" name="experienceRequired" placeholder="e.g. 1-2 years" value={formData.experienceRequired} onChange={handleChange} required className="app-input" />
+                <label className="block text-[13px] font-bold uppercase tracking-widest text-surface-500 mb-2">Job Title</label>
+                <input type="text" name="title" placeholder="e.g. Senior React Developer" value={formData.title} onChange={handleChange} required className="input-field" />
               </div>
               <div>
-                <label className="app-label">Education Required</label>
-                <input type="text" name="educationRequired" placeholder="e.g. Bachelor's degree" value={formData.educationRequired} onChange={handleChange} required className="app-input" />
+                <label className="block text-[13px] font-bold uppercase tracking-widest text-surface-500 mb-2">Description</label>
+                <textarea name="description" placeholder="Describe the role, responsibilities, and what you're looking for..." value={formData.description} onChange={handleChange} rows={4} required className="input-field resize-none" />
+              </div>
+              <div>
+                <label className="block text-[13px] font-bold uppercase tracking-widest text-surface-500 mb-2">Skills Required</label>
+                <input type="text" name="skillsRequired" placeholder="React, Node.js, MongoDB (comma separated)" value={formData.skillsRequired} onChange={handleChange} required className="input-field" />
+                <p className="mt-2 text-[13px] font-bold text-surface-400">Separate skills with commas</p>
               </div>
             </div>
           </div>
 
-          <div className="app-panel space-y-5 p-6 sm:p-8">
-            <h2 className="font-semibold text-stone-900">💼 Job Details</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="premium-card bg-white p-6 sm:p-8 shadow-sm">
+            <h2 className="text-xl font-bold text-surface-900 font-['Outfit'] mb-6">📚 Requirements</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div>
-                <label className="app-label">Location</label>
-                <input type="text" name="location" placeholder="e.g. Bangalore" value={formData.location} onChange={handleChange} required className="app-input" />
+                <label className="block text-[13px] font-bold uppercase tracking-widest text-surface-500 mb-2">Experience Required</label>
+                <input type="text" name="experienceRequired" placeholder="e.g. 1-2 years" value={formData.experienceRequired} onChange={handleChange} required className="input-field" />
               </div>
               <div>
-                <label className="app-label">Job Type</label>
-                <select name="jobType" value={formData.jobType} onChange={handleChange} className="app-input">
+                <label className="block text-[13px] font-bold uppercase tracking-widest text-surface-500 mb-2">Education Required</label>
+                <input type="text" name="educationRequired" placeholder="e.g. Bachelor's degree" value={formData.educationRequired} onChange={handleChange} required className="input-field" />
+              </div>
+            </div>
+          </div>
+
+          <div className="premium-card bg-white p-6 sm:p-8 shadow-sm">
+            <h2 className="text-xl font-bold text-surface-900 font-['Outfit'] mb-6">💼 Job Details</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div>
+                <label className="block text-[13px] font-bold uppercase tracking-widest text-surface-500 mb-2">Location</label>
+                <input type="text" name="location" placeholder="e.g. Bangalore" value={formData.location} onChange={handleChange} required className="input-field" />
+              </div>
+              <div>
+                <label className="block text-[13px] font-bold uppercase tracking-widest text-surface-500 mb-2">Job Type</label>
+                <select name="jobType" value={formData.jobType} onChange={handleChange} className="input-field">
                   <option value="fulltime">Full Time</option>
                   <option value="parttime">Part Time</option>
                   <option value="internship">Internship</option>
@@ -131,49 +137,53 @@ function PostJob() {
                 </select>
               </div>
               <div>
-                <label className="app-label">Min Salary (₹)</label>
-                <input type="number" name="salaryMin" placeholder="e.g. 500000" value={formData.salaryMin} onChange={handleChange} className="app-input" />
+                <label className="block text-[13px] font-bold uppercase tracking-widest text-surface-500 mb-2">Min Salary (₹)</label>
+                <input type="number" name="salaryMin" placeholder="e.g. 500000" value={formData.salaryMin} onChange={handleChange} className="input-field" />
               </div>
               <div>
-                <label className="app-label">Max Salary (₹)</label>
-                <input type="number" name="salaryMax" placeholder="e.g. 800000" value={formData.salaryMax} onChange={handleChange} className="app-input" />
+                <label className="block text-[13px] font-bold uppercase tracking-widest text-surface-500 mb-2">Max Salary (₹)</label>
+                <input type="number" name="salaryMax" placeholder="e.g. 800000" value={formData.salaryMax} onChange={handleChange} className="input-field" />
               </div>
               <div className="sm:col-span-2">
-                <label className="app-label">Application Deadline</label>
-                <input type="date" name="deadline" value={formData.deadline} onChange={handleChange} required className="app-input" />
+                <label className="block text-[13px] font-bold uppercase tracking-widest text-surface-500 mb-2">Application Deadline</label>
+                <input type="date" name="deadline" value={formData.deadline} onChange={handleChange} required className="input-field" />
               </div>
             </div>
           </div>
 
-          <div className="app-panel space-y-5 p-6 sm:p-8">
-            <div className="flex items-center justify-between">
-              <h2 className="font-semibold text-stone-900">🤖 Screening Questions (Optional)</h2>
-              <button type="button" onClick={addQuestion} className="text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors">+ Add Question</button>
+          <div className="premium-card bg-white p-6 sm:p-8 shadow-sm">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-xl font-bold text-surface-900 font-['Outfit'] flex items-center gap-2">🤖 Screening Qs <span className="text-[13px] font-bold uppercase tracking-widest text-surface-400 bg-surface-100 px-2 py-0.5 rounded ml-2">(Optional)</span></h2>
+              <button type="button" onClick={addQuestion} className="text-[14px] font-bold text-brand-600 hover:text-brand-800 transition-colors flex items-center gap-1.5">
+                <span className="text-lg leading-none">+</span> Add Question
+              </button>
             </div>
             {screeningQuestions.length === 0 ? (
-              <p className="text-sm text-stone-500">Add questions to auto-filter candidates. If they provide the wrong answer to a required question, they will be auto-rejected.</p>
+              <p className="text-[15px] font-medium text-surface-500 bg-surface-50 p-6 rounded-xl border border-surface-200 text-center">Add questions to auto-filter candidates. If they provide the wrong answer to a required question, they will be auto-rejected.</p>
             ) : (
               <div className="space-y-4">
                 {screeningQuestions.map((q, i) => (
-                  <div key={i} className="flex gap-4 items-start border border-stone-200 p-4 rounded-xl bg-stone-50/50">
-                    <div className="flex-1 space-y-3">
+                  <div key={i} className="flex gap-4 items-start border border-surface-200 p-5 rounded-2xl bg-surface-50 transition-colors focus-within:bg-white focus-within:border-brand-200">
+                    <div className="flex-1 space-y-4">
                       <div>
-                        <label className="app-label">Question</label>
-                        <input type="text" value={q.question} onChange={(e) => updateQuestion(i, "question", e.target.value)} className="app-input" placeholder="e.g. Do you require visa sponsorship?" required />
+                        <label className="block text-[13px] font-bold uppercase tracking-widest text-surface-500 mb-2">Question</label>
+                        <input type="text" value={q.question} onChange={(e) => updateQuestion(i, "question", e.target.value)} className="input-field" placeholder="e.g. Do you require visa sponsorship?" required />
                       </div>
                       <div>
-                        <label className="app-label">Required Answer (Optional Knockout)</label>
-                        <input type="text" value={q.requiredAnswer} onChange={(e) => updateQuestion(i, "requiredAnswer", e.target.value)} className="app-input" placeholder="e.g. No (Leave blank if not a strict filter)" />
+                        <label className="block text-[13px] font-bold uppercase tracking-widest text-surface-500 mb-2">Required Answer (Optional Knockout)</label>
+                        <input type="text" value={q.requiredAnswer} onChange={(e) => updateQuestion(i, "requiredAnswer", e.target.value)} className="input-field" placeholder="e.g. No (Leave blank if not a strict filter)" />
                       </div>
                     </div>
-                    <button type="button" onClick={() => removeQuestion(i)} className="text-stone-400 hover:text-red-600 p-2 transition-colors">✕</button>
+                    <button type="button" onClick={() => removeQuestion(i)} className="text-[13px] font-bold text-error-500 transition-colors hover:text-error-600 bg-error-50 px-3 py-1.5 rounded-lg hover:bg-error-100 mt-7">
+                      Remove
+                    </button>
                   </div>
                 ))}
               </div>
             )}
           </div>
 
-          <button type="submit" disabled={isLoading} className="app-button w-full py-3.5 text-base">
+          <button type="submit" disabled={isLoading} className="btn-primary w-full py-4 text-lg">
             {isLoading ? "Posting..." : "Post Job"}
           </button>
         </form>
