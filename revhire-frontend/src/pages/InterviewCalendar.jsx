@@ -34,6 +34,12 @@ function formatInterviewType(value) {
   return value === "online" ? "Online" : "In person";
 }
 
+function getInterviewAccent(interviewType) {
+  return interviewType === "online"
+    ? "from-sky-500/18 via-blue-500/10 to-transparent"
+    : "from-amber-500/18 via-orange-400/10 to-transparent";
+}
+
 function getResponsePill(responseStatus) {
   switch (responseStatus) {
     case "accepted":
@@ -134,42 +140,48 @@ function InterviewCalendar() {
     <div className="app-page">
       <div className="app-hero">
         <div className="app-shell max-w-6xl py-8">
-          <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-            <div>
-              <span className="app-eyebrow">Interview calendar</span>
-              <h1 className="mt-4 text-3xl font-bold tracking-tight text-stone-950">
-                {user?.role === "employer" ? "Team interview schedule" : "Your interview schedule"}
-              </h1>
-              <p className="mt-2 text-sm text-stone-500">
-                Review upcoming conversations by date and keep the current hiring week visible.
-              </p>
-            </div>
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-              <div className="app-stat">
-                <p className="text-sm font-medium text-stone-500">Upcoming</p>
-                <p className="mt-3 text-3xl font-bold text-blue-700">{upcomingInterviews.length}</p>
-              </div>
-              <div className="app-stat">
-                <p className="text-sm font-medium text-stone-500">This Month</p>
-                <p className="mt-3 text-3xl font-bold text-violet-700">
-                  {
-                    normalizedInterviews.filter(
-                      (interview) =>
-                        interview.scheduledDate.getMonth() === monthDate.getMonth() &&
-                        interview.scheduledDate.getFullYear() === monthDate.getFullYear(),
-                    ).length
-                  }
+          <div className="app-spotlight px-6 py-7 sm:px-8">
+            <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+              <div className="max-w-2xl">
+                <span className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/80">
+                  Interview calendar
+                </span>
+                <h1 className="mt-4 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                  {user?.role === "employer" ? "See the whole hiring week at a glance." : "Keep every interview in one timeline."}
+                </h1>
+                <p className="mt-3 max-w-xl text-sm leading-6 text-white/76">
+                  Move across the month, inspect each day, and jump into the next conversation without digging through cards.
                 </p>
               </div>
-              <button
-                type="button"
-                onClick={() =>
-                  navigate(user?.role === "employer" ? "/employer/dashboard" : "/dashboard")
-                }
-                className="app-button px-4 py-2"
-              >
-                Back
-              </button>
+
+              <div className="grid min-w-full gap-3 sm:grid-cols-3 lg:min-w-[470px]">
+                <div className="rounded-[26px] border border-white/16 bg-white/10 px-4 py-4 backdrop-blur-sm">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/65">Upcoming</p>
+                  <p className="mt-3 text-3xl font-bold text-white">{upcomingInterviews.length}</p>
+                </div>
+                <div className="rounded-[26px] border border-white/16 bg-white/10 px-4 py-4 backdrop-blur-sm">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/65">This Month</p>
+                  <p className="mt-3 text-3xl font-bold text-white">
+                    {
+                      normalizedInterviews.filter(
+                        (interview) =>
+                          interview.scheduledDate.getMonth() === monthDate.getMonth() &&
+                          interview.scheduledDate.getFullYear() === monthDate.getFullYear(),
+                      ).length
+                    }
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() =>
+                    navigate(user?.role === "employer" ? "/employer/dashboard" : "/dashboard")
+                  }
+                  className="rounded-[26px] bg-white px-4 py-4 text-left text-slate-900 transition-colors hover:bg-blue-50"
+                >
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Navigation</p>
+                  <p className="mt-3 text-lg font-bold">Back</p>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -194,7 +206,7 @@ function InterviewCalendar() {
           </div>
         ) : (
           <div className="grid gap-6 xl:grid-cols-[1.5fr,1fr]">
-            <section className="app-panel p-5 sm:p-6">
+            <section className="app-panel overflow-hidden p-5 sm:p-6">
               <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
                   <h2 className="text-lg font-semibold text-stone-900">
@@ -253,8 +265,8 @@ function InterviewCalendar() {
                       onClick={() => setSelectedDayKey(dayKey)}
                       className={`min-h-28 rounded-3xl border p-3 text-left transition-all ${
                         isSelected
-                          ? "border-blue-600 bg-blue-50 shadow-lg shadow-blue-100/60"
-                          : "border-stone-200 bg-white hover:border-blue-200 hover:bg-blue-50/40"
+                          ? "border-blue-600 bg-gradient-to-br from-blue-50 to-indigo-50 shadow-lg shadow-blue-100/60"
+                          : "border-stone-200 bg-white hover:-translate-y-0.5 hover:border-blue-200 hover:bg-blue-50/40"
                       } ${!isCurrentMonth ? "opacity-45" : ""}`}
                     >
                       <div className="flex items-center justify-between">
@@ -273,7 +285,7 @@ function InterviewCalendar() {
                       </div>
                       <div className="mt-3 space-y-2">
                         {dayInterviews.slice(0, 2).map((interview) => (
-                          <div key={interview._id} className="rounded-2xl bg-stone-50 px-2.5 py-2 text-xs text-stone-700">
+                          <div key={interview._id} className={`rounded-2xl bg-gradient-to-r ${getInterviewAccent(interview.interviewType)} px-2.5 py-2 text-xs text-stone-700`}>
                             <p className="font-semibold text-stone-900">
                               {interview.scheduledDate.toLocaleTimeString([], {
                                 hour: "numeric",
@@ -319,7 +331,7 @@ function InterviewCalendar() {
                 ) : (
                   <div className="mt-5 space-y-4">
                     {selectedDayInterviews.map((interview) => (
-                      <article key={interview._id} className="rounded-[26px] border border-stone-200 bg-stone-50/70 p-4">
+                      <article key={interview._id} className="rounded-[26px] border border-stone-200 bg-white p-4 shadow-[0_20px_50px_-40px_rgba(15,23,42,0.4)]">
                         <div className="flex items-start justify-between gap-3">
                           <div>
                             <p className="font-semibold text-stone-900">
@@ -338,20 +350,20 @@ function InterviewCalendar() {
                             {interview.responseStatus}
                           </span>
                         </div>
-                        <div className="mt-3 space-y-2 text-sm text-stone-600">
+                        <div className="mt-4 grid gap-2 text-sm text-stone-600">
                           {user?.role === "employer" ? (
                             <>
-                              <p>{interview.job?.title}</p>
-                              <p>{interview.jobSeeker?.email}</p>
+                              <p className="rounded-2xl bg-stone-50 px-3 py-2">{interview.job?.title}</p>
+                              <p className="rounded-2xl bg-stone-50 px-3 py-2">{interview.jobSeeker?.email}</p>
                             </>
                           ) : (
                             <>
-                              <p>{interview.employer?.name}</p>
-                              <p>{interview.employer?.email}</p>
+                              <p className="rounded-2xl bg-stone-50 px-3 py-2">{interview.employer?.name}</p>
+                              <p className="rounded-2xl bg-stone-50 px-3 py-2">{interview.employer?.email}</p>
                             </>
                           )}
-                          <p>{formatInterviewType(interview.interviewType)}</p>
-                          <p>{interview.interviewType === "online" ? interview.meetingLink : interview.location}</p>
+                          <p className="rounded-2xl bg-stone-50 px-3 py-2">{formatInterviewType(interview.interviewType)}</p>
+                          <p className="rounded-2xl bg-stone-50 px-3 py-2 break-all">{interview.interviewType === "online" ? interview.meetingLink : interview.location}</p>
                         </div>
 
                         {user?.role === "jobseeker" && interview.responseStatus !== "accepted" && (
@@ -391,7 +403,7 @@ function InterviewCalendar() {
                         setMonthDate(new Date(interview.scheduledDate.getFullYear(), interview.scheduledDate.getMonth(), 1));
                         setSelectedDayKey(formatDayKey(interview.scheduledDate));
                       }}
-                      className="w-full rounded-2xl border border-stone-200 bg-white px-4 py-3 text-left transition-colors hover:border-blue-200 hover:bg-blue-50/40"
+                      className="w-full rounded-[24px] border border-stone-200 bg-gradient-to-r from-white to-blue-50/50 px-4 py-3 text-left transition-all hover:-translate-y-0.5 hover:border-blue-200 hover:from-blue-50 hover:to-indigo-50/60"
                     >
                       <p className="font-semibold text-stone-900">
                         {user?.role === "employer"

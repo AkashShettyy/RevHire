@@ -131,11 +131,14 @@ function EmployerDashboard() {
               key={action.label}
               type="button"
               onClick={() => navigate(action.path)}
-              className={`rounded-[28px] bg-gradient-to-br ${action.color} p-5 text-left text-white shadow-xl shadow-stone-900/10 transition-all duration-200 hover:-translate-y-1`}
+              className={`app-action-card bg-gradient-to-br ${action.color}`}
             >
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/75">Quick action</p>
-              <p className="mt-3 font-semibold">{action.label}</p>
-              <p className="mt-0.5 text-sm text-white/70">{action.desc}</p>
+              <div className="relative z-[1]">
+                <p className="inline-flex rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-white/75">Quick action</p>
+                <p className="mt-4 text-lg font-semibold">{action.label}</p>
+                <p className="mt-1 text-sm text-white/72">{action.desc}</p>
+                <p className="mt-6 text-sm font-semibold text-white">Open workspace →</p>
+              </div>
             </button>
           ))}
         </div>

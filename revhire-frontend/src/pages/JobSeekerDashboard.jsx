@@ -158,18 +158,21 @@ function JobSeekerDashboard() {
             <button
               key={a.label}
               onClick={() => navigate(a.path)}
-              className={`rounded-[28px] bg-gradient-to-br ${a.color} p-5 text-left text-white shadow-xl shadow-stone-900/10 transition-all duration-200 hover:-translate-y-1`}
+              className={`app-action-card bg-gradient-to-br ${a.color}`}
             >
-              <span className="text-xs font-semibold uppercase tracking-[0.22em] text-white/75">{a.icon}</span>
-              <p className="mt-3 font-semibold">{a.label}</p>
-              <p className="mt-0.5 text-sm text-white/70">{a.desc}</p>
+              <div className="relative z-[1]">
+                <span className="inline-flex rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-white/75">{a.icon}</span>
+                <p className="mt-4 text-lg font-semibold">{a.label}</p>
+                <p className="mt-1 text-sm text-white/72">{a.desc}</p>
+                <p className="mt-6 text-sm font-semibold text-white">Open workspace →</p>
+              </div>
             </button>
           ))}
         </div>
 
         <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
           <div className="app-panel overflow-hidden">
-            <div className="flex items-center justify-between border-b border-stone-100 px-6 py-4">
+            <div className="app-section-header">
               <h2 className="font-semibold text-stone-900">Recent Applications</h2>
               <button onClick={() => navigate("/applications")} className="text-sm font-medium text-blue-600 hover:underline">View all</button>
             </div>
@@ -195,7 +198,7 @@ function JobSeekerDashboard() {
           </div>
 
           <div className="app-panel overflow-hidden">
-            <div className="flex items-center justify-between border-b border-stone-100 px-6 py-4">
+            <div className="app-section-header">
               <h2 className="font-semibold text-stone-900">Upcoming Interviews</h2>
               <span className="text-sm text-stone-400">{upcomingInterviews.length} total</span>
             </div>
@@ -235,7 +238,7 @@ function JobSeekerDashboard() {
           </div>
 
           <div className="app-panel overflow-hidden">
-            <div className="flex items-center justify-between border-b border-stone-100 px-6 py-4">
+            <div className="app-section-header">
               <h2 className="font-semibold text-stone-900">Past Interviews</h2>
               <span className="text-sm text-stone-400">{pastInterviews.length} total</span>
             </div>
