@@ -12,17 +12,17 @@ const applicationFilters = [
 ];
 
 const statusColors = {
-  applied: "bg-blue-50 text-blue-700 border border-blue-100",
-  shortlisted: "bg-emerald-50 text-emerald-700 border border-emerald-100",
-  rejected: "bg-red-50 text-red-600 border border-red-100",
-  withdrawn: "bg-slate-100 text-slate-500 border border-slate-200",
+  applied: "badge-brand",
+  shortlisted: "badge-success",
+  rejected: "badge-error",
+  withdrawn: "badge-neutral",
 };
 
 const jobTypeColors = {
-  fulltime: "bg-emerald-50 text-emerald-700",
-  parttime: "bg-sky-50 text-sky-700",
-  internship: "bg-purple-50 text-purple-700",
-  remote: "bg-sky-50 text-sky-700",
+  fulltime: "badge-success",
+  parttime: "badge-brand",
+  internship: "badge-warning",
+  remote: "badge-brand",
 };
 
 function ApplicationHistory() {
@@ -73,54 +73,58 @@ function ApplicationHistory() {
     );
 
   return (
-    <div className="app-page">
-      <div className="app-hero">
-        <div className="app-shell max-w-4xl py-8">
-          <div className="app-spotlight px-6 py-7 sm:px-8">
-            <div className="grid gap-6 lg:grid-cols-[1.15fr,0.85fr] lg:items-end">
-              <div>
-                <span className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/80">
-                  Application history
-                </span>
-                <h1 className="mt-4 text-3xl font-bold tracking-tight text-white">My Applications</h1>
-                <p className="mt-3 text-sm leading-6 text-white/76">
-                  Review recent submissions, check where each application sits, and withdraw pending ones when priorities shift.
-                </p>
+    <div className="min-h-screen relative overflow-hidden bg-surface-50/30 pb-12">
+      <div className="absolute top-0 right-0 -mr-40 w-[600px] h-[600px] bg-brand-500/10 blur-[100px] pointer-events-none rounded-full"></div>
+
+      <div className="pt-10 pb-10 border-b border-surface-200/60 bg-white/50 backdrop-blur-md relative z-10">
+        <div className="layout-container max-w-5xl">
+          <div className="grid gap-6 lg:grid-cols-[1.15fr,0.85fr] lg:items-end">
+            <div>
+              <span className="inline-flex rounded-full border border-brand-100 bg-brand-50 px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-brand-700 mb-4">
+                Application History
+              </span>
+              <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-surface-900 font-['Outfit']">My Applications</h1>
+              <p className="mt-3 text-[17px] font-medium text-surface-600 max-w-2xl">
+                Review recent submissions, check where each application sits, and withdraw pending ones when priorities shift.
+              </p>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-3">
+              <div className="premium-card bg-white p-5 shadow-sm border-surface-200 text-center sm:text-left">
+                <p className="text-[11px] font-bold uppercase tracking-widest text-surface-400">Total</p>
+                <p className="mt-1.5 text-2xl font-extrabold text-surface-900 font-['Outfit']">{applications.length}</p>
               </div>
-              <div className="grid gap-3 sm:grid-cols-3">
-                <div className="rounded-[26px] border border-white/16 bg-white/10 px-4 py-4 backdrop-blur-sm">
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/65">Total</p>
-                  <p className="mt-3 text-3xl font-bold text-white">{applications.length}</p>
-                </div>
-                <div className="rounded-[26px] border border-white/16 bg-white/10 px-4 py-4 backdrop-blur-sm">
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/65">Pending</p>
-                  <p className="mt-3 text-3xl font-bold text-white">{applications.filter((app) => app.status === "applied").length}</p>
-                </div>
-                <div className="rounded-[26px] border border-white/16 bg-white/10 px-4 py-4 backdrop-blur-sm">
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/65">Shown</p>
-                  <p className="mt-3 text-3xl font-bold text-white">{filteredApplications.length}</p>
-                </div>
+              <div className="premium-card bg-white p-5 shadow-sm border-surface-200 text-center sm:text-left">
+                <p className="text-[11px] font-bold uppercase tracking-widest text-surface-400">Pending</p>
+                <p className="mt-1.5 text-2xl font-extrabold text-surface-900 font-['Outfit']">{applications.filter((app) => app.status === "applied").length}</p>
+              </div>
+              <div className="premium-card bg-white p-5 shadow-sm border-surface-200 text-center sm:text-left">
+                <p className="text-[11px] font-bold uppercase tracking-widest text-surface-400">Shown</p>
+                <p className="mt-1.5 text-2xl font-extrabold text-surface-900 font-['Outfit']">{filteredApplications.length}</p>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="app-shell max-w-4xl py-8">
+      <div className="layout-container max-w-5xl py-10 relative z-10">
         {message && (
-          <div className="app-message-success mb-5">{message}</div>
+          <div className="rounded-xl border border-success-200 bg-success-50 p-4 font-semibold text-success-800 shadow-sm mb-6 animate-fade-in">
+            {message}
+          </div>
         )}
 
         {applications.length === 0 ? (
-          <div className="app-empty">
-            <p className="text-4xl mb-4">📭</p>
-            <p className="font-medium text-stone-700">No applications yet</p>
-            <p className="mb-6 mt-1 text-sm text-stone-400">Start applying to jobs to track them here</p>
-            <button onClick={() => navigate("/jobs")} className="app-button">Browse Jobs</button>
+          <div className="premium-card p-16 text-center bg-white border-none shadow-sm">
+            <div className="inline-flex w-24 h-24 rounded-full bg-surface-50 items-center justify-center mb-6">
+              <span className="text-4xl">📭</span>
+            </div>
+            <h3 className="text-2xl font-bold text-surface-900 font-['Outfit'] mb-2">No applications yet</h3>
+            <p className="mb-8 mt-1 text-[15px] font-medium text-surface-500">Start applying to jobs to track them here</p>
+            <button onClick={() => navigate("/jobs")} className="btn-primary">Browse Jobs</button>
           </div>
         ) : (
-          <div className="space-y-4">
-            <div className="flex flex-wrap gap-2">
+          <div className="space-y-6">
+            <div className="flex flex-wrap gap-2.5">
               {applicationFilters.map((filter) => {
                 const isActive = filter.value === activeFilter;
                 return (
@@ -128,10 +132,10 @@ function ApplicationHistory() {
                     key={filter.value}
                     type="button"
                     onClick={() => setActiveFilter(filter.value)}
-                    className={`rounded-full border px-4 py-2 text-sm font-medium transition-all ${
+                    className={`rounded-full border px-5 py-2 text-sm font-bold transition-all ${
                       isActive
-                        ? "border-blue-600 bg-blue-600 text-white shadow-lg shadow-blue-100"
-                        : "border-stone-200 bg-white text-stone-600 hover:-translate-y-0.5 hover:border-blue-200 hover:text-blue-700"
+                        ? "border-brand-600 bg-brand-600 text-white shadow-md shadow-brand-500/20 hover:bg-brand-700"
+                        : "border-surface-200 bg-white text-surface-600 hover:-translate-y-0.5 hover:border-brand-300 hover:text-brand-700 hover:shadow-sm"
                     }`}
                   >
                     {filter.label}
@@ -141,46 +145,51 @@ function ApplicationHistory() {
             </div>
 
             {filteredApplications.length === 0 ? (
-              <div className="app-panel p-8 text-center text-sm text-stone-500">
-                No {applicationFilters.find((filter) => filter.value === activeFilter)?.label.toLowerCase()} applications found.
+              <div className="premium-card p-12 text-center bg-white border-surface-200">
+                <p className="text-[15px] font-medium text-surface-500">No {applicationFilters.find((filter) => filter.value === activeFilter)?.label.toLowerCase()} applications found.</p>
               </div>
-            ) : filteredApplications.map((app) => (
-              <div key={app._id} className="app-panel p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-xl">
-                <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-                  <div className="flex-1 min-w-0">
-                    <h3
-                      className="cursor-pointer font-semibold text-stone-900 transition-colors hover:text-blue-700"
-                      onClick={() => navigate(`/jobs/${app.job?._id}`)}
-                    >
-                      {app.job?.title}
-                    </h3>
-                    <div className="mt-3 grid gap-2 text-sm text-stone-500 sm:grid-cols-3">
-                      <span>📍 {app.job?.location}</span>
-                      <span>📅 Applied {new Date(app.createdAt).toLocaleDateString()}</span>
-                      {app.job?.jobType && (
-                        <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${jobTypeColors[app.job.jobType]}`}>
-                          {app.job.jobType}
-                        </span>
-                      )}
+            ) : (
+              <div className="grid gap-4">
+                {filteredApplications.map((app) => (
+                  <div key={app._id} className="premium-card p-6 bg-white overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-brand-200 group relative">
+                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-brand-400 to-indigo-500 opacity-0 transition-opacity group-hover:opacity-100"></div>
+                    <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between ml-2">
+                      <div className="flex-1 min-w-0">
+                        <h3
+                          className="text-lg font-bold text-surface-900 transition-colors hover:text-brand-700 cursor-pointer truncate font-['Outfit']"
+                          onClick={() => navigate(`/jobs/${app.job?._id}`)}
+                        >
+                          {app.job?.title}
+                        </h3>
+                        <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-[14px] font-medium text-surface-500">
+                          <span className="flex items-center gap-1.5"><span className="text-surface-400">📍</span> {app.job?.location}</span>
+                          <span className="flex items-center gap-1.5"><span className="text-surface-400">📅</span> Applied {new Date(app.createdAt).toLocaleDateString()}</span>
+                          {app.job?.jobType && (
+                            <span className={`badge ml-1 ${jobTypeColors[app.job.jobType] || 'badge-neutral'}`}>
+                              {app.job.jobType}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                      <span className={`badge shrink-0 sm:self-center py-1.5 ${statusColors[app.status]}`}>
+                        {app.status.charAt(0).toUpperCase() + app.status.slice(1)}
+                      </span>
                     </div>
-                  </div>
-                  <span className={`text-xs font-semibold px-3 py-1.5 rounded-full shrink-0 ${statusColors[app.status]}`}>
-                    {app.status.charAt(0).toUpperCase() + app.status.slice(1)}
-                  </span>
-                </div>
 
-                {app.status === "applied" && (
-                  <div className="mt-4 border-t border-stone-100 pt-4">
-                    <button
-                      onClick={() => handleWithdraw(app._id)}
-                      className="text-sm font-medium text-red-500 transition-colors hover:text-red-600"
-                    >
-                      Withdraw Application
-                    </button>
+                    {app.status === "applied" && (
+                      <div className="mt-5 border-t border-surface-100 pt-4 ml-2 flex justify-end">
+                        <button
+                          onClick={() => handleWithdraw(app._id)}
+                          className="text-sm font-bold text-error-600 transition-colors hover:text-error-700 bg-error-50 px-4 py-2 rounded-xl hover:bg-error-100"
+                        >
+                          Withdraw Application
+                        </button>
+                      </div>
+                    )}
                   </div>
-                )}
+                ))}
               </div>
-            ))}
+            )}
           </div>
         )}
       </div>
