@@ -7,10 +7,10 @@ import { getResume } from "../services/resumeService";
 import { removeSavedJob, saveJob, getSavedJobs } from "../services/savedJobService";
 
 const jobTypeColors = {
-  fulltime: "bg-emerald-50 text-emerald-700",
-  parttime: "bg-sky-50 text-sky-700",
-  internship: "bg-purple-50 text-purple-700",
-  remote: "bg-sky-50 text-sky-700",
+  fulltime: "badge-success",
+  parttime: "badge-brand",
+  internship: "badge-warning",
+  remote: "badge-brand",
 };
 
 function JobDetails() {
@@ -108,120 +108,135 @@ function JobDetails() {
     );
 
   return (
-    <div className="app-page">
-      <div className="app-hero">
-        <div className="app-shell max-w-5xl py-8">
-          <div className="app-hero-card">
-            <button onClick={() => navigate("/jobs")} className="flex items-center gap-1.5 text-sm font-medium text-stone-500 transition-colors hover:text-blue-700">
-              ← Back to Jobs
-            </button>
-            <div className="mt-5 flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-              <div>
-                <span className="app-eyebrow">Role details</span>
-                <h1 className="mt-4 text-3xl font-bold tracking-tight text-stone-950">{job.title}</h1>
-                <p className="mt-2 text-sm font-medium text-stone-500">{job.organization?.name || "Company Name Hidden"}</p>
+    <div className="min-h-screen relative overflow-hidden bg-surface-50/30">
+      <div className="absolute top-0 right-0 -mr-40 w-[600px] h-[600px] bg-brand-500/10 blur-[100px] pointer-events-none rounded-full"></div>
+
+      <div className="relative border-b border-surface-200/60 bg-white/60 backdrop-blur-md pt-8 pl-8 pr-8 pb-12">
+        <div className="layout-container max-w-5xl">
+          <button onClick={() => navigate("/jobs")} className="flex items-center gap-1.5 text-sm font-bold text-surface-500 hover:text-brand-700 transition-colors mb-6">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" /></svg>
+            Back to Jobs
+          </button>
+          
+          <div className="mt-2 flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
+            <div className="flex-1">
+              <span className="inline-flex rounded-full bg-brand-50 border border-brand-100 px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-brand-700 mb-4">
+                Role Details
+              </span>
+              <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-surface-900 font-['Outfit']">{job.title}</h1>
+              <p className="mt-3 text-[17px] font-medium text-surface-600 flex items-center gap-2">
+                <span className="w-6 h-6 rounded-md bg-surface-200 flex items-center justify-center text-xs font-bold text-surface-700">{job.organization?.name?.charAt(0) || "C"}</span>
+                {job.organization?.name || "Company Name Hidden"}
+              </p>
+            </div>
+            
+            <div className="grid gap-4 sm:grid-cols-3 md:min-w-[360px]">
+              <div className="rounded-2xl border border-surface-200 bg-white/80 p-5 shadow-sm">
+                <p className="text-[11px] font-bold uppercase tracking-widest text-surface-400">Location</p>
+                <p className="mt-2 text-sm font-bold text-surface-900 truncate">{job.location}</p>
               </div>
-              <div className="grid gap-3 sm:grid-cols-3 md:min-w-[360px]">
-                <div className="app-mini-stat">
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-stone-400">Location</p>
-                  <p className="mt-2 text-sm font-semibold text-stone-800">{job.location}</p>
-                </div>
-                <div className="app-mini-stat">
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-stone-400">Type</p>
-                  <p className="mt-2 text-sm font-semibold capitalize text-stone-800">{job.jobType}</p>
-                </div>
-                <div className="app-mini-stat">
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-stone-400">Deadline</p>
-                  <p className="mt-2 text-sm font-semibold text-stone-800">{new Date(job.deadline).toLocaleDateString()}</p>
-                </div>
+              <div className="rounded-2xl border border-surface-200 bg-white/80 p-5 shadow-sm">
+                <p className="text-[11px] font-bold uppercase tracking-widest text-surface-400">Type</p>
+                <p className="mt-2 text-sm font-bold capitalize text-surface-900">{job.jobType}</p>
+              </div>
+              <div className="rounded-2xl border border-surface-200 bg-white/80 p-5 shadow-sm">
+                <p className="text-[11px] font-bold uppercase tracking-widest text-surface-400">Deadline</p>
+                <p className="mt-2 text-sm font-bold text-surface-900">{new Date(job.deadline).toLocaleDateString()}</p>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div className="app-shell max-w-5xl py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2 space-y-5">
-            <div className="app-panel p-6">
-              <div className="flex items-start justify-between gap-4">
+
+      <div className="layout-container max-w-5xl py-10 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="lg:col-span-2 space-y-6">
+            <div className="premium-card p-8 bg-white shadow-sm border-surface-200">
+              <div className="flex items-start justify-between gap-4 mb-6">
                 <div>
-                  <h2 className="text-xl font-bold tracking-tight text-stone-950">Overview</h2>
-                  <p className="mt-1 font-medium text-stone-500">{job.organization?.name || "Company Name Hidden"}</p>
+                  <h2 className="text-2xl font-bold tracking-tight text-surface-900 font-['Outfit']">Overview</h2>
                 </div>
-                <div className="flex flex-col items-end gap-2">
-                  <span className={`text-xs font-semibold px-3 py-1.5 rounded-full shrink-0 ${jobTypeColors[job.jobType]}`}>{job.jobType}</span>
-                  {user?.role === "jobseeker" && (
-                    <button
-                      type="button"
-                      onClick={handleToggleSavedJob}
-                      className={`rounded-full px-3 py-1 text-xs font-semibold ${
-                        isSaved ? "bg-amber-100 text-amber-800" : "bg-stone-100 text-stone-700"
-                      }`}
-                    >
-                      {isSaved ? "Saved" : "Save Job"}
-                    </button>
-                  )}
+                <div className="flex items-center gap-2">
+                  <span className={`badge ${jobTypeColors[job.jobType] || 'badge-neutral'}`}>{job.jobType}</span>
                 </div>
               </div>
-              <div className="flex flex-wrap gap-5 mt-5 border-t border-stone-100 pt-5 text-sm text-stone-500">
-                <span className="flex items-center gap-1.5">📍 {job.location}</span>
-                {job.salaryRange?.min && <span className="flex items-center gap-1.5">💰 ₹{job.salaryRange.min.toLocaleString()} – ₹{job.salaryRange.max?.toLocaleString()}</span>}
-                <span className="flex items-center gap-1.5">📅 Deadline: {new Date(job.deadline).toLocaleDateString()}</span>
+              <div className="flex flex-wrap gap-x-8 gap-y-4 pt-6 border-t border-surface-100 text-[15px] font-medium text-surface-600">
+                <span className="flex items-center gap-2"><span className="text-xl">📍</span> {job.location}</span>
+                {job.salaryRange?.min && <span className="flex items-center gap-2"><span className="text-xl">💰</span> ₹{job.salaryRange.min.toLocaleString()} – ₹{job.salaryRange.max?.toLocaleString()}</span>}
+                <span className="flex items-center gap-2"><span className="text-xl">📅</span> Deadline: {new Date(job.deadline).toLocaleDateString()}</span>
               </div>
             </div>
 
-            <div className="app-panel p-6">
-              <h2 className="mb-3 font-semibold text-stone-900">Job Description</h2>
-              <p className="text-sm leading-relaxed text-stone-600">{job.description}</p>
+            <div className="premium-card p-8 bg-white shadow-sm border-surface-200">
+              <h2 className="text-xl font-bold text-surface-900 font-['Outfit'] mb-4">Job Description</h2>
+              <div className="prose prose-stone text-[15px] leading-relaxed text-surface-600 max-w-none whitespace-pre-line">
+                {job.description}
+              </div>
             </div>
 
-            <div className="app-panel p-6">
-              <h2 className="mb-4 font-semibold text-stone-900">Skills Required</h2>
-              <div className="flex flex-wrap gap-2">
+            <div className="premium-card p-8 bg-white shadow-sm border-surface-200">
+              <h2 className="text-xl font-bold text-surface-900 font-['Outfit'] mb-5">Skills Required</h2>
+              <div className="flex flex-wrap gap-2.5">
                 {job.skillsRequired?.map((skill, i) => (
-                  <span key={i} className="rounded-full border border-blue-200 bg-blue-50 px-3 py-1.5 text-sm font-medium text-blue-700">{skill}</span>
+                  <span key={i} className="rounded-xl border border-brand-100 bg-brand-50/50 px-4 py-2 text-sm font-bold text-brand-700">{skill}</span>
                 ))}
               </div>
             </div>
 
-            <div className="app-panel p-6">
-              <h2 className="mb-4 font-semibold text-stone-900">Requirements</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="rounded-2xl border border-stone-200 bg-white/70 p-4">
-                  <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-stone-400">Experience</p>
-                  <p className="text-sm font-medium text-stone-700">{job.experienceRequired}</p>
+            <div className="premium-card p-8 bg-white shadow-sm border-surface-200">
+              <h2 className="text-xl font-bold text-surface-900 font-['Outfit'] mb-5">Requirements</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div className="rounded-2xl border border-surface-100 bg-surface-50/50 p-5">
+                  <div className="w-10 h-10 rounded-xl bg-surface-200 text-surface-600 flex items-center justify-center mb-3 text-lg font-bold">⏱</div>
+                  <p className="mb-1 text-[11px] font-bold uppercase tracking-widest text-surface-400">Experience</p>
+                  <p className="text-[15px] font-bold text-surface-800">{job.experienceRequired}</p>
                 </div>
-                  <div className="rounded-2xl border border-stone-200 bg-white/70 p-4">
-                  <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-stone-400">Education</p>
-                  <p className="text-sm font-medium text-stone-700">{job.educationRequired}</p>
+                  <div className="rounded-2xl border border-surface-100 bg-surface-50/50 p-5">
+                  <div className="w-10 h-10 rounded-xl bg-surface-200 text-surface-600 flex items-center justify-center mb-3 text-lg font-bold">🎓</div>
+                  <p className="mb-1 text-[11px] font-bold uppercase tracking-widest text-surface-400">Education</p>
+                  <p className="text-[15px] font-bold text-surface-800">{job.educationRequired}</p>
                 </div>
               </div>
             </div>
           </div>
 
           <div>
-            <div className="app-panel sticky top-24 overflow-hidden p-6">
-              <h2 className="mb-4 font-semibold text-stone-900">Apply for this role</h2>
+            <div className="premium-card sticky top-28 overflow-hidden p-8 bg-white shadow-lg shadow-surface-200/50 border-surface-200">
+              <h2 className="text-xl font-bold text-surface-900 font-['Outfit'] mb-6">Apply for this role</h2>
+
+              <div className="mb-6 flex gap-3">
+                 {user?.role === "jobseeker" && (
+                    <button
+                      type="button"
+                      onClick={handleToggleSavedJob}
+                      className={`flex-1 rounded-xl py-2.5 text-sm font-bold border transition-colors ${
+                        isSaved ? "bg-brand-50 border-brand-200 text-brand-700" : "bg-white border-surface-200 text-surface-600 hover:bg-surface-50"
+                      }`}
+                    >
+                      {isSaved ? "Saved to List" : "Save for Later"}
+                    </button>
+                  )}
+              </div>
 
               {job.status === "closed" ? (
-                <div className="app-message-error text-center font-medium">
-                  This position is closed
+                <div className="rounded-xl border border-error-200 bg-error-50 p-5 text-center font-bold text-error-700">
+                  This position is currently closed
                 </div>
               ) : user?.role === "jobseeker" ? (
                 isApplied ? (
-                  <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-4 text-center text-emerald-700">
-                    <p className="text-2xl mb-2">🎉</p>
-                    <p className="font-semibold text-sm">Application Submitted!</p>
-                    <p className="text-xs text-emerald-600 mt-1">We'll notify you of any updates</p>
+                  <div className="rounded-2xl border border-success-200 bg-success-50 p-6 text-center shadow-inner">
+                    <p className="text-4xl mb-3">🎉</p>
+                    <p className="font-bold text-lg text-success-800 tracking-tight">Application Submitted!</p>
+                    <p className="text-[13px] font-medium text-success-700 mt-2">You can track the status in your dashboard.</p>
                   </div>
                 ) : (
-                <form onSubmit={handleApply} className="space-y-4">
+                <form onSubmit={handleApply} className="space-y-5">
                   <div>
-                    <label className="app-label">Resume Version</label>
+                    <label className="label-text">Select Resume Version</label>
                     <select
                       value={selectedResumeId}
                       onChange={(event) => setSelectedResumeId(event.target.value)}
-                      className="app-input"
+                      className="input-field"
                       disabled={resumes.length === 0}
                     >
                       {resumes.length === 0 ? (
@@ -235,23 +250,24 @@ function JobDetails() {
                       )}
                     </select>
                     {resumes.length === 0 && (
-                      <p className="mt-2 text-xs text-stone-500">
+                      <p className="mt-2 text-xs font-medium text-surface-500 flex items-center gap-1.5">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-brand-500" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" /></svg>
                         Create a resume in the builder before applying.
                       </p>
                     )}
                   </div>
                   {job.screeningQuestions?.length > 0 && (
-                    <div className="space-y-4 pt-2 pb-4 border-b border-stone-100">
-                      <h3 className="text-sm font-semibold text-stone-800">Screening Questions</h3>
+                    <div className="space-y-5 pt-3 pb-5 border-y border-surface-100 mt-5">
+                      <h3 className="text-[13px] font-bold uppercase tracking-widest text-surface-600">Screening Questions</h3>
                       {job.screeningQuestions.map((q, i) => (
                         <div key={i}>
-                          <label className="app-label break-words whitespace-pre-wrap">{q.question}</label>
+                          <label className="label-text break-words whitespace-pre-wrap">{q.question}</label>
                           <input
                             type="text"
                             required
                             value={answers[q.question] || ""}
                             onChange={(e) => setAnswers(prev => ({...prev, [q.question]: e.target.value}))}
-                            className="app-input"
+                            className="input-field mt-1.5"
                             placeholder="Your answer"
                           />
                         </div>
@@ -259,27 +275,33 @@ function JobDetails() {
                     </div>
                   )}
                   <div>
-                    <label className="app-label">Cover Letter <span className="font-normal text-stone-400">(optional)</span></label>
+                    <label className="label-text flex items-center justify-between">
+                      Cover Letter 
+                      <span className="font-semibold text-surface-400 text-xs tracking-normal normal-case">Optional</span>
+                    </label>
                       <textarea
                         placeholder="Tell the employer why you're a great fit..."
                         value={coverLetter}
                         onChange={(e) => setCoverLetter(e.target.value)}
-                        rows={5}
-                        className="app-input resize-none"
+                        rows={4}
+                        className="input-field resize-none mt-1.5"
                       />
                     </div>
                     {message && (
-                      <div className="app-message-error">{message}</div>
+                      <div className="flex items-center gap-2 rounded-xl border border-error-200 bg-error-50 px-4 py-3 text-sm font-semibold text-error-700 animate-fade-in">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" /></svg>
+                        {message}
+                      </div>
                     )}
-                    <button type="submit" disabled={isLoading || resumes.length === 0} className="app-button w-full py-3">
+                    <button type="submit" disabled={isLoading || resumes.length === 0} className="btn-primary w-full py-3.5 mt-2 bg-gradient-to-r from-brand-600 to-indigo-600 shadow-brand-500/30 font-bold text-[15px]">
                       {isLoading ? "Submitting..." : "Submit Application"}
                     </button>
                   </form>
                 )
               ) : (
-                <div className="text-center py-4">
-                  <p className="mb-4 text-sm text-stone-500">Sign in as a job seeker to apply</p>
-                  <button onClick={() => navigate("/login")} className="app-button w-full py-2.5">Sign In to Apply</button>
+                <div className="rounded-2xl border border-surface-100 bg-surface-50 p-6 text-center">
+                  <p className="mb-5 text-[15px] font-medium text-surface-600">You must be signed in as a job seeker to apply for this role.</p>
+                  <button onClick={() => navigate("/login")} className="btn-primary w-full shadow-brand-500/20">Sign In to Apply</button>
                 </div>
               )}
             </div>
