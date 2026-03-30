@@ -72,60 +72,62 @@ export default function ApplicationModal({
   }
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/60 backdrop-blur-sm flex items-start justify-center p-4">
-      <div className="bg-white max-w-4xl w-full rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-surface-950/60 backdrop-blur-sm flex items-start justify-center p-4 sm:p-6 lg:p-8">
+      <div className="bg-white max-w-4xl w-full rounded-2xl shadow-xl overflow-hidden flex flex-col max-h-[90vh] border border-surface-200">
         {/* Header */}
-        <div className="bg-stone-50 border-b px-6 py-4 flex justify-between items-center shrink-0">
+        <div className="bg-surface-50 border-b border-surface-200 px-6 py-5 flex justify-between items-center shrink-0">
           <div>
-            <h2 className="text-xl font-bold text-stone-900">{application.jobSeeker?.name}</h2>
-            <p className="text-sm text-stone-500">{application.jobSeeker?.email}</p>
+            <h2 className="text-xl font-bold text-surface-900 font-['Outfit']">{application.jobSeeker?.name}</h2>
+            <p className="text-[14px] font-medium text-surface-500 mt-0.5">{application.jobSeeker?.email}</p>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
             <select
               value={application.status}
               onChange={(e) => {
                 onUpdateStatus(application._id, e.target.value);
                 onClose();
               }}
-              className="app-input w-auto p-2 py-1 text-sm bg-stone-100"
+              className="input-field w-auto min-w-[140px] px-3 py-1.5 text-sm font-bold border-surface-200"
             >
               {["applied", "shortlisted", "interviewing", "offered", "hired", "rejected"].map((s) => (
                 <option key={s} value={s}>{s.charAt(0).toUpperCase() + s.slice(1)}</option>
               ))}
             </select>
-            <button onClick={onClose} className="p-2 bg-stone-200 rounded-full hover:bg-stone-300">✕</button>
+            <button onClick={onClose} className="p-2 text-surface-400 hover:text-surface-600 hover:bg-surface-100 rounded-full transition-colors flex items-center justify-center min-w-[36px] min-h-[36px]">
+              <span className="text-lg leading-none">✕</span>
+            </button>
           </div>
         </div>
 
         {/* Tabs */}
-        <div className="flex border-b shrink-0 px-6">
+        <div className="flex border-b border-surface-200 shrink-0 px-2 sm:px-6 overflow-x-auto hide-scrollbar">
           {["overview", "resume", "interviews", "notes"].map((t) => (
             <button
               key={t}
               onClick={() => setActiveTab(t)}
-              className={`py-3 px-4 font-semibold text-sm border-b-2 ${activeTab === t ? 'border-blue-600 text-blue-700' : 'border-transparent text-stone-500 hover:text-stone-700'}`}
+              className={`py-3.5 px-4 font-bold text-[13px] uppercase tracking-wider whitespace-nowrap border-b-2 transition-colors ${activeTab === t ? 'border-brand-600 text-brand-700' : 'border-transparent text-surface-500 hover:text-surface-700 hover:bg-surface-50'}`}
             >
-              {t.charAt(0).toUpperCase() + t.slice(1)}
+              {t}
               {t === "notes" && application.notes?.length > 0 && ` (${application.notes.length})`}
             </button>
           ))}
         </div>
 
         {/* Content */}
-        <div className="flex-1 overflow-y-auto p-6">
-          {message && <div className="mb-4 text-sm font-medium text-emerald-600 bg-emerald-50 px-4 py-2 rounded-lg">{message}</div>}
+        <div className="flex-1 overflow-y-auto p-6 sm:p-8 custom-scrollbar">
+          {message && <div className="mb-6 text-[14px] font-bold text-emerald-700 bg-emerald-50 px-5 py-3 rounded-xl border border-emerald-200 animate-fade-in">{message}</div>}
           
           {activeTab === "overview" && (
-            <div className="space-y-6">
+            <div className="space-y-8 animate-fade-in">
               {application.answers?.length > 0 && (
-                <div>
-                  <h3 className="text-sm font-semibold uppercase tracking-wide text-stone-400 mb-3">Screening Answers</h3>
-                  <div className="space-y-3">
+                <div className="premium-card p-6 border-surface-200 shadow-sm bg-white">
+                  <h3 className="text-[12px] font-bold uppercase tracking-widest text-surface-400 mb-4">Screening Answers</h3>
+                  <div className="space-y-4">
                     {application.answers.map((a, i) => (
-                      <div key={i} className="bg-stone-50 p-3 rounded-xl border">
-                        <p className="text-sm font-medium text-stone-800">{a.question}</p>
-                        <p className="text-sm text-stone-600 mt-1 flex items-center gap-2">
-                          <span className="text-stone-400">↳</span> {a.answer}
+                      <div key={i} className="bg-surface-50 p-4 rounded-xl border border-surface-200">
+                        <p className="text-[14px] font-bold text-surface-800">{a.question}</p>
+                        <p className="text-[14px] font-medium text-surface-600 mt-2 flex items-start gap-2">
+                          <span className="text-surface-400 font-bold">↳</span> {a.answer}
                         </p>
                       </div>
                     ))}
@@ -133,69 +135,94 @@ export default function ApplicationModal({
                 </div>
               )}
               {application.coverLetter ? (
-                <div>
-                  <h3 className="text-sm font-semibold uppercase tracking-wide text-stone-400 mb-3">Cover Letter</h3>
-                  <p className="text-sm text-stone-600 whitespace-pre-wrap">{application.coverLetter}</p>
+                <div className="premium-card p-6 border-surface-200 shadow-sm bg-white">
+                  <h3 className="text-[12px] font-bold uppercase tracking-widest text-surface-400 mb-4">Cover Letter</h3>
+                  <p className="text-[15px] font-medium text-surface-700 leading-relaxed whitespace-pre-wrap">{application.coverLetter}</p>
                 </div>
               ) : (
-                <p className="text-sm text-stone-500 italic">No Cover letter provided.</p>
+                <p className="text-[14px] font-medium text-surface-500 italic bg-surface-50 p-4 rounded-xl border border-surface-200 text-center">No cover letter provided.</p>
               )}
             </div>
           )}
 
           {activeTab === "resume" && (
-            <div className="space-y-4">
+            <div className="space-y-6 animate-fade-in">
               {application.resume ? (
                 <>
-                  <button onClick={() => downloadResumePdf(application.jobSeeker, application.resume)} className="app-button px-4 py-2 text-sm text-white">Download PDF</button>
-                  {application.resume.uploadedFile?.dataUrl && (
-                    <a
-                      href={application.resume.uploadedFile.dataUrl}
-                      download={application.resume.uploadedFile.fileName || "resume-file"}
-                      className="inline-flex rounded-2xl border border-stone-200 px-4 py-2 text-sm font-semibold text-stone-700 transition-colors hover:bg-stone-50"
-                    >
-                      Download Uploaded File
-                    </a>
-                  )}
-                  <ResumePreview user={application.jobSeeker} resume={application.resume} />
+                  <div className="flex flex-wrap gap-4">
+                    <button onClick={() => downloadResumePdf(application.jobSeeker, application.resume)} className="btn-primary py-2 text-[14px]">
+                       Download PDF
+                    </button>
+                    {application.resume.uploadedFile?.dataUrl && (
+                      <a
+                        href={application.resume.uploadedFile.dataUrl}
+                        download={application.resume.uploadedFile.fileName || "resume-file"}
+                        className="btn-secondary py-2 text-[14px]"
+                      >
+                        Download Uploaded File
+                      </a>
+                    )}
+                  </div>
+                  <div className="premium-card p-1 shadow-sm border-surface-200 overflow-hidden bg-white">
+                    <ResumePreview user={application.jobSeeker} resume={application.resume} />
+                  </div>
                 </>
               ) : (
-                <p className="text-sm text-stone-500">Applicant has not provided a resume builder profile.</p>
+                <p className="text-[14px] font-medium text-surface-500 bg-surface-50 p-6 border border-surface-200 rounded-xl text-center">Applicant has not provided a resume builder profile.</p>
               )}
             </div>
           )}
 
           {activeTab === "interviews" && (
-            <div className="space-y-6">
-              <div className="bg-stone-50 border p-5 rounded-2xl">
-                <h3 className="font-semibold text-stone-800 mb-4">{interview?.status === "scheduled" ? "Reschedule Interview" : "Schedule Interview"}</h3>
-                <div className="grid gap-3 sm:grid-cols-[1fr,1fr] mb-4">
-                  <input type="datetime-local" value={scheduleState.scheduledAt} onChange={(e) => setScheduleState(s => ({ ...s, scheduledAt: e.target.value }))} className="app-input" />
-                  <select value={scheduleState.interviewType} onChange={(e) => setScheduleState(s => ({ ...s, interviewType: e.target.value, meetingLink: "", location: "" }))} className="app-input">
-                    <option value="online">Online</option>
-                    <option value="inperson">In person</option>
-                  </select>
+            <div className="space-y-6 animate-fade-in">
+              <div className="premium-card p-6 border-surface-200 shadow-sm bg-white">
+                <h3 className="text-lg font-bold text-surface-900 font-['Outfit'] mb-5">{interview?.status === "scheduled" ? "Reschedule Interview" : "Schedule Interview"}</h3>
+                <div className="grid gap-4 sm:grid-cols-[1fr,1fr] mb-4">
+                  <div>
+                    <label className="block text-[11px] font-bold uppercase tracking-widest text-surface-500 mb-2">Date & Time</label>
+                    <input type="datetime-local" value={scheduleState.scheduledAt} onChange={(e) => setScheduleState(s => ({ ...s, scheduledAt: e.target.value }))} className="input-field" />
+                  </div>
+                  <div>
+                    <label className="block text-[11px] font-bold uppercase tracking-widest text-surface-500 mb-2">Format</label>
+                    <select value={scheduleState.interviewType} onChange={(e) => setScheduleState(s => ({ ...s, interviewType: e.target.value, meetingLink: "", location: "" }))} className="input-field">
+                      <option value="online">Online</option>
+                      <option value="inperson">In person</option>
+                    </select>
+                  </div>
                 </div>
                 {scheduleState.interviewType === "online" ? (
-                  <input type="url" placeholder="Meeting Link" value={scheduleState.meetingLink} onChange={(e) => setScheduleState(s => ({ ...s, meetingLink: e.target.value }))} className="app-input mb-4" />
+                  <div className="mb-6">
+                    <label className="block text-[11px] font-bold uppercase tracking-widest text-surface-500 mb-2">Meeting Link</label>
+                    <input type="url" placeholder="https://zoom.us/..." value={scheduleState.meetingLink} onChange={(e) => setScheduleState(s => ({ ...s, meetingLink: e.target.value }))} className="input-field" />
+                  </div>
                 ) : (
-                  <input type="text" placeholder="Location/Address" value={scheduleState.location} onChange={(e) => setScheduleState(s => ({ ...s, location: e.target.value }))} className="app-input mb-4" />
+                  <div className="mb-6">
+                    <label className="block text-[11px] font-bold uppercase tracking-widest text-surface-500 mb-2">Location / Address</label>
+                    <input type="text" placeholder="Office Location" value={scheduleState.location} onChange={(e) => setScheduleState(s => ({ ...s, location: e.target.value }))} className="input-field" />
+                  </div>
                 )}
-                <div className="flex gap-3">
-                  <button onClick={handleSchedule} className="app-button px-4 py-2 text-sm">{interview?.status === "scheduled" ? "Reschedule" : "Schedule"}</button>
-                  {interview?.status === "scheduled" && <button onClick={handleCancelInterview} className="app-button-secondary px-4 py-2 text-sm !text-red-600 border-red-200">Cancel</button>}
+                <div className="flex gap-3 pt-2 border-t border-surface-100">
+                  <button onClick={handleSchedule} className="btn-primary py-2 text-[14px]">
+                    {interview?.status === "scheduled" ? "Confirm Reschedule" : "Confirm Schedule"}
+                  </button>
+                  {interview?.status === "scheduled" && (
+                    <button onClick={handleCancelInterview} className="px-5 py-2 text-[14px] font-bold text-error-600 border border-error-200 bg-error-50 hover:bg-error-100 transition-colors rounded-xl shadow-sm">
+                      Cancel
+                    </button>
+                  )}
                 </div>
               </div>
 
               {interview?.status === "scheduled" && (
-                <div className="bg-blue-50 border border-blue-100 p-4 rounded-xl">
-                  <p className="text-sm font-semibold text-blue-800 mb-1">Current Interview</p>
-                  <p className="text-sm text-blue-700">{new Date(interview.scheduledAt).toLocaleString()}</p>
-                  <p className="text-xs text-blue-600 mt-1">{interview.interviewType === "online" ? interview.meetingLink : interview.location}</p>
+                <div className="premium-card p-5 border-brand-200 bg-brand-50/50 shadow-sm relative overflow-hidden">
+                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-brand-500"></div>
+                  <p className="text-[12px] font-bold uppercase tracking-widest text-brand-600 mb-2 ml-2">Current Interview</p>
+                  <p className="text-[16px] font-bold text-surface-900 ml-2">{new Date(interview.scheduledAt).toLocaleString()}</p>
+                  <p className="text-[14px] font-medium text-surface-600 mt-1 ml-2">{interview.interviewType === "online" ? interview.meetingLink : interview.location}</p>
                   {interview.responseStatus !== "pending" && (
-                    <span className="inline-block mt-2 px-2 py-1 bg-white text-xs font-semibold rounded-md uppercase border border-blue-100">
-                      Candidate {interview.responseStatus}
-                    </span>
+                     <span className="inline-flex mt-4 ml-2 items-center px-2.5 py-1 text-[11px] font-bold rounded-md uppercase tracking-wider border border-brand-200 bg-white text-brand-700 shadow-sm">
+                       Candidate {interview.responseStatus}
+                     </span>
                   )}
                 </div>
               )}
@@ -203,43 +230,47 @@ export default function ApplicationModal({
           )}
 
           {activeTab === "notes" && (
-            <div className="space-y-6">
-              <form onSubmit={handleAddNote} className="space-y-3 border-b pb-6">
+            <div className="space-y-6 animate-fade-in">
+              <form onSubmit={handleAddNote} className="premium-card p-6 shadow-sm border-surface-200 bg-white">
                 <div>
-                  <textarea value={newNote} onChange={e => setNewNote(e.target.value)} placeholder="Leave an internal note for your team..." className="app-input resize-none w-full" rows="3" />
+                  <label className="block text-[11px] font-bold uppercase tracking-widest text-surface-500 mb-2">Internal Note</label>
+                  <textarea value={newNote} onChange={e => setNewNote(e.target.value)} placeholder="Leave an internal note for your team..." className="input-field resize-none w-full" rows="3" />
                 </div>
-                <div className="flex justify-between items-center">
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm text-stone-500 text-medium">Rating: </span>
-                    <select value={newRating} onChange={(e) => setNewRating(Number(e.target.value))} className="app-input w-24 px-2 py-1 text-sm bg-stone-50">
+                <div className="flex justify-between items-center mt-4 pt-4 border-t border-surface-100">
+                  <div className="flex items-center gap-3">
+                    <span className="text-[13px] font-bold uppercase tracking-widest text-surface-400">Rating</span>
+                    <select value={newRating} onChange={(e) => setNewRating(Number(e.target.value))} className="input-field w-32 px-3 py-1.5 text-[14px] font-bold bg-surface-50 border-surface-200 rounded-lg">
                       <option value="0">No Star</option>
                       {[1,2,3,4,5].map(v => <option key={v} value={v}>{v} Star{v>1?'s':''}</option>)}
                     </select>
                   </div>
-                  <button type="submit" disabled={!newNote.trim() && !newRating} className="app-button px-4 py-2 text-sm">Add Note</button>
+                  <button type="submit" disabled={!newNote.trim() && !newRating} className="btn-primary py-2 text-[14px]">
+                    Add Note
+                  </button>
                 </div>
               </form>
 
               <div className="space-y-4">
                 {application.notes?.length > 0 ? (
                   application.notes.slice().reverse().map((note, i) => (
-                    <div key={i} className="bg-stone-50 p-4 rounded-xl border border-stone-200">
-                      <div className="flex justify-between items-start mb-2">
+                    <div key={i} className="premium-card p-5 bg-white border-surface-200 shadow-sm relative overflow-hidden group">
+                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-surface-200 transition-colors group-hover:bg-brand-400"></div>
+                      <div className="flex justify-between items-start mb-3 ml-2">
                         <div>
-                          <p className="text-sm font-semibold text-stone-800">{note.author?.name || "Team Member"}</p>
-                          <p className="text-xs text-stone-400">{new Date(note.createdAt).toLocaleString()}</p>
+                          <p className="text-[14px] font-bold text-surface-900">{note.author?.name || "Team Member"}</p>
+                          <p className="text-[11px] font-bold uppercase tracking-widest text-surface-400 mt-0.5">{new Date(note.createdAt).toLocaleString()}</p>
                         </div>
                         {note.rating > 0 && (
-                          <div className="flex gap-0.5 text-amber-500 text-sm">
+                          <div className="flex gap-0.5 text-amber-400 text-lg">
                             {Array.from({length: note.rating}).map((_, j) => <span key={j}>★</span>)}
                           </div>
                         )}
                       </div>
-                      <p className="text-sm text-stone-600 whitespace-pre-wrap">{note.text}</p>
+                      <p className="text-[14px] font-medium text-surface-600 whitespace-pre-wrap ml-2 leading-relaxed">{note.text}</p>
                     </div>
                   ))
                 ) : (
-                  <p className="text-sm text-stone-500 italic text-center py-4">No internal notes yet. Leave one to help your team!</p>
+                  <p className="text-[14px] font-medium text-surface-500 italic text-center py-6 bg-surface-50 border border-surface-200 rounded-xl">No internal notes yet. Leave one to help your team!</p>
                 )}
               </div>
             </div>
