@@ -33,10 +33,9 @@ function Login() {
   }
 
   return (
-    <div className="min-h-screen px-4 py-10 flex items-center justify-center relative overflow-hidden">
-      {/* Decorative Background Elements */}
-      <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-brand-500/10 blur-3xl pointer-events-none"></div>
-      <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-violet-600/10 blur-3xl pointer-events-none"></div>
+    <div className="auth-shell">
+      <div className="absolute right-[-8rem] top-[-6rem] h-[24rem] w-[24rem] rounded-full bg-brand-300/20 blur-[120px] pointer-events-none"></div>
+      <div className="absolute bottom-[-8rem] left-[-6rem] h-[20rem] w-[20rem] rounded-full bg-cyan-300/20 blur-[120px] pointer-events-none"></div>
       
       <div className="mx-auto grid w-full max-w-6xl items-center gap-10 lg:grid-cols-[1.1fr_0.9fr] z-10">
         <div className="hidden lg:block pr-10">
@@ -45,24 +44,21 @@ function Login() {
             <span className="text-xs font-bold uppercase tracking-widest text-brand-700">RevHire Portal</span>
           </div>
           <h1 className="heading-hero leading-[1.15]">
-            Professional hiring, built for speed.
+            Sign in to continue with your actual workflow.
           </h1>
           <p className="mt-6 max-w-lg text-lg leading-relaxed text-surface-600">
-            Sign in to manage applications, discover jobs, and keep every hiring
-            action in one beautifully designed workspace.
+            Use your existing account to reach the dashboard for your role, continue job search, review applications, or manage openings.
           </p>
           
-          <div className="mt-12 flex items-center gap-5">
-            <div className="flex -space-x-3">
-              {[1, 2, 3, 4].map((i) => (
-                <div key={i} className={`w-10 h-10 rounded-full border-2 border-white flex items-center justify-center font-bold text-white text-xs ${['bg-brand-500', 'bg-violet-500', 'bg-indigo-500', 'bg-blue-500'][i-1]}`}>
-                  {String.fromCharCode(64 + i)}
-                </div>
-              ))}
-            </div>
-            <div className="text-sm font-medium text-surface-600">
-              <span className="font-bold text-surface-900">10k+</span> professionals hired
-            </div>
+          <div className="mt-10 grid gap-4 sm:grid-cols-2">
+            {[
+              "Job seekers can continue saved jobs, applications, and resume work.",
+              "Employers can return to postings, applicants, and hiring activity.",
+            ].map((item) => (
+              <div key={item} className="premium-card p-5">
+                <p className="text-sm font-semibold leading-relaxed text-surface-600">{item}</p>
+              </div>
+            ))}
           </div>
         </div>
 
@@ -72,20 +68,20 @@ function Login() {
               <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 text-sm font-bold text-white shadow-md">
                 RH
               </span>
-              <span className="font-['Outfit'] text-2xl font-bold tracking-tight">RevHire</span>
+              <span className="font-display text-2xl font-bold tracking-tight">RevHire</span>
             </Link>
           </div>
 
-          <div className="premium-card p-8 sm:p-10 w-full backdrop-blur-xl bg-white/90">
+          <div className="auth-panel">
             <div className="mb-8">
-              <h2 className="text-2xl font-bold text-surface-900 font-['Outfit']">Welcome back</h2>
+              <h2 className="font-display text-2xl font-bold text-surface-900">Welcome back</h2>
               <p className="mt-1.5 text-sm text-surface-500">Please enter your details to sign in.</p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
                 <label className="label-text">
-                  Email Configuration
+                  Email address
                 </label>
                 <input
                   type="email"

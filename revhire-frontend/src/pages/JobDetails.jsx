@@ -108,39 +108,39 @@ function JobDetails() {
     );
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-surface-50/30">
-      <div className="absolute top-0 right-0 -mr-40 w-[600px] h-[600px] bg-brand-500/10 blur-[100px] pointer-events-none rounded-full"></div>
+    <div className="app-shell">
+      <div className="absolute top-0 right-0 -mr-40 h-[600px] w-[600px] rounded-full bg-brand-300/20 blur-[110px] pointer-events-none"></div>
 
-      <div className="relative border-b border-surface-200/60 bg-white/60 backdrop-blur-md pt-8 pl-8 pr-8 pb-12">
+      <div className="relative border-b border-surface-200/60 bg-white/50 pb-12 pl-8 pr-8 pt-8 backdrop-blur-md">
         <div className="layout-container max-w-5xl">
           <button onClick={() => navigate("/jobs")} className="flex items-center gap-1.5 text-sm font-bold text-surface-500 hover:text-brand-700 transition-colors mb-6">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" /></svg>
             Back to Jobs
           </button>
           
-          <div className="mt-2 flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
+          <div className="page-hero mt-2 flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
             <div className="flex-1">
-              <span className="inline-flex rounded-full bg-brand-50 border border-brand-100 px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-brand-700 mb-4">
+              <span className="eyebrow mb-4">
                 Role Details
               </span>
-              <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-surface-900 font-['Outfit']">{job.title}</h1>
-              <p className="mt-3 text-[17px] font-medium text-surface-600 flex items-center gap-2">
-                <span className="w-6 h-6 rounded-md bg-surface-200 flex items-center justify-center text-xs font-bold text-surface-700">{job.organization?.name?.charAt(0) || "C"}</span>
+              <h1 className="text-3xl font-extrabold tracking-tight text-surface-900 sm:text-4xl">{job.title}</h1>
+              <p className="mt-3 flex items-center gap-2 text-[17px] font-medium text-surface-600">
+                <span className="flex h-6 w-6 items-center justify-center rounded-md bg-brand-100 text-xs font-bold text-brand-700">{job.organization?.name?.charAt(0) || "C"}</span>
                 {job.organization?.name || "Company Name Hidden"}
               </p>
             </div>
             
             <div className="grid gap-4 sm:grid-cols-3 md:min-w-[360px]">
-              <div className="rounded-2xl border border-surface-200 bg-white/80 p-5 shadow-sm">
-                <p className="text-[11px] font-bold uppercase tracking-widest text-surface-400">Location</p>
-                <p className="mt-2 text-sm font-bold text-surface-900 truncate">{job.location}</p>
+              <div className="rounded-2xl border border-brand-100 bg-white/80 p-5 shadow-sm backdrop-blur-sm">
+                <p className="text-[11px] font-bold uppercase tracking-widest text-surface-500">Location</p>
+                <p className="mt-2 truncate text-sm font-bold text-surface-900">{job.location}</p>
               </div>
-              <div className="rounded-2xl border border-surface-200 bg-white/80 p-5 shadow-sm">
-                <p className="text-[11px] font-bold uppercase tracking-widest text-surface-400">Type</p>
+              <div className="rounded-2xl border border-brand-100 bg-white/80 p-5 shadow-sm backdrop-blur-sm">
+                <p className="text-[11px] font-bold uppercase tracking-widest text-surface-500">Type</p>
                 <p className="mt-2 text-sm font-bold capitalize text-surface-900">{job.jobType}</p>
               </div>
-              <div className="rounded-2xl border border-surface-200 bg-white/80 p-5 shadow-sm">
-                <p className="text-[11px] font-bold uppercase tracking-widest text-surface-400">Deadline</p>
+              <div className="rounded-2xl border border-brand-100 bg-white/80 p-5 shadow-sm backdrop-blur-sm">
+                <p className="text-[11px] font-bold uppercase tracking-widest text-surface-500">Deadline</p>
                 <p className="mt-2 text-sm font-bold text-surface-900">{new Date(job.deadline).toLocaleDateString()}</p>
               </div>
             </div>

@@ -101,43 +101,43 @@ function JobSearch() {
   }
 
   return (
-    <div className="min-h-screen relative overflow-hidden pb-12">
-      <div className="absolute top-0 right-0 -mr-40 w-full h-[500px] bg-brand-500/5 blur-[120px] pointer-events-none"></div>
+    <div className="app-shell">
+      <div className="absolute top-0 right-0 -mr-40 h-[500px] w-full bg-brand-200/20 blur-[120px] pointer-events-none"></div>
 
       <div className="pt-10 pb-8 border-b border-surface-200/60 bg-white/40">
         <div className="layout-container">
           <div className="mx-auto max-w-6xl">
-            <div className="rounded-[32px] bg-gradient-to-br from-surface-900 to-brand-950 px-8 py-10 sm:px-12 shadow-2xl relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-96 h-96 bg-brand-500/20 rounded-full blur-[80px] pointer-events-none -mt-20 -mr-20"></div>
+            <div className="page-hero">
+              <div className="absolute -mr-20 -mt-20 right-0 top-0 h-96 w-96 rounded-full bg-brand-400/20 blur-[80px] pointer-events-none"></div>
               
               <div className="grid gap-8 xl:grid-cols-[1.3fr_0.7fr] xl:items-end relative z-10">
                 <div>
-                  <span className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-brand-100">
+                  <span className="eyebrow">
                     Discover Your Next Role
                   </span>
-                  <h1 className="mt-5 text-4xl sm:text-5xl font-extrabold tracking-tight text-white font-['Outfit']">Find roles that fit perfectly.</h1>
-                  <p className="mt-4 max-w-2xl text-[17px] leading-relaxed text-brand-100/70 font-medium">
+                  <h1 className="mt-5 font-display text-4xl font-extrabold tracking-tight text-surface-900 sm:text-5xl">Find roles that fit perfectly.</h1>
+                  <p className="mt-4 max-w-2xl text-[17px] leading-relaxed text-surface-600 font-medium">
                     Search and filter thousands of job postings by title, location, skills, compensation, and recency.
                   </p>
                 </div>
                 <div className="grid gap-3 sm:grid-cols-3">
-                  <div className="rounded-[24px] border border-white/10 bg-white/5 px-5 py-5 backdrop-blur-md">
-                    <p className="text-[11px] font-bold uppercase tracking-widest text-brand-200">Results</p>
-                    <p className="mt-2 text-3xl font-bold text-white font-['Outfit']">{pagination.total}</p>
+                  <div className="rounded-[24px] border border-brand-100 bg-white/70 px-5 py-5 backdrop-blur-md">
+                    <p className="text-[11px] font-bold uppercase tracking-widest text-surface-500">Results</p>
+                    <p className="mt-2 font-display text-3xl font-bold text-surface-900">{pagination.total}</p>
                   </div>
-                  <div className="rounded-[24px] border border-white/10 bg-white/5 px-5 py-5 backdrop-blur-md">
-                    <p className="text-[11px] font-bold uppercase tracking-widest text-brand-200">Filters</p>
-                    <p className="mt-2 text-3xl font-bold text-white font-['Outfit']">{activeFilterCount}</p>
+                  <div className="rounded-[24px] border border-brand-100 bg-white/70 px-5 py-5 backdrop-blur-md">
+                    <p className="text-[11px] font-bold uppercase tracking-widest text-surface-500">Filters</p>
+                    <p className="mt-2 font-display text-3xl font-bold text-surface-900">{activeFilterCount}</p>
                   </div>
-                  <div className="rounded-[24px] border border-white/10 bg-white/5 px-5 py-5 backdrop-blur-md">
-                    <p className="text-[11px] font-bold uppercase tracking-widest text-brand-200">Sort</p>
-                    <p className="mt-2 text-lg font-bold capitalize text-white font-['Outfit']">{filters.sortBy.replace("_", " ")}</p>
+                  <div className="rounded-[24px] border border-brand-100 bg-white/70 px-5 py-5 backdrop-blur-md">
+                    <p className="text-[11px] font-bold uppercase tracking-widest text-surface-500">Sort</p>
+                    <p className="mt-2 font-display text-lg font-bold capitalize text-surface-900">{filters.sortBy.replace("_", " ")}</p>
                   </div>
                 </div>
               </div>
             </div>
 
-            <form onSubmit={handleSearch} className="premium-card bg-white mt-8 grid grid-cols-1 items-center gap-3 p-5 md:grid-cols-3 xl:grid-cols-4 shadow-xl shadow-surface-200/40">
+            <form onSubmit={handleSearch} className="section-card mt-8 grid grid-cols-1 items-center gap-3 p-5 md:grid-cols-3 xl:grid-cols-4 shadow-xl shadow-surface-200/40">
               <input type="text" name="search" placeholder="Job title or skill..." value={filters.search} onChange={handleFilterChange} className="input-field bg-surface-50" />
               <input type="text" name="company" placeholder="Company Name" value={filters.company} onChange={handleFilterChange} className="input-field bg-surface-50" />
               <input type="text" name="skills" placeholder="Skills, comma separated" value={filters.skills} onChange={handleFilterChange} className="input-field bg-surface-50" />

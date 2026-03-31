@@ -79,29 +79,29 @@ function EmployerDashboard() {
   }
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-surface-50/30 pb-12">
-      <div className="absolute top-0 right-0 -mr-40 w-[600px] h-[600px] bg-brand-500/10 blur-[100px] pointer-events-none rounded-full"></div>
+    <div className="app-shell">
+      <div className="absolute top-0 right-0 -mr-40 h-[600px] w-[600px] rounded-full bg-brand-300/20 blur-[110px] pointer-events-none"></div>
 
       <div className="pt-10 pb-10 border-b border-surface-200/60 bg-white/50 backdrop-blur-md relative z-10">
         <div className="layout-container max-w-6xl">
-          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <div className="page-hero flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
             <div>
-              <span className="inline-flex rounded-full border border-brand-100 bg-brand-50 px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-brand-700 mb-4">
+              <span className="eyebrow mb-4">
                 Employer Dashboard
               </span>
-              <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-surface-900 font-['Outfit']">
+              <h1 className="text-3xl font-extrabold tracking-tight text-surface-900 sm:text-4xl">
                 Welcome, {user?.name}
               </h1>
-              <p className="mt-3 text-[17px] font-medium text-surface-600 max-w-2xl">
+              <p className="mt-3 max-w-2xl text-[17px] font-medium text-surface-600">
                 Manage active roles, applicants, and posting status from one place.
               </p>
             </div>
             <div className="flex flex-col items-end gap-3 text-right">
               {user?.organization && (
-                <div className="bg-white/80 border border-surface-200 px-4 py-2.5 rounded-xl text-[14px] shadow-sm flex flex-col items-end">
+                <div className="flex flex-col items-end rounded-2xl border border-brand-100 bg-white/80 px-4 py-2.5 text-[14px] shadow-sm backdrop-blur-sm">
                   <p className="font-bold text-surface-900">{user.organization.name}</p>
-                  <p className="text-surface-500 flex items-center gap-2 mt-0.5">
-                    Join Code: <span className="font-mono bg-surface-100 px-2 py-0.5 rounded border border-surface-200 select-all font-bold text-brand-700">{user.organization.joinCode}</span>
+                  <p className="mt-0.5 flex items-center gap-2 text-surface-600">
+                    Join Code: <span className="select-all rounded border border-brand-100 bg-brand-50 px-2 py-0.5 font-mono font-bold text-brand-700">{user.organization.joinCode}</span>
                   </p>
                 </div>
               )}
@@ -138,22 +138,22 @@ function EmployerDashboard() {
         {/* Quick Actions */}
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
           {[
-            { label: "Post a Job", desc: "Launch a new opening", path: "/employer/post-job", color: "from-brand-500 to-brand-700" },
-            { label: "Interview Calendar", desc: "Track scheduled candidate conversations", path: "/interviews", color: "from-violet-500 to-indigo-700" },
-            { label: "Notifications", desc: "Review hiring updates", path: "/notifications", color: "from-surface-700 to-surface-900" },
+            { label: "Post a Job", desc: "Launch a new opening", path: "/employer/post-job", accent: "bg-brand-100 text-brand-700" },
+            { label: "Interview Calendar", desc: "Track scheduled candidate conversations", path: "/interviews", accent: "bg-cyan-100 text-cyan-700" },
+            { label: "Notifications", desc: "Review hiring updates", path: "/notifications", accent: "bg-surface-100 text-surface-700" },
           ].map((action) => (
             <button
               key={action.label}
               type="button"
               onClick={() => navigate(action.path)}
-              className={`premium-card relative overflow-hidden bg-gradient-to-br ${action.color} p-6 sm:p-8 text-left transition-all duration-300 hover:shadow-lg hover:-translate-y-1 group border-none`}
+              className="premium-card group relative overflow-hidden border-none p-6 text-left transition-all duration-300 hover:-translate-y-1 hover:shadow-lg sm:p-8"
             >
-              <div className="absolute top-0 right-0 -mt-4 -mr-4 h-32 w-32 rounded-full bg-white opacity-10 transition-transform duration-500 group-hover:scale-150 pointer-events-none blur-2xl"></div>
+              <div className="absolute right-0 top-0 -mr-4 -mt-4 h-32 w-32 rounded-full bg-brand-100 opacity-70 blur-2xl transition-transform duration-500 pointer-events-none group-hover:scale-150"></div>
               <div className="relative z-10">
-                <p className="inline-flex rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-white/90">Quick action</p>
-                <p className="mt-5 text-2xl font-bold text-white font-['Outfit']">{action.label}</p>
-                <p className="mt-1.5 text-[15px] font-medium text-white/80">{action.desc}</p>
-                <p className="mt-8 text-sm font-bold text-white flex items-center gap-2 group-hover:opacity-100 opacity-90 transition-opacity">
+                <p className={`inline-flex rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-widest ${action.accent}`}>Quick action</p>
+                <p className="mt-5 font-display text-2xl font-bold text-surface-900">{action.label}</p>
+                <p className="mt-1.5 text-[15px] font-medium text-surface-600">{action.desc}</p>
+                <p className="mt-8 flex items-center gap-2 text-sm font-bold text-brand-700 opacity-90 transition-opacity group-hover:opacity-100">
                   Open workspace <span className="transition-transform group-hover:translate-x-1">→</span>
                 </p>
               </div>

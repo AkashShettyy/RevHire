@@ -28,9 +28,8 @@ const productNotes = [
 
 function Landing() {
   return (
-    <div className="min-h-screen relative overflow-hidden">
-      {/* Decorative Blob */}
-      <div className="absolute top-0 right-0 -mr-40 w-[600px] h-[600px] rounded-full bg-brand-500/10 blur-[100px] pointer-events-none"></div>
+    <div className="app-shell">
+      <div className="absolute top-0 right-0 -mr-40 h-[600px] w-[600px] rounded-full bg-brand-300/20 blur-[120px] pointer-events-none"></div>
       
       <section className="relative pt-20 pb-16 sm:pt-28 sm:pb-24">
         <div className="layout-container">
@@ -74,21 +73,20 @@ function Landing() {
             </div>
 
             <div className="relative z-10 w-full lg:ml-auto">
-              <div className="premium-card overflow-hidden p-2 bg-white/60 backdrop-blur-xl border border-white shadow-2xl shadow-surface-900/10 rotate-1 hover:rotate-0 transition-transform duration-500">
-                <div className="rounded-[20px] bg-gradient-to-br from-brand-600 via-brand-700 to-indigo-800 p-8 text-white relative overflow-hidden">
-                  {/* Glass highlight */}
-                  <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-bl from-white/20 to-transparent opacity-50 pointer-events-none"></div>
+              <div className="premium-card overflow-hidden border border-white bg-white/70 p-2 shadow-2xl shadow-surface-900/10 transition-transform duration-500 hover:rotate-0">
+                <div className="relative overflow-hidden rounded-[24px] bg-gradient-to-br from-brand-50 via-white to-cyan-50 p-8 text-surface-900">
+                  <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-bl from-brand-100/40 to-transparent opacity-70 pointer-events-none"></div>
                   
-                  <p className="text-[11px] font-bold uppercase tracking-widest text-brand-200">Current workflow</p>
-                  <h2 className="mt-3 text-3xl font-bold font-['Outfit']">What users can do today</h2>
-                  <p className="mt-3 text-[15px] leading-relaxed text-brand-100/90 font-medium">
+                  <p className="text-[11px] font-bold uppercase tracking-widest text-brand-700">Current workflow</p>
+                  <h2 className="mt-3 text-3xl font-bold font-display">What users can do today</h2>
+                  <p className="mt-3 text-[15px] leading-relaxed text-surface-600 font-medium">
                     The project already supports account creation, protected routes, job discovery, job posting, applicant review, and resume export.
                   </p>
                 </div>
                 <div className="mt-2 space-y-2 p-4">
                   {capabilityGroups.map((group) => (
                     <div key={group.title} className="rounded-2xl border border-surface-100 bg-white/80 p-5 shadow-sm">
-                      <h3 className="text-[15px] font-bold text-surface-900 font-['Outfit']">{group.title}</h3>
+                      <h3 className="text-[15px] font-bold text-surface-900 font-display">{group.title}</h3>
                       <ul className="mt-3 space-y-2.5 text-sm leading-relaxed text-surface-600">
                         {group.items.map((item) => (
                           <li key={item} className="flex items-start gap-3">
@@ -110,7 +108,7 @@ function Landing() {
         <div className="layout-container">
           <div className="max-w-2xl mx-auto text-center">
             <span className="inline-flex rounded-full bg-surface-200/50 px-3 py-1 text-xs font-bold uppercase tracking-widest text-surface-600">Product Overview</span>
-            <h2 className="heading-section mt-6 font-['Outfit']">A clearer interface around the real features</h2>
+            <h2 className="heading-section mt-6">A clearer interface around the real features</h2>
             <p className="mt-4 text-[17px] leading-relaxed text-surface-600 font-medium">
               These sections describe existing flows in the project. Nothing here depends on unverified claims.
             </p>
@@ -119,9 +117,9 @@ function Landing() {
             {productNotes.map((item, i) => (
               <article key={item.title} className="premium-card p-8 bg-white hover:-translate-y-2 transition-transform duration-300">
                 <div className="w-12 h-12 rounded-2xl bg-brand-50 text-brand-600 flex items-center justify-center mb-6">
-                  <span className="text-xl font-bold font-['Outfit']">0{i+1}</span>
+                  <span className="font-display text-xl font-bold">0{i+1}</span>
                 </div>
-                <h3 className="text-lg font-bold text-surface-900 font-['Outfit']">{item.title}</h3>
+                <h3 className="text-lg font-bold text-surface-900 font-display">{item.title}</h3>
                 <p className="mt-3 text-[15px] leading-relaxed text-surface-600 font-medium">{item.desc}</p>
               </article>
             ))}
@@ -131,21 +129,20 @@ function Landing() {
 
       <section className="relative py-24">
         <div className="layout-container">
-          <div className="rounded-[32px] bg-gradient-to-br from-brand-800 via-brand-900 to-indigo-950 px-6 py-16 text-center text-white shadow-2xl shadow-brand-900/20 sm:px-12 relative overflow-hidden">
-            {/* abstract circles */}
-            <div className="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 rounded-full border border-white/10 pointer-events-none"></div>
-            <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full border border-white/10 pointer-events-none"></div>
+          <div className="relative overflow-hidden rounded-[32px] border border-brand-100 bg-gradient-to-br from-white via-brand-50 to-cyan-50 px-6 py-16 text-center text-surface-900 shadow-2xl shadow-brand-100/60 sm:px-12">
+            <div className="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 rounded-full border border-brand-100 pointer-events-none"></div>
+            <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full border border-cyan-100 pointer-events-none"></div>
 
-            <p className="relative z-10 text-[11px] font-bold uppercase tracking-widest text-brand-300">Start with the real workflow</p>
-            <h2 className="relative z-10 heading-section text-white mt-5 font-['Outfit'] max-w-2xl mx-auto leading-tight">Use the job seeker or employer flow that fits your role.</h2>
-            <p className="relative z-10 mx-auto mt-5 max-w-xl text-[17px] leading-relaxed text-brand-100/80 font-medium">
+            <p className="relative z-10 text-[11px] font-bold uppercase tracking-widest text-brand-700">Start with the real workflow</p>
+            <h2 className="relative z-10 heading-section mt-5 max-w-2xl mx-auto leading-tight">Use the job seeker or employer flow that fits your role.</h2>
+            <p className="relative z-10 mx-auto mt-5 max-w-xl text-[17px] leading-relaxed text-surface-600 font-medium">
               Create an account to explore the current product experience, or sign in if you already have one.
             </p>
             <div className="relative z-10 mt-10 flex flex-col justify-center gap-4 sm:flex-row">
-              <Link to="/register" className="btn-primary bg-white text-surface-900 hover:bg-surface-50 shadow-none px-8 py-3.5">
+              <Link to="/register" className="btn-primary px-8 py-3.5 shadow-brand-200/60">
                 Get started
               </Link>
-              <Link to="/login" className="btn-secondary border-white/20 bg-white/10 text-white hover:bg-white/20 hover:border-white/30 px-8 py-3.5">
+              <Link to="/login" className="btn-secondary px-8 py-3.5">
                 Sign in
               </Link>
             </div>

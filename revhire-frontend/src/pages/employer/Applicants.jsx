@@ -178,8 +178,8 @@ export default function Applicants() {
   }
 
   return (
-    <div className="min-h-screen relative flex flex-col overflow-hidden bg-surface-50/30">
-      <div className="absolute top-0 right-0 -mr-40 w-[600px] h-[600px] bg-brand-500/10 blur-[100px] pointer-events-none rounded-full"></div>
+    <div className="app-shell relative flex flex-col">
+      <div className="absolute top-0 right-0 -mr-40 h-[600px] w-[600px] rounded-full bg-brand-300/20 blur-[110px] pointer-events-none"></div>
 
       <div className="pt-6 pb-6 border-b border-surface-200/60 bg-white/50 backdrop-blur-md relative z-10 shrink-0">
         <div className="layout-container max-w-none px-6">

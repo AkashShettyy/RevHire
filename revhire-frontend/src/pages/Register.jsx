@@ -41,10 +41,9 @@ function Register() {
   }
 
   return (
-    <div className="min-h-screen px-4 py-10 flex items-center justify-center relative overflow-hidden">
-      {/* Decorative Background Elements */}
-      <div className="absolute top-0 left-0 -ml-20 -mt-20 w-96 h-96 rounded-full bg-brand-500/10 blur-3xl pointer-events-none"></div>
-      <div className="absolute bottom-0 right-0 -mr-20 -mb-20 w-80 h-80 rounded-full bg-violet-600/10 blur-3xl pointer-events-none"></div>
+    <div className="auth-shell">
+      <div className="absolute left-[-8rem] top-[-6rem] h-[24rem] w-[24rem] rounded-full bg-brand-300/20 blur-[120px] pointer-events-none"></div>
+      <div className="absolute bottom-[-8rem] right-[-6rem] h-[20rem] w-[20rem] rounded-full bg-cyan-300/20 blur-[120px] pointer-events-none"></div>
 
       <div className="mx-auto grid w-full max-w-6xl items-center gap-10 lg:grid-cols-[1.1fr_0.9fr] z-10">
         <div className="hidden lg:block pr-10">
@@ -53,26 +52,26 @@ function Register() {
             <span className="text-xs font-bold uppercase tracking-widest text-brand-700">Start Hiring Better</span>
           </div>
           <h1 className="heading-hero leading-[1.15]">
-            Build a profile that stands out truly.
+            Create the account that matches how you use RevHire.
           </h1>
           <p className="mt-6 max-w-lg text-lg leading-relaxed text-surface-600">
-            Join as a job seeker or employer and experience a seamlessly designed platform for a polished hiring workflow.
+            Register as a job seeker to manage resumes and applications, or as an employer to post jobs and review candidates.
           </p>
           
           <div className="mt-10 grid grid-cols-2 gap-6">
-            <div className="premium-card p-5 bg-white/80 backdrop-blur-md">
+            <div className="premium-card p-5">
               <div className="w-10 h-10 rounded-xl bg-brand-100 text-brand-600 flex items-center justify-center mb-4">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
               </div>
               <h3 className="font-bold text-surface-900 mb-1 text-sm">Job Seekers</h3>
-              <p className="text-xs text-surface-500 leading-relaxed">Build beautiful resumes and track applications in real-time.</p>
+              <p className="text-xs text-surface-500 leading-relaxed">Search jobs, save roles, submit applications, and manage resume versions.</p>
             </div>
-            <div className="premium-card p-5 bg-white/80 backdrop-blur-md">
-              <div className="w-10 h-10 rounded-xl bg-violet-100 text-violet-600 flex items-center justify-center mb-4">
+            <div className="premium-card p-5">
+              <div className="w-10 h-10 rounded-xl bg-cyan-100 text-cyan-700 flex items-center justify-center mb-4">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 21h18"></path><path d="M9 8h1"></path><path d="M9 12h1"></path><path d="M9 16h1"></path><path d="M14 8h1"></path><path d="M14 12h1"></path><path d="M14 16h1"></path><path d="M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16"></path></svg>
               </div>
               <h3 className="font-bold text-surface-900 mb-1 text-sm">Employers</h3>
-              <p className="text-xs text-surface-500 leading-relaxed">Collaborate with your team and manage top talent efficiently.</p>
+              <p className="text-xs text-surface-500 leading-relaxed">Create openings, organize applicants, and keep hiring activity in one place.</p>
             </div>
           </div>
         </div>
@@ -83,13 +82,13 @@ function Register() {
               <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 text-sm font-bold text-white shadow-md">
                 RH
               </span>
-              <span className="font-['Outfit'] text-2xl font-bold tracking-tight">RevHire</span>
+              <span className="font-display text-2xl font-bold tracking-tight">RevHire</span>
             </Link>
           </div>
 
-          <div className="premium-card p-8 sm:p-10 w-full backdrop-blur-xl bg-white/90">
+          <div className="auth-panel">
             <div className="mb-8">
-              <h2 className="text-2xl font-bold text-surface-900 font-['Outfit']">Create an account</h2>
+              <h2 className="font-display text-2xl font-bold text-surface-900">Create an account</h2>
               <p className="mt-1.5 text-sm text-surface-500">Choose your account type to get started.</p>
             </div>
 

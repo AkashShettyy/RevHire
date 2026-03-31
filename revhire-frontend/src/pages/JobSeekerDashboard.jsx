@@ -115,17 +115,17 @@ function JobSeekerDashboard() {
     );
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-surface-50/30 pb-12">
-      <div className="absolute top-0 right-0 -mr-40 w-full h-[500px] bg-brand-500/5 blur-[120px] pointer-events-none"></div>
+    <div className="app-shell">
+      <div className="absolute top-0 right-0 -mr-40 h-[500px] w-full bg-brand-200/20 blur-[120px] pointer-events-none"></div>
 
       <div className="pt-10 pb-8 border-b border-surface-200/60 bg-white/40 backdrop-blur-md">
         <div className="layout-container mx-auto max-w-6xl">
-          <div className="flex flex-col gap-4 py-8 md:flex-row md:items-center md:justify-between relative z-10">
+          <div className="page-hero flex flex-col gap-4 py-8 md:flex-row md:items-center md:justify-between relative z-10">
             <div>
-              <span className="inline-flex rounded-full border border-brand-100 bg-brand-50 px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-brand-700 mb-4">
+              <span className="eyebrow mb-4">
                 Job Seeker Dashboard
               </span>
-              <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-surface-900 font-['Outfit']">Good to see you, {user?.name}</h1>
+              <h1 className="text-3xl font-extrabold tracking-tight text-surface-900 sm:text-4xl">Good to see you, {user?.name}</h1>
               <p className="mt-3 text-[17px] font-medium text-surface-600">Track applications, upcoming interviews, and recent activity from one place.</p>
             </div>
           </div>
@@ -157,24 +157,23 @@ function JobSeekerDashboard() {
 
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
           {[
-            { label: "My Resume", desc: "Refresh your profile", icon: "Resume", path: "/resume", color: "from-brand-500 to-indigo-600" },
-            { label: "Saved Jobs", desc: "Track interesting roles", icon: "Saved", path: "/saved-jobs", color: "from-amber-500 to-orange-500" },
-            { label: "Applications", desc: "Review recent submissions", icon: "Track", path: "/applications", color: "from-blue-500 to-sky-600" },
-            { label: "Interview Calendar", desc: "Manage upcoming conversations", icon: "Calendar", path: "/interviews", color: "from-violet-500 to-purple-600" },
-            { label: "Settings", desc: "Update sign-in details", icon: "Account", path: "/settings", color: "from-surface-700 to-surface-900" },
+            { label: "My Resume", desc: "Refresh your profile", icon: "Resume", path: "/resume", accent: "bg-brand-100 text-brand-700" },
+            { label: "Saved Jobs", desc: "Track interesting roles", icon: "Saved", path: "/saved-jobs", accent: "bg-amber-100 text-amber-700" },
+            { label: "Applications", desc: "Review recent submissions", icon: "Track", path: "/applications", accent: "bg-sky-100 text-sky-700" },
+            { label: "Interview Calendar", desc: "Manage upcoming conversations", icon: "Calendar", path: "/interviews", accent: "bg-teal-100 text-teal-700" },
+            { label: "Settings", desc: "Update sign-in details", icon: "Account", path: "/settings", accent: "bg-surface-100 text-surface-700" },
           ].map((a) => (
             <button
               key={a.label}
               onClick={() => navigate(a.path)}
-              className={`premium-card p-6 text-left group overflow-hidden relative shadow-md shadow-brand-500/10 transition-all hover:-translate-y-1 hover:shadow-lg`}
+              className="premium-card group relative overflow-hidden p-6 text-left shadow-md shadow-brand-500/10 transition-all hover:-translate-y-1 hover:shadow-lg"
             >
-              <div className={`absolute inset-0 opacity-90 bg-gradient-to-br ${a.color} transition-opacity group-hover:opacity-100`}></div>
-              <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-white/10 blur-2xl"></div>
+              <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-brand-100/60 blur-2xl"></div>
               <div className="relative z-10">
-                <span className="inline-flex rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-white/90 backdrop-blur-sm">{a.icon}</span>
-                <p className="mt-5 text-xl font-bold text-white font-['Outfit']">{a.label}</p>
-                <p className="mt-1.5 text-sm font-medium text-white/80">{a.desc}</p>
-                <div className="mt-6 flex items-center text-sm font-bold text-white group-hover:text-brand-100 transition-colors">
+                <span className={`inline-flex rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-widest ${a.accent}`}>{a.icon}</span>
+                <p className="mt-5 font-display text-xl font-bold text-surface-900">{a.label}</p>
+                <p className="mt-1.5 text-sm font-medium text-surface-600">{a.desc}</p>
+                <div className="mt-6 flex items-center text-sm font-bold text-brand-700 transition-colors group-hover:text-brand-800">
                   Open workspace 
                   <span className="ml-1 inline-block transition-transform group-hover:translate-x-1">→</span>
                 </div>
