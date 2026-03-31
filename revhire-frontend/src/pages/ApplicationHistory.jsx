@@ -73,33 +73,33 @@ function ApplicationHistory() {
     );
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-surface-50/30 pb-12">
-      <div className="absolute top-0 right-0 -mr-40 w-[600px] h-[600px] bg-brand-500/10 blur-[100px] pointer-events-none rounded-full"></div>
+    <div className="app-shell">
+      <div className="absolute top-0 right-0 -mr-40 h-[600px] w-[600px] rounded-full bg-brand-300/20 blur-[100px] pointer-events-none"></div>
 
       <div className="pt-10 pb-10 border-b border-surface-200/60 bg-white/50 backdrop-blur-md relative z-10">
         <div className="layout-container max-w-5xl">
-          <div className="grid gap-6 lg:grid-cols-[1.15fr,0.85fr] lg:items-end">
+          <div className="page-hero grid gap-6 lg:grid-cols-[1.15fr,0.85fr] lg:items-end">
             <div>
-              <span className="inline-flex rounded-full border border-brand-100 bg-brand-50 px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-brand-700 mb-4">
+              <span className="eyebrow mb-4">
                 Application History
               </span>
-              <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-surface-900 font-['Outfit']">My Applications</h1>
-              <p className="mt-3 text-[17px] font-medium text-surface-600 max-w-2xl">
+              <h1 className="font-display text-3xl font-extrabold tracking-tight text-surface-900 sm:text-4xl">My Applications</h1>
+              <p className="mt-3 max-w-2xl text-[17px] font-medium text-surface-700">
                 Review recent submissions, check where each application sits, and withdraw pending ones when priorities shift.
               </p>
             </div>
             <div className="grid gap-4 sm:grid-cols-3">
-              <div className="premium-card bg-white p-5 shadow-sm border-surface-200 text-center sm:text-left">
-                <p className="text-[11px] font-bold uppercase tracking-widest text-surface-400">Total</p>
-                <p className="mt-1.5 text-2xl font-extrabold text-surface-900 font-['Outfit']">{applications.length}</p>
+              <div className="metric-tile text-center sm:text-left">
+                <p className="text-[11px] font-bold uppercase tracking-widest text-surface-600">Total</p>
+                <p className="mt-1.5 font-display text-2xl font-extrabold text-surface-900">{applications.length}</p>
               </div>
-              <div className="premium-card bg-white p-5 shadow-sm border-surface-200 text-center sm:text-left">
-                <p className="text-[11px] font-bold uppercase tracking-widest text-surface-400">Pending</p>
-                <p className="mt-1.5 text-2xl font-extrabold text-surface-900 font-['Outfit']">{applications.filter((app) => app.status === "applied").length}</p>
+              <div className="metric-tile text-center sm:text-left">
+                <p className="text-[11px] font-bold uppercase tracking-widest text-surface-600">Pending</p>
+                <p className="mt-1.5 font-display text-2xl font-extrabold text-surface-900">{applications.filter((app) => app.status === "applied").length}</p>
               </div>
-              <div className="premium-card bg-white p-5 shadow-sm border-surface-200 text-center sm:text-left">
-                <p className="text-[11px] font-bold uppercase tracking-widest text-surface-400">Shown</p>
-                <p className="mt-1.5 text-2xl font-extrabold text-surface-900 font-['Outfit']">{filteredApplications.length}</p>
+              <div className="metric-tile text-center sm:text-left">
+                <p className="text-[11px] font-bold uppercase tracking-widest text-surface-600">Shown</p>
+                <p className="mt-1.5 font-display text-2xl font-extrabold text-surface-900">{filteredApplications.length}</p>
               </div>
             </div>
           </div>
@@ -114,12 +114,12 @@ function ApplicationHistory() {
         )}
 
         {applications.length === 0 ? (
-          <div className="premium-card p-16 text-center bg-white border-none shadow-sm">
+            <div className="premium-card border-none bg-white p-16 text-center shadow-sm">
             <div className="inline-flex w-24 h-24 rounded-full bg-surface-50 items-center justify-center mb-6">
               <span className="text-4xl">📭</span>
             </div>
             <h3 className="text-2xl font-bold text-surface-900 font-['Outfit'] mb-2">No applications yet</h3>
-            <p className="mb-8 mt-1 text-[15px] font-medium text-surface-500">Start applying to jobs to track them here</p>
+            <p className="mb-8 mt-1 text-[15px] font-medium text-surface-700">Start applying to jobs to track them here</p>
             <button onClick={() => navigate("/jobs")} className="btn-primary">Browse Jobs</button>
           </div>
         ) : (
@@ -135,7 +135,7 @@ function ApplicationHistory() {
                     className={`rounded-full border px-5 py-2 text-sm font-bold transition-all ${
                       isActive
                         ? "border-brand-600 bg-brand-600 text-white shadow-md shadow-brand-500/20 hover:bg-brand-700"
-                        : "border-surface-200 bg-white text-surface-600 hover:-translate-y-0.5 hover:border-brand-300 hover:text-brand-700 hover:shadow-sm"
+                        : "border-surface-300 bg-white text-surface-700 hover:-translate-y-0.5 hover:border-brand-300 hover:text-brand-700 hover:shadow-sm"
                     }`}
                   >
                     {filter.label}
@@ -146,7 +146,7 @@ function ApplicationHistory() {
 
             {filteredApplications.length === 0 ? (
               <div className="premium-card p-12 text-center bg-white border-surface-200">
-                <p className="text-[15px] font-medium text-surface-500">No {applicationFilters.find((filter) => filter.value === activeFilter)?.label.toLowerCase()} applications found.</p>
+                <p className="text-[15px] font-medium text-surface-700">No {applicationFilters.find((filter) => filter.value === activeFilter)?.label.toLowerCase()} applications found.</p>
               </div>
             ) : (
               <div className="grid gap-4">
@@ -156,12 +156,12 @@ function ApplicationHistory() {
                     <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between ml-2">
                       <div className="flex-1 min-w-0">
                         <h3
-                          className="text-lg font-bold text-surface-900 transition-colors hover:text-brand-700 cursor-pointer truncate font-['Outfit']"
+                          className="font-display cursor-pointer truncate text-lg font-bold text-surface-900 transition-colors hover:text-brand-700"
                           onClick={() => navigate(`/jobs/${app.job?._id}`)}
                         >
                           {app.job?.title}
                         </h3>
-                        <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-[14px] font-medium text-surface-500">
+                        <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-[14px] font-medium text-surface-700">
                           <span className="flex items-center gap-1.5"><span className="text-surface-400">📍</span> {app.job?.location}</span>
                           <span className="flex items-center gap-1.5"><span className="text-surface-400">📅</span> Applied {new Date(app.createdAt).toLocaleDateString()}</span>
                           {app.job?.jobType && (

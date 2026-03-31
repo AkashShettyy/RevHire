@@ -137,68 +137,66 @@ function InterviewCalendar() {
   }
 
   return (
-    <div className="app-page">
-      <div className="app-hero">
-        <div className="app-shell max-w-6xl py-8">
-          <div className="app-spotlight px-6 py-7 sm:px-8">
-            <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-              <div className="max-w-2xl">
-                <span className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/80">
-                  Interview calendar
-                </span>
-                <h1 className="mt-4 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-                  {user?.role === "employer" ? "See the whole hiring week at a glance." : "Keep every interview in one timeline."}
-                </h1>
-                <p className="mt-3 max-w-xl text-sm leading-6 text-white/76">
-                  Move across the month, inspect each day, and jump into the next conversation without digging through cards.
+    <div className="app-shell">
+      <div className="layout-container max-w-6xl py-8">
+        <div className="page-hero px-6 py-7 sm:px-8">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-2xl">
+              <span className="eyebrow">
+                Interview calendar
+              </span>
+              <h1 className="mt-4 font-display text-3xl font-bold tracking-tight text-surface-900 sm:text-4xl">
+                {user?.role === "employer" ? "See the whole hiring week at a glance." : "Keep every interview in one timeline."}
+              </h1>
+              <p className="mt-3 max-w-xl text-sm leading-6 text-surface-700">
+                Move across the month, inspect each day, and jump into the next conversation without digging through cards.
+              </p>
+            </div>
+
+            <div className="grid min-w-full gap-3 sm:grid-cols-3 lg:min-w-[470px]">
+              <div className="metric-tile px-4 py-4">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-surface-600">Upcoming</p>
+                <p className="mt-3 text-3xl font-bold text-surface-900">{upcomingInterviews.length}</p>
+              </div>
+              <div className="metric-tile px-4 py-4">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-surface-600">This Month</p>
+                <p className="mt-3 text-3xl font-bold text-surface-900">
+                  {
+                    normalizedInterviews.filter(
+                      (interview) =>
+                        interview.scheduledDate.getMonth() === monthDate.getMonth() &&
+                        interview.scheduledDate.getFullYear() === monthDate.getFullYear(),
+                    ).length
+                  }
                 </p>
               </div>
-
-              <div className="grid min-w-full gap-3 sm:grid-cols-3 lg:min-w-[470px]">
-                <div className="rounded-[26px] border border-white/16 bg-white/10 px-4 py-4 backdrop-blur-sm">
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/65">Upcoming</p>
-                  <p className="mt-3 text-3xl font-bold text-white">{upcomingInterviews.length}</p>
-                </div>
-                <div className="rounded-[26px] border border-white/16 bg-white/10 px-4 py-4 backdrop-blur-sm">
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/65">This Month</p>
-                  <p className="mt-3 text-3xl font-bold text-white">
-                    {
-                      normalizedInterviews.filter(
-                        (interview) =>
-                          interview.scheduledDate.getMonth() === monthDate.getMonth() &&
-                          interview.scheduledDate.getFullYear() === monthDate.getFullYear(),
-                      ).length
-                    }
-                  </p>
-                </div>
-                <button
-                  type="button"
-                  onClick={() =>
-                    navigate(user?.role === "employer" ? "/employer/dashboard" : "/dashboard")
-                  }
-                  className="rounded-[26px] bg-white px-4 py-4 text-left text-slate-900 transition-colors hover:bg-blue-50"
-                >
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Navigation</p>
-                  <p className="mt-3 text-lg font-bold">Back</p>
-                </button>
-              </div>
+              <button
+                type="button"
+                onClick={() =>
+                  navigate(user?.role === "employer" ? "/employer/dashboard" : "/dashboard")
+                }
+                className="metric-tile px-4 py-4 text-left transition-colors hover:bg-brand-50"
+              >
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-surface-600">Navigation</p>
+                <p className="mt-3 text-lg font-bold text-surface-900">Back</p>
+              </button>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="app-shell max-w-6xl py-8">
+      <div className="layout-container max-w-6xl py-8">
         {message && (
-          <div className={message.includes("Unable") ? "app-message-error mb-5" : "app-message-success mb-5"}>
+          <div className={message.includes("Unable") ? "mb-5 rounded-xl border border-error-200 bg-error-50 p-4 font-semibold text-error-800" : "mb-5 rounded-xl border border-success-200 bg-success-50 p-4 font-semibold text-success-800"}>
             {message}
           </div>
         )}
 
         {normalizedInterviews.length === 0 ? (
-          <div className="app-empty">
+          <div className="premium-card p-16 text-center">
             <p className="mb-4 text-5xl">🗓️</p>
-            <p className="font-medium text-stone-700">No interviews scheduled yet</p>
-            <p className="mt-1 text-sm text-stone-400">
+            <p className="font-medium text-surface-800">No interviews scheduled yet</p>
+            <p className="mt-1 text-sm text-surface-700">
               {user?.role === "employer"
                 ? "Schedule interviews from the applicants board to populate this calendar."
                 : "Once an employer schedules an interview, it will appear here."}
@@ -206,43 +204,43 @@ function InterviewCalendar() {
           </div>
         ) : (
           <div className="grid gap-6 xl:grid-cols-[1.5fr,1fr]">
-            <section className="app-panel overflow-hidden p-5 sm:p-6">
+            <section className="section-card overflow-hidden p-5 sm:p-6">
               <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                  <h2 className="text-lg font-semibold text-stone-900">
+                  <h2 className="text-lg font-semibold text-surface-900">
                     {monthDate.toLocaleDateString(undefined, {
                       month: "long",
                       year: "numeric",
                     })}
                   </h2>
-                  <p className="mt-1 text-sm text-stone-500">Select a date to inspect its interview agenda.</p>
+                  <p className="mt-1 text-sm text-surface-700">Select a date to inspect its interview agenda.</p>
                 </div>
                 <div className="flex gap-2">
                   <button
                     type="button"
                     onClick={() => setMonthDate((current) => new Date(current.getFullYear(), current.getMonth() - 1, 1))}
-                    className="app-button-secondary px-4 py-2"
+                    className="btn-secondary px-4 py-2"
                   >
                     Previous
                   </button>
                   <button
                     type="button"
                     onClick={() => setMonthDate(new Date())}
-                    className="app-button-secondary px-4 py-2"
+                    className="btn-secondary px-4 py-2"
                   >
                     Today
                   </button>
                   <button
                     type="button"
                     onClick={() => setMonthDate((current) => new Date(current.getFullYear(), current.getMonth() + 1, 1))}
-                    className="app-button-secondary px-4 py-2"
+                    className="btn-secondary px-4 py-2"
                   >
                     Next
                   </button>
                 </div>
               </div>
 
-              <div className="mt-6 grid grid-cols-7 gap-2 text-center text-xs font-semibold uppercase tracking-[0.18em] text-stone-400">
+              <div className="mt-6 grid grid-cols-7 gap-2 text-center text-xs font-semibold uppercase tracking-[0.18em] text-surface-600">
                 {dayNames.map((dayName) => (
                   <div key={dayName} className="py-2">
                     {dayName}
@@ -265,14 +263,14 @@ function InterviewCalendar() {
                       onClick={() => setSelectedDayKey(dayKey)}
                       className={`min-h-28 rounded-3xl border p-3 text-left transition-all ${
                         isSelected
-                          ? "border-blue-600 bg-gradient-to-br from-blue-50 to-indigo-50 shadow-lg shadow-blue-100/60"
-                          : "border-stone-200 bg-white hover:-translate-y-0.5 hover:border-blue-200 hover:bg-blue-50/40"
+                          ? "border-blue-600 bg-gradient-to-br from-blue-100 to-indigo-100 shadow-lg shadow-blue-100/60"
+                          : "border-surface-300 bg-white hover:-translate-y-0.5 hover:border-blue-300 hover:bg-blue-50/60"
                       } ${!isCurrentMonth ? "opacity-45" : ""}`}
                     >
                       <div className="flex items-center justify-between">
                         <span
                           className={`text-sm font-semibold ${
-                            isToday ? "rounded-full bg-stone-900 px-2 py-1 text-white" : "text-stone-700"
+                            isToday ? "rounded-full bg-surface-900 px-2 py-1 text-white" : "text-surface-800"
                           }`}
                         >
                           {day.getDate()}
@@ -285,8 +283,8 @@ function InterviewCalendar() {
                       </div>
                       <div className="mt-3 space-y-2">
                         {dayInterviews.slice(0, 2).map((interview) => (
-                          <div key={interview._id} className={`rounded-2xl bg-gradient-to-r ${getInterviewAccent(interview.interviewType)} px-2.5 py-2 text-xs text-stone-700`}>
-                            <p className="font-semibold text-stone-900">
+                          <div key={interview._id} className={`rounded-2xl bg-gradient-to-r ${getInterviewAccent(interview.interviewType)} px-2.5 py-2 text-xs text-surface-700`}>
+                            <p className="font-semibold text-surface-900">
                               {interview.scheduledDate.toLocaleTimeString([], {
                                 hour: "numeric",
                                 minute: "2-digit",
@@ -312,34 +310,34 @@ function InterviewCalendar() {
             </section>
 
             <aside className="space-y-6">
-              <section className="app-panel p-5 sm:p-6">
-                <h2 className="text-lg font-semibold text-stone-900">
+              <section className="section-card p-5 sm:p-6">
+                <h2 className="text-lg font-semibold text-surface-900">
                   {selectedDate.toLocaleDateString(undefined, {
                     weekday: "long",
                     month: "long",
                     day: "numeric",
                   })}
                 </h2>
-                <p className="mt-1 text-sm text-stone-500">
+                <p className="mt-1 text-sm text-surface-700">
                   {selectedDayInterviews.length} interview{selectedDayInterviews.length !== 1 ? "s" : ""} scheduled
                 </p>
 
                 {selectedDayInterviews.length === 0 ? (
-                  <div className="mt-5 rounded-3xl border border-dashed border-stone-200 px-4 py-8 text-center text-sm text-stone-500">
+                  <div className="mt-5 rounded-3xl border border-dashed border-surface-300 px-4 py-8 text-center text-sm text-surface-700">
                     No interviews on this date.
                   </div>
                 ) : (
                   <div className="mt-5 space-y-4">
                     {selectedDayInterviews.map((interview) => (
-                      <article key={interview._id} className="rounded-[26px] border border-stone-200 bg-white p-4 shadow-[0_20px_50px_-40px_rgba(15,23,42,0.4)]">
+                      <article key={interview._id} className="rounded-[26px] border border-surface-300 bg-white p-4 shadow-[0_20px_50px_-40px_rgba(15,23,42,0.4)]">
                         <div className="flex items-start justify-between gap-3">
                           <div>
-                            <p className="font-semibold text-stone-900">
+                            <p className="font-semibold text-surface-900">
                               {user?.role === "employer"
                                 ? interview.jobSeeker?.name
                                 : interview.job?.title}
                             </p>
-                            <p className="mt-1 text-sm text-stone-500">
+                            <p className="mt-1 text-sm text-surface-700">
                               {interview.scheduledDate.toLocaleTimeString([], {
                                 hour: "numeric",
                                 minute: "2-digit",
@@ -350,20 +348,20 @@ function InterviewCalendar() {
                             {interview.responseStatus}
                           </span>
                         </div>
-                        <div className="mt-4 grid gap-2 text-sm text-stone-600">
+                        <div className="mt-4 grid gap-2 text-sm text-surface-700">
                           {user?.role === "employer" ? (
                             <>
-                              <p className="rounded-2xl bg-stone-50 px-3 py-2">{interview.job?.title}</p>
-                              <p className="rounded-2xl bg-stone-50 px-3 py-2">{interview.jobSeeker?.email}</p>
+                              <p className="rounded-2xl bg-surface-100 px-3 py-2">{interview.job?.title}</p>
+                              <p className="rounded-2xl bg-surface-100 px-3 py-2">{interview.jobSeeker?.email}</p>
                             </>
                           ) : (
                             <>
-                              <p className="rounded-2xl bg-stone-50 px-3 py-2">{interview.employer?.name}</p>
-                              <p className="rounded-2xl bg-stone-50 px-3 py-2">{interview.employer?.email}</p>
+                              <p className="rounded-2xl bg-surface-100 px-3 py-2">{interview.employer?.name}</p>
+                              <p className="rounded-2xl bg-surface-100 px-3 py-2">{interview.employer?.email}</p>
                             </>
                           )}
-                          <p className="rounded-2xl bg-stone-50 px-3 py-2">{formatInterviewType(interview.interviewType)}</p>
-                          <p className="rounded-2xl bg-stone-50 px-3 py-2 break-all">{interview.interviewType === "online" ? interview.meetingLink : interview.location}</p>
+                          <p className="rounded-2xl bg-surface-100 px-3 py-2">{formatInterviewType(interview.interviewType)}</p>
+                          <p className="rounded-2xl bg-surface-100 px-3 py-2 break-all">{interview.interviewType === "online" ? interview.meetingLink : interview.location}</p>
                         </div>
 
                         {user?.role === "jobseeker" && interview.responseStatus !== "accepted" && (
@@ -371,7 +369,7 @@ function InterviewCalendar() {
                             <button
                               type="button"
                               onClick={() => handleInterviewResponse(interview._id, "accepted")}
-                              className="app-button px-4 py-2 text-sm"
+                                className="btn-primary px-4 py-2 text-sm"
                             >
                               Accept
                             </button>
@@ -379,7 +377,7 @@ function InterviewCalendar() {
                               <button
                                 type="button"
                                 onClick={() => handleInterviewResponse(interview._id, "declined")}
-                                className="app-button-secondary px-4 py-2 text-sm !text-red-600 border-red-200"
+                                className="btn-secondary border-red-200 px-4 py-2 text-sm !text-red-600"
                               >
                                 Decline
                               </button>
@@ -392,8 +390,8 @@ function InterviewCalendar() {
                 )}
               </section>
 
-              <section className="app-panel p-5 sm:p-6">
-                <h2 className="text-lg font-semibold text-stone-900">Upcoming agenda</h2>
+              <section className="section-card p-5 sm:p-6">
+                <h2 className="text-lg font-semibold text-surface-900">Upcoming agenda</h2>
                 <div className="mt-4 space-y-3">
                   {upcomingInterviews.slice(0, 5).map((interview) => (
                     <button
@@ -403,14 +401,14 @@ function InterviewCalendar() {
                         setMonthDate(new Date(interview.scheduledDate.getFullYear(), interview.scheduledDate.getMonth(), 1));
                         setSelectedDayKey(formatDayKey(interview.scheduledDate));
                       }}
-                      className="w-full rounded-[24px] border border-stone-200 bg-gradient-to-r from-white to-blue-50/50 px-4 py-3 text-left transition-all hover:-translate-y-0.5 hover:border-blue-200 hover:from-blue-50 hover:to-indigo-50/60"
+                      className="w-full rounded-[24px] border border-surface-300 bg-gradient-to-r from-white to-blue-50/60 px-4 py-3 text-left transition-all hover:-translate-y-0.5 hover:border-blue-300 hover:from-blue-100 hover:to-indigo-100/70"
                     >
-                      <p className="font-semibold text-stone-900">
+                      <p className="font-semibold text-surface-900">
                         {user?.role === "employer"
                           ? `${interview.jobSeeker?.name} · ${interview.job?.title}`
                           : interview.job?.title}
                       </p>
-                      <p className="mt-1 text-sm text-stone-500">
+                      <p className="mt-1 text-sm text-surface-700">
                         {interview.scheduledDate.toLocaleString()}
                       </p>
                     </button>

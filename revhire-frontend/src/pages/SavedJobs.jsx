@@ -56,29 +56,29 @@ function SavedJobs() {
   }
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-surface-50/30 pb-12">
-      <div className="absolute top-0 right-0 -mr-40 w-[600px] h-[600px] bg-amber-500/10 blur-[100px] pointer-events-none rounded-full"></div>
+    <div className="app-shell">
+      <div className="absolute top-0 right-0 -mr-40 h-[600px] w-[600px] rounded-full bg-amber-300/20 blur-[100px] pointer-events-none"></div>
 
       <div className="pt-10 pb-10 border-b border-surface-200/60 bg-white/50 backdrop-blur-md relative z-10">
         <div className="layout-container max-w-5xl">
-          <div className="grid gap-6 lg:grid-cols-[1.2fr,0.8fr] lg:items-end">
+          <div className="page-hero grid gap-6 lg:grid-cols-[1.2fr,0.8fr] lg:items-end">
             <div>
-              <span className="inline-flex rounded-full border border-brand-100 bg-brand-50 px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-brand-700 mb-4">
+              <span className="eyebrow mb-4">
                 Saved Roles
               </span>
-              <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-surface-900 font-['Outfit']">Saved Jobs</h1>
-              <p className="mt-3 text-[17px] font-medium text-surface-600 max-w-2xl">
+              <h1 className="font-display text-3xl font-extrabold tracking-tight text-surface-900 sm:text-4xl">Saved Jobs</h1>
+              <p className="mt-3 max-w-2xl text-[17px] font-medium text-surface-700">
                 Keep shortlisted openings in one place and revisit them before applying.
               </p>
             </div>
             <div className="grid gap-4 sm:grid-cols-2">
-              <div className="premium-card bg-white p-5 shadow-sm border-surface-200 text-center sm:text-left">
-                <p className="text-[11px] font-bold uppercase tracking-widest text-surface-400">Saved</p>
-                <p className="mt-1.5 text-2xl font-extrabold text-surface-900 font-['Outfit']">{savedJobs.length}</p>
+              <div className="metric-tile text-center sm:text-left">
+                <p className="text-[11px] font-bold uppercase tracking-widest text-surface-600">Saved</p>
+                <p className="mt-1.5 font-display text-2xl font-extrabold text-surface-900">{savedJobs.length}</p>
               </div>
-              <div className="premium-card bg-white p-5 shadow-sm border-surface-200 text-center sm:text-left">
-                <p className="text-[11px] font-bold uppercase tracking-widest text-surface-400">Status</p>
-                <p className="mt-1.5 text-2xl font-extrabold text-surface-900 font-['Outfit']">{savedJobs.length > 0 ? "Tracked" : "Empty"}</p>
+              <div className="metric-tile text-center sm:text-left">
+                <p className="text-[11px] font-bold uppercase tracking-widest text-surface-600">Status</p>
+                <p className="mt-1.5 font-display text-2xl font-extrabold text-surface-900">{savedJobs.length > 0 ? "Tracked" : "Empty"}</p>
               </div>
             </div>
           </div>
@@ -94,7 +94,7 @@ function SavedJobs() {
               <span className="text-4xl">🔖</span>
             </div>
             <h3 className="text-2xl font-bold text-surface-900 font-['Outfit'] mb-2">No saved jobs yet</h3>
-            <p className="mb-8 mt-1 text-[15px] font-medium text-surface-500">Save interesting roles from search or job details.</p>
+            <p className="mb-8 mt-1 text-[15px] font-medium text-surface-700">Save interesting roles from search or job details.</p>
             <button onClick={() => navigate("/jobs")} className="btn-primary">
               Browse Jobs
             </button>
@@ -110,7 +110,7 @@ function SavedJobs() {
                       <button
                         type="button"
                         onClick={() => navigate(`/jobs/${entry.job?._id}`)}
-                        className="text-left text-lg font-bold text-surface-900 transition-colors hover:text-brand-700 font-['Outfit']"
+                        className="font-display text-left text-lg font-bold text-surface-900 transition-colors hover:text-brand-700"
                       >
                         {entry.job?.title}
                       </button>
@@ -118,8 +118,8 @@ function SavedJobs() {
                         {entry.job?.jobType}
                       </span>
                     </div>
-                    <p className="mt-1.5 text-sm font-medium text-surface-600">{entry.job?.organization?.name}</p>
-                    <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-[14px] font-medium text-surface-500">
+                    <p className="mt-1.5 text-sm font-medium text-surface-700">{entry.job?.organization?.name}</p>
+                    <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-[14px] font-medium text-surface-700">
                       <span className="flex items-center gap-1.5"><span className="text-surface-400">📍</span> {entry.job?.location}</span>
                       {entry.job?.salaryRange?.min && (
                         <span className="flex items-center gap-1.5"><span className="text-surface-400">💰</span> ₹{entry.job.salaryRange.min.toLocaleString()} - ₹{entry.job.salaryRange.max?.toLocaleString()}</span>

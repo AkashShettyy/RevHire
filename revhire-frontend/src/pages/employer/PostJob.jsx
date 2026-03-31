@@ -53,23 +53,23 @@ function PostJob() {
 
       <div className="pt-10 pb-10 border-b border-surface-200/60 bg-white/50 backdrop-blur-md relative z-10">
         <div className="layout-container max-w-4xl">
-          <div className="premium-card p-6 sm:p-8 bg-white shadow-sm border-surface-200">
-            <button onClick={() => navigate("/employer/dashboard")} className="text-sm font-bold text-surface-500 transition-colors hover:text-brand-700 flex items-center gap-1.5 mb-6"><span>←</span> Back</button>
+          <div className="page-hero">
+            <button onClick={() => navigate("/employer/dashboard")} className="mb-6 flex items-center gap-1.5 text-sm font-bold text-surface-700 transition-colors hover:text-brand-700"><span>←</span> Back</button>
             <div className="grid gap-6 lg:grid-cols-[1.15fr,0.85fr] lg:items-end">
               <div>
-                <span className="inline-flex rounded-full border border-brand-100 bg-brand-50 px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-brand-700 mb-4">
+                <span className="eyebrow mb-4">
                   Create opening
                 </span>
-                <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-surface-900 font-['Outfit']">Post a Job</h1>
-                <p className="mt-3 text-[17px] font-medium text-surface-600">Fill in the details to attract the right candidates.</p>
+                <h1 className="font-display text-3xl font-extrabold tracking-tight text-surface-900 sm:text-4xl">Post a Job</h1>
+                <p className="mt-3 text-[17px] font-medium text-surface-700">Fill in the details to attract the right candidates.</p>
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
-                <div className="rounded-xl border border-surface-100 bg-surface-50 p-4 text-center sm:text-left shadow-sm">
-                  <p className="text-[11px] font-bold uppercase tracking-widest text-surface-400">Template</p>
+                <div className="metric-tile rounded-xl p-4 text-center sm:text-left">
+                  <p className="text-[11px] font-bold uppercase tracking-widest text-surface-600">Template</p>
                   <p className="mt-1.5 text-[15px] font-bold text-surface-900">Structured form</p>
                 </div>
-                <div className="rounded-xl border border-surface-100 bg-surface-50 p-4 text-center sm:text-left shadow-sm">
-                  <p className="text-[11px] font-bold uppercase tracking-widest text-surface-400">Optional</p>
+                <div className="metric-tile rounded-xl p-4 text-center sm:text-left">
+                  <p className="text-[11px] font-bold uppercase tracking-widest text-surface-600">Optional</p>
                   <p className="mt-1.5 text-[15px] font-bold text-surface-900">Screening Qs</p>
                 </div>
               </div>
@@ -101,7 +101,7 @@ function PostJob() {
               <div>
                 <label className="block text-[13px] font-bold uppercase tracking-widest text-surface-500 mb-2">Skills Required</label>
                 <input type="text" name="skillsRequired" placeholder="React, Node.js, MongoDB (comma separated)" value={formData.skillsRequired} onChange={handleChange} required className="input-field" />
-                <p className="mt-2 text-[13px] font-bold text-surface-400">Separate skills with commas</p>
+                <p className="mt-2 text-[13px] font-bold text-surface-600">Separate skills with commas</p>
               </div>
             </div>
           </div>
@@ -159,7 +159,7 @@ function PostJob() {
               </button>
             </div>
             {screeningQuestions.length === 0 ? (
-              <p className="text-[15px] font-medium text-surface-500 bg-surface-50 p-6 rounded-xl border border-surface-200 text-center">Add questions to auto-filter candidates. If they provide the wrong answer to a required question, they will be auto-rejected.</p>
+              <p className="rounded-xl border border-surface-300 bg-surface-100 p-6 text-center text-[15px] font-medium text-surface-700">Add questions to auto-filter candidates. If they provide the wrong answer to a required question, they will be auto-rejected.</p>
             ) : (
               <div className="space-y-4">
                 {screeningQuestions.map((q, i) => (

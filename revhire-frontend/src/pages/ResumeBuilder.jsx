@@ -24,7 +24,7 @@ const createEmptyResume = () => ({
 function Section({ title, children }) {
   return (
     <div className="premium-card bg-white p-6 sm:p-8 shadow-sm">
-      <h2 className="mb-6 text-xl font-bold text-surface-900 font-['Outfit']">{title}</h2>
+      <h2 className="font-display mb-6 text-xl font-bold text-surface-900">{title}</h2>
       {children}
     </div>
   );
@@ -177,18 +177,18 @@ function ResumeBuilder() {
   }
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-surface-50/30 pb-12">
-      <div className="absolute top-0 right-0 -mr-40 w-[600px] h-[600px] bg-brand-500/10 blur-[100px] pointer-events-none rounded-full"></div>
+    <div className="app-shell">
+      <div className="absolute top-0 right-0 -mr-40 h-[600px] w-[600px] rounded-full bg-brand-300/20 blur-[100px] pointer-events-none"></div>
 
       <div className="pt-10 pb-10 border-b border-surface-200/60 bg-white/50 backdrop-blur-md relative z-10">
         <div className="layout-container max-w-4xl">
-          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <div className="page-hero flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
             <div>
-              <span className="inline-flex rounded-full border border-brand-100 bg-brand-50 px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-brand-700 mb-4">
+              <span className="eyebrow mb-4">
                 Resume Workspace
               </span>
-              <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-surface-900 font-['Outfit']">Resume Builder</h1>
-              <p className="mt-3 text-[17px] font-medium text-surface-600 max-w-2xl">
+              <h1 className="font-display text-3xl font-extrabold tracking-tight text-surface-900 sm:text-4xl">Resume Builder</h1>
+              <p className="mt-3 max-w-2xl text-[17px] font-medium text-surface-700">
                 Manage multiple resume versions, upload a PDF copy, and export the current draft.
               </p>
             </div>
@@ -229,7 +229,7 @@ function ResumeBuilder() {
           <Section title="Resume Version">
             <div className="grid gap-5 sm:grid-cols-[1fr,auto]">
               <div>
-                <label className="block text-[13px] font-bold uppercase tracking-widest text-surface-500 mb-2">Version Name</label>
+                <label className="mb-2 block text-[13px] font-bold uppercase tracking-widest text-surface-700">Version Name</label>
                 <input
                   type="text"
                   value={resume.title || ""}
@@ -255,10 +255,10 @@ function ResumeBuilder() {
             </div>
             <div className="mt-5 grid gap-5 sm:grid-cols-2">
               <div>
-                <label className="block text-[13px] font-bold uppercase tracking-widest text-surface-500 mb-2">Upload Resume File</label>
+                <label className="mb-2 block text-[13px] font-bold uppercase tracking-widest text-surface-700">Upload Resume File</label>
                 <input type="file" accept=".pdf,.doc,.docx" onChange={handleFileUpload} className={`${inputClass} !py-2`} />
                 {resume.uploadedFile?.fileName && (
-                  <p className="mt-3 text-[13px] font-medium text-surface-500 bg-surface-100/50 px-3 py-1.5 rounded-lg inline-flex items-center gap-2 border border-surface-200">
+                  <p className="mt-3 inline-flex items-center gap-2 rounded-lg border border-surface-300 bg-surface-100 px-3 py-1.5 text-[13px] font-medium text-surface-700">
                     <span className="text-lg">📎</span> {resume.uploadedFile.fileName}
                   </p>
                 )}

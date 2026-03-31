@@ -11,10 +11,10 @@ const STATUSES = ["applied", "shortlisted", "interviewing", "offered", "hired", 
 function DroppableColumn({ id, title, applications, onCardClick, interviewMap }) {
   const { setNodeRef } = useDroppable({ id });
   return (
-    <div ref={setNodeRef} className="bg-surface-50 rounded-2xl p-4 flex flex-col min-w-[320px] w-[320px] border border-surface-200 shadow-sm">
+    <div ref={setNodeRef} className="flex min-w-[320px] w-[320px] flex-col rounded-[28px] border border-surface-300 bg-white p-4 shadow-sm">
       <div className="flex justify-between items-center mb-5 px-1">
         <h3 className="font-bold text-surface-900 capitalize font-['Outfit']">{title}</h3>
-        <span className="text-[11px] font-bold bg-white border border-surface-200 text-surface-600 px-2.5 py-1 rounded-full shadow-sm">{applications.length}</span>
+        <span className="rounded-full border border-surface-300 bg-surface-100 px-2.5 py-1 text-[11px] font-bold text-surface-700 shadow-sm">{applications.length}</span>
       </div>
       <div className="flex-1 space-y-4 min-h-[150px]">
         {applications.map(app => (
@@ -51,10 +51,10 @@ function DraggableCard({ application, interview, onClick, isOverlay }) {
     >
       <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-brand-400 to-indigo-500 rounded-l-2xl"></div>
       <div className="font-bold text-[15px] text-surface-900 line-clamp-1 ml-1">{application.jobSeeker?.name}</div>
-      <div className="text-[12px] font-medium text-surface-500 mt-1 ml-1">{application.jobSeeker?.email}</div>
+      <div className="mt-1 ml-1 text-[12px] font-medium text-surface-700">{application.jobSeeker?.email}</div>
       
       {interview && interview.status === "scheduled" && (
-        <div className="text-[10px] font-bold uppercase tracking-widest mt-4 text-brand-700 bg-brand-50 inline-block px-2.5 py-1.5 rounded border border-brand-100 ml-1">
+        <div className="mt-4 ml-1 inline-block rounded border border-brand-200 bg-brand-100 px-2.5 py-1.5 text-[10px] font-bold uppercase tracking-widest text-brand-700">
           Interview Scheduled
         </div>
       )}
@@ -181,15 +181,15 @@ export default function Applicants() {
     <div className="app-shell relative flex flex-col">
       <div className="absolute top-0 right-0 -mr-40 h-[600px] w-[600px] rounded-full bg-brand-300/20 blur-[110px] pointer-events-none"></div>
 
-      <div className="pt-6 pb-6 border-b border-surface-200/60 bg-white/50 backdrop-blur-md relative z-10 shrink-0">
+      <div className="relative z-10 shrink-0 border-b border-surface-200/60 bg-white/50 pb-6 pt-6 backdrop-blur-md">
         <div className="layout-container max-w-none px-6">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="page-hero flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
             <div className="flex items-center gap-4">
-              <button onClick={() => navigate("/employer/dashboard")} className="text-sm font-bold text-surface-500 transition-colors hover:text-brand-700 flex items-center gap-1.5"><span>←</span> Back to Dashboard</button>
-              <h1 className="text-2xl font-extrabold tracking-tight text-surface-900 border-l border-surface-300 pl-4 font-['Outfit']">Applicants Board</h1>
+              <button onClick={() => navigate("/employer/dashboard")} className="flex items-center gap-1.5 text-sm font-bold text-surface-700 transition-colors hover:text-brand-700"><span>←</span> Back to Dashboard</button>
+              <h1 className="border-l border-surface-300 pl-4 font-display text-2xl font-extrabold tracking-tight text-surface-900">Applicants Board</h1>
             </div>
             <div className="flex gap-2 text-[14px]">
-              <span className="font-bold text-surface-700 bg-white px-4 py-1.5 rounded-full shadow-sm border border-surface-200">{applications.length} Total</span>
+              <span className="rounded-full border border-surface-300 bg-white px-4 py-1.5 font-bold text-surface-800 shadow-sm">{applications.length} Total</span>
             </div>
           </div>
         </div>
@@ -203,12 +203,12 @@ export default function Applicants() {
             </div>
           )}
           {applications.length === 0 && !isLoading ? (
-             <div className="premium-card p-16 mt-10 max-w-2xl mx-auto bg-white/80 shadow-sm rounded-2xl text-center flex flex-col items-center">
+             <div className="premium-card mx-auto mt-10 flex max-w-2xl flex-col items-center rounded-2xl bg-white p-16 text-center shadow-sm">
                <div className="inline-flex w-24 h-24 rounded-full bg-surface-50 items-center justify-center mb-6">
                  <span className="text-4xl">👥</span>
                </div>
                <h3 className="font-bold text-surface-900 text-2xl font-['Outfit'] mb-2">No applicants yet</h3>
-               <p className="mt-1 text-[15px] font-medium text-surface-500">Wait for candidates to apply or share your job posting.</p>
+               <p className="mt-1 text-[15px] font-medium text-surface-700">Wait for candidates to apply or share your job posting.</p>
              </div>
           ) : (
             <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd} collisionDetection={closestCorners}>

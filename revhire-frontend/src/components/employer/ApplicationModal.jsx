@@ -75,10 +75,10 @@ export default function ApplicationModal({
     <div className="fixed inset-0 z-50 overflow-y-auto bg-surface-950/60 backdrop-blur-sm flex items-start justify-center p-4 sm:p-6 lg:p-8">
       <div className="bg-white max-w-4xl w-full rounded-2xl shadow-xl overflow-hidden flex flex-col max-h-[90vh] border border-surface-200">
         {/* Header */}
-        <div className="bg-surface-50 border-b border-surface-200 px-6 py-5 flex justify-between items-center shrink-0">
+        <div className="flex shrink-0 items-center justify-between border-b border-surface-300 bg-white px-6 py-5">
           <div>
             <h2 className="text-xl font-bold text-surface-900 font-['Outfit']">{application.jobSeeker?.name}</h2>
-            <p className="text-[14px] font-medium text-surface-500 mt-0.5">{application.jobSeeker?.email}</p>
+            <p className="mt-0.5 text-[14px] font-medium text-surface-700">{application.jobSeeker?.email}</p>
           </div>
           <div className="flex items-center gap-4">
             <select
@@ -105,7 +105,7 @@ export default function ApplicationModal({
             <button
               key={t}
               onClick={() => setActiveTab(t)}
-              className={`py-3.5 px-4 font-bold text-[13px] uppercase tracking-wider whitespace-nowrap border-b-2 transition-colors ${activeTab === t ? 'border-brand-600 text-brand-700' : 'border-transparent text-surface-500 hover:text-surface-700 hover:bg-surface-50'}`}
+              className={`whitespace-nowrap border-b-2 px-4 py-3.5 text-[13px] font-bold uppercase tracking-wider transition-colors ${activeTab === t ? 'border-brand-600 text-brand-700' : 'border-transparent text-surface-700 hover:bg-surface-100 hover:text-surface-900'}`}
             >
               {t}
               {t === "notes" && application.notes?.length > 0 && ` (${application.notes.length})`}
@@ -121,12 +121,12 @@ export default function ApplicationModal({
             <div className="space-y-8 animate-fade-in">
               {application.answers?.length > 0 && (
                 <div className="premium-card p-6 border-surface-200 shadow-sm bg-white">
-                  <h3 className="text-[12px] font-bold uppercase tracking-widest text-surface-400 mb-4">Screening Answers</h3>
+                  <h3 className="mb-4 text-[12px] font-bold uppercase tracking-widest text-surface-600">Screening Answers</h3>
                   <div className="space-y-4">
                     {application.answers.map((a, i) => (
-                      <div key={i} className="bg-surface-50 p-4 rounded-xl border border-surface-200">
+                      <div key={i} className="rounded-xl border border-surface-300 bg-surface-100 p-4">
                         <p className="text-[14px] font-bold text-surface-800">{a.question}</p>
-                        <p className="text-[14px] font-medium text-surface-600 mt-2 flex items-start gap-2">
+                        <p className="mt-2 flex items-start gap-2 text-[14px] font-medium text-surface-700">
                           <span className="text-surface-400 font-bold">↳</span> {a.answer}
                         </p>
                       </div>
@@ -140,7 +140,7 @@ export default function ApplicationModal({
                   <p className="text-[15px] font-medium text-surface-700 leading-relaxed whitespace-pre-wrap">{application.coverLetter}</p>
                 </div>
               ) : (
-                <p className="text-[14px] font-medium text-surface-500 italic bg-surface-50 p-4 rounded-xl border border-surface-200 text-center">No cover letter provided.</p>
+                <p className="rounded-xl border border-surface-300 bg-surface-100 p-4 text-center text-[14px] font-medium italic text-surface-700">No cover letter provided.</p>
               )}
             </div>
           )}
@@ -168,7 +168,7 @@ export default function ApplicationModal({
                   </div>
                 </>
               ) : (
-                <p className="text-[14px] font-medium text-surface-500 bg-surface-50 p-6 border border-surface-200 rounded-xl text-center">Applicant has not provided a resume builder profile.</p>
+                <p className="rounded-xl border border-surface-300 bg-surface-100 p-6 text-center text-[14px] font-medium text-surface-700">Applicant has not provided a resume builder profile.</p>
               )}
             </div>
           )}

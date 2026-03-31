@@ -43,38 +43,36 @@ function AccountSettings() {
   }
 
   return (
-    <div className="app-page">
-      <div className="app-hero">
-        <div className="app-shell max-w-3xl py-8">
-          <div className="app-spotlight px-6 py-7 sm:px-8">
-            <div className="grid gap-6 lg:grid-cols-[1.1fr,0.9fr] lg:items-end">
-              <div>
-                <span className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/80">
-                  Account settings
-                </span>
-                <h1 className="mt-4 text-3xl font-bold tracking-tight text-white">Account Settings</h1>
-                <p className="mt-3 text-sm leading-6 text-white/76">Manage your sign-in credentials and keep your account secure.</p>
+    <div className="app-shell">
+      <div className="layout-container max-w-3xl py-10">
+        <div className="page-hero px-6 py-7 sm:px-8">
+          <div className="grid gap-6 lg:grid-cols-[1.1fr,0.9fr] lg:items-end">
+            <div>
+              <span className="eyebrow">
+                Account settings
+              </span>
+              <h1 className="mt-4 font-display text-3xl font-bold tracking-tight text-surface-900">Account Settings</h1>
+              <p className="mt-3 text-sm leading-6 text-surface-700">Manage your sign-in credentials and keep your account secure.</p>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-2">
+              <div className="metric-tile px-4 py-4">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-surface-600">Security</p>
+                <p className="mt-3 text-lg font-bold text-surface-900">Password controls</p>
               </div>
-              <div className="grid gap-3 sm:grid-cols-2">
-                <div className="rounded-[26px] border border-white/16 bg-white/10 px-4 py-4 backdrop-blur-sm">
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/65">Security</p>
-                  <p className="mt-3 text-lg font-bold text-white">Password controls</p>
-                </div>
-                <div className="rounded-[26px] border border-white/16 bg-white/10 px-4 py-4 backdrop-blur-sm">
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/65">Best practice</p>
-                  <p className="mt-3 text-lg font-bold text-white">Use a unique password</p>
-                </div>
+              <div className="metric-tile px-4 py-4">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-surface-600">Best practice</p>
+                <p className="mt-3 text-lg font-bold text-surface-900">Use a unique password</p>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="app-shell max-w-3xl py-8">
-        <div className="app-panel p-6 sm:p-8">
+      <div className="layout-container max-w-3xl py-10">
+        <div className="section-card p-6 sm:p-8">
           <div className="mb-6">
-            <h2 className="text-lg font-semibold text-stone-900">Change Password</h2>
-            <p className="mt-1 text-sm text-stone-500">Use a password you do not reuse elsewhere.</p>
+            <h2 className="text-lg font-semibold text-surface-900">Change Password</h2>
+            <p className="mt-1 text-sm text-surface-700">Use a password you do not reuse elsewhere.</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-5">
@@ -110,12 +108,12 @@ function AccountSettings() {
             />
 
             {message.text && (
-              <div className={message.type === "success" ? "app-message-success" : "app-message-error"}>
+              <div className={message.type === "success" ? "rounded-xl border border-success-200 bg-success-50 p-4 font-semibold text-success-800" : "rounded-xl border border-error-200 bg-error-50 p-4 font-semibold text-error-800"}>
                 {message.text}
               </div>
             )}
 
-            <button type="submit" disabled={isLoading} className="app-button">
+            <button type="submit" disabled={isLoading} className="btn-primary">
               {isLoading ? "Updating..." : "Update Password"}
             </button>
           </form>

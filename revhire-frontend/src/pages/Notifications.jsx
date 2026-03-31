@@ -154,70 +154,68 @@ function Notifications() {
   }
 
   return (
-    <div className="app-page">
-      <div className="app-hero">
-        <div className="app-shell max-w-5xl py-8">
-          <div className="app-spotlight px-6 py-7 sm:px-8">
-            <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-              <div className="max-w-2xl">
-                <span className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/80">
-                  Notification center
-                </span>
-                <h1 className="mt-4 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-                  {user?.role === "employer" ? "Hiring updates, organized." : "Every update, one calm inbox."}
-                </h1>
-                <p className="mt-3 max-w-xl text-sm leading-6 text-white/76">
-                  Review application changes, interview activity, and platform updates without relying on the navbar dropdown.
-                </p>
-              </div>
-
-              <div className="grid min-w-full gap-3 sm:grid-cols-3 lg:min-w-[420px]">
-                <div className="rounded-[26px] border border-white/16 bg-white/10 px-4 py-4 backdrop-blur-sm">
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/65">Unread</p>
-                  <p className="mt-3 text-3xl font-bold text-white">{unreadCount}</p>
-                </div>
-                <div className="rounded-[26px] border border-white/16 bg-white/10 px-4 py-4 backdrop-blur-sm">
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/65">Applications</p>
-                  <p className="mt-3 text-3xl font-bold text-white">{categorySummary.application}</p>
-                </div>
-                <div className="rounded-[26px] border border-white/16 bg-white/10 px-4 py-4 backdrop-blur-sm">
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/65">Interviews</p>
-                  <p className="mt-3 text-3xl font-bold text-white">{categorySummary.interview}</p>
-                </div>
-              </div>
+    <div className="app-shell">
+      <div className="layout-container max-w-5xl py-8">
+        <div className="page-hero px-6 py-7 sm:px-8">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-2xl">
+              <span className="eyebrow">
+                Notification center
+              </span>
+              <h1 className="mt-4 font-display text-3xl font-bold tracking-tight text-surface-900 sm:text-4xl">
+                {user?.role === "employer" ? "Hiring updates, organized." : "Every update, one calm inbox."}
+              </h1>
+              <p className="mt-3 max-w-xl text-sm leading-6 text-surface-700">
+                Review application changes, interview activity, and platform updates without relying on the navbar dropdown.
+              </p>
             </div>
 
-            <div className="mt-6 flex flex-wrap gap-3">
-              <button
-                type="button"
-                onClick={handleMarkAllRead}
-                disabled={unreadCount === 0 || isMarkingAllRead}
-                className="inline-flex items-center justify-center rounded-2xl border border-white/20 bg-white/12 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-white/18 disabled:cursor-not-allowed disabled:opacity-50"
-              >
-                {isMarkingAllRead ? "Updating..." : "Mark All Read"}
-              </button>
-              <button
-                type="button"
-                onClick={() =>
-                  navigate(user?.role === "employer" ? "/employer/dashboard" : "/dashboard")
-                }
-                className="inline-flex items-center justify-center rounded-2xl bg-white px-4 py-2 text-sm font-semibold text-slate-900 transition-colors hover:bg-blue-50"
-              >
-                Back to Dashboard
-              </button>
+            <div className="grid min-w-full gap-3 sm:grid-cols-3 lg:min-w-[420px]">
+              <div className="metric-tile px-4 py-4">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-surface-600">Unread</p>
+                <p className="mt-3 text-3xl font-bold text-surface-900">{unreadCount}</p>
+              </div>
+              <div className="metric-tile px-4 py-4">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-surface-600">Applications</p>
+                <p className="mt-3 text-3xl font-bold text-surface-900">{categorySummary.application}</p>
+              </div>
+              <div className="metric-tile px-4 py-4">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-surface-600">Interviews</p>
+                <p className="mt-3 text-3xl font-bold text-surface-900">{categorySummary.interview}</p>
+              </div>
             </div>
+          </div>
+
+          <div className="mt-6 flex flex-wrap gap-3">
+            <button
+              type="button"
+              onClick={handleMarkAllRead}
+              disabled={unreadCount === 0 || isMarkingAllRead}
+              className="btn-secondary disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              {isMarkingAllRead ? "Updating..." : "Mark All Read"}
+            </button>
+            <button
+              type="button"
+              onClick={() =>
+                navigate(user?.role === "employer" ? "/employer/dashboard" : "/dashboard")
+              }
+              className="btn-primary text-sm"
+            >
+              Back to Dashboard
+            </button>
           </div>
         </div>
       </div>
 
-      <div className="app-shell max-w-5xl py-8">
+      <div className="layout-container max-w-5xl py-8">
         {message && (
-          <div className={message.includes("Unable") ? "app-message-error mb-5" : "app-message-success mb-5"}>
+          <div className={message.includes("Unable") ? "mb-5 rounded-xl border border-error-200 bg-error-50 p-4 font-semibold text-error-800" : "mb-5 rounded-xl border border-success-200 bg-success-50 p-4 font-semibold text-success-800"}>
             {message}
           </div>
         )}
 
-        <div className="app-panel mt-2 overflow-hidden p-5">
+        <div className="section-card mt-2 overflow-hidden p-5">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div className="flex flex-wrap gap-2">
               {FILTERS.map((filter) => {
@@ -230,7 +228,7 @@ function Notifications() {
                     className={`rounded-full border px-4 py-2 text-sm font-medium transition-all ${
                       isActive
                         ? "border-blue-600 bg-blue-600 text-white shadow-lg shadow-blue-100"
-                        : "border-stone-200 bg-white text-stone-600 hover:-translate-y-0.5 hover:border-blue-200 hover:text-blue-700"
+                        : "border-surface-300 bg-white text-surface-700 hover:-translate-y-0.5 hover:border-blue-200 hover:text-blue-700"
                     }`}
                   >
                     {filter.label}
@@ -250,7 +248,7 @@ function Notifications() {
                     className={`rounded-full border px-4 py-2 text-sm font-medium transition-all ${
                       isActive
                         ? "border-stone-900 bg-stone-900 text-white shadow-lg shadow-stone-200"
-                        : "border-stone-200 bg-white text-stone-600 hover:-translate-y-0.5 hover:border-stone-300 hover:text-stone-900"
+                        : "border-surface-300 bg-white text-surface-700 hover:-translate-y-0.5 hover:border-surface-400 hover:text-surface-900"
                     }`}
                   >
                     {filter.label}
@@ -258,14 +256,14 @@ function Notifications() {
                 );
               })}
             </div>
-          </div>
+        </div>
         </div>
 
         {filteredNotifications.length === 0 ? (
-          <div className="app-empty mt-6">
+          <div className="premium-card mt-6 p-16 text-center">
             <p className="mb-4 text-5xl">🔔</p>
-            <p className="font-medium text-stone-700">No notifications found</p>
-            <p className="mt-1 text-sm text-stone-400">
+            <p className="font-medium text-surface-800">No notifications found</p>
+            <p className="mt-1 text-sm text-surface-700">
               Try changing the filters or come back after new activity appears.
             </p>
           </div>
@@ -274,7 +272,7 @@ function Notifications() {
             {filteredNotifications.map((notification) => (
               <article
                 key={notification._id}
-                className={`app-panel relative overflow-hidden p-5 transition-all duration-200 ${
+                className={`section-card relative overflow-hidden p-5 transition-all duration-200 ${
                   notification.status === "unread" ? "border-blue-200 shadow-xl shadow-blue-100/40" : ""
                 }`}
               >
@@ -297,9 +295,9 @@ function Notifications() {
                         {notification.status}
                       </span>
                     </div>
-                    <p className="mt-3 text-sm leading-6 text-stone-700">{notification.message}</p>
+                    <p className="mt-3 text-sm leading-6 text-surface-800">{notification.message}</p>
                   </div>
-                  <div className="shrink-0 text-sm text-stone-400">
+                  <div className="shrink-0 text-sm text-surface-600">
                     <p>{formatRelativeTime(notification.createdAt)}</p>
                     <p className="mt-1">{new Date(notification.createdAt).toLocaleString()}</p>
                   </div>
