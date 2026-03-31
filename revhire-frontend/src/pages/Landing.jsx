@@ -33,7 +33,7 @@ function Landing() {
       
       <section className="relative pt-20 pb-16 sm:pt-28 sm:pb-24">
         <div className="layout-container">
-          <div className="grid items-center gap-16 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="grid items-center gap-20 lg:grid-cols-[1.05fr_0.95fr]">
             <div className="relative z-10">
               <span className="inline-flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-4 py-1.5 mb-6">
                 <span className="flex h-2 w-2 rounded-full bg-brand-600 animate-pulse"></span>
@@ -53,28 +53,28 @@ function Landing() {
                   Sign in
                 </Link>
               </div>
-              <div className="mt-12 grid gap-5 sm:grid-cols-3">
+              <div className="mt-14 grid gap-6 sm:grid-cols-3">
                 {[
-                  { label: "Jobs", value: "Search & apply" },
-                  { label: "Resumes", value: "Build & export" },
-                  { label: "Hiring", value: "Post & review" },
+                  { label: "Jobs", value: "Search & apply", accent: "bg-brand-500" },
+                  { label: "Resumes", value: "Build & export", accent: "bg-emerald-500" },
+                  { label: "Hiring", value: "Post & review", accent: "bg-amber-500" },
                 ].map((item, i) => (
-                  <div key={item.label} className="premium-card bg-white/70 backdrop-blur-md px-5 py-5 border-surface-200/60 shadow-sm transition-transform hover:-translate-y-1">
+                  <div key={item.label} className="premium-card border-surface-200/60 bg-white/80 px-6 py-6 shadow-sm transition-transform hover:-translate-y-1">
                     <div className="flex items-center gap-3 mb-2">
-                       <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-white ${['bg-brand-500', 'bg-violet-500', 'bg-indigo-500'][i]}`}>
+                       <div className={`flex h-10 w-10 items-center justify-center rounded-xl text-white ${item.accent}`}>
                           <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 13l4 4L19 7"></path></svg>
                        </div>
                        <p className="text-[11px] font-bold uppercase tracking-widest text-surface-400">{item.label}</p>
                     </div>
-                    <p className="text-sm font-bold text-surface-900">{item.value}</p>
+                    <p className="text-base font-bold text-surface-900">{item.value}</p>
                   </div>
                 ))}
               </div>
             </div>
 
             <div className="relative z-10 w-full lg:ml-auto">
-              <div className="premium-card overflow-hidden border border-white bg-white/70 p-2 shadow-2xl shadow-surface-900/10 transition-transform duration-500 hover:rotate-0">
-                <div className="relative overflow-hidden rounded-[24px] bg-gradient-to-br from-brand-50 via-white to-cyan-50 p-8 text-surface-900">
+              <div className="premium-card overflow-hidden border border-white bg-white/75 p-3 shadow-2xl shadow-surface-900/10 transition-transform duration-500 hover:rotate-0">
+                <div className="relative overflow-hidden rounded-[28px] bg-gradient-to-br from-brand-50 via-white to-cyan-50 p-10 text-surface-900">
                   <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-bl from-brand-100/40 to-transparent opacity-70 pointer-events-none"></div>
                   
                   <p className="text-[11px] font-bold uppercase tracking-widest text-brand-700">Current workflow</p>
@@ -83,11 +83,11 @@ function Landing() {
                     The project already supports account creation, protected routes, job discovery, job posting, applicant review, and resume export.
                   </p>
                 </div>
-                <div className="mt-2 space-y-2 p-4">
+                <div className="mt-3 space-y-3 p-5">
                   {capabilityGroups.map((group) => (
-                    <div key={group.title} className="rounded-2xl border border-surface-100 bg-white/80 p-5 shadow-sm">
+                    <div key={group.title} className="rounded-[24px] border border-surface-100 bg-white p-6 shadow-sm">
                       <h3 className="text-[15px] font-bold text-surface-900 font-display">{group.title}</h3>
-                      <ul className="mt-3 space-y-2.5 text-sm leading-relaxed text-surface-600">
+                      <ul className="mt-4 space-y-3 text-sm leading-relaxed text-surface-600">
                         {group.items.map((item) => (
                           <li key={item} className="flex items-start gap-3">
                             <span className="mt-1 flex shrink-0 h-1.5 w-1.5 rounded-full bg-brand-500" />
@@ -104,7 +104,7 @@ function Landing() {
         </div>
       </section>
 
-      <section className="relative py-20 bg-surface-50/50 border-y border-surface-200/50">
+      <section className="relative border-y border-surface-200/50 bg-surface-50/50 py-24">
         <div className="layout-container">
           <div className="max-w-2xl mx-auto text-center">
             <span className="inline-flex rounded-full bg-surface-200/50 px-3 py-1 text-xs font-bold uppercase tracking-widest text-surface-600">Product Overview</span>
@@ -113,10 +113,10 @@ function Landing() {
               These sections describe existing flows in the project. Nothing here depends on unverified claims.
             </p>
           </div>
-          <div className="mt-16 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          <div className="mt-18 grid gap-8 md:grid-cols-2 xl:grid-cols-3">
             {productNotes.map((item, i) => (
-              <article key={item.title} className="premium-card p-8 bg-white hover:-translate-y-2 transition-transform duration-300">
-                <div className="w-12 h-12 rounded-2xl bg-brand-50 text-brand-600 flex items-center justify-center mb-6">
+              <article key={item.title} className="premium-card bg-white p-9 hover:-translate-y-2 transition-transform duration-300">
+                <div className={`mb-6 flex h-12 w-12 items-center justify-center rounded-2xl ${["bg-brand-50 text-brand-600","bg-emerald-50 text-emerald-600","bg-amber-50 text-amber-600"][i]}`}>
                   <span className="font-display text-xl font-bold">0{i+1}</span>
                 </div>
                 <h3 className="text-lg font-bold text-surface-900 font-display">{item.title}</h3>
@@ -129,7 +129,7 @@ function Landing() {
 
       <section className="relative py-24">
         <div className="layout-container">
-          <div className="relative overflow-hidden rounded-[32px] border border-brand-100 bg-gradient-to-br from-white via-brand-50 to-cyan-50 px-6 py-16 text-center text-surface-900 shadow-2xl shadow-brand-100/60 sm:px-12">
+          <div className="relative overflow-hidden rounded-[36px] border border-brand-100 bg-gradient-to-br from-white via-brand-50 to-cyan-50 px-8 py-20 text-center text-surface-900 shadow-2xl shadow-brand-100/60 sm:px-14">
             <div className="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 rounded-full border border-brand-100 pointer-events-none"></div>
             <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full border border-cyan-100 pointer-events-none"></div>
 

@@ -132,16 +132,16 @@ function JobSeekerDashboard() {
         </div>
       </div>
 
-      <div className="layout-container mx-auto max-w-6xl space-y-8 py-10 relative z-10">
+      <div className="layout-container mx-auto max-w-7xl space-y-10 py-14 relative z-10">
         {message && (
           <div className="rounded-xl border border-success-200 bg-success-50 p-4 font-semibold text-success-800 shadow-sm transition-all duration-300">
             {message.charAt(0).toUpperCase() + message.slice(1)}
           </div>
         )}
 
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="stat-grid">
           {stats.map((s) => (
-            <div key={s.label} className="premium-card p-6 bg-white shadow-sm hover:shadow-md transition-shadow">
+            <div key={s.label} className="metric-tile hover:shadow-md transition-shadow">
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <p className="text-[13px] font-bold uppercase tracking-widest text-surface-400">{s.label}</p>
@@ -155,7 +155,7 @@ function JobSeekerDashboard() {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
           {[
             { label: "My Resume", desc: "Refresh your profile", icon: "Resume", path: "/resume", accent: "bg-brand-100 text-brand-700" },
             { label: "Saved Jobs", desc: "Track interesting roles", icon: "Saved", path: "/saved-jobs", accent: "bg-amber-100 text-amber-700" },
@@ -166,9 +166,9 @@ function JobSeekerDashboard() {
             <button
               key={a.label}
               onClick={() => navigate(a.path)}
-              className="premium-card group relative overflow-hidden p-6 text-left shadow-md shadow-brand-500/10 transition-all hover:-translate-y-1 hover:shadow-lg"
+              className="premium-card group relative overflow-hidden p-7 text-left shadow-md shadow-brand-500/10 transition-all hover:-translate-y-1 hover:shadow-lg"
             >
-              <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-brand-100/60 blur-2xl"></div>
+              <div className={`absolute -right-8 -top-8 h-32 w-32 rounded-full blur-2xl ${a.accent.includes("amber") ? "bg-amber-100/80" : a.accent.includes("sky") ? "bg-sky-100/80" : a.accent.includes("teal") ? "bg-teal-100/80" : "bg-brand-100/70"}`}></div>
               <div className="relative z-10">
                 <span className={`inline-flex rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-widest ${a.accent}`}>{a.icon}</span>
                 <p className="mt-5 font-display text-xl font-bold text-surface-900">{a.label}</p>

@@ -47,11 +47,11 @@
 
 @layer components {
   .layout-container {
-    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+    @apply mx-auto w-full max-w-[88rem] px-5 sm:px-8 lg:px-10;
   }
 
   .app-shell {
-    @apply min-h-screen relative overflow-hidden pb-14;
+    @apply min-h-screen relative overflow-hidden pb-20;
   }
 
   .app-shell::before {
@@ -67,7 +67,7 @@
   .page-hero {
     background: var(--hero-bg);
     box-shadow: 0 28px 80px rgba(37, 99, 235, 0.08);
-    @apply relative overflow-hidden rounded-[32px] border border-brand-100 px-7 py-8 text-surface-900 sm:px-10 sm:py-10;
+    @apply relative overflow-hidden rounded-[36px] border border-brand-100 px-8 py-10 text-surface-900 sm:px-12 sm:py-12;
   }
 
   .page-hero::after {
@@ -88,11 +88,11 @@
   }
 
   .metric-tile {
-    @apply rounded-[24px] border border-surface-200 bg-white p-5 shadow-[0_18px_45px_rgba(16,28,45,0.08)] backdrop-blur-sm;
+    @apply rounded-[26px] border border-surface-200 bg-white p-6 shadow-[0_18px_45px_rgba(16,28,45,0.08)] backdrop-blur-sm;
   }
 
   .section-card {
-    @apply rounded-[28px] border border-surface-200 bg-white shadow-[0_18px_45px_rgba(16,28,45,0.08)] backdrop-blur-sm;
+    @apply rounded-[32px] border border-surface-200 bg-white shadow-[0_18px_45px_rgba(16,28,45,0.08)] backdrop-blur-sm;
   }
   
   .glass-panel {
@@ -110,7 +110,7 @@
     border: 1px solid rgba(220, 228, 238, 0.95);
     box-shadow: 0 20px 50px rgba(16, 28, 45, 0.08);
     transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
-    @apply relative overflow-hidden rounded-[28px];
+    @apply relative overflow-hidden rounded-[30px];
   }
 
   .premium-card:hover {
@@ -190,10 +190,10 @@
   }
 
   .stat-grid {
-    @apply grid gap-4 sm:grid-cols-2 xl:grid-cols-4;
+    @apply grid gap-6 sm:grid-cols-2 xl:grid-cols-4;
   }
 
   .action-card {
-    @apply premium-card relative overflow-hidden p-6 text-left;
+    @apply premium-card relative overflow-hidden p-7 text-left;
   }
 }

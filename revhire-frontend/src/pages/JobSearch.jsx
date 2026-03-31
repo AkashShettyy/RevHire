@@ -106,11 +106,11 @@ function JobSearch() {
 
       <div className="pt-10 pb-8 border-b border-surface-200/60 bg-white/40">
         <div className="layout-container">
-          <div className="mx-auto max-w-6xl">
+          <div className="mx-auto max-w-7xl">
             <div className="page-hero">
               <div className="absolute -mr-20 -mt-20 right-0 top-0 h-96 w-96 rounded-full bg-brand-400/20 blur-[80px] pointer-events-none"></div>
               
-              <div className="grid gap-8 xl:grid-cols-[1.3fr_0.7fr] xl:items-end relative z-10">
+              <div className="relative z-10 grid gap-10 xl:grid-cols-[1.2fr_0.8fr] xl:items-end">
                 <div>
                   <span className="eyebrow">
                     Discover Your Next Role
@@ -120,16 +120,16 @@ function JobSearch() {
                     Search and filter thousands of job postings by title, location, skills, compensation, and recency.
                   </p>
                 </div>
-                <div className="grid gap-3 sm:grid-cols-3">
-                  <div className="rounded-[24px] border border-brand-100 bg-white/70 px-5 py-5 backdrop-blur-md">
+                <div className="grid gap-4 sm:grid-cols-3">
+                  <div className="rounded-[24px] border border-brand-100 bg-white/80 px-6 py-6 backdrop-blur-md">
                     <p className="text-[11px] font-bold uppercase tracking-widest text-surface-500">Results</p>
                     <p className="mt-2 font-display text-3xl font-bold text-surface-900">{pagination.total}</p>
                   </div>
-                  <div className="rounded-[24px] border border-brand-100 bg-white/70 px-5 py-5 backdrop-blur-md">
+                  <div className="rounded-[24px] border border-emerald-100 bg-emerald-50/60 px-6 py-6 backdrop-blur-md">
                     <p className="text-[11px] font-bold uppercase tracking-widest text-surface-500">Filters</p>
                     <p className="mt-2 font-display text-3xl font-bold text-surface-900">{activeFilterCount}</p>
                   </div>
-                  <div className="rounded-[24px] border border-brand-100 bg-white/70 px-5 py-5 backdrop-blur-md">
+                  <div className="rounded-[24px] border border-amber-100 bg-amber-50/60 px-6 py-6 backdrop-blur-md">
                     <p className="text-[11px] font-bold uppercase tracking-widest text-surface-500">Sort</p>
                     <p className="mt-2 font-display text-lg font-bold capitalize text-surface-900">{filters.sortBy.replace("_", " ")}</p>
                   </div>
@@ -137,7 +137,7 @@ function JobSearch() {
               </div>
             </div>
 
-            <form onSubmit={handleSearch} className="section-card mt-8 grid grid-cols-1 items-center gap-3 p-5 md:grid-cols-3 xl:grid-cols-4 shadow-xl shadow-surface-200/40">
+            <form onSubmit={handleSearch} className="section-card mt-10 grid grid-cols-1 items-center gap-4 p-7 md:grid-cols-2 xl:grid-cols-4 shadow-xl shadow-surface-200/40">
               <input type="text" name="search" placeholder="Job title or skill..." value={filters.search} onChange={handleFilterChange} className="input-field bg-surface-50" />
               <input type="text" name="company" placeholder="Company Name" value={filters.company} onChange={handleFilterChange} className="input-field bg-surface-50" />
               <input type="text" name="skills" placeholder="Skills, comma separated" value={filters.skills} onChange={handleFilterChange} className="input-field bg-surface-50" />
@@ -174,8 +174,8 @@ function JobSearch() {
         </div>
       </div>
 
-      <div className="layout-container mx-auto max-w-6xl py-12">
-        <div className="flex items-center justify-between mb-8">
+      <div className="layout-container mx-auto max-w-7xl py-16">
+        <div className="mb-10 flex items-center justify-between">
           <h2 className="heading-section">Latest Opportunities</h2>
           <p className="text-sm font-bold uppercase tracking-wider text-surface-500">
             {isLoading ? "Searching..." : `${pagination.total} job${pagination.total !== 1 ? "s" : ""} found`}
@@ -183,7 +183,7 @@ function JobSearch() {
         </div>
 
         {isLoading ? (
-          <div className="grid gap-5">
+          <div className="grid gap-6">
             {[1, 2, 3].map((i) => (
               <div key={i} className="premium-card p-6 animate-pulse bg-white">
                 <div className="mb-4 h-5 w-1/3 rounded-lg bg-surface-200" />
@@ -204,12 +204,12 @@ function JobSearch() {
             <p className="text-[15px] font-medium text-surface-500 max-w-md mx-auto">Try adjusting your search filters to find what you're looking for.</p>
           </div>
         ) : (
-          <div className="grid gap-5">
+          <div className="grid gap-6">
             {jobs.map((job) => (
               <article
                 key={job._id}
                 onClick={() => navigate(`/jobs/${job._id}`)}
-                className="premium-card group cursor-pointer p-7 bg-white hover:border-brand-200 hover:shadow-brand-500/5 transition-all duration-300"
+                className="premium-card group cursor-pointer bg-white p-8 hover:border-brand-200 hover:shadow-brand-500/5 transition-all duration-300"
               >
                 <div className="flex flex-col sm:flex-row items-start justify-between gap-6">
                   <div className="flex-1 min-w-0">

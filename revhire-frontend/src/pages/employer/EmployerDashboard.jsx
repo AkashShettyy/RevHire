@@ -113,11 +113,11 @@ function EmployerDashboard() {
         </div>
       </div>
 
-      <div className="layout-container max-w-6xl py-10 relative z-10 space-y-10">
+      <div className="layout-container max-w-7xl py-14 relative z-10 space-y-12">
         {/* Stats */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
           {stats.map((s) => (
-            <div key={s.label} className="premium-card bg-white p-6 shadow-sm border-surface-200">
+            <div key={s.label} className="metric-tile">
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <p className="text-[13px] font-bold uppercase tracking-widest text-surface-500">{s.label}</p>
@@ -136,7 +136,7 @@ function EmployerDashboard() {
         )}
 
         {/* Quick Actions */}
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
           {[
             { label: "Post a Job", desc: "Launch a new opening", path: "/employer/post-job", accent: "bg-brand-100 text-brand-700" },
             { label: "Interview Calendar", desc: "Track scheduled candidate conversations", path: "/interviews", accent: "bg-cyan-100 text-cyan-700" },
@@ -146,9 +146,9 @@ function EmployerDashboard() {
               key={action.label}
               type="button"
               onClick={() => navigate(action.path)}
-              className="premium-card group relative overflow-hidden border-none p-6 text-left transition-all duration-300 hover:-translate-y-1 hover:shadow-lg sm:p-8"
+              className="premium-card group relative overflow-hidden border-none p-7 text-left transition-all duration-300 hover:-translate-y-1 hover:shadow-lg sm:p-8"
             >
-              <div className="absolute right-0 top-0 -mr-4 -mt-4 h-32 w-32 rounded-full bg-brand-100 opacity-70 blur-2xl transition-transform duration-500 pointer-events-none group-hover:scale-150"></div>
+              <div className={`absolute right-0 top-0 -mr-4 -mt-4 h-32 w-32 rounded-full opacity-80 blur-2xl transition-transform duration-500 pointer-events-none group-hover:scale-150 ${action.accent.includes("cyan") ? "bg-cyan-100" : action.accent.includes("surface") ? "bg-surface-100" : "bg-brand-100"}`}></div>
               <div className="relative z-10">
                 <p className={`inline-flex rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-widest ${action.accent}`}>Quick action</p>
                 <p className="mt-5 font-display text-2xl font-bold text-surface-900">{action.label}</p>
