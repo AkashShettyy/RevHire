@@ -68,10 +68,7 @@ function Navbar() {
             <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-500 via-brand-600 to-surface-900 text-sm font-extrabold text-white shadow-lg shadow-brand-500/25 transition-transform duration-300 group-hover:scale-105">
               RH
             </span>
-            <span>
-              <span className="block font-display text-xl font-bold tracking-tight">RevHire</span>
-              <span className="block text-[10px] font-extrabold uppercase tracking-[0.3em] text-surface-400">Hiring OS</span>
-            </span>
+            <span className="block font-display text-xl font-bold tracking-tight">RevHire</span>
           </Link>
           <div className="hidden items-center gap-4 lg:flex">
             <Link to="/login" className="btn-ghost">Sign In</Link>
@@ -92,10 +89,7 @@ function Navbar() {
           <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-500 via-brand-600 to-surface-900 text-sm font-extrabold text-white shadow-lg shadow-brand-500/25 transition-transform duration-300 group-hover:scale-105">
             RH
           </span>
-          <span>
-            <span className="block font-display text-xl font-bold tracking-tight">RevHire</span>
-            <span className="block text-[10px] font-extrabold uppercase tracking-[0.3em] text-brand-600">Hiring OS</span>
-          </span>
+          <span className="block font-display text-xl font-bold tracking-tight">RevHire</span>
         </Link>
 
         <div className="hidden items-center gap-4 xl:flex">
