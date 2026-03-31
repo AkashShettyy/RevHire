@@ -126,7 +126,7 @@ function JobSeekerDashboard() {
                 Job Seeker Dashboard
               </span>
               <h1 className="text-3xl font-extrabold tracking-tight text-surface-900 sm:text-4xl">Good to see you, {user?.name}</h1>
-              <p className="mt-3 text-[17px] font-medium text-surface-600">Track applications, upcoming interviews, and recent activity from one place.</p>
+              <p className="mt-3 text-[17px] font-medium text-surface-700">Track applications, upcoming interviews, and recent activity from one place.</p>
             </div>
           </div>
         </div>
@@ -172,7 +172,7 @@ function JobSeekerDashboard() {
               <div className="relative z-10">
                 <span className={`inline-flex rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-widest ${a.accent}`}>{a.icon}</span>
                 <p className="mt-5 font-display text-xl font-bold text-surface-900">{a.label}</p>
-                <p className="mt-1.5 text-sm font-medium text-surface-600">{a.desc}</p>
+                <p className="mt-1.5 text-sm font-medium text-surface-700">{a.desc}</p>
                 <div className="mt-6 flex items-center text-sm font-bold text-brand-700 transition-colors group-hover:text-brand-800">
                   Open workspace 
                   <span className="ml-1 inline-block transition-transform group-hover:translate-x-1">→</span>

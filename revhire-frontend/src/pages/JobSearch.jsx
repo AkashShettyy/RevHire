@@ -116,21 +116,21 @@ function JobSearch() {
                     Discover Your Next Role
                   </span>
                   <h1 className="mt-5 font-display text-4xl font-extrabold tracking-tight text-surface-900 sm:text-5xl">Find roles that fit perfectly.</h1>
-                  <p className="mt-4 max-w-2xl text-[17px] leading-relaxed text-surface-600 font-medium">
+                  <p className="mt-4 max-w-2xl text-[17px] leading-relaxed text-surface-700 font-medium">
                     Search and filter thousands of job postings by title, location, skills, compensation, and recency.
                   </p>
                 </div>
                 <div className="grid gap-4 sm:grid-cols-3">
-                  <div className="rounded-[24px] border border-brand-100 bg-white/80 px-6 py-6 backdrop-blur-md">
-                    <p className="text-[11px] font-bold uppercase tracking-widest text-surface-500">Results</p>
+                  <div className="rounded-[24px] border border-brand-200 bg-white px-6 py-6 backdrop-blur-md">
+                    <p className="text-[11px] font-bold uppercase tracking-widest text-surface-600">Results</p>
                     <p className="mt-2 font-display text-3xl font-bold text-surface-900">{pagination.total}</p>
                   </div>
                   <div className="rounded-[24px] border border-emerald-100 bg-emerald-50/60 px-6 py-6 backdrop-blur-md">
-                    <p className="text-[11px] font-bold uppercase tracking-widest text-surface-500">Filters</p>
+                    <p className="text-[11px] font-bold uppercase tracking-widest text-surface-600">Filters</p>
                     <p className="mt-2 font-display text-3xl font-bold text-surface-900">{activeFilterCount}</p>
                   </div>
                   <div className="rounded-[24px] border border-amber-100 bg-amber-50/60 px-6 py-6 backdrop-blur-md">
-                    <p className="text-[11px] font-bold uppercase tracking-widest text-surface-500">Sort</p>
+                    <p className="text-[11px] font-bold uppercase tracking-widest text-surface-600">Sort</p>
                     <p className="mt-2 font-display text-lg font-bold capitalize text-surface-900">{filters.sortBy.replace("_", " ")}</p>
                   </div>
                 </div>
@@ -177,7 +177,7 @@ function JobSearch() {
       <div className="layout-container mx-auto max-w-7xl py-16">
         <div className="mb-10 flex items-center justify-between">
           <h2 className="heading-section">Latest Opportunities</h2>
-          <p className="text-sm font-bold uppercase tracking-wider text-surface-500">
+          <p className="text-sm font-bold uppercase tracking-wider text-surface-600">
             {isLoading ? "Searching..." : `${pagination.total} job${pagination.total !== 1 ? "s" : ""} found`}
           </p>
         </div>
@@ -201,7 +201,7 @@ function JobSearch() {
               <span className="text-4xl">🔍</span>
             </div>
             <h3 className="text-2xl font-bold text-surface-900 font-['Outfit'] mb-2">No jobs matched your criteria</h3>
-            <p className="text-[15px] font-medium text-surface-500 max-w-md mx-auto">Try adjusting your search filters to find what you're looking for.</p>
+            <p className="text-[15px] font-medium text-surface-700 max-w-md mx-auto">Try adjusting your search filters to find what you're looking for.</p>
           </div>
         ) : (
           <div className="grid gap-6">
@@ -220,12 +220,12 @@ function JobSearch() {
                       </span>
                     </div>
                     <div className="flex items-center gap-2 mb-4">
-                      <p className="text-[15px] font-bold text-surface-600">
+                      <p className="text-[15px] font-bold text-surface-700">
                         {job.organization?.name || "Company Name Hidden"}
                       </p>
                     </div>
                     
-                    <div className="flex flex-wrap gap-x-6 gap-y-3 text-sm font-medium text-surface-500 mb-5">
+                    <div className="mb-5 flex flex-wrap gap-x-6 gap-y-3 text-sm font-medium text-surface-700">
                       <span className="flex items-center gap-1.5">📍 {job.location}</span>
                       {job.salaryRange?.min && (
                         <span className="flex items-center gap-1.5">💰 ₹{job.salaryRange.min.toLocaleString()} – ₹{job.salaryRange.max?.toLocaleString()}</span>
@@ -235,7 +235,7 @@ function JobSearch() {
 
                     <div className="flex flex-wrap gap-2">
                       {job.skillsRequired?.slice(0, 6).map((skill, i) => (
-                        <span key={i} className="rounded-lg bg-surface-50 border border-surface-200 px-3 py-1 text-[13px] font-semibold text-surface-600">{skill}</span>
+                        <span key={i} className="rounded-lg border border-surface-300 bg-surface-100 px-3 py-1 text-[13px] font-semibold text-surface-700">{skill}</span>
                       ))}
                     </div>
                   </div>

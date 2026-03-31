@@ -92,7 +92,7 @@ function EmployerDashboard() {
               <h1 className="text-3xl font-extrabold tracking-tight text-surface-900 sm:text-4xl">
                 Welcome, {user?.name}
               </h1>
-              <p className="mt-3 max-w-2xl text-[17px] font-medium text-surface-600">
+              <p className="mt-3 max-w-2xl text-[17px] font-medium text-surface-700">
                 Manage active roles, applicants, and posting status from one place.
               </p>
             </div>
@@ -100,7 +100,7 @@ function EmployerDashboard() {
               {user?.organization && (
                 <div className="flex flex-col items-end rounded-2xl border border-brand-100 bg-white/80 px-4 py-2.5 text-[14px] shadow-sm backdrop-blur-sm">
                   <p className="font-bold text-surface-900">{user.organization.name}</p>
-                  <p className="mt-0.5 flex items-center gap-2 text-surface-600">
+                  <p className="mt-0.5 flex items-center gap-2 text-surface-700">
                     Join Code: <span className="select-all rounded border border-brand-100 bg-brand-50 px-2 py-0.5 font-mono font-bold text-brand-700">{user.organization.joinCode}</span>
                   </p>
                 </div>
@@ -152,7 +152,7 @@ function EmployerDashboard() {
               <div className="relative z-10">
                 <p className={`inline-flex rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-widest ${action.accent}`}>Quick action</p>
                 <p className="mt-5 font-display text-2xl font-bold text-surface-900">{action.label}</p>
-                <p className="mt-1.5 text-[15px] font-medium text-surface-600">{action.desc}</p>
+                <p className="mt-1.5 text-[15px] font-medium text-surface-700">{action.desc}</p>
                 <p className="mt-8 flex items-center gap-2 text-sm font-bold text-brand-700 opacity-90 transition-opacity group-hover:opacity-100">
                   Open workspace <span className="transition-transform group-hover:translate-x-1">→</span>
                 </p>
@@ -167,7 +167,7 @@ function EmployerDashboard() {
             <div className="flex items-center justify-between gap-4">
               <div>
                 <h2 className="text-xl font-bold text-surface-900 font-['Outfit']">Hiring Analytics</h2>
-                <p className="mt-1 text-[15px] font-medium text-surface-500">Track funnel health across saved jobs, applications, interviews, and hires.</p>
+                <p className="mt-1 text-[15px] font-medium text-surface-700">Track funnel health across saved jobs, applications, interviews, and hires.</p>
               </div>
             </div>
 

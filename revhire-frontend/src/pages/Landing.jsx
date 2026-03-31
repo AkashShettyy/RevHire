@@ -42,7 +42,7 @@ function Landing() {
               <h1 className="heading-hero leading-[1.15]">
                 Hiring tools that show exactly what this product can do.
               </h1>
-              <p className="mt-6 max-w-2xl text-[17px] leading-relaxed text-surface-600">
+              <p className="mt-6 max-w-2xl text-[17px] leading-relaxed text-surface-700">
                 RevHire helps job seekers search and apply for roles, while employers can post jobs and review applicants. The landing page now reflects the real product.
               </p>
               <div className="mt-10 flex flex-col gap-4 sm:flex-row">
@@ -59,7 +59,7 @@ function Landing() {
                   { label: "Resumes", value: "Build & export", accent: "bg-emerald-500" },
                   { label: "Hiring", value: "Post & review", accent: "bg-amber-500" },
                 ].map((item, i) => (
-                  <div key={item.label} className="premium-card border-surface-200/60 bg-white/80 px-6 py-6 shadow-sm transition-transform hover:-translate-y-1">
+                  <div key={item.label} className="premium-card border-surface-300 bg-white px-6 py-6 shadow-sm transition-transform hover:-translate-y-1">
                     <div className="flex items-center gap-3 mb-2">
                        <div className={`flex h-10 w-10 items-center justify-center rounded-xl text-white ${item.accent}`}>
                           <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 13l4 4L19 7"></path></svg>
@@ -74,20 +74,20 @@ function Landing() {
 
             <div className="relative z-10 w-full lg:ml-auto">
               <div className="premium-card overflow-hidden border border-white bg-white/75 p-3 shadow-2xl shadow-surface-900/10 transition-transform duration-500 hover:rotate-0">
-                <div className="relative overflow-hidden rounded-[28px] bg-gradient-to-br from-brand-50 via-white to-cyan-50 p-10 text-surface-900">
-                  <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-bl from-brand-100/40 to-transparent opacity-70 pointer-events-none"></div>
+                <div className="relative overflow-hidden rounded-[28px] bg-gradient-to-br from-brand-100 via-white to-cyan-100 p-10 text-surface-900">
+                  <div className="absolute top-0 right-0 h-full w-full bg-gradient-to-bl from-brand-200/40 to-transparent opacity-70 pointer-events-none"></div>
                   
                   <p className="text-[11px] font-bold uppercase tracking-widest text-brand-700">Current workflow</p>
                   <h2 className="mt-3 text-3xl font-bold font-display">What users can do today</h2>
-                  <p className="mt-3 text-[15px] leading-relaxed text-surface-600 font-medium">
+                  <p className="mt-3 text-[15px] leading-relaxed text-surface-700 font-medium">
                     The project already supports account creation, protected routes, job discovery, job posting, applicant review, and resume export.
                   </p>
                 </div>
                 <div className="mt-3 space-y-3 p-5">
                   {capabilityGroups.map((group) => (
-                    <div key={group.title} className="rounded-[24px] border border-surface-100 bg-white p-6 shadow-sm">
+                    <div key={group.title} className="rounded-[24px] border border-surface-200 bg-white p-6 shadow-sm">
                       <h3 className="text-[15px] font-bold text-surface-900 font-display">{group.title}</h3>
-                      <ul className="mt-4 space-y-3 text-sm leading-relaxed text-surface-600">
+                      <ul className="mt-4 space-y-3 text-sm leading-relaxed text-surface-700">
                         {group.items.map((item) => (
                           <li key={item} className="flex items-start gap-3">
                             <span className="mt-1 flex shrink-0 h-1.5 w-1.5 rounded-full bg-brand-500" />
@@ -109,7 +109,7 @@ function Landing() {
           <div className="max-w-2xl mx-auto text-center">
             <span className="inline-flex rounded-full bg-surface-200/50 px-3 py-1 text-xs font-bold uppercase tracking-widest text-surface-600">Product Overview</span>
             <h2 className="heading-section mt-6">A clearer interface around the real features</h2>
-            <p className="mt-4 text-[17px] leading-relaxed text-surface-600 font-medium">
+            <p className="mt-4 text-[17px] leading-relaxed text-surface-700 font-medium">
               These sections describe existing flows in the project. Nothing here depends on unverified claims.
             </p>
           </div>
@@ -120,7 +120,7 @@ function Landing() {
                   <span className="font-display text-xl font-bold">0{i+1}</span>
                 </div>
                 <h3 className="text-lg font-bold text-surface-900 font-display">{item.title}</h3>
-                <p className="mt-3 text-[15px] leading-relaxed text-surface-600 font-medium">{item.desc}</p>
+                <p className="mt-3 text-[15px] leading-relaxed text-surface-700 font-medium">{item.desc}</p>
               </article>
             ))}
           </div>
@@ -129,13 +129,13 @@ function Landing() {
 
       <section className="relative py-24">
         <div className="layout-container">
-          <div className="relative overflow-hidden rounded-[36px] border border-brand-100 bg-gradient-to-br from-white via-brand-50 to-cyan-50 px-8 py-20 text-center text-surface-900 shadow-2xl shadow-brand-100/60 sm:px-14">
+          <div className="relative overflow-hidden rounded-[36px] border border-brand-200 bg-gradient-to-br from-white via-brand-100 to-cyan-100 px-8 py-20 text-center text-surface-900 shadow-2xl shadow-brand-100/60 sm:px-14">
             <div className="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 rounded-full border border-brand-100 pointer-events-none"></div>
             <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full border border-cyan-100 pointer-events-none"></div>
 
             <p className="relative z-10 text-[11px] font-bold uppercase tracking-widest text-brand-700">Start with the real workflow</p>
             <h2 className="relative z-10 heading-section mt-5 max-w-2xl mx-auto leading-tight">Use the job seeker or employer flow that fits your role.</h2>
-            <p className="relative z-10 mx-auto mt-5 max-w-xl text-[17px] leading-relaxed text-surface-600 font-medium">
+            <p className="relative z-10 mx-auto mt-5 max-w-xl text-[17px] leading-relaxed text-surface-700 font-medium">
               Create an account to explore the current product experience, or sign in if you already have one.
             </p>
             <div className="relative z-10 mt-10 flex flex-col justify-center gap-4 sm:flex-row">
