@@ -393,23 +393,28 @@ function ResumeBuilder() {
       </div>
 
       {showPreview && (
-        <div className="fixed inset-0 z-[80] overflow-y-auto bg-surface-900/65 px-4 py-12 backdrop-blur-md">
-          <div className="mx-auto max-w-6xl">
-            <div className="sticky top-4 z-10 mb-6 flex items-center justify-between rounded-2xl border border-surface-300 bg-white p-4 shadow-lg">
-              <div className="px-2">
-                <h2 className="font-display text-xl font-bold text-surface-900">Resume Preview</h2>
-                <p className="mt-0.5 text-[14px] font-medium text-surface-700">Review layout before downloading or submitting.</p>
+        <div className="fixed inset-0 z-[100] bg-surface-950/70 backdrop-blur-md">
+          <div className="flex h-full flex-col">
+            <div className="border-b border-surface-700/40 bg-white/95 px-4 py-4 shadow-lg backdrop-blur sm:px-6">
+              <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-4">
+                <div className="min-w-0">
+                  <h2 className="font-display text-xl font-bold text-surface-900">Resume Preview</h2>
+                  <p className="mt-0.5 text-[14px] font-medium text-surface-700">Review layout before downloading or submitting.</p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setShowPreview(false)}
+                  className="btn-secondary shrink-0"
+                >
+                  Close Preview
+                </button>
               </div>
-              <button
-                type="button"
-                onClick={() => setShowPreview(false)}
-                className="btn-secondary"
-              >
-                Close Preview
-              </button>
             </div>
-            <div className="overflow-hidden rounded-[24px] bg-[#eef2f7] p-6 shadow-2xl sm:p-8">
-              <ResumePreview user={user} resume={resume} />
+
+            <div className="flex-1 overflow-auto px-3 py-4 sm:px-6 sm:py-6">
+              <div className="mx-auto w-full max-w-7xl rounded-[28px] bg-[#e9edf3] p-3 shadow-2xl sm:p-6">
+                <ResumePreview user={user} resume={resume} />
+              </div>
             </div>
           </div>
         </div>
