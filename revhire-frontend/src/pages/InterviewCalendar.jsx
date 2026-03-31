@@ -111,6 +111,9 @@ function InterviewCalendar() {
   const upcomingInterviews = normalizedInterviews.filter(
     (interview) => interview.scheduledDate.getTime() >= now,
   );
+  const acceptedCount = normalizedInterviews.filter(
+    (interview) => interview.responseStatus === "accepted",
+  ).length;
   const selectedDate = new Date(selectedDayKey);
 
   async function handleInterviewResponse(interviewId, responseStatus) {
@@ -170,16 +173,10 @@ function InterviewCalendar() {
                   }
                 </p>
               </div>
-              <button
-                type="button"
-                onClick={() =>
-                  navigate(user?.role === "employer" ? "/employer/dashboard" : "/dashboard")
-                }
-                className="metric-tile px-4 py-4 text-left transition-colors hover:bg-brand-50"
-              >
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-surface-600">Navigation</p>
-                <p className="mt-3 text-lg font-bold text-surface-900">Back</p>
-              </button>
+              <div className="metric-tile px-4 py-4">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-surface-600">Accepted</p>
+                <p className="mt-3 text-3xl font-bold text-surface-900">{acceptedCount}</p>
+              </div>
             </div>
           </div>
         </div>

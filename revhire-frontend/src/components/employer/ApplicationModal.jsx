@@ -72,7 +72,7 @@ export default function ApplicationModal({
   }
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-surface-950/60 backdrop-blur-sm flex items-start justify-center p-4 sm:p-6 lg:p-8">
+    <div className="fixed inset-0 z-[80] overflow-y-auto bg-surface-950/60 backdrop-blur-sm flex items-start justify-center p-4 sm:p-6 lg:p-8">
       <div className="bg-white max-w-4xl w-full rounded-2xl shadow-xl overflow-hidden flex flex-col max-h-[90vh] border border-surface-200">
         {/* Header */}
         <div className="flex shrink-0 items-center justify-between border-b border-surface-300 bg-white px-6 py-5">

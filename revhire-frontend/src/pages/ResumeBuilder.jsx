@@ -393,12 +393,12 @@ function ResumeBuilder() {
       </div>
 
       {showPreview && (
-        <div className="fixed inset-0 z-50 bg-surface-900/60 backdrop-blur-md px-4 py-8 overflow-y-auto">
-          <div className="max-w-5xl mx-auto">
-            <div className="flex items-center justify-between mb-6 bg-white rounded-2xl p-4 shadow-lg border border-surface-200">
+        <div className="fixed inset-0 z-[80] overflow-y-auto bg-surface-900/65 px-4 py-12 backdrop-blur-md">
+          <div className="mx-auto max-w-6xl">
+            <div className="sticky top-4 z-10 mb-6 flex items-center justify-between rounded-2xl border border-surface-300 bg-white p-4 shadow-lg">
               <div className="px-2">
-                <h2 className="text-xl font-bold text-surface-900 font-['Outfit']">Resume Preview</h2>
-                <p className="text-[14px] font-medium text-surface-500 mt-0.5">Review layout before downloading or submitting.</p>
+                <h2 className="font-display text-xl font-bold text-surface-900">Resume Preview</h2>
+                <p className="mt-0.5 text-[14px] font-medium text-surface-700">Review layout before downloading or submitting.</p>
               </div>
               <button
                 type="button"
@@ -408,7 +408,7 @@ function ResumeBuilder() {
                 Close Preview
               </button>
             </div>
-            <div className="bg-white rounded-lg overflow-hidden shadow-2xl">
+            <div className="overflow-hidden rounded-[24px] bg-white shadow-2xl">
               <ResumePreview user={user} resume={resume} />
             </div>
           </div>

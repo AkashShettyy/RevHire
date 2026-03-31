@@ -23,7 +23,7 @@ function ResumePreview({ user, resume }) {
   const certifications = filledItems(resume.certifications, hasContent);
 
   return (
-    <div className="space-y-6 rounded-[30px] border border-blue-100 bg-white p-8 shadow-sm">
+    <div className="min-h-[calc(100vh-12rem)] space-y-6 rounded-[30px] border border-blue-200 bg-white p-8 shadow-sm">
       <header className="border-b border-stone-200 pb-6">
         <h1 className="text-3xl font-bold tracking-tight text-stone-900">{user?.name || "Your Name"}</h1>
         <p className="mt-2 text-sm text-stone-500">{user?.email || "email@example.com"}</p>
