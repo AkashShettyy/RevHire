@@ -408,7 +408,7 @@ function ResumeBuilder() {
                 Close Preview
               </button>
             </div>
-            <div className="overflow-hidden rounded-[24px] bg-white shadow-2xl">
+            <div className="overflow-hidden rounded-[24px] bg-[#eef2f7] p-6 shadow-2xl sm:p-8">
               <ResumePreview user={user} resume={resume} />
             </div>
           </div>
