@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { getNotifications, markAllRead } from "../services/notificationService";
 
 function Navbar() {
@@ -11,14 +11,24 @@ function Navbar() {
   const [showNotifications, setShowNotifications] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
 
-  async function fetchNotifications() {
+  const fetchNotifications = useCallback(async () => {
+    if (!token || !user) return;
     try {
       const data = await getNotifications(token);
-      setNotifications(data.notifications);
+      setNotifications(data.notifications || []);
     } catch (error) {
       console.error(error);
     }
-  }
+  }, [token, user]);
+
+  useEffect(() => {
+    if (!token || !user) return;
+
+    fetchNotifications();
+    const intervalId = window.setInterval(fetchNotifications, 15000);
+
+    return () => window.clearInterval(intervalId);
+  }, [fetchNotifications, token, user]);
 
   async function handleMarkAllRead() {
     try {
@@ -102,7 +112,11 @@ function Navbar() {
               <div className="relative ml-2">
                 <button
                   onClick={() => { setShowNotifications(!showNotifications); if (!showNotifications) fetchNotifications(); }}
-                  className="relative flex h-9 w-9 items-center justify-center rounded-lg border border-surface-200 bg-white text-surface-600 transition-colors duration-150 hover:border-brand-200 hover:text-brand-700"
+                  className={`relative flex h-9 w-9 items-center justify-center rounded-lg border transition-colors duration-150 ${
+                    unreadCount > 0
+                      ? "border-brand-300 bg-brand-50 text-brand-700"
+                      : "border-surface-200 bg-white text-surface-600 hover:border-brand-200 hover:text-brand-700"
+                  }`}
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
