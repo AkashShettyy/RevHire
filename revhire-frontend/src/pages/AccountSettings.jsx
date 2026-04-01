@@ -44,34 +44,15 @@ function AccountSettings() {
 
   return (
     <div className="app-shell">
-      <div className="layout-container max-w-3xl py-10">
-        <div className="page-hero px-6 py-7 sm:px-8">
-          <div className="grid gap-6 lg:grid-cols-[1.1fr,0.9fr] lg:items-end">
-            <div>
-              <span className="eyebrow">
-                Account settings
-              </span>
-              <h1 className="mt-4 font-display text-3xl font-bold tracking-tight text-surface-900">Account Settings</h1>
-              <p className="mt-3 text-sm leading-6 text-surface-700">Manage your sign-in credentials and keep your account secure.</p>
-            </div>
-            <div className="grid gap-3 sm:grid-cols-2">
-              <div className="metric-tile px-4 py-4">
-                <p className="text-xs font-semibold uppercase tracking-normal text-surface-600">Security</p>
-                <p className="mt-3 text-lg font-bold text-surface-900">Password controls</p>
-              </div>
-              <div className="metric-tile px-4 py-4">
-                <p className="text-xs font-semibold uppercase tracking-normal text-surface-600">Best practice</p>
-                <p className="mt-3 text-lg font-bold text-surface-900">Use a unique password</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="layout-container max-w-3xl py-10">
+      <div className="layout-container max-w-3xl py-12">
         <div className="section-card p-6 sm:p-8">
+          <div className="mb-8 border-b border-surface-200 pb-5">
+            <h1 className="font-display text-2xl font-bold text-surface-900">Account Settings</h1>
+            <p className="mt-2 text-sm text-surface-700">Change your password.</p>
+          </div>
+
           <div className="mb-6">
-            <h2 className="text-lg font-semibold text-surface-900">Change Password</h2>
+            <h2 className="text-lg font-semibold text-surface-900">Password</h2>
             <p className="mt-1 text-sm text-surface-700">Use a password you do not reuse elsewhere.</p>
           </div>
 
