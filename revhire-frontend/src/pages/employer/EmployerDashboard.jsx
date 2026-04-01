@@ -59,12 +59,12 @@ function EmployerDashboard() {
   }
 
   const stats = [
-    { label: "Total Jobs", value: jobs.length, icon: "📋" },
-    { label: "Active Jobs", value: jobs.filter((j) => j.status === "open").length, icon: "✅" },
-    { label: "Closed Jobs", value: jobs.filter((j) => j.status === "closed").length, icon: "🔒" },
-    { label: "Applications", value: analytics?.summary?.totalApplications || 0, icon: "📨" },
-    { label: "Shortlisted", value: analytics?.summary?.shortlistedCandidates || 0, icon: "⭐" },
-    { label: "Saved by Candidates", value: analytics?.summary?.savedByCandidates || 0, icon: "🔖" },
+    { label: "Total Jobs", value: jobs.length, accent: "border-brand-200 bg-brand-50/40" },
+    { label: "Active Jobs", value: jobs.filter((j) => j.status === "open").length, accent: "border-emerald-200 bg-emerald-50/40" },
+    { label: "Closed Jobs", value: jobs.filter((j) => j.status === "closed").length, accent: "border-surface-200 bg-surface-50/60" },
+    { label: "Applications", value: analytics?.summary?.totalApplications || 0, accent: "border-cyan-200 bg-cyan-50/40" },
+    { label: "Shortlisted", value: analytics?.summary?.shortlistedCandidates || 0, accent: "border-amber-200 bg-amber-50/40" },
+    { label: "Saved by Candidates", value: analytics?.summary?.savedByCandidates || 0, accent: "border-indigo-200 bg-indigo-50/40" },
   ];
 
   if (isLoading) {
@@ -80,18 +80,15 @@ function EmployerDashboard() {
 
   return (
     <div className="app-shell">
-      <div className="pt-10 pb-10 border-b border-surface-200/60 bg-white/50 backdrop-blur-md relative z-10">
+      <div className="pt-8 pb-6 border-b border-surface-200/60 bg-white relative z-10">
         <div className="layout-container max-w-6xl">
-          <div className="page-hero flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <div className="section-card border-brand-100 bg-gradient-to-r from-brand-50/70 to-white flex flex-col gap-5 px-6 py-6 sm:px-8 md:flex-row md:items-end md:justify-between">
             <div>
-              <span className="eyebrow mb-4">
-                Employer Dashboard
-              </span>
-              <h1 className="text-3xl font-semibold tracking-tight text-surface-900 sm:text-4xl">
+              <h1 className="text-2xl font-semibold tracking-tight text-surface-900 sm:text-3xl">
                 Welcome, {user?.name}
               </h1>
-              <p className="mt-3 max-w-2xl text-[17px] font-medium text-surface-700">
-                Manage active roles, applicants, and posting status from one place.
+              <p className="mt-2 max-w-2xl text-sm text-surface-700">
+                Manage active roles, applicants, and hiring status.
               </p>
             </div>
             <div className="flex flex-col items-end gap-3 text-right">
@@ -103,30 +100,35 @@ function EmployerDashboard() {
                   </p>
                 </div>
               )}
-              <button onClick={() => navigate("/employer/post-job")} className="btn-primary w-full sm:w-auto mt-2">
-                Post a Job
-              </button>
+              <div className="flex flex-wrap justify-end gap-2">
+                <button onClick={() => navigate("/interviews")} className="btn-secondary w-full sm:w-auto">Interviews</button>
+                <button onClick={() => navigate("/notifications")} className="btn-secondary w-full sm:w-auto">Notifications</button>
+                <button onClick={() => navigate("/employer/post-job")} className="btn-primary w-full sm:w-auto">Post a Job</button>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       <div className="layout-container max-w-7xl py-14 relative z-10 space-y-12">
-        {/* Stats */}
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
+        <div>
+          <div className="mb-4 flex items-center justify-between">
+            <h2 className="text-lg font-display font-bold text-surface-900">Overview</h2>
+            <span className="text-sm text-surface-500">Recruiting summary</span>
+          </div>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
           {stats.map((s) => (
-            <div key={s.label} className="metric-tile">
+            <div key={s.label} className={`metric-tile transition-all hover:-translate-y-0.5 ${s.accent}`}>
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <p className="text-[13px] font-bold uppercase tracking-normal text-surface-500">{s.label}</p>
+                  <p className="text-[12px] font-medium uppercase tracking-normal text-surface-500">{s.label}</p>
                   <p className="mt-2 text-3xl font-semibold font-display text-surface-900">{s.value}</p>
                 </div>
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-surface-200 bg-surface-50 text-xl">
-                  {s.icon}
-                </div>
+                <span className="mt-1 inline-block h-2.5 w-2.5 rounded-full bg-surface-500/60" />
               </div>
             </div>
           ))}
+          </div>
         </div>
 
         {message && (
@@ -141,6 +143,7 @@ function EmployerDashboard() {
                 <h2 className="text-xl font-bold text-surface-900 font-display">Hiring Analytics</h2>
                 <p className="mt-1 text-[15px] font-medium text-surface-700">Track funnel health across saved jobs, applications, interviews, and hires.</p>
               </div>
+              <span className="badge badge-neutral">{analytics.jobs?.length || 0} roles</span>
             </div>
 
             <div className="mt-6 grid gap-5 xl:grid-cols-2">
@@ -181,12 +184,12 @@ function EmployerDashboard() {
 
         {/* Existing Jobs */}
         <div>
-          <h2 className="mb-6 text-xl font-bold text-surface-900 font-display">Your Job Postings</h2>
+          <div className="mb-6 flex items-center justify-between">
+            <h2 className="text-xl font-bold text-surface-900 font-display">Your Job Postings</h2>
+            <span className="text-sm text-surface-500">{jobs.length} total</span>
+          </div>
           {jobs.length === 0 ? (
             <div className="premium-card p-16 text-center bg-white border-none shadow-sm">
-              <div className="inline-flex w-24 h-24 rounded-full bg-surface-50 items-center justify-center mb-6">
-                <span className="text-4xl">📭</span>
-              </div>
               <h3 className="text-2xl font-bold text-surface-900 font-display mb-2">No jobs posted yet</h3>
               <p className="mb-8 mt-1 text-[15px] font-medium text-surface-500">Start attracting candidates by posting your first job.</p>
               <button onClick={() => navigate("/employer/post-job")} className="btn-primary">
@@ -196,28 +199,27 @@ function EmployerDashboard() {
           ) : (
             <div className="space-y-4">
               {jobs.map((job) => (
-                <div key={job._id} className="premium-card bg-white p-6 transition-all duration-300 hover:shadow-lg hover:border-brand-200 group relative overflow-hidden">
-                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-brand-400 to-indigo-500 opacity-0 transition-opacity group-hover:opacity-100"></div>
-                  <div className="flex flex-col gap-6 xl:flex-row xl:items-start xl:justify-between ml-2">
+                <div key={job._id} className="premium-card bg-white p-6 transition-all duration-300 hover:border-brand-200 group">
+                  <div className="flex flex-col gap-6 xl:flex-row xl:items-start xl:justify-between">
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center flex-wrap gap-x-3 gap-y-2">
                         <h3 className="text-xl font-bold text-surface-900 font-display">{job.title}</h3>
                         <span className={`badge shrink-0 ${job.status === "open" ? "badge-success" : "badge-neutral"}`}>
-                          {job.status === "open" ? "● Active" : "● Closed"}
+                          {job.status === "open" ? "Active" : "Closed"}
                         </span>
                         <span className={`badge shrink-0 ${jobTypeColors[job.jobType] || "badge-brand"}`}>{job.jobType}</span>
                       </div>
                       <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-[14px] font-medium text-surface-500">
-                        <span className="flex items-center gap-1.5"><span className="text-surface-400">📍</span> {job.location}</span>
-                        <span className="flex items-center gap-1.5"><span className="text-surface-400">📅</span> Deadline: {new Date(job.deadline).toLocaleDateString()}</span>
+                        <span><span className="font-semibold text-surface-700">Location:</span> {job.location}</span>
+                        <span><span className="font-semibold text-surface-700">Deadline:</span> {new Date(job.deadline).toLocaleDateString()}</span>
                         {job.salaryRange?.min && (
-                           <span className="flex items-center gap-1.5"><span className="text-surface-400">💰</span> ₹{job.salaryRange.min.toLocaleString()} – ₹{job.salaryRange.max?.toLocaleString()}</span>
+                           <span><span className="font-semibold text-surface-700">Salary:</span> ₹{job.salaryRange.min.toLocaleString()} – ₹{job.salaryRange.max?.toLocaleString()}</span>
                         )}
-                        <span className="flex items-center gap-1.5 font-bold text-brand-600"><span className="text-brand-400">👥</span> {job.applicantCount || 0} Applicants</span>
+                        <span className="font-semibold text-brand-700">{job.applicantCount || 0} Applicants</span>
                       </div>
                       <div className="flex flex-wrap gap-2 mt-4">
                         {job.skillsRequired?.slice(0, 5).map((skill, i) => (
-                          <span key={i} className="rounded-lg bg-surface-100 border border-surface-200 px-3 py-1.5 text-[12px] font-bold text-surface-600 shadow-sm">{skill}</span>
+                          <span key={i} className="rounded-md bg-surface-100 border border-surface-200 px-3 py-1.5 text-[12px] font-medium text-surface-600">{skill}</span>
                         ))}
                       </div>
                     </div>
@@ -232,7 +234,7 @@ function EmployerDashboard() {
                       >
                         {job.status === "open" ? "Close Job" : "Reopen Job"}
                       </button>
-                      <button onClick={() => handleDelete(job._id)} className="w-full text-center py-2.5 text-[14px] font-bold text-error-600 border border-error-200 bg-error-50 hover:bg-error-100 transition-colors rounded-xl shadow-sm">
+                      <button onClick={() => handleDelete(job._id)} className="w-full rounded-lg border border-error-200 bg-error-50 py-2.5 text-center text-[14px] font-medium text-error-700 transition-colors hover:bg-error-100">
                         Delete
                       </button>
                     </div>
