@@ -116,8 +116,6 @@ function JobSeekerDashboard() {
 
   return (
     <div className="app-shell">
-      <div className="absolute top-0 right-0 -mr-40 h-[500px] w-full bg-brand-200/20 blur-[120px] pointer-events-none"></div>
-
       <div className="pt-10 pb-8 border-b border-surface-200/60 bg-white/40 backdrop-blur-md">
         <div className="layout-container mx-auto max-w-6xl">
           <div className="page-hero flex flex-col gap-4 py-8 md:flex-row md:items-center md:justify-between relative z-10">
@@ -152,32 +150,6 @@ function JobSeekerDashboard() {
                 </div>
               </div>
             </div>
-          ))}
-        </div>
-
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
-          {[
-            { label: "My Resume", desc: "Refresh your profile", icon: "Resume", path: "/resume" },
-            { label: "Saved Jobs", desc: "Track interesting roles", icon: "Saved", path: "/saved-jobs" },
-            { label: "Applications", desc: "Review recent submissions", icon: "Track", path: "/applications" },
-            { label: "Interview Calendar", desc: "Manage upcoming conversations", icon: "Calendar", path: "/interviews" },
-            { label: "Settings", desc: "Update sign-in details", icon: "Account", path: "/settings" },
-          ].map((a) => (
-            <button
-              key={a.label}
-              onClick={() => navigate(a.path)}
-              className="premium-card group p-7 text-left"
-            >
-              <div>
-                <span className="inline-flex rounded-md border border-surface-200 bg-surface-50 px-3 py-1 text-[11px] font-medium text-surface-700">{a.icon}</span>
-                <p className="mt-5 font-display text-xl font-bold text-surface-900">{a.label}</p>
-                <p className="mt-1.5 text-sm font-medium text-surface-700">{a.desc}</p>
-                <div className="mt-6 flex items-center text-sm font-bold text-brand-700 transition-colors group-hover:text-brand-800">
-                  Open workspace 
-                  <span className="ml-1 inline-block transition-transform group-hover:translate-x-1">→</span>
-                </div>
-              </div>
-            </button>
           ))}
         </div>
 

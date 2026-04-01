@@ -80,8 +80,6 @@ function EmployerDashboard() {
 
   return (
     <div className="app-shell">
-      <div className="absolute top-0 right-0 -mr-40 h-[600px] w-[600px] rounded-full bg-brand-300/20 blur-[110px] pointer-events-none"></div>
-
       <div className="pt-10 pb-10 border-b border-surface-200/60 bg-white/50 backdrop-blur-md relative z-10">
         <div className="layout-container max-w-6xl">
           <div className="page-hero flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
@@ -134,31 +132,6 @@ function EmployerDashboard() {
         {message && (
           <div className="rounded-xl border border-success-200 bg-success-50 p-4 font-semibold text-success-800 shadow-sm animate-fade-in">{message}</div>
         )}
-
-        {/* Quick Actions */}
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
-          {[
-            { label: "Post a Job", desc: "Launch a new opening", path: "/employer/post-job" },
-            { label: "Interview Calendar", desc: "Track scheduled candidate conversations", path: "/interviews" },
-            { label: "Notifications", desc: "Review hiring updates", path: "/notifications" },
-          ].map((action) => (
-            <button
-              key={action.label}
-              type="button"
-              onClick={() => navigate(action.path)}
-              className="premium-card group p-7 text-left sm:p-8"
-            >
-              <div>
-                <p className="inline-flex rounded-md border border-surface-200 bg-surface-50 px-3 py-1 text-[11px] font-medium text-surface-700">Quick action</p>
-                <p className="mt-5 font-display text-2xl font-bold text-surface-900">{action.label}</p>
-                <p className="mt-1.5 text-[15px] font-medium text-surface-700">{action.desc}</p>
-                <p className="mt-8 flex items-center gap-2 text-sm font-bold text-brand-700 opacity-90 transition-opacity group-hover:opacity-100">
-                  Open workspace <span className="transition-transform group-hover:translate-x-1">→</span>
-                </p>
-              </div>
-            </button>
-          ))}
-        </div>
 
         {/* Analytics */}
         {analytics && (
