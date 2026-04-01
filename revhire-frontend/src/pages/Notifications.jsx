@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { getNotifications, markAllRead } from "../services/notificationService";
 
@@ -66,7 +65,6 @@ function formatRelativeTime(value) {
 
 function Notifications() {
   const { token, user } = useAuth();
-  const navigate = useNavigate();
   const [notifications, setNotifications] = useState([]);
   const [statusFilter, setStatusFilter] = useState("all");
   const [categoryFilter, setCategoryFilter] = useState("all");
@@ -117,14 +115,6 @@ function Notifications() {
     (notification) => notification.status === "unread",
   ).length;
 
-  const categorySummary = enrichedNotifications.reduce(
-    (summary, notification) => {
-      summary[notification.category] = (summary[notification.category] || 0) + 1;
-      return summary;
-    },
-    { application: 0, interview: 0, job: 0, system: 0 },
-  );
-
   async function handleMarkAllRead() {
     setIsMarkingAllRead(true);
     try {
@@ -157,36 +147,14 @@ function Notifications() {
     <div className="app-shell">
       <div className="layout-container max-w-5xl py-8">
         <div className="page-hero px-6 py-7 sm:px-8">
-          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-            <div className="max-w-2xl">
-              <span className="eyebrow">
-                Notification center
-              </span>
-              <h1 className="mt-4 font-display text-3xl font-bold tracking-tight text-surface-900 sm:text-4xl">
-                {user?.role === "employer" ? "Hiring updates, organized." : "Every update, one calm inbox."}
-              </h1>
-              <p className="mt-3 max-w-xl text-sm leading-6 text-surface-700">
-                Review application changes, interview activity, and platform updates without relying on the navbar dropdown.
-              </p>
-            </div>
-
-            <div className="grid min-w-full gap-3 sm:grid-cols-3 lg:min-w-[420px]">
-              <div className="metric-tile px-4 py-4">
-                <p className="text-xs font-semibold uppercase tracking-normal text-surface-600">Unread</p>
-                <p className="mt-3 text-3xl font-bold text-surface-900">{unreadCount}</p>
-              </div>
-              <div className="metric-tile px-4 py-4">
-                <p className="text-xs font-semibold uppercase tracking-normal text-surface-600">Applications</p>
-                <p className="mt-3 text-3xl font-bold text-surface-900">{categorySummary.application}</p>
-              </div>
-              <div className="metric-tile px-4 py-4">
-                <p className="text-xs font-semibold uppercase tracking-normal text-surface-600">Interviews</p>
-                <p className="mt-3 text-3xl font-bold text-surface-900">{categorySummary.interview}</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-6 flex flex-wrap gap-3">
+          <span className="eyebrow">Notification center</span>
+          <h1 className="mt-4 font-display text-3xl font-bold tracking-tight text-surface-900 sm:text-4xl">
+            {user?.role === "employer" ? "Hiring updates" : "Notifications"}
+          </h1>
+          <p className="mt-3 max-w-xl text-sm leading-6 text-surface-700">
+            Review application changes, interview activity, and platform updates.
+          </p>
+          <div className="mt-6">
             <button
               type="button"
               onClick={handleMarkAllRead}
@@ -194,15 +162,6 @@ function Notifications() {
               className="btn-secondary disabled:cursor-not-allowed disabled:opacity-50"
             >
               {isMarkingAllRead ? "Updating..." : "Mark All Read"}
-            </button>
-            <button
-              type="button"
-              onClick={() =>
-                navigate(user?.role === "employer" ? "/employer/dashboard" : "/dashboard")
-              }
-              className="btn-primary text-sm"
-            >
-              Back to Dashboard
             </button>
           </div>
         </div>
@@ -225,10 +184,10 @@ function Notifications() {
                     key={filter.value}
                     type="button"
                     onClick={() => setStatusFilter(filter.value)}
-                    className={`rounded-full border px-4 py-2 text-sm font-medium transition-all ${
+                    className={`rounded-md border px-3 py-2 text-sm font-medium transition-colors ${
                       isActive
-                        ? "border-blue-600 bg-blue-600 text-white shadow-lg shadow-blue-100"
-                        : "border-surface-300 bg-white text-surface-700 hover:-translate-y-0.5 hover:border-blue-200 hover:text-blue-700"
+                        ? "border-brand-600 bg-brand-600 text-white"
+                        : "border-surface-300 bg-white text-surface-700 hover:border-brand-200 hover:text-brand-700"
                     }`}
                   >
                     {filter.label}
@@ -245,10 +204,10 @@ function Notifications() {
                     key={filter.value}
                     type="button"
                     onClick={() => setCategoryFilter(filter.value)}
-                    className={`rounded-full border px-4 py-2 text-sm font-medium transition-all ${
+                    className={`rounded-md border px-3 py-2 text-sm font-medium transition-colors ${
                       isActive
-                        ? "border-stone-900 bg-stone-900 text-white shadow-lg shadow-stone-200"
-                        : "border-surface-300 bg-white text-surface-700 hover:-translate-y-0.5 hover:border-surface-400 hover:text-surface-900"
+                        ? "border-surface-900 bg-surface-900 text-white"
+                        : "border-surface-300 bg-white text-surface-700 hover:border-surface-400 hover:text-surface-900"
                     }`}
                   >
                     {filter.label}
@@ -261,7 +220,6 @@ function Notifications() {
 
         {filteredNotifications.length === 0 ? (
           <div className="premium-card mt-6 p-16 text-center">
-            <p className="mb-4 text-5xl">🔔</p>
             <p className="font-medium text-surface-800">No notifications found</p>
             <p className="mt-1 text-sm text-surface-700">
               Try changing the filters or come back after new activity appears.
