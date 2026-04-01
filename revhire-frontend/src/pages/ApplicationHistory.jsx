@@ -118,7 +118,7 @@ function ApplicationHistory() {
             <div className="inline-flex w-24 h-24 rounded-full bg-surface-50 items-center justify-center mb-6">
               <span className="text-4xl">📭</span>
             </div>
-            <h3 className="text-2xl font-bold text-surface-900 font-['Outfit'] mb-2">No applications yet</h3>
+            <h3 className="text-2xl font-bold text-surface-900 font-display mb-2">No applications yet</h3>
             <p className="mb-8 mt-1 text-[15px] font-medium text-surface-700">Start applying to jobs to track them here</p>
             <button onClick={() => navigate("/jobs")} className="btn-primary">Browse Jobs</button>
           </div>

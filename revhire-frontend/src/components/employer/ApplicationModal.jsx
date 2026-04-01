@@ -77,7 +77,7 @@ export default function ApplicationModal({
         {/* Header */}
         <div className="flex shrink-0 items-center justify-between border-b border-surface-300 bg-white px-6 py-5">
           <div>
-            <h2 className="text-xl font-bold text-surface-900 font-['Outfit']">{application.jobSeeker?.name}</h2>
+            <h2 className="text-xl font-bold text-surface-900 font-display">{application.jobSeeker?.name}</h2>
             <p className="mt-0.5 text-[14px] font-medium text-surface-700">{application.jobSeeker?.email}</p>
           </div>
           <div className="flex items-center gap-4">
@@ -176,7 +176,7 @@ export default function ApplicationModal({
           {activeTab === "interviews" && (
             <div className="space-y-6 animate-fade-in">
               <div className="premium-card p-6 border-surface-200 shadow-sm bg-white">
-                <h3 className="text-lg font-bold text-surface-900 font-['Outfit'] mb-5">{interview?.status === "scheduled" ? "Reschedule Interview" : "Schedule Interview"}</h3>
+                <h3 className="text-lg font-bold text-surface-900 font-display mb-5">{interview?.status === "scheduled" ? "Reschedule Interview" : "Schedule Interview"}</h3>
                 <div className="grid gap-4 sm:grid-cols-[1fr,1fr] mb-4">
                   <div>
                     <label className="block text-[11px] font-bold uppercase tracking-widest text-surface-500 mb-2">Date & Time</label>

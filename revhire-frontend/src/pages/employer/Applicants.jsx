@@ -13,7 +13,7 @@ function DroppableColumn({ id, title, applications, onCardClick, interviewMap })
   return (
     <div ref={setNodeRef} className="flex min-w-[320px] w-[320px] flex-col rounded-[28px] border border-surface-300 bg-white p-4 shadow-sm">
       <div className="flex justify-between items-center mb-5 px-1">
-        <h3 className="font-bold text-surface-900 capitalize font-['Outfit']">{title}</h3>
+        <h3 className="font-bold text-surface-900 capitalize font-display">{title}</h3>
         <span className="rounded-full border border-surface-300 bg-surface-100 px-2.5 py-1 text-[11px] font-bold text-surface-700 shadow-sm">{applications.length}</span>
       </div>
       <div className="flex-1 space-y-4 min-h-[150px]">
@@ -169,7 +169,7 @@ export default function Applicants() {
   if (isLoading && applications.length === 0) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-surface-50">
-        <div className="flex items-center gap-3 text-surface-500 font-medium font-['Outfit']">
+        <div className="flex items-center gap-3 text-surface-500 font-medium font-display">
           <div className="h-5 w-5 animate-spin rounded-full border-2 border-brand-600 border-t-transparent" />
           Loading Kanban Board...
         </div>
@@ -207,7 +207,7 @@ export default function Applicants() {
                <div className="inline-flex w-24 h-24 rounded-full bg-surface-50 items-center justify-center mb-6">
                  <span className="text-4xl">👥</span>
                </div>
-               <h3 className="font-bold text-surface-900 text-2xl font-['Outfit'] mb-2">No applicants yet</h3>
+               <h3 className="font-bold text-surface-900 text-2xl font-display mb-2">No applicants yet</h3>
                <p className="mt-1 text-[15px] font-medium text-surface-700">Wait for candidates to apply or share your job posting.</p>
              </div>
           ) : (

@@ -88,7 +88,7 @@ function PostJob() {
 
         <form onSubmit={handleSubmit} className="space-y-8">
           <div className="premium-card bg-white p-6 sm:p-8 shadow-sm">
-            <h2 className="flex items-center gap-2 text-xl font-bold text-surface-900 font-['Outfit'] mb-6">📋 Basic Information</h2>
+            <h2 className="flex items-center gap-2 text-xl font-bold text-surface-900 font-display mb-6">📋 Basic Information</h2>
             <div className="space-y-5">
               <div>
                 <label className="block text-[13px] font-bold uppercase tracking-widest text-surface-500 mb-2">Job Title</label>
@@ -107,7 +107,7 @@ function PostJob() {
           </div>
 
           <div className="premium-card bg-white p-6 sm:p-8 shadow-sm">
-            <h2 className="text-xl font-bold text-surface-900 font-['Outfit'] mb-6">📚 Requirements</h2>
+            <h2 className="text-xl font-bold text-surface-900 font-display mb-6">📚 Requirements</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div>
                 <label className="block text-[13px] font-bold uppercase tracking-widest text-surface-500 mb-2">Experience Required</label>
@@ -121,7 +121,7 @@ function PostJob() {
           </div>
 
           <div className="premium-card bg-white p-6 sm:p-8 shadow-sm">
-            <h2 className="text-xl font-bold text-surface-900 font-['Outfit'] mb-6">💼 Job Details</h2>
+            <h2 className="text-xl font-bold text-surface-900 font-display mb-6">💼 Job Details</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div>
                 <label className="block text-[13px] font-bold uppercase tracking-widest text-surface-500 mb-2">Location</label>
@@ -153,7 +153,7 @@ function PostJob() {
 
           <div className="premium-card bg-white p-6 sm:p-8 shadow-sm">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-bold text-surface-900 font-['Outfit'] flex items-center gap-2">🤖 Screening Qs <span className="text-[13px] font-bold uppercase tracking-widest text-surface-400 bg-surface-100 px-2 py-0.5 rounded ml-2">(Optional)</span></h2>
+              <h2 className="text-xl font-bold text-surface-900 font-display flex items-center gap-2">🤖 Screening Qs <span className="text-[13px] font-bold uppercase tracking-widest text-surface-400 bg-surface-100 px-2 py-0.5 rounded ml-2">(Optional)</span></h2>
               <button type="button" onClick={addQuestion} className="text-[14px] font-bold text-brand-600 hover:text-brand-800 transition-colors flex items-center gap-1.5">
                 <span className="text-lg leading-none">+</span> Add Question
               </button>

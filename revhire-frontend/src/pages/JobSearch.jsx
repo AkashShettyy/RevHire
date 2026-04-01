@@ -200,7 +200,7 @@ function JobSearch() {
             <div className="inline-flex w-24 h-24 rounded-full bg-surface-50 items-center justify-center mb-6">
               <span className="text-4xl">🔍</span>
             </div>
-            <h3 className="text-2xl font-bold text-surface-900 font-['Outfit'] mb-2">No jobs matched your criteria</h3>
+            <h3 className="text-2xl font-bold text-surface-900 font-display mb-2">No jobs matched your criteria</h3>
             <p className="text-[15px] font-medium text-surface-700 max-w-md mx-auto">Try adjusting your search filters to find what you're looking for.</p>
           </div>
         ) : (
@@ -214,7 +214,7 @@ function JobSearch() {
                 <div className="flex flex-col sm:flex-row items-start justify-between gap-6">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-3 flex-wrap mb-2">
-                      <h3 className="text-xl font-bold text-surface-900 font-['Outfit'] transition-colors group-hover:text-brand-600 truncate mr-2">{job.title}</h3>
+                      <h3 className="text-xl font-bold text-surface-900 font-display transition-colors group-hover:text-brand-600 truncate mr-2">{job.title}</h3>
                       <span className={`badge ${jobTypeColors[job.jobType] || "badge-neutral"}`}>
                         {job.jobType}
                       </span>

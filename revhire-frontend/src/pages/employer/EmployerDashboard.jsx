@@ -70,7 +70,7 @@ function EmployerDashboard() {
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-surface-50">
-        <div className="flex items-center gap-3 text-surface-500 font-medium font-['Outfit']">
+        <div className="flex items-center gap-3 text-surface-500 font-medium font-display">
           <div className="h-5 w-5 animate-spin rounded-full border-2 border-brand-600 border-t-transparent" />
           Loading...
         </div>
@@ -121,7 +121,7 @@ function EmployerDashboard() {
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <p className="text-[13px] font-bold uppercase tracking-widest text-surface-500">{s.label}</p>
-                  <p className={`mt-2 text-3xl font-extrabold font-['Outfit'] ${s.color}`}>{s.value}</p>
+                  <p className={`mt-2 text-3xl font-extrabold font-display ${s.color}`}>{s.value}</p>
                 </div>
                 <div className={`flex h-12 w-12 items-center justify-center rounded-2xl ${s.bg} text-xl shadow-sm`}>
                   {s.icon}
@@ -166,7 +166,7 @@ function EmployerDashboard() {
           <div className="premium-card bg-white p-6 sm:p-8 shadow-sm">
             <div className="flex items-center justify-between gap-4">
               <div>
-                <h2 className="text-xl font-bold text-surface-900 font-['Outfit']">Hiring Analytics</h2>
+                <h2 className="text-xl font-bold text-surface-900 font-display">Hiring Analytics</h2>
                 <p className="mt-1 text-[15px] font-medium text-surface-700">Track funnel health across saved jobs, applications, interviews, and hires.</p>
               </div>
             </div>
@@ -176,7 +176,7 @@ function EmployerDashboard() {
                 <div key={job.jobId} className="rounded-2xl border border-surface-200 bg-surface-50/50 p-6 transition-colors hover:bg-white hover:border-brand-200 hover:shadow-sm">
                   <div className="flex items-start justify-between gap-3">
                     <div>
-                      <p className="font-bold text-lg text-surface-900 font-['Outfit']">{job.title}</p>
+                      <p className="font-bold text-lg text-surface-900 font-display">{job.title}</p>
                       <span className={`mt-2 inline-flex ${job.status === "open" ? "badge-success" : "badge-neutral"}`}>{job.status}</span>
                     </div>
                     <div className="rounded-full border border-surface-200 bg-white px-3 py-1 text-xs font-bold text-surface-600 shadow-sm">
@@ -186,19 +186,19 @@ function EmployerDashboard() {
                   <div className="mt-6 grid grid-cols-2 gap-4 text-sm">
                     <div className="rounded-xl border border-surface-100 bg-white px-4 py-3 shadow-sm">
                       <p className="text-[12px] font-bold uppercase tracking-widest text-surface-400">Saved</p>
-                      <p className="mt-1.5 text-xl font-extrabold text-surface-900 font-['Outfit']">{job.savedCount}</p>
+                      <p className="mt-1.5 text-xl font-extrabold text-surface-900 font-display">{job.savedCount}</p>
                     </div>
                     <div className="rounded-xl border border-surface-100 bg-white px-4 py-3 shadow-sm">
                       <p className="text-[12px] font-bold uppercase tracking-widest text-surface-400">Shortlist Rate</p>
-                      <p className="mt-1.5 text-xl font-extrabold text-surface-900 font-['Outfit']">{job.shortlistRate}%</p>
+                      <p className="mt-1.5 text-xl font-extrabold text-surface-900 font-display">{job.shortlistRate}%</p>
                     </div>
                     <div className="rounded-xl border border-surface-100 bg-white px-4 py-3 shadow-sm">
                       <p className="text-[12px] font-bold uppercase tracking-widest text-surface-400">Interviews</p>
-                      <p className="mt-1.5 text-xl font-extrabold text-surface-900 font-['Outfit']">{job.interviewCount}</p>
+                      <p className="mt-1.5 text-xl font-extrabold text-surface-900 font-display">{job.interviewCount}</p>
                     </div>
                     <div className="rounded-xl border border-surface-100 bg-white px-4 py-3 shadow-sm">
                       <p className="text-[12px] font-bold uppercase tracking-widest text-surface-400">Hire Rate</p>
-                      <p className="mt-1.5 text-xl font-extrabold text-surface-900 font-['Outfit']">{job.hireRate}%</p>
+                      <p className="mt-1.5 text-xl font-extrabold text-surface-900 font-display">{job.hireRate}%</p>
                     </div>
                   </div>
                 </div>
@@ -209,13 +209,13 @@ function EmployerDashboard() {
 
         {/* Existing Jobs */}
         <div>
-          <h2 className="mb-6 text-xl font-bold text-surface-900 font-['Outfit']">Your Job Postings</h2>
+          <h2 className="mb-6 text-xl font-bold text-surface-900 font-display">Your Job Postings</h2>
           {jobs.length === 0 ? (
             <div className="premium-card p-16 text-center bg-white border-none shadow-sm">
               <div className="inline-flex w-24 h-24 rounded-full bg-surface-50 items-center justify-center mb-6">
                 <span className="text-4xl">📭</span>
               </div>
-              <h3 className="text-2xl font-bold text-surface-900 font-['Outfit'] mb-2">No jobs posted yet</h3>
+              <h3 className="text-2xl font-bold text-surface-900 font-display mb-2">No jobs posted yet</h3>
               <p className="mb-8 mt-1 text-[15px] font-medium text-surface-500">Start attracting candidates by posting your first job.</p>
               <button onClick={() => navigate("/employer/post-job")} className="btn-primary">
                 Post Your First Job
@@ -229,7 +229,7 @@ function EmployerDashboard() {
                   <div className="flex flex-col gap-6 xl:flex-row xl:items-start xl:justify-between ml-2">
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center flex-wrap gap-x-3 gap-y-2">
-                        <h3 className="text-xl font-bold text-surface-900 font-['Outfit']">{job.title}</h3>
+                        <h3 className="text-xl font-bold text-surface-900 font-display">{job.title}</h3>
                         <span className={`badge shrink-0 ${job.status === "open" ? "badge-success" : "badge-neutral"}`}>
                           {job.status === "open" ? "● Active" : "● Closed"}
                         </span>

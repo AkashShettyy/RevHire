@@ -107,7 +107,7 @@ function JobSeekerDashboard() {
   if (isLoading)
     return (
       <div className="min-h-screen flex items-center justify-center bg-surface-50">
-        <div className="flex items-center gap-3 text-surface-500 font-medium font-['Outfit']">
+        <div className="flex items-center gap-3 text-surface-500 font-medium font-display">
           <div className="h-5 w-5 animate-spin rounded-full border-2 border-brand-600 border-t-transparent" />
           Loading...
         </div>
@@ -145,7 +145,7 @@ function JobSeekerDashboard() {
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <p className="text-[13px] font-bold uppercase tracking-widest text-surface-400">{s.label}</p>
-                  <p className={`mt-2 text-3xl font-extrabold font-['Outfit'] ${s.color}`}>{s.value}</p>
+                  <p className={`mt-2 text-3xl font-extrabold font-display ${s.color}`}>{s.value}</p>
                 </div>
                 <div className={`flex h-12 w-12 items-center justify-center rounded-2xl ${s.bg} text-xl shadow-inner`}>
                   {s.icon}
@@ -185,7 +185,7 @@ function JobSeekerDashboard() {
         <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
           <div className="premium-card bg-white shadow-sm flex flex-col h-full border-surface-200">
             <div className="flex border-b border-surface-100 bg-surface-50/50 px-6 py-5 items-center justify-between">
-              <h2 className="text-lg font-bold text-surface-900 font-['Outfit']">Recent Applications</h2>
+              <h2 className="text-lg font-bold text-surface-900 font-display">Recent Applications</h2>
               <button onClick={() => navigate("/applications")} className="text-[13px] font-bold text-brand-600 hover:text-brand-700 transition-colors">View all</button>
             </div>
             <div className="flex-1 overflow-auto">
@@ -213,7 +213,7 @@ function JobSeekerDashboard() {
 
           <div className="premium-card bg-white shadow-sm flex flex-col h-full border-surface-200">
             <div className="flex items-center justify-between border-b border-surface-100 bg-surface-50/50 px-6 py-5">
-              <h2 className="text-lg font-bold text-surface-900 font-['Outfit']">Upcoming Interviews</h2>
+              <h2 className="text-lg font-bold text-surface-900 font-display">Upcoming Interviews</h2>
               <span className="badge badge-brand">{upcomingInterviews.length} total</span>
             </div>
             <div className="flex-1 overflow-auto">
@@ -259,7 +259,7 @@ function JobSeekerDashboard() {
 
           <div className="premium-card bg-white shadow-sm flex flex-col h-full border-surface-200">
             <div className="flex items-center justify-between border-b border-surface-100 bg-surface-50/50 px-6 py-5">
-              <h2 className="text-lg font-bold text-surface-900 font-['Outfit']">Past Interviews</h2>
+              <h2 className="text-lg font-bold text-surface-900 font-display">Past Interviews</h2>
               <span className="badge badge-neutral bg-surface-100 text-surface-600 border-surface-200">{pastInterviews.length} total</span>
             </div>
             <div className="flex-1 overflow-auto">
@@ -286,7 +286,7 @@ function JobSeekerDashboard() {
 
         <div className="premium-card bg-white shadow-sm border-surface-200">
           <div className="flex items-center justify-between border-b border-surface-100 bg-surface-50/50 px-8 py-5">
-            <h2 className="text-lg font-bold text-surface-900 font-['Outfit']">Latest Jobs</h2>
+            <h2 className="text-lg font-bold text-surface-900 font-display">Latest Jobs</h2>
             <button onClick={() => navigate("/jobs")} className="text-[13px] font-bold text-brand-600 hover:text-brand-700 transition-colors">View all</button>
           </div>
           <div className="divide-y divide-surface-100">
@@ -305,7 +305,7 @@ function JobSeekerDashboard() {
         <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
           <div className="premium-card bg-white shadow-sm border-surface-200 flex flex-col h-full">
             <div className="flex items-center justify-between border-b border-surface-100 bg-surface-50/50 px-6 py-5">
-              <h2 className="text-lg font-bold text-surface-900 font-['Outfit']">Saved Jobs</h2>
+              <h2 className="text-lg font-bold text-surface-900 font-display">Saved Jobs</h2>
               <button onClick={() => navigate("/saved-jobs")} className="text-[13px] font-bold text-brand-600 hover:text-brand-700 transition-colors">View all</button>
             </div>
             <div className="flex-1 overflow-auto">
@@ -334,7 +334,7 @@ function JobSeekerDashboard() {
 
           <div className="premium-card bg-white shadow-sm border-surface-200 flex flex-col h-full">
             <div className="flex items-center justify-between border-b border-surface-100 bg-surface-50/50 px-6 py-5">
-              <h2 className="text-lg font-bold text-surface-900 font-['Outfit']">Job Alerts</h2>
+              <h2 className="text-lg font-bold text-surface-900 font-display">Job Alerts</h2>
               <span className="badge badge-brand">{jobAlerts.length} matches</span>
             </div>
             <div className="flex-1 overflow-auto">

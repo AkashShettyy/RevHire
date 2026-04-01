@@ -47,7 +47,7 @@ function SavedJobs() {
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-surface-50">
-        <div className="flex items-center gap-3 text-surface-500 font-medium font-['Outfit']">
+        <div className="flex items-center gap-3 text-surface-500 font-medium font-display">
           <div className="h-5 w-5 animate-spin rounded-full border-2 border-brand-600 border-t-transparent" />
           Loading...
         </div>
@@ -93,7 +93,7 @@ function SavedJobs() {
             <div className="inline-flex w-24 h-24 rounded-full bg-surface-50 items-center justify-center mb-6">
               <span className="text-4xl">🔖</span>
             </div>
-            <h3 className="text-2xl font-bold text-surface-900 font-['Outfit'] mb-2">No saved jobs yet</h3>
+            <h3 className="text-2xl font-bold text-surface-900 font-display mb-2">No saved jobs yet</h3>
             <p className="mb-8 mt-1 text-[15px] font-medium text-surface-700">Save interesting roles from search or job details.</p>
             <button onClick={() => navigate("/jobs")} className="btn-primary">
               Browse Jobs

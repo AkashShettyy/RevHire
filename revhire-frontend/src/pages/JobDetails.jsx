@@ -154,7 +154,7 @@ function JobDetails() {
             <div className="premium-card p-8 bg-white shadow-sm border-surface-200">
               <div className="flex items-start justify-between gap-4 mb-6">
                 <div>
-                  <h2 className="text-2xl font-bold tracking-tight text-surface-900 font-['Outfit']">Overview</h2>
+                  <h2 className="text-2xl font-bold tracking-tight text-surface-900 font-display">Overview</h2>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className={`badge ${jobTypeColors[job.jobType] || 'badge-neutral'}`}>{job.jobType}</span>
@@ -168,14 +168,14 @@ function JobDetails() {
             </div>
 
             <div className="premium-card p-8 bg-white shadow-sm border-surface-200">
-              <h2 className="text-xl font-bold text-surface-900 font-['Outfit'] mb-4">Job Description</h2>
+              <h2 className="text-xl font-bold text-surface-900 font-display mb-4">Job Description</h2>
               <div className="prose prose-stone text-[15px] leading-relaxed text-surface-600 max-w-none whitespace-pre-line">
                 {job.description}
               </div>
             </div>
 
             <div className="premium-card p-8 bg-white shadow-sm border-surface-200">
-              <h2 className="text-xl font-bold text-surface-900 font-['Outfit'] mb-5">Skills Required</h2>
+              <h2 className="text-xl font-bold text-surface-900 font-display mb-5">Skills Required</h2>
               <div className="flex flex-wrap gap-2.5">
                 {job.skillsRequired?.map((skill, i) => (
                   <span key={i} className="rounded-xl border border-brand-100 bg-brand-50/50 px-4 py-2 text-sm font-bold text-brand-700">{skill}</span>
@@ -184,7 +184,7 @@ function JobDetails() {
             </div>
 
             <div className="premium-card p-8 bg-white shadow-sm border-surface-200">
-              <h2 className="text-xl font-bold text-surface-900 font-['Outfit'] mb-5">Requirements</h2>
+              <h2 className="text-xl font-bold text-surface-900 font-display mb-5">Requirements</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div className="rounded-2xl border border-surface-100 bg-surface-50/50 p-5">
                   <div className="w-10 h-10 rounded-xl bg-surface-200 text-surface-600 flex items-center justify-center mb-3 text-lg font-bold">⏱</div>
@@ -202,7 +202,7 @@ function JobDetails() {
 
           <div>
             <div className="premium-card sticky top-28 overflow-hidden p-8 bg-white shadow-lg shadow-surface-200/50 border-surface-200">
-              <h2 className="text-xl font-bold text-surface-900 font-['Outfit'] mb-6">Apply for this role</h2>
+              <h2 className="text-xl font-bold text-surface-900 font-display mb-6">Apply for this role</h2>
 
               <div className="mb-6 flex gap-3">
                  {user?.role === "jobseeker" && (
