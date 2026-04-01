@@ -11,7 +11,7 @@ const STATUSES = ["applied", "shortlisted", "interviewing", "offered", "hired", 
 function DroppableColumn({ id, title, applications, onCardClick, interviewMap }) {
   const { setNodeRef } = useDroppable({ id });
   return (
-    <div ref={setNodeRef} className="flex min-w-[320px] w-[320px] flex-col rounded-[28px] border border-surface-300 bg-white p-4 shadow-sm">
+    <div ref={setNodeRef} className="flex min-w-[320px] w-[320px] flex-col rounded-xl border border-surface-300 bg-white p-4 shadow-sm">
       <div className="flex justify-between items-center mb-5 px-1">
         <h3 className="font-bold text-surface-900 capitalize font-display">{title}</h3>
         <span className="rounded-full border border-surface-300 bg-surface-100 px-2.5 py-1 text-[11px] font-bold text-surface-700 shadow-sm">{applications.length}</span>
@@ -41,7 +41,7 @@ function DraggableCard({ application, interview, onClick, isOverlay }) {
       style={style}
       {...listeners}
       {...attributes}
-      className={`premium-card bg-white p-5 cursor-grab shadow-sm transition-all hover:shadow-md hover:border-brand-300 relative ${isDragging && !isOverlay ? 'opacity-40 scale-95' : ''} ${isOverlay ? 'scale-105 shadow-xl border-brand-400 rotate-1 cursor-grabbing z-50' : ''}`}
+      className={`premium-card bg-white p-5 cursor-grab shadow-sm transition-all hover:shadow-md hover:border-brand-300 relative ${isDragging && !isOverlay ? 'opacity-40 scale-95' : ''} ${isOverlay ? 'scale-105 shadow-md border-brand-400 rotate-1 cursor-grabbing z-50' : ''}`}
       onClick={(e) => {
         if (!isDragging) {
            e.stopPropagation();
@@ -54,7 +54,7 @@ function DraggableCard({ application, interview, onClick, isOverlay }) {
       <div className="mt-1 ml-1 text-[12px] font-medium text-surface-700">{application.jobSeeker?.email}</div>
       
       {interview && interview.status === "scheduled" && (
-        <div className="mt-4 ml-1 inline-block rounded border border-brand-200 bg-brand-100 px-2.5 py-1.5 text-[10px] font-bold uppercase tracking-widest text-brand-700">
+        <div className="mt-4 ml-1 inline-block rounded border border-brand-200 bg-brand-100 px-2.5 py-1.5 text-[10px] font-bold uppercase tracking-normal text-brand-700">
           Interview Scheduled
         </div>
       )}
@@ -186,7 +186,7 @@ export default function Applicants() {
           <div className="page-hero flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
             <div className="flex items-center gap-4">
               <button onClick={() => navigate("/employer/dashboard")} className="flex items-center gap-1.5 text-sm font-bold text-surface-700 transition-colors hover:text-brand-700"><span>←</span> Back to Dashboard</button>
-              <h1 className="border-l border-surface-300 pl-4 font-display text-2xl font-extrabold tracking-tight text-surface-900">Applicants Board</h1>
+              <h1 className="border-l border-surface-300 pl-4 font-display text-2xl font-semibold tracking-tight text-surface-900">Applicants Board</h1>
             </div>
             <div className="flex gap-2 text-[14px]">
               <span className="rounded-full border border-surface-300 bg-white px-4 py-1.5 font-bold text-surface-800 shadow-sm">{applications.length} Total</span>

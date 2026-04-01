@@ -158,11 +158,11 @@ function InterviewCalendar() {
 
             <div className="grid min-w-full gap-3 sm:grid-cols-3 lg:min-w-[470px]">
               <div className="metric-tile px-4 py-4">
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-surface-600">Upcoming</p>
+                <p className="text-xs font-semibold uppercase tracking-normal text-surface-600">Upcoming</p>
                 <p className="mt-3 text-3xl font-bold text-surface-900">{upcomingInterviews.length}</p>
               </div>
               <div className="metric-tile px-4 py-4">
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-surface-600">This Month</p>
+                <p className="text-xs font-semibold uppercase tracking-normal text-surface-600">This Month</p>
                 <p className="mt-3 text-3xl font-bold text-surface-900">
                   {
                     normalizedInterviews.filter(
@@ -174,7 +174,7 @@ function InterviewCalendar() {
                 </p>
               </div>
               <div className="metric-tile px-4 py-4">
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-surface-600">Accepted</p>
+                <p className="text-xs font-semibold uppercase tracking-normal text-surface-600">Accepted</p>
                 <p className="mt-3 text-3xl font-bold text-surface-900">{acceptedCount}</p>
               </div>
             </div>
@@ -237,7 +237,7 @@ function InterviewCalendar() {
                 </div>
               </div>
 
-              <div className="mt-6 grid grid-cols-7 gap-2 text-center text-xs font-semibold uppercase tracking-[0.18em] text-surface-600">
+              <div className="mt-6 grid grid-cols-7 gap-2 text-center text-xs font-semibold uppercase tracking-normal text-surface-600">
                 {dayNames.map((dayName) => (
                   <div key={dayName} className="py-2">
                     {dayName}
@@ -326,7 +326,7 @@ function InterviewCalendar() {
                 ) : (
                   <div className="mt-5 space-y-4">
                     {selectedDayInterviews.map((interview) => (
-                      <article key={interview._id} className="rounded-[26px] border border-surface-300 bg-white p-4 shadow-[0_20px_50px_-40px_rgba(15,23,42,0.4)]">
+                      <article key={interview._id} className="rounded-xl border border-surface-300 bg-white p-4 shadow-[0_20px_50px_-40px_rgba(15,23,42,0.4)]">
                         <div className="flex items-start justify-between gap-3">
                           <div>
                             <p className="font-semibold text-surface-900">
@@ -398,7 +398,7 @@ function InterviewCalendar() {
                         setMonthDate(new Date(interview.scheduledDate.getFullYear(), interview.scheduledDate.getMonth(), 1));
                         setSelectedDayKey(formatDayKey(interview.scheduledDate));
                       }}
-                      className="w-full rounded-[24px] border border-surface-300 bg-gradient-to-r from-white to-blue-50/60 px-4 py-3 text-left transition-all hover:-translate-y-0.5 hover:border-blue-300 hover:from-blue-100 hover:to-indigo-100/70"
+                      className="w-full rounded-xl border border-surface-300 bg-gradient-to-r from-white to-blue-50/60 px-4 py-3 text-left transition-all hover:-translate-y-0.5 hover:border-blue-300 hover:from-blue-100 hover:to-indigo-100/70"
                     >
                       <p className="font-semibold text-surface-900">
                         {user?.role === "employer"

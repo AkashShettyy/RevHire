@@ -60,16 +60,16 @@ function PostJob() {
                 <span className="eyebrow mb-4">
                   Create opening
                 </span>
-                <h1 className="font-display text-3xl font-extrabold tracking-tight text-surface-900 sm:text-4xl">Post a Job</h1>
+                <h1 className="font-display text-3xl font-semibold tracking-tight text-surface-900 sm:text-4xl">Post a Job</h1>
                 <p className="mt-3 text-[17px] font-medium text-surface-700">Fill in the details to attract the right candidates.</p>
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="metric-tile rounded-xl p-4 text-center sm:text-left">
-                  <p className="text-[11px] font-bold uppercase tracking-widest text-surface-600">Template</p>
+                  <p className="text-[11px] font-bold uppercase tracking-normal text-surface-600">Template</p>
                   <p className="mt-1.5 text-[15px] font-bold text-surface-900">Structured form</p>
                 </div>
                 <div className="metric-tile rounded-xl p-4 text-center sm:text-left">
-                  <p className="text-[11px] font-bold uppercase tracking-widest text-surface-600">Optional</p>
+                  <p className="text-[11px] font-bold uppercase tracking-normal text-surface-600">Optional</p>
                   <p className="mt-1.5 text-[15px] font-bold text-surface-900">Screening Qs</p>
                 </div>
               </div>
@@ -91,15 +91,15 @@ function PostJob() {
             <h2 className="flex items-center gap-2 text-xl font-bold text-surface-900 font-display mb-6">📋 Basic Information</h2>
             <div className="space-y-5">
               <div>
-                <label className="block text-[13px] font-bold uppercase tracking-widest text-surface-500 mb-2">Job Title</label>
+                <label className="block text-[13px] font-bold uppercase tracking-normal text-surface-500 mb-2">Job Title</label>
                 <input type="text" name="title" placeholder="e.g. Senior React Developer" value={formData.title} onChange={handleChange} required className="input-field" />
               </div>
               <div>
-                <label className="block text-[13px] font-bold uppercase tracking-widest text-surface-500 mb-2">Description</label>
+                <label className="block text-[13px] font-bold uppercase tracking-normal text-surface-500 mb-2">Description</label>
                 <textarea name="description" placeholder="Describe the role, responsibilities, and what you're looking for..." value={formData.description} onChange={handleChange} rows={4} required className="input-field resize-none" />
               </div>
               <div>
-                <label className="block text-[13px] font-bold uppercase tracking-widest text-surface-500 mb-2">Skills Required</label>
+                <label className="block text-[13px] font-bold uppercase tracking-normal text-surface-500 mb-2">Skills Required</label>
                 <input type="text" name="skillsRequired" placeholder="React, Node.js, MongoDB (comma separated)" value={formData.skillsRequired} onChange={handleChange} required className="input-field" />
                 <p className="mt-2 text-[13px] font-bold text-surface-600">Separate skills with commas</p>
               </div>
@@ -110,11 +110,11 @@ function PostJob() {
             <h2 className="text-xl font-bold text-surface-900 font-display mb-6">📚 Requirements</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div>
-                <label className="block text-[13px] font-bold uppercase tracking-widest text-surface-500 mb-2">Experience Required</label>
+                <label className="block text-[13px] font-bold uppercase tracking-normal text-surface-500 mb-2">Experience Required</label>
                 <input type="text" name="experienceRequired" placeholder="e.g. 1-2 years" value={formData.experienceRequired} onChange={handleChange} required className="input-field" />
               </div>
               <div>
-                <label className="block text-[13px] font-bold uppercase tracking-widest text-surface-500 mb-2">Education Required</label>
+                <label className="block text-[13px] font-bold uppercase tracking-normal text-surface-500 mb-2">Education Required</label>
                 <input type="text" name="educationRequired" placeholder="e.g. Bachelor's degree" value={formData.educationRequired} onChange={handleChange} required className="input-field" />
               </div>
             </div>
@@ -124,11 +124,11 @@ function PostJob() {
             <h2 className="text-xl font-bold text-surface-900 font-display mb-6">💼 Job Details</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div>
-                <label className="block text-[13px] font-bold uppercase tracking-widest text-surface-500 mb-2">Location</label>
+                <label className="block text-[13px] font-bold uppercase tracking-normal text-surface-500 mb-2">Location</label>
                 <input type="text" name="location" placeholder="e.g. Bangalore" value={formData.location} onChange={handleChange} required className="input-field" />
               </div>
               <div>
-                <label className="block text-[13px] font-bold uppercase tracking-widest text-surface-500 mb-2">Job Type</label>
+                <label className="block text-[13px] font-bold uppercase tracking-normal text-surface-500 mb-2">Job Type</label>
                 <select name="jobType" value={formData.jobType} onChange={handleChange} className="input-field">
                   <option value="fulltime">Full Time</option>
                   <option value="parttime">Part Time</option>
@@ -137,15 +137,15 @@ function PostJob() {
                 </select>
               </div>
               <div>
-                <label className="block text-[13px] font-bold uppercase tracking-widest text-surface-500 mb-2">Min Salary (₹)</label>
+                <label className="block text-[13px] font-bold uppercase tracking-normal text-surface-500 mb-2">Min Salary (₹)</label>
                 <input type="number" name="salaryMin" placeholder="e.g. 500000" value={formData.salaryMin} onChange={handleChange} className="input-field" />
               </div>
               <div>
-                <label className="block text-[13px] font-bold uppercase tracking-widest text-surface-500 mb-2">Max Salary (₹)</label>
+                <label className="block text-[13px] font-bold uppercase tracking-normal text-surface-500 mb-2">Max Salary (₹)</label>
                 <input type="number" name="salaryMax" placeholder="e.g. 800000" value={formData.salaryMax} onChange={handleChange} className="input-field" />
               </div>
               <div className="sm:col-span-2">
-                <label className="block text-[13px] font-bold uppercase tracking-widest text-surface-500 mb-2">Application Deadline</label>
+                <label className="block text-[13px] font-bold uppercase tracking-normal text-surface-500 mb-2">Application Deadline</label>
                 <input type="date" name="deadline" value={formData.deadline} onChange={handleChange} required className="input-field" />
               </div>
             </div>
@@ -153,7 +153,7 @@ function PostJob() {
 
           <div className="premium-card bg-white p-6 sm:p-8 shadow-sm">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-bold text-surface-900 font-display flex items-center gap-2">🤖 Screening Qs <span className="text-[13px] font-bold uppercase tracking-widest text-surface-400 bg-surface-100 px-2 py-0.5 rounded ml-2">(Optional)</span></h2>
+              <h2 className="text-xl font-bold text-surface-900 font-display flex items-center gap-2">🤖 Screening Qs <span className="text-[13px] font-bold uppercase tracking-normal text-surface-400 bg-surface-100 px-2 py-0.5 rounded ml-2">(Optional)</span></h2>
               <button type="button" onClick={addQuestion} className="text-[14px] font-bold text-brand-600 hover:text-brand-800 transition-colors flex items-center gap-1.5">
                 <span className="text-lg leading-none">+</span> Add Question
               </button>
@@ -166,11 +166,11 @@ function PostJob() {
                   <div key={i} className="flex gap-4 items-start border border-surface-200 p-5 rounded-2xl bg-surface-50 transition-colors focus-within:bg-white focus-within:border-brand-200">
                     <div className="flex-1 space-y-4">
                       <div>
-                        <label className="block text-[13px] font-bold uppercase tracking-widest text-surface-500 mb-2">Question</label>
+                        <label className="block text-[13px] font-bold uppercase tracking-normal text-surface-500 mb-2">Question</label>
                         <input type="text" value={q.question} onChange={(e) => updateQuestion(i, "question", e.target.value)} className="input-field" placeholder="e.g. Do you require visa sponsorship?" required />
                       </div>
                       <div>
-                        <label className="block text-[13px] font-bold uppercase tracking-widest text-surface-500 mb-2">Required Answer (Optional Knockout)</label>
+                        <label className="block text-[13px] font-bold uppercase tracking-normal text-surface-500 mb-2">Required Answer (Optional Knockout)</label>
                         <input type="text" value={q.requiredAnswer} onChange={(e) => updateQuestion(i, "requiredAnswer", e.target.value)} className="input-field" placeholder="e.g. No (Leave blank if not a strict filter)" />
                       </div>
                     </div>

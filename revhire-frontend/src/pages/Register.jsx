@@ -49,7 +49,7 @@ function Register() {
         <div className="hidden lg:block pr-10">
           <div className="inline-flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-4 py-1.5 mb-6">
             <span className="flex h-2 w-2 rounded-full bg-brand-600 animate-pulse"></span>
-            <span className="text-xs font-bold uppercase tracking-widest text-brand-700">Start Hiring Better</span>
+            <span className="text-xs font-bold uppercase tracking-normal text-brand-700">Start Hiring Better</span>
           </div>
           <h1 className="heading-hero leading-[1.15]">
             Create the account that matches how you use RevHire.

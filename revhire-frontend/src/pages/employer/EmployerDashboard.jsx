@@ -89,7 +89,7 @@ function EmployerDashboard() {
               <span className="eyebrow mb-4">
                 Employer Dashboard
               </span>
-              <h1 className="text-3xl font-extrabold tracking-tight text-surface-900 sm:text-4xl">
+              <h1 className="text-3xl font-semibold tracking-tight text-surface-900 sm:text-4xl">
                 Welcome, {user?.name}
               </h1>
               <p className="mt-3 max-w-2xl text-[17px] font-medium text-surface-700">
@@ -120,8 +120,8 @@ function EmployerDashboard() {
             <div key={s.label} className="metric-tile">
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <p className="text-[13px] font-bold uppercase tracking-widest text-surface-500">{s.label}</p>
-                  <p className={`mt-2 text-3xl font-extrabold font-display ${s.color}`}>{s.value}</p>
+                  <p className="text-[13px] font-bold uppercase tracking-normal text-surface-500">{s.label}</p>
+                  <p className={`mt-2 text-3xl font-semibold font-display ${s.color}`}>{s.value}</p>
                 </div>
                 <div className={`flex h-12 w-12 items-center justify-center rounded-2xl ${s.bg} text-xl shadow-sm`}>
                   {s.icon}
@@ -150,7 +150,7 @@ function EmployerDashboard() {
             >
               <div className={`absolute right-0 top-0 -mr-4 -mt-4 h-32 w-32 rounded-full opacity-80 blur-2xl transition-transform duration-500 pointer-events-none group-hover:scale-150 ${action.accent.includes("cyan") ? "bg-cyan-100" : action.accent.includes("surface") ? "bg-surface-100" : "bg-brand-100"}`}></div>
               <div className="relative z-10">
-                <p className={`inline-flex rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-widest ${action.accent}`}>Quick action</p>
+                <p className={`inline-flex rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-normal ${action.accent}`}>Quick action</p>
                 <p className="mt-5 font-display text-2xl font-bold text-surface-900">{action.label}</p>
                 <p className="mt-1.5 text-[15px] font-medium text-surface-700">{action.desc}</p>
                 <p className="mt-8 flex items-center gap-2 text-sm font-bold text-brand-700 opacity-90 transition-opacity group-hover:opacity-100">
@@ -185,20 +185,20 @@ function EmployerDashboard() {
                   </div>
                   <div className="mt-6 grid grid-cols-2 gap-4 text-sm">
                     <div className="rounded-xl border border-surface-100 bg-white px-4 py-3 shadow-sm">
-                      <p className="text-[12px] font-bold uppercase tracking-widest text-surface-400">Saved</p>
-                      <p className="mt-1.5 text-xl font-extrabold text-surface-900 font-display">{job.savedCount}</p>
+                      <p className="text-[12px] font-bold uppercase tracking-normal text-surface-400">Saved</p>
+                      <p className="mt-1.5 text-xl font-semibold text-surface-900 font-display">{job.savedCount}</p>
                     </div>
                     <div className="rounded-xl border border-surface-100 bg-white px-4 py-3 shadow-sm">
-                      <p className="text-[12px] font-bold uppercase tracking-widest text-surface-400">Shortlist Rate</p>
-                      <p className="mt-1.5 text-xl font-extrabold text-surface-900 font-display">{job.shortlistRate}%</p>
+                      <p className="text-[12px] font-bold uppercase tracking-normal text-surface-400">Shortlist Rate</p>
+                      <p className="mt-1.5 text-xl font-semibold text-surface-900 font-display">{job.shortlistRate}%</p>
                     </div>
                     <div className="rounded-xl border border-surface-100 bg-white px-4 py-3 shadow-sm">
-                      <p className="text-[12px] font-bold uppercase tracking-widest text-surface-400">Interviews</p>
-                      <p className="mt-1.5 text-xl font-extrabold text-surface-900 font-display">{job.interviewCount}</p>
+                      <p className="text-[12px] font-bold uppercase tracking-normal text-surface-400">Interviews</p>
+                      <p className="mt-1.5 text-xl font-semibold text-surface-900 font-display">{job.interviewCount}</p>
                     </div>
                     <div className="rounded-xl border border-surface-100 bg-white px-4 py-3 shadow-sm">
-                      <p className="text-[12px] font-bold uppercase tracking-widest text-surface-400">Hire Rate</p>
-                      <p className="mt-1.5 text-xl font-extrabold text-surface-900 font-display">{job.hireRate}%</p>
+                      <p className="text-[12px] font-bold uppercase tracking-normal text-surface-400">Hire Rate</p>
+                      <p className="mt-1.5 text-xl font-semibold text-surface-900 font-display">{job.hireRate}%</p>
                     </div>
                   </div>
                 </div>

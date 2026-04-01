@@ -56,11 +56,11 @@ function AccountSettings() {
             </div>
             <div className="grid gap-3 sm:grid-cols-2">
               <div className="metric-tile px-4 py-4">
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-surface-600">Security</p>
+                <p className="text-xs font-semibold uppercase tracking-normal text-surface-600">Security</p>
                 <p className="mt-3 text-lg font-bold text-surface-900">Password controls</p>
               </div>
               <div className="metric-tile px-4 py-4">
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-surface-600">Best practice</p>
+                <p className="text-xs font-semibold uppercase tracking-normal text-surface-600">Best practice</p>
                 <p className="mt-3 text-lg font-bold text-surface-900">Use a unique password</p>
               </div>
             </div>

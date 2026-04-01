@@ -73,7 +73,7 @@ export default function ApplicationModal({
 
   return (
     <div className="fixed inset-0 z-[80] overflow-y-auto bg-surface-950/60 backdrop-blur-sm flex items-start justify-center p-4 sm:p-6 lg:p-8">
-      <div className="bg-white max-w-4xl w-full rounded-2xl shadow-xl overflow-hidden flex flex-col max-h-[90vh] border border-surface-200">
+      <div className="bg-white max-w-4xl w-full rounded-2xl shadow-md overflow-hidden flex flex-col max-h-[90vh] border border-surface-200">
         {/* Header */}
         <div className="flex shrink-0 items-center justify-between border-b border-surface-300 bg-white px-6 py-5">
           <div>
@@ -121,7 +121,7 @@ export default function ApplicationModal({
             <div className="space-y-8 animate-fade-in">
               {application.answers?.length > 0 && (
                 <div className="premium-card p-6 border-surface-200 shadow-sm bg-white">
-                  <h3 className="mb-4 text-[12px] font-bold uppercase tracking-widest text-surface-600">Screening Answers</h3>
+                  <h3 className="mb-4 text-[12px] font-bold uppercase tracking-normal text-surface-600">Screening Answers</h3>
                   <div className="space-y-4">
                     {application.answers.map((a, i) => (
                       <div key={i} className="rounded-xl border border-surface-300 bg-surface-100 p-4">
@@ -136,7 +136,7 @@ export default function ApplicationModal({
               )}
               {application.coverLetter ? (
                 <div className="premium-card p-6 border-surface-200 shadow-sm bg-white">
-                  <h3 className="text-[12px] font-bold uppercase tracking-widest text-surface-400 mb-4">Cover Letter</h3>
+                  <h3 className="text-[12px] font-bold uppercase tracking-normal text-surface-400 mb-4">Cover Letter</h3>
                   <p className="text-[15px] font-medium text-surface-700 leading-relaxed whitespace-pre-wrap">{application.coverLetter}</p>
                 </div>
               ) : (
@@ -179,11 +179,11 @@ export default function ApplicationModal({
                 <h3 className="text-lg font-bold text-surface-900 font-display mb-5">{interview?.status === "scheduled" ? "Reschedule Interview" : "Schedule Interview"}</h3>
                 <div className="grid gap-4 sm:grid-cols-[1fr,1fr] mb-4">
                   <div>
-                    <label className="block text-[11px] font-bold uppercase tracking-widest text-surface-500 mb-2">Date & Time</label>
+                    <label className="block text-[11px] font-bold uppercase tracking-normal text-surface-500 mb-2">Date & Time</label>
                     <input type="datetime-local" value={scheduleState.scheduledAt} onChange={(e) => setScheduleState(s => ({ ...s, scheduledAt: e.target.value }))} className="input-field" />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-bold uppercase tracking-widest text-surface-500 mb-2">Format</label>
+                    <label className="block text-[11px] font-bold uppercase tracking-normal text-surface-500 mb-2">Format</label>
                     <select value={scheduleState.interviewType} onChange={(e) => setScheduleState(s => ({ ...s, interviewType: e.target.value, meetingLink: "", location: "" }))} className="input-field">
                       <option value="online">Online</option>
                       <option value="inperson">In person</option>
@@ -192,12 +192,12 @@ export default function ApplicationModal({
                 </div>
                 {scheduleState.interviewType === "online" ? (
                   <div className="mb-6">
-                    <label className="block text-[11px] font-bold uppercase tracking-widest text-surface-500 mb-2">Meeting Link</label>
+                    <label className="block text-[11px] font-bold uppercase tracking-normal text-surface-500 mb-2">Meeting Link</label>
                     <input type="url" placeholder="https://zoom.us/..." value={scheduleState.meetingLink} onChange={(e) => setScheduleState(s => ({ ...s, meetingLink: e.target.value }))} className="input-field" />
                   </div>
                 ) : (
                   <div className="mb-6">
-                    <label className="block text-[11px] font-bold uppercase tracking-widest text-surface-500 mb-2">Location / Address</label>
+                    <label className="block text-[11px] font-bold uppercase tracking-normal text-surface-500 mb-2">Location / Address</label>
                     <input type="text" placeholder="Office Location" value={scheduleState.location} onChange={(e) => setScheduleState(s => ({ ...s, location: e.target.value }))} className="input-field" />
                   </div>
                 )}
@@ -216,7 +216,7 @@ export default function ApplicationModal({
               {interview?.status === "scheduled" && (
                 <div className="premium-card p-5 border-brand-200 bg-brand-50/50 shadow-sm relative overflow-hidden">
                   <div className="absolute left-0 top-0 bottom-0 w-1 bg-brand-500"></div>
-                  <p className="text-[12px] font-bold uppercase tracking-widest text-brand-600 mb-2 ml-2">Current Interview</p>
+                  <p className="text-[12px] font-bold uppercase tracking-normal text-brand-600 mb-2 ml-2">Current Interview</p>
                   <p className="text-[16px] font-bold text-surface-900 ml-2">{new Date(interview.scheduledAt).toLocaleString()}</p>
                   <p className="text-[14px] font-medium text-surface-600 mt-1 ml-2">{interview.interviewType === "online" ? interview.meetingLink : interview.location}</p>
                   {interview.responseStatus !== "pending" && (
@@ -233,12 +233,12 @@ export default function ApplicationModal({
             <div className="space-y-6 animate-fade-in">
               <form onSubmit={handleAddNote} className="premium-card p-6 shadow-sm border-surface-200 bg-white">
                 <div>
-                  <label className="block text-[11px] font-bold uppercase tracking-widest text-surface-500 mb-2">Internal Note</label>
+                  <label className="block text-[11px] font-bold uppercase tracking-normal text-surface-500 mb-2">Internal Note</label>
                   <textarea value={newNote} onChange={e => setNewNote(e.target.value)} placeholder="Leave an internal note for your team..." className="input-field resize-none w-full" rows="3" />
                 </div>
                 <div className="flex justify-between items-center mt-4 pt-4 border-t border-surface-100">
                   <div className="flex items-center gap-3">
-                    <span className="text-[13px] font-bold uppercase tracking-widest text-surface-400">Rating</span>
+                    <span className="text-[13px] font-bold uppercase tracking-normal text-surface-400">Rating</span>
                     <select value={newRating} onChange={(e) => setNewRating(Number(e.target.value))} className="input-field w-32 px-3 py-1.5 text-[14px] font-bold bg-surface-50 border-surface-200 rounded-lg">
                       <option value="0">No Star</option>
                       {[1,2,3,4,5].map(v => <option key={v} value={v}>{v} Star{v>1?'s':''}</option>)}
@@ -258,7 +258,7 @@ export default function ApplicationModal({
                       <div className="flex justify-between items-start mb-3 ml-2">
                         <div>
                           <p className="text-[14px] font-bold text-surface-900">{note.author?.name || "Team Member"}</p>
-                          <p className="text-[11px] font-bold uppercase tracking-widest text-surface-400 mt-0.5">{new Date(note.createdAt).toLocaleString()}</p>
+                          <p className="text-[11px] font-bold uppercase tracking-normal text-surface-400 mt-0.5">{new Date(note.createdAt).toLocaleString()}</p>
                         </div>
                         {note.rating > 0 && (
                           <div className="flex gap-0.5 text-amber-400 text-lg">

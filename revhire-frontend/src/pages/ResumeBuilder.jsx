@@ -187,7 +187,7 @@ function ResumeBuilder() {
               <span className="eyebrow mb-4">
                 Resume Workspace
               </span>
-              <h1 className="font-display text-3xl font-extrabold tracking-tight text-surface-900 sm:text-4xl">Resume Builder</h1>
+              <h1 className="font-display text-3xl font-semibold tracking-tight text-surface-900 sm:text-4xl">Resume Builder</h1>
               <p className="mt-3 max-w-2xl text-[17px] font-medium text-surface-700">
                 Manage multiple resume versions, upload a PDF copy, and export the current draft.
               </p>
@@ -229,7 +229,7 @@ function ResumeBuilder() {
           <Section title="Resume Version">
             <div className="grid gap-5 sm:grid-cols-[1fr,auto]">
               <div>
-                <label className="mb-2 block text-[13px] font-bold uppercase tracking-widest text-surface-700">Version Name</label>
+                <label className="mb-2 block text-[13px] font-bold uppercase tracking-normal text-surface-700">Version Name</label>
                 <input
                   type="text"
                   value={resume.title || ""}
@@ -255,7 +255,7 @@ function ResumeBuilder() {
             </div>
             <div className="mt-5 grid gap-5 sm:grid-cols-2">
               <div>
-                <label className="mb-2 block text-[13px] font-bold uppercase tracking-widest text-surface-700">Upload Resume File</label>
+                <label className="mb-2 block text-[13px] font-bold uppercase tracking-normal text-surface-700">Upload Resume File</label>
                 <input type="file" accept=".pdf,.doc,.docx" onChange={handleFileUpload} className={`${inputClass} !py-2`} />
                 {resume.uploadedFile?.fileName && (
                   <p className="mt-3 inline-flex items-center gap-2 rounded-lg border border-surface-300 bg-surface-100 px-3 py-1.5 text-[13px] font-medium text-surface-700">
@@ -412,7 +412,7 @@ function ResumeBuilder() {
             </div>
 
             <div className="flex-1 overflow-auto px-3 py-4 sm:px-6 sm:py-6">
-              <div className="mx-auto w-full max-w-7xl rounded-[28px] bg-[#e9edf3] p-3 shadow-2xl sm:p-6">
+              <div className="mx-auto w-full max-w-7xl rounded-xl bg-[#e9edf3] p-3 shadow-md sm:p-6">
                 <ResumePreview user={user} resume={resume} />
               </div>
             </div>

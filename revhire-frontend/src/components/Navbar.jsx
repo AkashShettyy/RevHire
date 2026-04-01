@@ -62,10 +62,10 @@ function Navbar() {
 
   if (isAuthPage) {
     return (
-      <nav className="sticky top-0 z-50 border-b border-white/60 bg-white/70 backdrop-blur-2xl">
+      <nav className="sticky top-0 z-50 border-b border-white/60 bg-white/70 backdrop-blur-sm">
         <div className="layout-container flex h-20 items-center justify-between">
           <Link to="/" className="inline-flex items-center gap-3 text-surface-900 group">
-            <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-500 via-brand-600 to-surface-900 text-sm font-extrabold text-white shadow-lg shadow-brand-500/25 transition-transform duration-300 group-hover:scale-105">
+            <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-500 via-brand-600 to-surface-900 text-sm font-semibold text-white shadow-lg shadow-brand-500/25 transition-transform duration-300 group-hover:scale-105">
               RH
             </span>
             <span className="block font-display text-xl font-bold tracking-tight">RevHire</span>
@@ -200,7 +200,7 @@ function Navbar() {
           <div className="layout-container py-6">
             {user ? (
               <div className="space-y-4">
-                <div className="flex items-center gap-4 rounded-[24px] border border-surface-200 bg-surface-50 p-4">
+                <div className="flex items-center gap-4 rounded-xl border border-surface-200 bg-surface-50 p-4">
                   <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-lg font-bold text-brand-700 shadow-sm">
                     {user.name?.charAt(0).toUpperCase()}
                   </div>
@@ -212,7 +212,7 @@ function Navbar() {
                 
                 <div className="grid grid-cols-2 gap-2">
                   {navItems.map((item) => (
-                    <Link key={item.to} to={item.to} onClick={() => { setShowMobileMenu(false); setShowNotifications(false); }} className={`flex flex-col items-center justify-center rounded-[22px] border p-4 text-sm font-bold transition-all ${location.pathname === item.to ? "border-brand-200 bg-brand-50 text-brand-700" : "border-surface-200 bg-white text-surface-700 hover:bg-surface-50"}`}>
+                    <Link key={item.to} to={item.to} onClick={() => { setShowMobileMenu(false); setShowNotifications(false); }} className={`flex flex-col items-center justify-center rounded-xl border p-4 text-sm font-bold transition-all ${location.pathname === item.to ? "border-brand-200 bg-brand-50 text-brand-700" : "border-surface-200 bg-white text-surface-700 hover:bg-surface-50"}`}>
                       {item.label}
                     </Link>
                   ))}

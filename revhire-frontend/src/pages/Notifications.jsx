@@ -172,15 +172,15 @@ function Notifications() {
 
             <div className="grid min-w-full gap-3 sm:grid-cols-3 lg:min-w-[420px]">
               <div className="metric-tile px-4 py-4">
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-surface-600">Unread</p>
+                <p className="text-xs font-semibold uppercase tracking-normal text-surface-600">Unread</p>
                 <p className="mt-3 text-3xl font-bold text-surface-900">{unreadCount}</p>
               </div>
               <div className="metric-tile px-4 py-4">
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-surface-600">Applications</p>
+                <p className="text-xs font-semibold uppercase tracking-normal text-surface-600">Applications</p>
                 <p className="mt-3 text-3xl font-bold text-surface-900">{categorySummary.application}</p>
               </div>
               <div className="metric-tile px-4 py-4">
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-surface-600">Interviews</p>
+                <p className="text-xs font-semibold uppercase tracking-normal text-surface-600">Interviews</p>
                 <p className="mt-3 text-3xl font-bold text-surface-900">{categorySummary.interview}</p>
               </div>
             </div>
@@ -273,7 +273,7 @@ function Notifications() {
               <article
                 key={notification._id}
                 className={`section-card relative overflow-hidden p-5 transition-all duration-200 ${
-                  notification.status === "unread" ? "border-blue-200 shadow-xl shadow-blue-100/40" : ""
+                  notification.status === "unread" ? "border-blue-200 shadow-md shadow-blue-100/40" : ""
                 }`}
               >
                 <div className={`absolute inset-y-5 left-0 w-1 rounded-full ${notification.status === "unread" ? "bg-blue-500" : "bg-stone-200"}`} />

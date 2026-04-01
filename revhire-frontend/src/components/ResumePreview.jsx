@@ -9,7 +9,7 @@ function filledItems(items, predicate) {
 function ResumeSection({ title, children }) {
   return (
     <section className="border-t border-slate-200 pt-5">
-      <h2 className="text-[11px] font-bold uppercase tracking-[0.28em] text-slate-500">{title}</h2>
+      <h2 className="text-[11px] font-bold uppercase tracking-normal text-slate-500">{title}</h2>
       <div className="mt-3 space-y-3 text-sm leading-6 text-slate-700">{children}</div>
     </section>
   );
@@ -25,7 +25,7 @@ function ResumePreview({ user, resume }) {
   return (
     <div className="mx-auto min-h-[calc(100vh-12rem)] max-w-[860px] bg-white px-10 py-12 text-slate-800 shadow-[0_24px_80px_rgba(15,23,42,0.12)] sm:px-14">
       <header className="border-b-2 border-slate-900 pb-8">
-        <h1 className="text-4xl font-semibold tracking-[-0.04em] text-slate-950">{user?.name || "Your Name"}</h1>
+        <h1 className="text-4xl font-semibold tracking-normal text-slate-950">{user?.name || "Your Name"}</h1>
         <p className="mt-3 text-sm font-medium text-slate-600">{user?.email || "email@example.com"}</p>
       </header>
 

@@ -125,7 +125,7 @@ function JobSeekerDashboard() {
               <span className="eyebrow mb-4">
                 Job Seeker Dashboard
               </span>
-              <h1 className="text-3xl font-extrabold tracking-tight text-surface-900 sm:text-4xl">Good to see you, {user?.name}</h1>
+              <h1 className="text-3xl font-semibold tracking-tight text-surface-900 sm:text-4xl">Good to see you, {user?.name}</h1>
               <p className="mt-3 text-[17px] font-medium text-surface-700">Track applications, upcoming interviews, and recent activity from one place.</p>
             </div>
           </div>
@@ -144,8 +144,8 @@ function JobSeekerDashboard() {
             <div key={s.label} className="metric-tile hover:shadow-md transition-shadow">
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <p className="text-[13px] font-bold uppercase tracking-widest text-surface-400">{s.label}</p>
-                  <p className={`mt-2 text-3xl font-extrabold font-display ${s.color}`}>{s.value}</p>
+                  <p className="text-[13px] font-bold uppercase tracking-normal text-surface-400">{s.label}</p>
+                  <p className={`mt-2 text-3xl font-semibold font-display ${s.color}`}>{s.value}</p>
                 </div>
                 <div className={`flex h-12 w-12 items-center justify-center rounded-2xl ${s.bg} text-xl shadow-inner`}>
                   {s.icon}
@@ -170,7 +170,7 @@ function JobSeekerDashboard() {
             >
               <div className={`absolute -right-8 -top-8 h-32 w-32 rounded-full blur-2xl ${a.accent.includes("amber") ? "bg-amber-100/80" : a.accent.includes("sky") ? "bg-sky-100/80" : a.accent.includes("teal") ? "bg-teal-100/80" : "bg-brand-100/70"}`}></div>
               <div className="relative z-10">
-                <span className={`inline-flex rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-widest ${a.accent}`}>{a.icon}</span>
+                <span className={`inline-flex rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-normal ${a.accent}`}>{a.icon}</span>
                 <p className="mt-5 font-display text-xl font-bold text-surface-900">{a.label}</p>
                 <p className="mt-1.5 text-sm font-medium text-surface-700">{a.desc}</p>
                 <div className="mt-6 flex items-center text-sm font-bold text-brand-700 transition-colors group-hover:text-brand-800">

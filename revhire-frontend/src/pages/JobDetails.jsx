@@ -123,7 +123,7 @@ function JobDetails() {
               <span className="eyebrow mb-4">
                 Role Details
               </span>
-              <h1 className="text-3xl font-extrabold tracking-tight text-surface-900 sm:text-4xl">{job.title}</h1>
+              <h1 className="text-3xl font-semibold tracking-tight text-surface-900 sm:text-4xl">{job.title}</h1>
               <p className="mt-3 flex items-center gap-2 text-[17px] font-medium text-surface-600">
                 <span className="flex h-6 w-6 items-center justify-center rounded-md bg-brand-100 text-xs font-bold text-brand-700">{job.organization?.name?.charAt(0) || "C"}</span>
                 {job.organization?.name || "Company Name Hidden"}
@@ -132,15 +132,15 @@ function JobDetails() {
             
             <div className="grid gap-4 sm:grid-cols-3 md:min-w-[360px]">
               <div className="rounded-2xl border border-brand-100 bg-white/80 p-5 shadow-sm backdrop-blur-sm">
-                <p className="text-[11px] font-bold uppercase tracking-widest text-surface-500">Location</p>
+                <p className="text-[11px] font-bold uppercase tracking-normal text-surface-500">Location</p>
                 <p className="mt-2 truncate text-sm font-bold text-surface-900">{job.location}</p>
               </div>
               <div className="rounded-2xl border border-brand-100 bg-white/80 p-5 shadow-sm backdrop-blur-sm">
-                <p className="text-[11px] font-bold uppercase tracking-widest text-surface-500">Type</p>
+                <p className="text-[11px] font-bold uppercase tracking-normal text-surface-500">Type</p>
                 <p className="mt-2 text-sm font-bold capitalize text-surface-900">{job.jobType}</p>
               </div>
               <div className="rounded-2xl border border-brand-100 bg-white/80 p-5 shadow-sm backdrop-blur-sm">
-                <p className="text-[11px] font-bold uppercase tracking-widest text-surface-500">Deadline</p>
+                <p className="text-[11px] font-bold uppercase tracking-normal text-surface-500">Deadline</p>
                 <p className="mt-2 text-sm font-bold text-surface-900">{new Date(job.deadline).toLocaleDateString()}</p>
               </div>
             </div>
@@ -188,12 +188,12 @@ function JobDetails() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div className="rounded-2xl border border-surface-100 bg-surface-50/50 p-5">
                   <div className="w-10 h-10 rounded-xl bg-surface-200 text-surface-600 flex items-center justify-center mb-3 text-lg font-bold">⏱</div>
-                  <p className="mb-1 text-[11px] font-bold uppercase tracking-widest text-surface-400">Experience</p>
+                  <p className="mb-1 text-[11px] font-bold uppercase tracking-normal text-surface-400">Experience</p>
                   <p className="text-[15px] font-bold text-surface-800">{job.experienceRequired}</p>
                 </div>
                   <div className="rounded-2xl border border-surface-100 bg-surface-50/50 p-5">
                   <div className="w-10 h-10 rounded-xl bg-surface-200 text-surface-600 flex items-center justify-center mb-3 text-lg font-bold">🎓</div>
-                  <p className="mb-1 text-[11px] font-bold uppercase tracking-widest text-surface-400">Education</p>
+                  <p className="mb-1 text-[11px] font-bold uppercase tracking-normal text-surface-400">Education</p>
                   <p className="text-[15px] font-bold text-surface-800">{job.educationRequired}</p>
                 </div>
               </div>
@@ -258,7 +258,7 @@ function JobDetails() {
                   </div>
                   {job.screeningQuestions?.length > 0 && (
                     <div className="space-y-5 pt-3 pb-5 border-y border-surface-100 mt-5">
-                      <h3 className="text-[13px] font-bold uppercase tracking-widest text-surface-600">Screening Questions</h3>
+                      <h3 className="text-[13px] font-bold uppercase tracking-normal text-surface-600">Screening Questions</h3>
                       {job.screeningQuestions.map((q, i) => (
                         <div key={i}>
                           <label className="label-text break-words whitespace-pre-wrap">{q.question}</label>

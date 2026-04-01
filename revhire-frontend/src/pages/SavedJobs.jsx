@@ -66,19 +66,19 @@ function SavedJobs() {
               <span className="eyebrow mb-4">
                 Saved Roles
               </span>
-              <h1 className="font-display text-3xl font-extrabold tracking-tight text-surface-900 sm:text-4xl">Saved Jobs</h1>
+              <h1 className="font-display text-3xl font-semibold tracking-tight text-surface-900 sm:text-4xl">Saved Jobs</h1>
               <p className="mt-3 max-w-2xl text-[17px] font-medium text-surface-700">
                 Keep shortlisted openings in one place and revisit them before applying.
               </p>
             </div>
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="metric-tile text-center sm:text-left">
-                <p className="text-[11px] font-bold uppercase tracking-widest text-surface-600">Saved</p>
-                <p className="mt-1.5 font-display text-2xl font-extrabold text-surface-900">{savedJobs.length}</p>
+                <p className="text-[11px] font-bold uppercase tracking-normal text-surface-600">Saved</p>
+                <p className="mt-1.5 font-display text-2xl font-semibold text-surface-900">{savedJobs.length}</p>
               </div>
               <div className="metric-tile text-center sm:text-left">
-                <p className="text-[11px] font-bold uppercase tracking-widest text-surface-600">Status</p>
-                <p className="mt-1.5 font-display text-2xl font-extrabold text-surface-900">{savedJobs.length > 0 ? "Tracked" : "Empty"}</p>
+                <p className="text-[11px] font-bold uppercase tracking-normal text-surface-600">Status</p>
+                <p className="mt-1.5 font-display text-2xl font-semibold text-surface-900">{savedJobs.length > 0 ? "Tracked" : "Empty"}</p>
               </div>
             </div>
           </div>

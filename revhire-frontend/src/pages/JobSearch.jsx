@@ -115,29 +115,29 @@ function JobSearch() {
                   <span className="eyebrow">
                     Discover Your Next Role
                   </span>
-                  <h1 className="mt-5 font-display text-4xl font-extrabold tracking-tight text-surface-900 sm:text-5xl">Find roles that fit perfectly.</h1>
+                  <h1 className="mt-5 font-display text-4xl font-semibold tracking-tight text-surface-900 sm:text-5xl">Find roles that fit perfectly.</h1>
                   <p className="mt-4 max-w-2xl text-[17px] leading-relaxed text-surface-700 font-medium">
                     Search and filter thousands of job postings by title, location, skills, compensation, and recency.
                   </p>
                 </div>
                 <div className="grid gap-4 sm:grid-cols-3">
-                  <div className="rounded-[24px] border border-brand-200 bg-white px-6 py-6 backdrop-blur-md">
-                    <p className="text-[11px] font-bold uppercase tracking-widest text-surface-600">Results</p>
+                  <div className="rounded-xl border border-brand-200 bg-white px-6 py-6 backdrop-blur-md">
+                    <p className="text-[11px] font-bold uppercase tracking-normal text-surface-600">Results</p>
                     <p className="mt-2 font-display text-3xl font-bold text-surface-900">{pagination.total}</p>
                   </div>
-                  <div className="rounded-[24px] border border-emerald-100 bg-emerald-50/60 px-6 py-6 backdrop-blur-md">
-                    <p className="text-[11px] font-bold uppercase tracking-widest text-surface-600">Filters</p>
+                  <div className="rounded-xl border border-emerald-100 bg-emerald-50/60 px-6 py-6 backdrop-blur-md">
+                    <p className="text-[11px] font-bold uppercase tracking-normal text-surface-600">Filters</p>
                     <p className="mt-2 font-display text-3xl font-bold text-surface-900">{activeFilterCount}</p>
                   </div>
-                  <div className="rounded-[24px] border border-amber-100 bg-amber-50/60 px-6 py-6 backdrop-blur-md">
-                    <p className="text-[11px] font-bold uppercase tracking-widest text-surface-600">Sort</p>
+                  <div className="rounded-xl border border-amber-100 bg-amber-50/60 px-6 py-6 backdrop-blur-md">
+                    <p className="text-[11px] font-bold uppercase tracking-normal text-surface-600">Sort</p>
                     <p className="mt-2 font-display text-lg font-bold capitalize text-surface-900">{filters.sortBy.replace("_", " ")}</p>
                   </div>
                 </div>
               </div>
             </div>
 
-            <form onSubmit={handleSearch} className="section-card mt-10 grid grid-cols-1 items-center gap-4 p-7 md:grid-cols-2 xl:grid-cols-4 shadow-xl shadow-surface-200/40">
+            <form onSubmit={handleSearch} className="section-card mt-10 grid grid-cols-1 items-center gap-4 p-7 md:grid-cols-2 xl:grid-cols-4 shadow-md shadow-surface-200/40">
               <input type="text" name="search" placeholder="Job title or skill..." value={filters.search} onChange={handleFilterChange} className="input-field bg-surface-50" />
               <input type="text" name="company" placeholder="Company Name" value={filters.company} onChange={handleFilterChange} className="input-field bg-surface-50" />
               <input type="text" name="skills" placeholder="Skills, comma separated" value={filters.skills} onChange={handleFilterChange} className="input-field bg-surface-50" />

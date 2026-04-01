@@ -83,23 +83,23 @@ function ApplicationHistory() {
               <span className="eyebrow mb-4">
                 Application History
               </span>
-              <h1 className="font-display text-3xl font-extrabold tracking-tight text-surface-900 sm:text-4xl">My Applications</h1>
+              <h1 className="font-display text-3xl font-semibold tracking-tight text-surface-900 sm:text-4xl">My Applications</h1>
               <p className="mt-3 max-w-2xl text-[17px] font-medium text-surface-700">
                 Review recent submissions, check where each application sits, and withdraw pending ones when priorities shift.
               </p>
             </div>
             <div className="grid gap-4 sm:grid-cols-3">
               <div className="metric-tile text-center sm:text-left">
-                <p className="text-[11px] font-bold uppercase tracking-widest text-surface-600">Total</p>
-                <p className="mt-1.5 font-display text-2xl font-extrabold text-surface-900">{applications.length}</p>
+                <p className="text-[11px] font-bold uppercase tracking-normal text-surface-600">Total</p>
+                <p className="mt-1.5 font-display text-2xl font-semibold text-surface-900">{applications.length}</p>
               </div>
               <div className="metric-tile text-center sm:text-left">
-                <p className="text-[11px] font-bold uppercase tracking-widest text-surface-600">Pending</p>
-                <p className="mt-1.5 font-display text-2xl font-extrabold text-surface-900">{applications.filter((app) => app.status === "applied").length}</p>
+                <p className="text-[11px] font-bold uppercase tracking-normal text-surface-600">Pending</p>
+                <p className="mt-1.5 font-display text-2xl font-semibold text-surface-900">{applications.filter((app) => app.status === "applied").length}</p>
               </div>
               <div className="metric-tile text-center sm:text-left">
-                <p className="text-[11px] font-bold uppercase tracking-widest text-surface-600">Shown</p>
-                <p className="mt-1.5 font-display text-2xl font-extrabold text-surface-900">{filteredApplications.length}</p>
+                <p className="text-[11px] font-bold uppercase tracking-normal text-surface-600">Shown</p>
+                <p className="mt-1.5 font-display text-2xl font-semibold text-surface-900">{filteredApplications.length}</p>
               </div>
             </div>
           </div>
