@@ -35,14 +35,11 @@ function Navbar() {
   }
 
   const unreadCount = notifications.filter((n) => n.status === "unread").length;
-  const isJobSeekerDashboard = location.pathname === "/dashboard";
-  const isEmployerDashboard = location.pathname === "/employer/dashboard";
   const isAuthPage = location.pathname === "/login" || location.pathname === "/register";
 
   const navItems = user
     ? user.role === "jobseeker"
       ? [
-          !isJobSeekerDashboard && { to: "/dashboard", label: "Dashboard" },
           { to: "/jobs", label: "Find Jobs" },
           { to: "/saved-jobs", label: "Saved" },
           { to: "/applications", label: "Applications" },
@@ -52,7 +49,6 @@ function Navbar() {
           { to: "/settings", label: "Settings" },
         ].filter(Boolean)
       : [
-          !isEmployerDashboard && { to: "/employer/dashboard", label: "Dashboard" },
           { to: "/employer/post-job", label: "Post a Job" },
           { to: "/interviews", label: "Interviews" },
           { to: "/notifications", label: "Notifications" },
