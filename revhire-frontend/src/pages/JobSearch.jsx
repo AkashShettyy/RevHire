@@ -121,15 +121,15 @@ function JobSearch() {
                   </p>
                 </div>
                 <div className="grid gap-4 sm:grid-cols-3">
-                  <div className="rounded-xl border border-brand-200 bg-white px-6 py-6 backdrop-blur-md">
+                  <div className="rounded-xl border border-surface-200 bg-white px-6 py-6">
                     <p className="text-[11px] font-bold uppercase tracking-normal text-surface-600">Results</p>
                     <p className="mt-2 font-display text-3xl font-bold text-surface-900">{pagination.total}</p>
                   </div>
-                  <div className="rounded-xl border border-emerald-100 bg-emerald-50/60 px-6 py-6 backdrop-blur-md">
+                  <div className="rounded-xl border border-surface-200 bg-white px-6 py-6">
                     <p className="text-[11px] font-bold uppercase tracking-normal text-surface-600">Filters</p>
                     <p className="mt-2 font-display text-3xl font-bold text-surface-900">{activeFilterCount}</p>
                   </div>
-                  <div className="rounded-xl border border-amber-100 bg-amber-50/60 px-6 py-6 backdrop-blur-md">
+                  <div className="rounded-xl border border-surface-200 bg-white px-6 py-6">
                     <p className="text-[11px] font-bold uppercase tracking-normal text-surface-600">Sort</p>
                     <p className="mt-2 font-display text-lg font-bold capitalize text-surface-900">{filters.sortBy.replace("_", " ")}</p>
                   </div>

@@ -59,12 +59,12 @@ function EmployerDashboard() {
   }
 
   const stats = [
-    { label: "Total Jobs", value: jobs.length, color: "text-brand-700", bg: "bg-brand-50 border border-brand-100", icon: "📋" },
-    { label: "Active Jobs", value: jobs.filter((j) => j.status === "open").length, color: "text-success-700", bg: "bg-success-50 border border-success-100", icon: "✅" },
-    { label: "Closed Jobs", value: jobs.filter((j) => j.status === "closed").length, color: "text-surface-600", bg: "bg-surface-50 border border-surface-200", icon: "🔒" },
-    { label: "Applications", value: analytics?.summary?.totalApplications || 0, color: "text-indigo-700", bg: "bg-indigo-50 border border-indigo-100", icon: "📨" },
-    { label: "Shortlisted", value: analytics?.summary?.shortlistedCandidates || 0, color: "text-amber-700", bg: "bg-amber-50 border border-amber-100", icon: "⭐" },
-    { label: "Saved by Candidates", value: analytics?.summary?.savedByCandidates || 0, color: "text-pink-700", bg: "bg-pink-50 border border-pink-100", icon: "🔖" },
+    { label: "Total Jobs", value: jobs.length, icon: "📋" },
+    { label: "Active Jobs", value: jobs.filter((j) => j.status === "open").length, icon: "✅" },
+    { label: "Closed Jobs", value: jobs.filter((j) => j.status === "closed").length, icon: "🔒" },
+    { label: "Applications", value: analytics?.summary?.totalApplications || 0, icon: "📨" },
+    { label: "Shortlisted", value: analytics?.summary?.shortlistedCandidates || 0, icon: "⭐" },
+    { label: "Saved by Candidates", value: analytics?.summary?.savedByCandidates || 0, icon: "🔖" },
   ];
 
   if (isLoading) {
@@ -121,9 +121,9 @@ function EmployerDashboard() {
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <p className="text-[13px] font-bold uppercase tracking-normal text-surface-500">{s.label}</p>
-                  <p className={`mt-2 text-3xl font-semibold font-display ${s.color}`}>{s.value}</p>
+                  <p className="mt-2 text-3xl font-semibold font-display text-surface-900">{s.value}</p>
                 </div>
-                <div className={`flex h-12 w-12 items-center justify-center rounded-2xl ${s.bg} text-xl shadow-sm`}>
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-surface-200 bg-surface-50 text-xl">
                   {s.icon}
                 </div>
               </div>
@@ -138,19 +138,18 @@ function EmployerDashboard() {
         {/* Quick Actions */}
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
           {[
-            { label: "Post a Job", desc: "Launch a new opening", path: "/employer/post-job", accent: "bg-brand-100 text-brand-700" },
-            { label: "Interview Calendar", desc: "Track scheduled candidate conversations", path: "/interviews", accent: "bg-cyan-100 text-cyan-700" },
-            { label: "Notifications", desc: "Review hiring updates", path: "/notifications", accent: "bg-surface-100 text-surface-700" },
+            { label: "Post a Job", desc: "Launch a new opening", path: "/employer/post-job" },
+            { label: "Interview Calendar", desc: "Track scheduled candidate conversations", path: "/interviews" },
+            { label: "Notifications", desc: "Review hiring updates", path: "/notifications" },
           ].map((action) => (
             <button
               key={action.label}
               type="button"
               onClick={() => navigate(action.path)}
-              className="premium-card group relative overflow-hidden border-none p-7 text-left transition-all duration-300 hover:-translate-y-1 hover:shadow-lg sm:p-8"
+              className="premium-card group p-7 text-left sm:p-8"
             >
-              <div className={`absolute right-0 top-0 -mr-4 -mt-4 h-32 w-32 rounded-full opacity-80 blur-2xl transition-transform duration-500 pointer-events-none group-hover:scale-150 ${action.accent.includes("cyan") ? "bg-cyan-100" : action.accent.includes("surface") ? "bg-surface-100" : "bg-brand-100"}`}></div>
-              <div className="relative z-10">
-                <p className={`inline-flex rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-normal ${action.accent}`}>Quick action</p>
+              <div>
+                <p className="inline-flex rounded-md border border-surface-200 bg-surface-50 px-3 py-1 text-[11px] font-medium text-surface-700">Quick action</p>
                 <p className="mt-5 font-display text-2xl font-bold text-surface-900">{action.label}</p>
                 <p className="mt-1.5 text-[15px] font-medium text-surface-700">{action.desc}</p>
                 <p className="mt-8 flex items-center gap-2 text-sm font-bold text-brand-700 opacity-90 transition-opacity group-hover:opacity-100">

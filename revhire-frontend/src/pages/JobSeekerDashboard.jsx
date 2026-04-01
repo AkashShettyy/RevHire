@@ -87,10 +87,10 @@ function JobSeekerDashboard() {
   }
 
   const stats = [
-    { label: "Total Applied", value: applications.length, color: "text-brand-700", bg: "bg-brand-100", icon: "📨" },
-    { label: "Shortlisted", value: applications.filter((a) => a.status === "shortlisted").length, color: "text-success-600", bg: "bg-success-100", icon: "✅" },
-    { label: "Pending", value: applications.filter((a) => a.status === "applied").length, color: "text-blue-700", bg: "bg-blue-100", icon: "⏳" },
-    { label: "Interviews", value: interviews.length, color: "text-purple-700", bg: "bg-purple-100", icon: "🗓️" },
+    { label: "Total Applied", value: applications.length, icon: "📨" },
+    { label: "Shortlisted", value: applications.filter((a) => a.status === "shortlisted").length, icon: "✅" },
+    { label: "Pending", value: applications.filter((a) => a.status === "applied").length, icon: "⏳" },
+    { label: "Interviews", value: interviews.length, icon: "🗓️" },
   ];
 
   const now = Date.now();
@@ -145,9 +145,9 @@ function JobSeekerDashboard() {
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <p className="text-[13px] font-bold uppercase tracking-normal text-surface-400">{s.label}</p>
-                  <p className={`mt-2 text-3xl font-semibold font-display ${s.color}`}>{s.value}</p>
+                  <p className="mt-2 text-3xl font-semibold font-display text-surface-900">{s.value}</p>
                 </div>
-                <div className={`flex h-12 w-12 items-center justify-center rounded-2xl ${s.bg} text-xl shadow-inner`}>
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-surface-200 bg-surface-50 text-xl">
                   {s.icon}
                 </div>
               </div>
@@ -157,20 +157,19 @@ function JobSeekerDashboard() {
 
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
           {[
-            { label: "My Resume", desc: "Refresh your profile", icon: "Resume", path: "/resume", accent: "bg-brand-100 text-brand-700" },
-            { label: "Saved Jobs", desc: "Track interesting roles", icon: "Saved", path: "/saved-jobs", accent: "bg-amber-100 text-amber-700" },
-            { label: "Applications", desc: "Review recent submissions", icon: "Track", path: "/applications", accent: "bg-sky-100 text-sky-700" },
-            { label: "Interview Calendar", desc: "Manage upcoming conversations", icon: "Calendar", path: "/interviews", accent: "bg-teal-100 text-teal-700" },
-            { label: "Settings", desc: "Update sign-in details", icon: "Account", path: "/settings", accent: "bg-surface-100 text-surface-700" },
+            { label: "My Resume", desc: "Refresh your profile", icon: "Resume", path: "/resume" },
+            { label: "Saved Jobs", desc: "Track interesting roles", icon: "Saved", path: "/saved-jobs" },
+            { label: "Applications", desc: "Review recent submissions", icon: "Track", path: "/applications" },
+            { label: "Interview Calendar", desc: "Manage upcoming conversations", icon: "Calendar", path: "/interviews" },
+            { label: "Settings", desc: "Update sign-in details", icon: "Account", path: "/settings" },
           ].map((a) => (
             <button
               key={a.label}
               onClick={() => navigate(a.path)}
-              className="premium-card group relative overflow-hidden p-7 text-left shadow-md shadow-brand-500/10 transition-all hover:-translate-y-1 hover:shadow-lg"
+              className="premium-card group p-7 text-left"
             >
-              <div className={`absolute -right-8 -top-8 h-32 w-32 rounded-full blur-2xl ${a.accent.includes("amber") ? "bg-amber-100/80" : a.accent.includes("sky") ? "bg-sky-100/80" : a.accent.includes("teal") ? "bg-teal-100/80" : "bg-brand-100/70"}`}></div>
-              <div className="relative z-10">
-                <span className={`inline-flex rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-normal ${a.accent}`}>{a.icon}</span>
+              <div>
+                <span className="inline-flex rounded-md border border-surface-200 bg-surface-50 px-3 py-1 text-[11px] font-medium text-surface-700">{a.icon}</span>
                 <p className="mt-5 font-display text-xl font-bold text-surface-900">{a.label}</p>
                 <p className="mt-1.5 text-sm font-medium text-surface-700">{a.desc}</p>
                 <div className="mt-6 flex items-center text-sm font-bold text-brand-700 transition-colors group-hover:text-brand-800">
