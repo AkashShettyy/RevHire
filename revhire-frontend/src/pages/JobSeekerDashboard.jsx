@@ -87,10 +87,10 @@ function JobSeekerDashboard() {
   }
 
   const stats = [
-    { label: "Total Applied", value: applications.length, accent: "border-brand-200 bg-brand-50/40" },
-    { label: "Shortlisted", value: applications.filter((a) => a.status === "shortlisted").length, accent: "border-emerald-200 bg-emerald-50/40" },
-    { label: "Pending", value: applications.filter((a) => a.status === "applied").length, accent: "border-amber-200 bg-amber-50/40" },
-    { label: "Interviews", value: interviews.length, accent: "border-cyan-200 bg-cyan-50/40" },
+    { label: "Total Applied", value: applications.length, accent: "from-brand-400 to-brand-600" },
+    { label: "Shortlisted", value: applications.filter((a) => a.status === "shortlisted").length, accent: "from-emerald-400 to-emerald-600" },
+    { label: "Pending", value: applications.filter((a) => a.status === "applied").length, accent: "from-amber-400 to-amber-600" },
+    { label: "Interviews", value: interviews.length, accent: "from-cyan-400 to-cyan-600" },
   ];
 
   const now = Date.now();
@@ -118,15 +118,27 @@ function JobSeekerDashboard() {
     <div className="app-shell">
       <div className="pt-8 pb-6 border-b border-surface-200/60 bg-white">
         <div className="layout-container mx-auto max-w-6xl">
-          <div className="section-card border-brand-100 bg-gradient-to-r from-brand-50/70 to-white px-6 py-6 sm:px-8">
-            <div>
-              <h1 className="text-2xl font-semibold tracking-tight text-surface-900 sm:text-3xl">Job Seeker Dashboard</h1>
-              <p className="mt-2 text-sm text-surface-700">Track applications, interviews, and saved activity.</p>
-            </div>
-            <div className="mt-5 flex flex-wrap gap-2">
-              <button onClick={() => navigate("/jobs")} className="btn-primary">Find Jobs</button>
-              <button onClick={() => navigate("/applications")} className="btn-secondary">My Applications</button>
-              <button onClick={() => navigate("/resume")} className="btn-secondary">Resume</button>
+          <div className="section-card border-brand-100 bg-gradient-to-br from-white via-brand-50/40 to-cyan-50/30 px-6 py-6 sm:px-8">
+            <div className="grid gap-6 md:grid-cols-[1.2fr,0.8fr] md:items-end">
+              <div>
+                <h1 className="text-2xl font-semibold tracking-tight text-surface-900 sm:text-3xl">Job Seeker Dashboard</h1>
+                <p className="mt-2 text-sm text-surface-700">Track applications, interviews, and saved activity.</p>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  <button onClick={() => navigate("/jobs")} className="btn-primary">Find Jobs</button>
+                  <button onClick={() => navigate("/applications")} className="btn-secondary">My Applications</button>
+                  <button onClick={() => navigate("/resume")} className="btn-secondary">Resume</button>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="rounded-xl border border-surface-200 bg-white px-4 py-3 shadow-sm">
+                  <p className="text-xs font-medium text-surface-500">Upcoming Interviews</p>
+                  <p className="mt-1 text-2xl font-semibold text-surface-900">{upcomingInterviews.length}</p>
+                </div>
+                <div className="rounded-xl border border-surface-200 bg-white px-4 py-3 shadow-sm">
+                  <p className="text-xs font-medium text-surface-500">Saved Jobs</p>
+                  <p className="mt-1 text-2xl font-semibold text-surface-900">{savedJobs.length}</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -146,13 +158,14 @@ function JobSeekerDashboard() {
           </div>
           <div className="stat-grid">
           {stats.map((s) => (
-            <div key={s.label} className={`metric-tile transition-all hover:-translate-y-0.5 ${s.accent}`}>
+            <div key={s.label} className="metric-tile relative overflow-hidden border-surface-200 bg-white transition-all hover:-translate-y-0.5 hover:shadow-md">
+              <div className={`absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r ${s.accent}`} />
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <p className="text-[12px] font-medium uppercase tracking-normal text-surface-500">{s.label}</p>
                   <p className="mt-2 text-3xl font-semibold font-display text-surface-900">{s.value}</p>
                 </div>
-                <span className="mt-1 inline-block h-2.5 w-2.5 rounded-full bg-surface-500/60" />
+                <span className="rounded-full border border-surface-200 bg-surface-50 px-2.5 py-1 text-[11px] font-medium text-surface-500">Live</span>
               </div>
             </div>
           ))}

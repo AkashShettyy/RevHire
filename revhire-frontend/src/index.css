@@ -207,18 +207,6 @@
   font-weight: 700 !important;
 }
 
-/* Global visual consistency across all pages/components */
-.app-shell .page-hero,
-.app-shell .section-card,
-.app-shell .premium-card,
-.app-shell .metric-tile,
-.auth-shell .auth-panel {
-  background: #ffffff !important;
-  border: 1px solid #dce4ee !important;
-  border-radius: 0.75rem !important;
-  box-shadow: 0 4px 14px rgba(16, 28, 45, 0.06) !important;
-}
-
 .app-shell .btn-primary,
 .auth-shell .btn-primary,
 .app-shell .btn-secondary,
@@ -228,9 +216,4 @@
   border-radius: 0.5rem !important;
   font-weight: 500 !important;
   letter-spacing: 0 !important;
-}
-
-/* Remove decorative glow blobs to keep screens visually consistent */
-[class*="absolute"][class*="rounded-full"][class*="blur-"][class*="pointer-events-none"] {
-  display: none !important;
 }

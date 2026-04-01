@@ -59,12 +59,12 @@ function EmployerDashboard() {
   }
 
   const stats = [
-    { label: "Total Jobs", value: jobs.length, accent: "border-brand-200 bg-brand-50/40" },
-    { label: "Active Jobs", value: jobs.filter((j) => j.status === "open").length, accent: "border-emerald-200 bg-emerald-50/40" },
-    { label: "Closed Jobs", value: jobs.filter((j) => j.status === "closed").length, accent: "border-surface-200 bg-surface-50/60" },
-    { label: "Applications", value: analytics?.summary?.totalApplications || 0, accent: "border-cyan-200 bg-cyan-50/40" },
-    { label: "Shortlisted", value: analytics?.summary?.shortlistedCandidates || 0, accent: "border-amber-200 bg-amber-50/40" },
-    { label: "Saved by Candidates", value: analytics?.summary?.savedByCandidates || 0, accent: "border-indigo-200 bg-indigo-50/40" },
+    { label: "Total Jobs", value: jobs.length, accent: "from-brand-400 to-brand-600" },
+    { label: "Active Jobs", value: jobs.filter((j) => j.status === "open").length, accent: "from-emerald-400 to-emerald-600" },
+    { label: "Closed Jobs", value: jobs.filter((j) => j.status === "closed").length, accent: "from-surface-400 to-surface-600" },
+    { label: "Applications", value: analytics?.summary?.totalApplications || 0, accent: "from-cyan-400 to-cyan-600" },
+    { label: "Shortlisted", value: analytics?.summary?.shortlistedCandidates || 0, accent: "from-amber-400 to-amber-600" },
+    { label: "Saved by Candidates", value: analytics?.summary?.savedByCandidates || 0, accent: "from-indigo-400 to-indigo-600" },
   ];
 
   if (isLoading) {
@@ -82,29 +82,33 @@ function EmployerDashboard() {
     <div className="app-shell">
       <div className="pt-8 pb-6 border-b border-surface-200/60 bg-white relative z-10">
         <div className="layout-container max-w-6xl">
-          <div className="section-card border-brand-100 bg-gradient-to-r from-brand-50/70 to-white flex flex-col gap-5 px-6 py-6 sm:px-8 md:flex-row md:items-end md:justify-between">
-            <div>
-              <h1 className="text-2xl font-semibold tracking-tight text-surface-900 sm:text-3xl">
-                Welcome, {user?.name}
-              </h1>
-              <p className="mt-2 max-w-2xl text-sm text-surface-700">
-                Manage active roles, applicants, and hiring status.
-              </p>
-            </div>
-            <div className="flex flex-col items-end gap-3 text-right">
+          <div className="section-card border-brand-100 bg-gradient-to-br from-white via-brand-50/40 to-cyan-50/30 px-6 py-6 sm:px-8">
+            <div className="grid gap-6 md:grid-cols-[1.2fr,0.8fr] md:items-end">
+              <div>
+                <h1 className="text-2xl font-semibold tracking-tight text-surface-900 sm:text-3xl">Employer Dashboard</h1>
+                <p className="mt-2 max-w-2xl text-sm text-surface-700">Manage active roles, applicants, and hiring status.</p>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  <button onClick={() => navigate("/employer/post-job")} className="btn-primary">Post a Job</button>
+                  <button onClick={() => navigate("/interviews")} className="btn-secondary">Interviews</button>
+                  <button onClick={() => navigate("/notifications")} className="btn-secondary">Notifications</button>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="rounded-xl border border-surface-200 bg-white px-4 py-3 shadow-sm">
+                  <p className="text-xs font-medium text-surface-500">Open Roles</p>
+                  <p className="mt-1 text-2xl font-semibold text-surface-900">{jobs.filter((j) => j.status === "open").length}</p>
+                </div>
+                <div className="rounded-xl border border-surface-200 bg-white px-4 py-3 shadow-sm">
+                  <p className="text-xs font-medium text-surface-500">Applications</p>
+                  <p className="mt-1 text-2xl font-semibold text-surface-900">{analytics?.summary?.totalApplications || 0}</p>
+                </div>
+              </div>
               {user?.organization && (
-                <div className="flex flex-col items-end rounded-2xl border border-brand-100 bg-white/80 px-4 py-2.5 text-[14px] shadow-sm backdrop-blur-sm">
-                  <p className="font-bold text-surface-900">{user.organization.name}</p>
-                  <p className="mt-0.5 flex items-center gap-2 text-surface-700">
-                    Join Code: <span className="select-all rounded border border-brand-100 bg-brand-50 px-2 py-0.5 font-mono font-bold text-brand-700">{user.organization.joinCode}</span>
-                  </p>
+                <div className="rounded-xl border border-surface-200 bg-white px-4 py-3 text-sm text-surface-700 shadow-sm md:col-span-2">
+                  <p className="font-semibold text-surface-900">{user.organization.name}</p>
+                  <p className="mt-1">Join code: <span className="font-mono font-semibold text-brand-700">{user.organization.joinCode}</span></p>
                 </div>
               )}
-              <div className="flex flex-wrap justify-end gap-2">
-                <button onClick={() => navigate("/interviews")} className="btn-secondary w-full sm:w-auto">Interviews</button>
-                <button onClick={() => navigate("/notifications")} className="btn-secondary w-full sm:w-auto">Notifications</button>
-                <button onClick={() => navigate("/employer/post-job")} className="btn-primary w-full sm:w-auto">Post a Job</button>
-              </div>
             </div>
           </div>
         </div>
@@ -118,13 +122,14 @@ function EmployerDashboard() {
           </div>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
           {stats.map((s) => (
-            <div key={s.label} className={`metric-tile transition-all hover:-translate-y-0.5 ${s.accent}`}>
+            <div key={s.label} className="metric-tile relative overflow-hidden border-surface-200 bg-white transition-all hover:-translate-y-0.5 hover:shadow-md">
+              <div className={`absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r ${s.accent}`} />
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <p className="text-[12px] font-medium uppercase tracking-normal text-surface-500">{s.label}</p>
                   <p className="mt-2 text-3xl font-semibold font-display text-surface-900">{s.value}</p>
                 </div>
-                <span className="mt-1 inline-block h-2.5 w-2.5 rounded-full bg-surface-500/60" />
+                <span className="rounded-full border border-surface-200 bg-surface-50 px-2.5 py-1 text-[11px] font-medium text-surface-500">Live</span>
               </div>
             </div>
           ))}
