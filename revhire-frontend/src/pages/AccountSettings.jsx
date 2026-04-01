@@ -44,60 +44,73 @@ function AccountSettings() {
 
   return (
     <div className="app-shell">
-      <div className="layout-container max-w-3xl py-12">
-        <div className="section-card p-6 sm:p-8">
-          <div className="mb-8 border-b border-surface-200 pb-5">
-            <h1 className="font-display text-2xl font-bold text-surface-900">Account Settings</h1>
-            <p className="mt-2 text-sm text-surface-700">Change your password.</p>
-          </div>
+      <div className="layout-container max-w-5xl py-12">
+        <div className="mb-8">
+          <h1 className="font-display text-3xl font-bold tracking-tight text-surface-900">Account Settings</h1>
+          <p className="mt-2 text-sm text-surface-700">Manage password and account security.</p>
+        </div>
 
-          <div className="mb-6">
-            <h2 className="text-lg font-semibold text-surface-900">Password</h2>
-            <p className="mt-1 text-sm text-surface-700">Use a password you do not reuse elsewhere.</p>
-          </div>
+        <div className="grid gap-6 lg:grid-cols-[0.9fr,1.1fr]">
+          <aside className="section-card p-6">
+            <h2 className="text-base font-semibold text-surface-900">Security Tips</h2>
+            <ul className="mt-4 space-y-3 text-sm text-surface-700">
+              <li className="rounded-lg border border-surface-200 bg-surface-50 px-3 py-2">Use at least 8 characters.</li>
+              <li className="rounded-lg border border-surface-200 bg-surface-50 px-3 py-2">Include a mix of letters, numbers, and symbols.</li>
+              <li className="rounded-lg border border-surface-200 bg-surface-50 px-3 py-2">Do not reuse passwords from other sites.</li>
+            </ul>
+          </aside>
 
-          <form onSubmit={handleSubmit} className="space-y-5">
-            <PasswordInput
-              label="Current Password"
-              name="currentPassword"
-              value={formData.currentPassword}
-              onChange={handleChange}
-              placeholder="Enter current password"
-              autoComplete="current-password"
-              className="app-input"
-              required
-            />
-            <PasswordInput
-              label="New Password"
-              name="newPassword"
-              value={formData.newPassword}
-              onChange={handleChange}
-              placeholder="At least 6 characters"
-              autoComplete="new-password"
-              className="app-input"
-              required
-            />
-            <PasswordInput
-              label="Confirm New Password"
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              placeholder="Re-enter new password"
-              autoComplete="new-password"
-              className="app-input"
-              required
-            />
+          <section className="section-card p-6 sm:p-8">
+            <div className="mb-6 border-b border-surface-200 pb-4">
+              <h2 className="text-lg font-semibold text-surface-900">Change Password</h2>
+              <p className="mt-1 text-sm text-surface-700">Update your sign-in password below.</p>
+            </div>
 
-            {message.text && (
-              <div className={message.type === "success" ? "rounded-xl border border-success-200 bg-success-50 p-4 font-semibold text-success-800" : "rounded-xl border border-error-200 bg-error-50 p-4 font-semibold text-error-800"}>
-                {message.text}
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <PasswordInput
+                label="Current Password"
+                name="currentPassword"
+                value={formData.currentPassword}
+                onChange={handleChange}
+                placeholder="Enter current password"
+                autoComplete="current-password"
+                className="input-field"
+                required
+              />
+              <PasswordInput
+                label="New Password"
+                name="newPassword"
+                value={formData.newPassword}
+                onChange={handleChange}
+                placeholder="At least 6 characters"
+                autoComplete="new-password"
+                className="input-field"
+                required
+              />
+              <PasswordInput
+                label="Confirm New Password"
+                name="confirmPassword"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                placeholder="Re-enter new password"
+                autoComplete="new-password"
+                className="input-field"
+                required
+              />
+
+              {message.text && (
+                <div className={message.type === "success" ? "rounded-lg border border-success-200 bg-success-50 p-3 text-sm font-medium text-success-800" : "rounded-lg border border-error-200 bg-error-50 p-3 text-sm font-medium text-error-800"}>
+                  {message.text}
+                </div>
+              )}
+
+              <div className="pt-2">
+                <button type="submit" disabled={isLoading} className="btn-primary w-full sm:w-auto">
+                  {isLoading ? "Updating..." : "Update Password"}
+                </button>
               </div>
-            )}
-
-            <button type="submit" disabled={isLoading} className="btn-primary">
-              {isLoading ? "Updating..." : "Update Password"}
-            </button>
-          </form>
+            </form>
+          </section>
         </div>
       </div>
     </div>
