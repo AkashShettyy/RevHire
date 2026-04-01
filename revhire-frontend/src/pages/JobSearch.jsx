@@ -31,9 +31,6 @@ function JobSearch() {
     limit: 9,
   });
   const navigate = useNavigate();
-  const activeFilterCount = Object.entries(filters).filter(
-    ([key, value]) => !["page", "limit", "sortBy"].includes(key) && value !== "",
-  ).length;
 
   const fetchJobs = useCallback(async (activeFilters) => {
     setIsLoading(true);
@@ -102,42 +99,22 @@ function JobSearch() {
 
   return (
     <div className="app-shell">
-      <div className="absolute top-0 right-0 -mr-40 h-[500px] w-full bg-brand-200/20 blur-[120px] pointer-events-none"></div>
-
-      <div className="pt-10 pb-8 border-b border-surface-200/60 bg-white/40">
+      <div className="pt-8 pb-8 border-b border-surface-200/60 bg-white">
         <div className="layout-container">
           <div className="mx-auto max-w-7xl">
             <div className="page-hero">
-              <div className="absolute -mr-20 -mt-20 right-0 top-0 h-96 w-96 rounded-full bg-brand-400/20 blur-[80px] pointer-events-none"></div>
-              
-              <div className="relative z-10 grid gap-10 xl:grid-cols-[1.2fr_0.8fr] xl:items-end">
-                <div>
-                  <span className="eyebrow">
-                    Discover Your Next Role
-                  </span>
-                  <h1 className="mt-5 font-display text-4xl font-semibold tracking-tight text-surface-900 sm:text-5xl">Find roles that fit perfectly.</h1>
-                  <p className="mt-4 max-w-2xl text-[17px] leading-relaxed text-surface-700 font-medium">
-                    Search and filter thousands of job postings by title, location, skills, compensation, and recency.
-                  </p>
-                </div>
-                <div className="grid gap-4 sm:grid-cols-3">
-                  <div className="rounded-xl border border-surface-200 bg-white px-6 py-6">
-                    <p className="text-[11px] font-bold uppercase tracking-normal text-surface-600">Results</p>
-                    <p className="mt-2 font-display text-3xl font-bold text-surface-900">{pagination.total}</p>
-                  </div>
-                  <div className="rounded-xl border border-surface-200 bg-white px-6 py-6">
-                    <p className="text-[11px] font-bold uppercase tracking-normal text-surface-600">Filters</p>
-                    <p className="mt-2 font-display text-3xl font-bold text-surface-900">{activeFilterCount}</p>
-                  </div>
-                  <div className="rounded-xl border border-surface-200 bg-white px-6 py-6">
-                    <p className="text-[11px] font-bold uppercase tracking-normal text-surface-600">Sort</p>
-                    <p className="mt-2 font-display text-lg font-bold capitalize text-surface-900">{filters.sortBy.replace("_", " ")}</p>
-                  </div>
-                </div>
+              <div>
+                <span className="eyebrow">Find Jobs</span>
+                <h1 className="mt-4 font-display text-3xl font-semibold tracking-tight text-surface-900 sm:text-4xl">
+                  Browse opportunities
+                </h1>
+                <p className="mt-2 max-w-2xl text-sm text-surface-700">
+                  Use filters to find jobs by role, company, location, and salary.
+                </p>
               </div>
             </div>
 
-            <form onSubmit={handleSearch} className="section-card mt-10 grid grid-cols-1 items-center gap-4 p-7 md:grid-cols-2 xl:grid-cols-4 shadow-md shadow-surface-200/40">
+            <form onSubmit={handleSearch} className="section-card mt-6 grid grid-cols-1 items-center gap-4 p-7 md:grid-cols-2 xl:grid-cols-4 shadow-md shadow-surface-200/40">
               <input type="text" name="search" placeholder="Job title or skill..." value={filters.search} onChange={handleFilterChange} className="input-field bg-surface-50" />
               <input type="text" name="company" placeholder="Company Name" value={filters.company} onChange={handleFilterChange} className="input-field bg-surface-50" />
               <input type="text" name="skills" placeholder="Skills, comma separated" value={filters.skills} onChange={handleFilterChange} className="input-field bg-surface-50" />
@@ -176,8 +153,8 @@ function JobSearch() {
 
       <div className="layout-container mx-auto max-w-7xl py-16">
         <div className="mb-10 flex items-center justify-between">
-          <h2 className="heading-section">Latest Opportunities</h2>
-          <p className="text-sm font-bold uppercase tracking-wider text-surface-600">
+          <h2 className="heading-section">Jobs</h2>
+          <p className="text-sm text-surface-600">
             {isLoading ? "Searching..." : `${pagination.total} job${pagination.total !== 1 ? "s" : ""} found`}
           </p>
         </div>
@@ -197,9 +174,6 @@ function JobSearch() {
           </div>
         ) : jobs.length === 0 ? (
           <div className="premium-card p-16 text-center bg-white border-none shadow-sm">
-            <div className="inline-flex w-24 h-24 rounded-full bg-surface-50 items-center justify-center mb-6">
-              <span className="text-4xl">🔍</span>
-            </div>
             <h3 className="text-2xl font-bold text-surface-900 font-display mb-2">No jobs matched your criteria</h3>
             <p className="text-[15px] font-medium text-surface-700 max-w-md mx-auto">Try adjusting your search filters to find what you're looking for.</p>
           </div>
