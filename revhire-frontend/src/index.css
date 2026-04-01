@@ -47,11 +47,11 @@
 
 @layer components {
   .layout-container {
-    @apply mx-auto w-full max-w-[88rem] px-5 sm:px-8 lg:px-10;
+    @apply mx-auto w-full max-w-[80rem] px-5 sm:px-8 lg:px-10;
   }
 
   .app-shell {
-    @apply min-h-screen relative overflow-hidden pb-20;
+    @apply min-h-screen relative overflow-hidden pt-6 pb-24;
   }
 
   .app-shell::before {
@@ -88,7 +88,7 @@
   }
 
   .metric-tile {
-    @apply rounded-[26px] border border-surface-300 bg-white p-6 shadow-[0_16px_40px_rgba(16,28,45,0.08)] backdrop-blur-sm;
+    @apply rounded-[26px] border border-surface-300 bg-white p-7 shadow-[0_16px_40px_rgba(16,28,45,0.08)] backdrop-blur-sm;
   }
 
   .section-card {
@@ -190,10 +190,10 @@
   }
 
   .stat-grid {
-    @apply grid gap-6 sm:grid-cols-2 xl:grid-cols-4;
+    @apply grid gap-8 sm:grid-cols-2 xl:grid-cols-4;
   }
 
   .action-card {
-    @apply premium-card relative overflow-hidden p-7 text-left;
+    @apply premium-card relative overflow-hidden p-8 text-left;
   }
 }
