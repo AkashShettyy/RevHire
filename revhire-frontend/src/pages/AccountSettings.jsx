@@ -50,16 +50,7 @@ function AccountSettings() {
           <p className="mt-2 text-sm text-surface-700">Manage password and account security.</p>
         </div>
 
-        <div className="grid gap-6 lg:grid-cols-[0.9fr,1.1fr]">
-          <aside className="section-card p-6">
-            <h2 className="text-base font-semibold text-surface-900">Security Tips</h2>
-            <ul className="mt-4 space-y-3 text-sm text-surface-700">
-              <li className="rounded-lg border border-surface-200 bg-surface-50 px-3 py-2">Use at least 8 characters.</li>
-              <li className="rounded-lg border border-surface-200 bg-surface-50 px-3 py-2">Include a mix of letters, numbers, and symbols.</li>
-              <li className="rounded-lg border border-surface-200 bg-surface-50 px-3 py-2">Do not reuse passwords from other sites.</li>
-            </ul>
-          </aside>
-
+        <div className="mx-auto max-w-3xl">
           <section className="section-card p-6 sm:p-8">
             <div className="mb-6 border-b border-surface-200 pb-4">
               <h2 className="text-lg font-semibold text-surface-900">Change Password</h2>
