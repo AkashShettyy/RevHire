@@ -69,17 +69,13 @@ function Navbar() {
   if (isAuthPage) {
     return (
       <nav className="sticky top-0 z-50 border-b border-white/60 bg-white/70 backdrop-blur-sm">
-        <div className="layout-container flex h-20 items-center justify-between">
+        <div className="layout-container flex h-20 items-center">
           <Link to="/" className="inline-flex items-center gap-3 text-surface-900 group">
             <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-500 via-brand-600 to-surface-900 text-sm font-semibold text-white shadow-lg shadow-brand-500/25 transition-transform duration-300 group-hover:scale-105">
               RH
             </span>
             <span className="block font-display text-xl font-bold tracking-tight">RevHire</span>
           </Link>
-          <div className="hidden items-center gap-4 lg:flex">
-            <Link to="/login" className="btn-ghost">Sign In</Link>
-            <Link to="/register" className="btn-primary px-5 py-2.5 text-sm">Get Started</Link>
-          </div>
         </div>
       </nav>
     );
