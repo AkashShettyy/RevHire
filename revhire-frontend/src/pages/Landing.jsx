@@ -31,7 +31,7 @@ function Landing() {
     <div className="app-shell">
       <div className="absolute top-0 right-0 -mr-40 h-[600px] w-[600px] rounded-full bg-brand-300/20 blur-[120px] pointer-events-none"></div>
       
-      <section className="relative pt-20 pb-16 sm:pt-28 sm:pb-24">
+      <section className="relative pt-8 pb-16 sm:pt-12 sm:pb-24">
         <div className="layout-container">
           <div className="grid items-center gap-20 lg:grid-cols-[1.05fr_0.95fr]">
             <div className="relative z-10">
