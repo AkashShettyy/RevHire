@@ -77,15 +77,6 @@ function Register() {
         </div>
 
         <div className="w-full max-w-[440px] justify-self-center lg:justify-self-end">
-          <div className="text-center mb-8 lg:hidden">
-            <Link to="/" className="inline-flex items-center gap-2 text-surface-900 mb-6">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 text-sm font-bold text-white shadow-md">
-                RH
-              </span>
-              <span className="font-display text-2xl font-bold tracking-tight">RevHire</span>
-            </Link>
-          </div>
-
           <div className="auth-panel">
             <div className="mb-8">
               <h2 className="font-display text-2xl font-bold text-surface-900">Create an account</h2>

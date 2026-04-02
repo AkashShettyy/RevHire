@@ -33,7 +33,7 @@ function Layout({ children }) {
       <div className="pointer-events-none fixed inset-x-0 top-0 z-0 h-[520px] bg-gradient-to-b from-brand-100/50 via-white/0 to-transparent" />
       <div className="pointer-events-none fixed left-[-12rem] top-[-10rem] z-0 h-[28rem] w-[28rem] rounded-full bg-brand-300/15 blur-[120px]" />
       <div className="pointer-events-none fixed bottom-[-10rem] right-[-8rem] z-0 h-[24rem] w-[24rem] rounded-full bg-cyan-300/15 blur-[120px]" />
-      {!isAuthPage && <Navbar />}
+      <Navbar />
       <main className={isAuthPage ? "relative w-full" : "relative w-full pb-12"}>
         {children}
       </main>
