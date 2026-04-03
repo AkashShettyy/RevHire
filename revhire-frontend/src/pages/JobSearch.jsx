@@ -99,52 +99,111 @@ function JobSearch() {
 
   return (
     <div className="app-shell">
-      <div className="pt-8 pb-8 border-b border-surface-200/60 bg-white">
+      <div className="border-b border-white/50 bg-white/45 pt-8 pb-10 backdrop-blur-sm">
         <div className="layout-container">
           <div className="mx-auto max-w-7xl">
-            <div className="page-hero">
+            <div className="page-hero grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
               <div>
                 <span className="eyebrow">Find Jobs</span>
-                <h1 className="mt-4 font-display text-3xl font-semibold tracking-tight text-surface-900 sm:text-4xl">
-                  Browse opportunities
+                <h1 className="mt-4 font-display text-3xl font-semibold tracking-tight text-surface-900 sm:text-5xl">
+                  Browse opportunities with a cleaner search flow
                 </h1>
-                <p className="mt-2 max-w-2xl text-sm text-surface-700">
-                  Use filters to find jobs by role, company, location, and salary.
+                <p className="mt-3 max-w-2xl text-[15px] text-surface-700 sm:text-base">
+                  Search by title, company, skill, location, salary, and recency. The layout keeps filters visible and the results easier to scan.
                 </p>
+              </div>
+              <div className="grid gap-3 sm:grid-cols-3">
+                {[
+                  { label: "Open roles", value: isLoading ? "..." : pagination.total },
+                  { label: "Saved", value: user?.role === "jobseeker" ? savedJobIds.length : "N/A" },
+                  { label: "Sort", value: filters.sortBy.replace("_", " ") },
+                ].map((item) => (
+                  <div key={item.label} className="metric-tile">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-surface-500">{item.label}</p>
+                    <p className="mt-3 font-display text-3xl font-semibold text-surface-900">{item.value}</p>
+                  </div>
+                ))}
               </div>
             </div>
 
-            <form onSubmit={handleSearch} className="section-card mt-6 grid grid-cols-1 items-center gap-4 p-7 md:grid-cols-2 xl:grid-cols-4 shadow-md shadow-surface-200/40">
-              <input type="text" name="search" placeholder="Job title or skill..." value={filters.search} onChange={handleFilterChange} className="input-field bg-surface-50" />
-              <input type="text" name="company" placeholder="Company Name" value={filters.company} onChange={handleFilterChange} className="input-field bg-surface-50" />
-              <input type="text" name="skills" placeholder="Skills, comma separated" value={filters.skills} onChange={handleFilterChange} className="input-field bg-surface-50" />
-              <input type="text" name="location" placeholder="Location" value={filters.location} onChange={handleFilterChange} className="input-field bg-surface-50" />
-              <select name="jobType" value={filters.jobType} onChange={handleFilterChange} className="input-field bg-surface-50">
-                <option value="">All Job Types</option>
-                <option value="fulltime">Full Time</option>
-                <option value="parttime">Part Time</option>
-                <option value="internship">Internship</option>
-                <option value="remote">Remote</option>
-              </select>
-              <div className="grid grid-cols-2 gap-2">
-                <input type="number" name="salaryMin" placeholder="Min K" value={filters.salaryMin} onChange={handleFilterChange} className="input-field bg-surface-50" />
-                <input type="number" name="salaryMax" placeholder="Max K" value={filters.salaryMax} onChange={handleFilterChange} className="input-field bg-surface-50" />
+            <form onSubmit={handleSearch} className="section-card mt-6 grid grid-cols-1 gap-5 p-6 md:grid-cols-2 xl:grid-cols-[1.2fr_1fr_1fr_1fr]">
+              <div className="xl:col-span-2">
+                <label className="label-text">Search by role or keyword</label>
+                <input type="text" name="search" placeholder="Frontend engineer, React, product designer..." value={filters.search} onChange={handleFilterChange} className="input-field" />
               </div>
-              <select name="daysPosted" value={filters.daysPosted} onChange={handleFilterChange} className="input-field bg-surface-50">
-                <option value="">Any Date Posted</option>
-                <option value="1">Last 24 hours</option>
-                <option value="7">Last 7 days</option>
-                <option value="14">Last 14 days</option>
-                <option value="30">Last 30 days</option>
-              </select>
-              <div className="flex gap-2">
-                <select name="sortBy" value={filters.sortBy} onChange={handleFilterChange} className="input-field bg-surface-50 flex-1">
-                  <option value="newest">Newest First</option>
-                  <option value="deadline">Deadline Soon</option>
-                  <option value="salary_high">Salary (High)</option>
-                  <option value="salary_low">Salary (Low)</option>
+              <div>
+                <label className="label-text">Company</label>
+                <input type="text" name="company" placeholder="Company name" value={filters.company} onChange={handleFilterChange} className="input-field" />
+              </div>
+              <div>
+                <label className="label-text">Location</label>
+                <input type="text" name="location" placeholder="City or remote" value={filters.location} onChange={handleFilterChange} className="input-field" />
+              </div>
+              <div>
+                <label className="label-text">Skills</label>
+                <input type="text" name="skills" placeholder="React, Node, SQL" value={filters.skills} onChange={handleFilterChange} className="input-field" />
+              </div>
+              <div>
+                <label className="label-text">Job type</label>
+                <select name="jobType" value={filters.jobType} onChange={handleFilterChange} className="input-field">
+                  <option value="">All job types</option>
+                  <option value="fulltime">Full time</option>
+                  <option value="parttime">Part time</option>
+                  <option value="internship">Internship</option>
+                  <option value="remote">Remote</option>
                 </select>
-                <button type="submit" className="btn-primary flex-1 shadow-brand-500/20">Find</button>
+              </div>
+              <div>
+                <label className="label-text">Date posted</label>
+                <select name="daysPosted" value={filters.daysPosted} onChange={handleFilterChange} className="input-field">
+                  <option value="">Any time</option>
+                  <option value="1">Last 24 hours</option>
+                  <option value="7">Last 7 days</option>
+                  <option value="14">Last 14 days</option>
+                  <option value="30">Last 30 days</option>
+                </select>
+              </div>
+              <div>
+                <label className="label-text">Sort by</label>
+                <select name="sortBy" value={filters.sortBy} onChange={handleFilterChange} className="input-field">
+                  <option value="newest">Newest first</option>
+                  <option value="deadline">Deadline soon</option>
+                  <option value="salary_high">Salary high</option>
+                  <option value="salary_low">Salary low</option>
+                </select>
+              </div>
+              <div>
+                <label className="label-text">Salary range</label>
+                <div className="grid grid-cols-2 gap-2">
+                  <input type="number" name="salaryMin" placeholder="Min" value={filters.salaryMin} onChange={handleFilterChange} className="input-field" />
+                  <input type="number" name="salaryMax" placeholder="Max" value={filters.salaryMax} onChange={handleFilterChange} className="input-field" />
+                </div>
+              </div>
+              <div className="flex items-end gap-3 md:col-span-2 xl:col-span-4">
+                <button type="submit" className="btn-primary px-8 py-3">
+                  Find roles
+                </button>
+                <button
+                  type="button"
+                  onClick={() =>
+                    setFilters({
+                      search: "",
+                      location: "",
+                      jobType: "",
+                      company: "",
+                      skills: "",
+                      salaryMin: "",
+                      salaryMax: "",
+                      sortBy: "newest",
+                      daysPosted: "",
+                      page: 1,
+                      limit: 9,
+                    })
+                  }
+                  className="btn-secondary px-6 py-3"
+                >
+                  Reset filters
+                </button>
               </div>
             </form>
           </div>
@@ -183,46 +242,56 @@ function JobSearch() {
               <article
                 key={job._id}
                 onClick={() => navigate(`/jobs/${job._id}`)}
-                className="premium-card group cursor-pointer bg-white p-8 hover:border-brand-200 hover:shadow-brand-500/5 transition-all duration-300"
+                className="premium-card group cursor-pointer bg-white p-8"
               >
                 <div className="flex flex-col sm:flex-row items-start justify-between gap-6">
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-3 flex-wrap mb-2">
-                      <h3 className="text-xl font-bold text-surface-900 font-display transition-colors group-hover:text-brand-600 truncate mr-2">{job.title}</h3>
-                      <span className={`badge ${jobTypeColors[job.jobType] || "badge-neutral"}`}>
-                        {job.jobType}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2 mb-4">
-                      <p className="text-[15px] font-bold text-surface-700">
-                        {job.organization?.name || "Company Name Hidden"}
-                      </p>
+                    <div className="mb-4 flex items-start gap-4">
+                      <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[1.25rem] bg-gradient-to-br from-brand-50 via-white to-cyan-50 text-lg font-bold text-brand-700 shadow-sm">
+                        {(job.organization?.name || job.title || "J").charAt(0)}
+                      </div>
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-3 flex-wrap mb-2">
+                          <h3 className="mr-2 truncate font-display text-xl font-bold text-surface-900 transition-colors group-hover:text-brand-600">{job.title}</h3>
+                          <span className={`badge ${jobTypeColors[job.jobType] || "badge-neutral"}`}>
+                            {job.jobType}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <p className="text-[15px] font-bold text-surface-700">
+                            {job.organization?.name || "Company Name Hidden"}
+                          </p>
+                        </div>
+                      </div>
                     </div>
                     
                     <div className="mb-5 flex flex-wrap gap-x-6 gap-y-3 text-sm font-medium text-surface-700">
                       <span className="flex items-center gap-1.5">📍 {job.location}</span>
                       {job.salaryRange?.min && (
-                        <span className="flex items-center gap-1.5">💰 ₹{job.salaryRange.min.toLocaleString()} – ₹{job.salaryRange.max?.toLocaleString()}</span>
+                        <span className="flex items-center gap-1.5">💰 ₹{job.salaryRange.min.toLocaleString()} - ₹{job.salaryRange.max?.toLocaleString()}</span>
                       )}
                       <span className="flex items-center gap-1.5">📅 {new Date(job.deadline).toLocaleDateString()}</span>
                     </div>
-
-                    <div className="flex flex-wrap gap-2">
+                    <p className="max-w-3xl text-sm leading-6 text-surface-600">
+                      {job.description?.slice(0, 180)}
+                      {job.description?.length > 180 ? "..." : ""}
+                    </p>
+                    <div className="mt-5 flex flex-wrap gap-2">
                       {job.skillsRequired?.slice(0, 6).map((skill, i) => (
-                        <span key={i} className="rounded-lg border border-surface-300 bg-surface-100 px-3 py-1 text-[13px] font-semibold text-surface-700">{skill}</span>
+                        <span key={i} className="rounded-full border border-surface-300 bg-white px-3 py-1 text-[13px] font-semibold text-surface-700 shadow-sm">{skill}</span>
                       ))}
                     </div>
                   </div>
 
-                  <div className="flex shrink-0 flex-row sm:flex-col items-center sm:items-end gap-3 w-full sm:w-auto mt-4 sm:mt-0 pt-4 sm:pt-0 border-t sm:border-0 border-surface-100">
-                    <span className="btn-primary w-full sm:w-auto px-6 py-2.5 text-sm">
-                      View full details
+                  <div className="flex w-full shrink-0 flex-row items-center gap-3 border-t border-surface-100 pt-4 sm:mt-0 sm:w-auto sm:flex-col sm:items-end sm:border-0 sm:pt-0">
+                    <span className="rounded-full bg-surface-950 px-6 py-2.5 text-sm font-semibold text-white shadow-[0_12px_24px_rgba(16,28,45,0.18)]">
+                      View details
                     </span>
                     {user?.role === "jobseeker" && (
                       <button
                         type="button"
                         onClick={(event) => handleToggleSave(event, job._id)}
-                        className={`w-full sm:w-auto rounded-xl px-5 py-2 text-sm font-bold border transition-colors ${
+                        className={`w-full sm:w-auto rounded-full px-5 py-2 text-sm font-bold border transition-colors ${
                           savedJobIds.includes(job._id)
                             ? "bg-brand-50 border-brand-200 text-brand-700"
                             : "bg-white border-surface-200 text-surface-600 hover:bg-surface-50"

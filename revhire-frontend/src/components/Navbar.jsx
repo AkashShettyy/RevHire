@@ -68,13 +68,16 @@ function Navbar() {
 
   if (isAuthPage) {
     return (
-      <nav className="sticky top-0 z-50 border-b border-white/60 bg-white/70 backdrop-blur-sm">
+      <nav className="sticky top-0 z-50 border-b border-white/50 bg-white/60 backdrop-blur-xl">
         <div className="layout-container flex h-20 items-center">
           <Link to="/" className="inline-flex items-center gap-3 text-surface-900 group">
-            <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-500 via-brand-600 to-surface-900 text-sm font-semibold text-white shadow-lg shadow-brand-500/25 transition-transform duration-300 group-hover:scale-105">
+            <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-surface-950 via-brand-700 to-brand-500 text-sm font-semibold text-white shadow-[0_18px_35px_rgba(29,78,216,0.24)] transition-transform duration-300 group-hover:scale-105">
               RH
             </span>
-            <span className="block font-display text-xl font-bold tracking-tight">RevHire</span>
+            <span>
+              <span className="block font-display text-xl font-bold tracking-tight">RevHire</span>
+              <span className="block text-xs font-semibold uppercase tracking-[0.18em] text-surface-500">Hiring workspace</span>
+            </span>
           </Link>
         </div>
       </nav>
@@ -82,24 +85,29 @@ function Navbar() {
   }
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-surface-200 bg-white/95 backdrop-blur-md">
-      <div className="layout-container flex h-16 items-center justify-between">
+    <nav className="sticky top-0 z-50 border-b border-white/50 bg-[#f7f3ec]/75 backdrop-blur-xl">
+      <div className="layout-container flex h-[4.65rem] items-center justify-between">
         <Link
           to={user ? (user.role === "employer" ? "/employer/dashboard" : "/dashboard") : "/"}
           className="inline-flex items-center gap-3 text-surface-900 group"
         >
-          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-600 text-xs font-bold text-white">
+          <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-surface-950 via-brand-700 to-brand-500 text-xs font-bold text-white shadow-[0_14px_30px_rgba(29,78,216,0.22)]">
             RH
           </span>
-          <span className="block font-display text-lg font-semibold tracking-tight">RevHire</span>
+          <span>
+            <span className="block font-display text-lg font-semibold tracking-tight">RevHire</span>
+            <span className="hidden text-[10px] font-semibold uppercase tracking-[0.18em] text-surface-500 sm:block">
+              {user?.role === "employer" ? "Employer console" : "Career studio"}
+            </span>
+          </span>
         </Link>
 
         <div className="hidden items-center gap-3 xl:flex">
           {user ? (
             <>
-              <div className="flex items-center gap-1 rounded-lg border border-surface-200 bg-white p-1">
+              <div className="flex items-center gap-1 rounded-full border border-white/70 bg-white/80 p-1.5 shadow-[0_14px_30px_rgba(16,28,45,0.08)] backdrop-blur-sm">
                 {navItems.map((item) => (
-                  <Link key={item.to} to={item.to} onClick={() => { setShowNotifications(false); setShowMobileMenu(false); }} className={`rounded-md px-3 py-2 text-sm font-medium transition-colors duration-150 ${location.pathname === item.to ? "bg-brand-50 text-brand-700" : "text-surface-600 hover:bg-surface-100 hover:text-surface-900"}`}>
+                  <Link key={item.to} to={item.to} onClick={() => { setShowNotifications(false); setShowMobileMenu(false); }} className={`rounded-full px-4 py-2 text-sm font-semibold transition-all duration-150 ${location.pathname === item.to ? "bg-surface-950 text-white shadow-[0_10px_20px_rgba(16,28,45,0.18)]" : "text-surface-600 hover:bg-white hover:text-surface-900"}`}>
                     {item.label}
                   </Link>
                 ))}
@@ -108,10 +116,10 @@ function Navbar() {
               <div className="relative ml-2">
                 <button
                   onClick={() => { setShowNotifications(!showNotifications); if (!showNotifications) fetchNotifications(); }}
-                  className={`relative flex h-9 w-9 items-center justify-center rounded-lg border transition-colors duration-150 ${
+                  className={`relative flex h-10 w-10 items-center justify-center rounded-2xl border transition-colors duration-150 ${
                     unreadCount > 0
-                      ? "border-brand-300 bg-brand-50 text-brand-700"
-                      : "border-surface-200 bg-white text-surface-600 hover:border-brand-200 hover:text-brand-700"
+                      ? "border-brand-300 bg-brand-50 text-brand-700 shadow-[0_12px_24px_rgba(29,78,216,0.14)]"
+                      : "border-white/80 bg-white/85 text-surface-600 hover:border-brand-200 hover:text-brand-700"
                   }`}
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -125,7 +133,7 @@ function Navbar() {
                 </button>
 
                 {showNotifications && (
-                  <div className="absolute right-0 z-50 mt-3 w-80 overflow-hidden rounded-xl border border-surface-200 bg-white shadow-lg animate-fade-in">
+                  <div className="absolute right-0 z-50 mt-3 w-80 overflow-hidden rounded-[1.5rem] border border-white/70 bg-white/95 shadow-[0_28px_60px_rgba(16,28,45,0.16)] animate-fade-in backdrop-blur-xl">
                     <div className="flex items-center justify-between border-b border-surface-100 px-5 py-4">
                       <p className="text-sm font-semibold text-surface-900">Notifications</p>
                       <div className="flex items-center gap-3">
@@ -161,13 +169,13 @@ function Navbar() {
                 )}
               </div>
 
-              <div className="flex items-center gap-2 rounded-lg border border-surface-200 bg-white py-1.5 pl-1.5 pr-3">
-                <div className="flex h-8 w-8 items-center justify-center rounded-md bg-brand-50 text-sm font-semibold text-brand-700">
+              <div className="flex items-center gap-2 rounded-full border border-white/80 bg-white/85 py-1.5 pl-1.5 pr-4 shadow-[0_14px_30px_rgba(16,28,45,0.08)]">
+                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-brand-50 to-cyan-50 text-sm font-semibold text-brand-700">
                   {user.name?.charAt(0).toUpperCase()}
                 </div>
                 <div className="leading-tight">
                   <p className="text-sm font-medium text-surface-800">{user.name}</p>
-                  <p className="text-[11px] font-medium text-surface-500">{user.role === "employer" ? "Employer" : "Job Seeker"}</p>
+                  <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-surface-500">{user.role === "employer" ? "Employer" : "Job Seeker"}</p>
                 </div>
               </div>
 
@@ -191,7 +199,7 @@ function Navbar() {
           <button
             type="button"
             onClick={() => setShowMobileMenu((current) => !current)}
-            className="flex h-9 w-9 items-center justify-center rounded-lg border border-surface-200 bg-white text-surface-700 transition-colors hover:bg-surface-50"
+            className="flex h-10 w-10 items-center justify-center rounded-2xl border border-white/80 bg-white/85 text-surface-700 transition-colors hover:bg-white"
             aria-label="Toggle navigation menu"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -202,12 +210,12 @@ function Navbar() {
       </div>
 
       {showMobileMenu && (
-        <div className="animate-fade-in rounded-b-xl border-t border-surface-200 bg-white pb-5 shadow-lg xl:hidden">
+        <div className="animate-fade-in rounded-b-[1.75rem] border-t border-white/60 bg-[#f8f5ef]/95 pb-5 shadow-[0_30px_60px_rgba(16,28,45,0.16)] xl:hidden backdrop-blur-xl">
           <div className="layout-container py-6">
             {user ? (
               <div className="space-y-4">
-                <div className="flex items-center gap-4 rounded-xl border border-surface-200 bg-surface-50 p-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-lg font-bold text-brand-700 shadow-sm">
+                <div className="flex items-center gap-4 rounded-[1.5rem] border border-white/70 bg-white/80 p-4 shadow-sm">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-50 to-cyan-50 text-lg font-bold text-brand-700 shadow-sm">
                     {user.name?.charAt(0).toUpperCase()}
                   </div>
                   <div>
@@ -218,7 +226,7 @@ function Navbar() {
                 
                 <div className="grid grid-cols-2 gap-2">
                   {navItems.map((item) => (
-                    <Link key={item.to} to={item.to} onClick={() => { setShowMobileMenu(false); setShowNotifications(false); }} className={`flex flex-col items-center justify-center rounded-xl border p-4 text-sm font-bold transition-all ${location.pathname === item.to ? "border-brand-200 bg-brand-50 text-brand-700" : "border-surface-200 bg-white text-surface-700 hover:bg-surface-50"}`}>
+                    <Link key={item.to} to={item.to} onClick={() => { setShowMobileMenu(false); setShowNotifications(false); }} className={`flex flex-col items-center justify-center rounded-[1.25rem] border p-4 text-sm font-bold transition-all ${location.pathname === item.to ? "border-surface-950 bg-surface-950 text-white" : "border-white/70 bg-white/85 text-surface-700 hover:bg-white"}`}>
                       {item.label}
                     </Link>
                   ))}
