@@ -74,10 +74,7 @@ function Navbar() {
             <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-surface-950 via-brand-700 to-brand-500 text-sm font-semibold text-white shadow-[0_18px_35px_rgba(29,78,216,0.24)] transition-transform duration-300 group-hover:scale-105">
               RH
             </span>
-            <span>
-              <span className="block font-display text-xl font-bold tracking-tight">RevHire</span>
-              <span className="block text-xs font-semibold uppercase tracking-[0.18em] text-surface-500">Hiring workspace</span>
-            </span>
+            <span className="block font-display text-xl font-bold tracking-tight">RevHire</span>
           </Link>
         </div>
       </nav>
@@ -94,12 +91,7 @@ function Navbar() {
           <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-surface-950 via-brand-700 to-brand-500 text-xs font-bold text-white shadow-[0_14px_30px_rgba(29,78,216,0.22)]">
             RH
           </span>
-          <span>
-            <span className="block font-display text-lg font-semibold tracking-tight">RevHire</span>
-            <span className="hidden text-[10px] font-semibold uppercase tracking-[0.18em] text-surface-500 sm:block">
-              {user?.role === "employer" ? "Employer console" : "Job seeker workspace"}
-            </span>
-          </span>
+          <span className="block font-display text-lg font-semibold tracking-tight">RevHire</span>
         </Link>
 
         <div className="hidden items-center gap-3 xl:flex">
