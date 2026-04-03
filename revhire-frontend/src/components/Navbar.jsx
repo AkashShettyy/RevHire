@@ -97,7 +97,7 @@ function Navbar() {
           <span>
             <span className="block font-display text-lg font-semibold tracking-tight">RevHire</span>
             <span className="hidden text-[10px] font-semibold uppercase tracking-[0.18em] text-surface-500 sm:block">
-              {user?.role === "employer" ? "Employer console" : "Career studio"}
+              {user?.role === "employer" ? "Employer console" : "Job seeker workspace"}
             </span>
           </span>
         </Link>
