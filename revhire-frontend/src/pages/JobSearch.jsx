@@ -11,25 +11,76 @@ const jobTypeColors = {
   remote: "badge-brand",
 };
 
+const defaultFilters = {
+  search: "",
+  location: "",
+  jobType: "",
+  company: "",
+  skills: "",
+  salaryMin: "",
+  salaryMax: "",
+  sortBy: "newest",
+  daysPosted: "",
+  page: 1,
+  limit: 9,
+};
+
+const quickFilters = [
+  { label: "Remote", changes: { jobType: "remote", page: 1 } },
+  { label: "Internship", changes: { jobType: "internship", page: 1 } },
+  { label: "Last 7 days", changes: { daysPosted: "7", page: 1 } },
+  { label: "Salary high", changes: { sortBy: "salary_high", page: 1 } },
+];
+
+function formatSortLabel(value) {
+  return String(value || "newest")
+    .split("_")
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
+}
+
+function formatDeadline(value) {
+  const timestamp = new Date(value).getTime();
+  if (Number.isNaN(timestamp)) return "No deadline";
+
+  const diffInDays = Math.ceil((timestamp - Date.now()) / (1000 * 60 * 60 * 24));
+  if (diffInDays < 0) return "Closed";
+  if (diffInDays === 0) return "Closes today";
+  if (diffInDays === 1) return "Closes tomorrow";
+  return `${diffInDays} days left`;
+}
+
+function formatSalaryRange(range) {
+  if (!range?.min) return "Salary not listed";
+
+  const min = `₹${range.min.toLocaleString()}`;
+  const max = range.max ? ` - ₹${range.max.toLocaleString()}` : "+";
+  return `${min}${max}`;
+}
+
+function getActiveFilterEntries(filters) {
+  const entries = [];
+
+  if (filters.search) entries.push({ key: "search", label: `Search: ${filters.search}` });
+  if (filters.company) entries.push({ key: "company", label: `Company: ${filters.company}` });
+  if (filters.location) entries.push({ key: "location", label: `Location: ${filters.location}` });
+  if (filters.skills) entries.push({ key: "skills", label: `Skills: ${filters.skills}` });
+  if (filters.jobType) entries.push({ key: "jobType", label: `Type: ${filters.jobType}` });
+  if (filters.daysPosted) entries.push({ key: "daysPosted", label: `Posted: last ${filters.daysPosted} days` });
+  if (filters.salaryMin) entries.push({ key: "salaryMin", label: `Min salary: ₹${Number(filters.salaryMin).toLocaleString()}` });
+  if (filters.salaryMax) entries.push({ key: "salaryMax", label: `Max salary: ₹${Number(filters.salaryMax).toLocaleString()}` });
+  if (filters.sortBy !== "newest") entries.push({ key: "sortBy", label: `Sort: ${formatSortLabel(filters.sortBy)}` });
+
+  return entries;
+}
+
 function JobSearch() {
   const { token, user } = useAuth();
   const [jobs, setJobs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [savedJobIds, setSavedJobIds] = useState([]);
   const [pagination, setPagination] = useState({ page: 1, totalPages: 1, total: 0 });
-  const [filters, setFilters] = useState({
-    search: "",
-    location: "",
-    jobType: "",
-    company: "",
-    skills: "",
-    salaryMin: "",
-    salaryMax: "",
-    sortBy: "newest",
-    daysPosted: "",
-    page: 1,
-    limit: 9,
-  });
+  const [filters, setFilters] = useState(defaultFilters);
   const navigate = useNavigate();
 
   const fetchJobs = useCallback(async (activeFilters) => {
@@ -65,7 +116,7 @@ function JobSearch() {
   }, [fetchSavedJobs, token, user]);
 
   function handleFilterChange(e) {
-    setFilters({ ...filters, [e.target.name]: e.target.value });
+    setFilters({ ...filters, [e.target.name]: e.target.value, page: 1 });
   }
 
   function handleSearch(e) {
@@ -96,6 +147,16 @@ function JobSearch() {
   function handlePageChange(nextPage) {
     setFilters((current) => ({ ...current, page: nextPage }));
   }
+
+  function handleQuickFilter(changes) {
+    setFilters((current) => ({ ...current, ...changes }));
+  }
+
+  function handleRemoveFilter(key) {
+    setFilters((current) => ({ ...current, [key]: defaultFilters[key], page: 1 }));
+  }
+
+  const activeFilters = getActiveFilterEntries(filters);
 
   return (
     <div className="app-shell">
@@ -185,37 +246,74 @@ function JobSearch() {
                 </button>
                 <button
                   type="button"
-                  onClick={() =>
-                    setFilters({
-                      search: "",
-                      location: "",
-                      jobType: "",
-                      company: "",
-                      skills: "",
-                      salaryMin: "",
-                      salaryMax: "",
-                      sortBy: "newest",
-                      daysPosted: "",
-                      page: 1,
-                      limit: 9,
-                    })
-                  }
+                  onClick={() => setFilters(defaultFilters)}
                   className="btn-secondary px-6 py-3"
                 >
                   Reset filters
                 </button>
               </div>
             </form>
+
+            <div className="section-card mt-4 p-5">
+              <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                <div>
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-surface-500">Quick refine</p>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {quickFilters.map((item) => (
+                      <button
+                        key={item.label}
+                        type="button"
+                        onClick={() => handleQuickFilter(item.changes)}
+                        className="rounded-full border border-white/80 bg-white px-4 py-2 text-sm font-semibold text-surface-700 transition-colors hover:border-brand-200 hover:text-brand-700"
+                      >
+                        {item.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="rounded-[1.25rem] border border-brand-100 bg-brand-50/60 px-4 py-3">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-700">Search summary</p>
+                  <p className="mt-1 text-sm font-semibold text-surface-800">
+                    {isLoading ? "Refreshing results..." : `${pagination.total} roles across ${pagination.totalPages} page${pagination.totalPages !== 1 ? "s" : ""}`}
+                  </p>
+                </div>
+              </div>
+
+              {activeFilters.length > 0 && (
+                <div className="mt-4 border-t border-surface-200/70 pt-4">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="text-sm font-medium text-surface-500">Active filters</span>
+                    {activeFilters.map((filter) => (
+                      <button
+                        key={filter.key}
+                        type="button"
+                        onClick={() => handleRemoveFilter(filter.key)}
+                        className="inline-flex items-center gap-2 rounded-full border border-brand-200 bg-white px-3 py-1.5 text-sm font-semibold text-surface-700 transition-colors hover:border-brand-300 hover:text-brand-700"
+                      >
+                        <span>{filter.label}</span>
+                        <span className="text-surface-400">×</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
 
       <div className="layout-container mx-auto max-w-7xl py-16">
         <div className="mb-10 flex items-center justify-between">
-          <h2 className="heading-section">Jobs</h2>
-          <p className="text-sm text-surface-600">
-            {isLoading ? "Searching..." : `${pagination.total} job${pagination.total !== 1 ? "s" : ""} found`}
-          </p>
+          <div>
+            <h2 className="heading-section">Jobs</h2>
+            <p className="mt-2 text-sm text-surface-600">
+              {isLoading ? "Searching..." : `${pagination.total} job${pagination.total !== 1 ? "s" : ""} found`}
+            </p>
+          </div>
+          <div className="hidden rounded-full border border-white/80 bg-white/85 px-4 py-2 text-sm font-semibold text-surface-600 shadow-sm sm:block">
+            Page {pagination.page} of {pagination.totalPages}
+          </div>
         </div>
 
         {isLoading ? (
@@ -265,12 +363,19 @@ function JobSearch() {
                       </div>
                     </div>
                     
-                    <div className="mb-5 flex flex-wrap gap-x-6 gap-y-3 text-sm font-medium text-surface-700">
-                      <span className="flex items-center gap-1.5">📍 {job.location}</span>
-                      {job.salaryRange?.min && (
-                        <span className="flex items-center gap-1.5">💰 ₹{job.salaryRange.min.toLocaleString()} - ₹{job.salaryRange.max?.toLocaleString()}</span>
-                      )}
-                      <span className="flex items-center gap-1.5">📅 {new Date(job.deadline).toLocaleDateString()}</span>
+                    <div className="mb-5 flex flex-wrap gap-2 text-sm font-medium text-surface-700">
+                      <span className="rounded-full border border-surface-200 bg-surface-50 px-3 py-1.5">
+                        {job.location || "Location flexible"}
+                      </span>
+                      <span className="rounded-full border border-surface-200 bg-surface-50 px-3 py-1.5">
+                        {formatSalaryRange(job.salaryRange)}
+                      </span>
+                      <span className="rounded-full border border-surface-200 bg-surface-50 px-3 py-1.5">
+                        Deadline: {new Date(job.deadline).toLocaleDateString()}
+                      </span>
+                      <span className={`rounded-full px-3 py-1.5 ${formatDeadline(job.deadline) === "Closed" ? "border border-error-200 bg-error-50 text-error-700" : "border border-amber-200 bg-amber-50 text-amber-800"}`}>
+                        {formatDeadline(job.deadline)}
+                      </span>
                     </div>
                     <p className="max-w-3xl text-sm leading-6 text-surface-600">
                       {job.description?.slice(0, 180)}
@@ -297,7 +402,7 @@ function JobSearch() {
                             : "bg-white border-surface-200 text-surface-600 hover:bg-surface-50"
                         }`}
                       >
-                        {savedJobIds.includes(job._id) ? "Saved to List" : "Save Job"}
+                        {savedJobIds.includes(job._id) ? "Saved" : "Save Job"}
                       </button>
                     )}
                   </div>
