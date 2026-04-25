@@ -94,12 +94,12 @@ function Login() {
                 required
               />
 
-              <div className="flex items-center justify-between text-sm">
-                <label className="flex items-center gap-2 text-surface-600 cursor-pointer">
-                  <input type="checkbox" className="w-4 h-4 rounded border-surface-300 text-brand-600 focus:ring-brand-500" />
+              <div className="flex items-center justify-between gap-4 text-sm">
+                <label className="flex cursor-pointer items-center gap-2 font-medium text-surface-600">
+                  <input type="checkbox" className="h-4 w-4 rounded border-surface-300 text-brand-600 shadow-sm focus:ring-brand-500" />
                   Remember me
                 </label>
-                <a href="#" className="font-semibold text-brand-600 hover:text-brand-700">Forgot password?</a>
+                <a href="#" className="font-semibold text-brand-600 transition-colors hover:text-brand-700">Forgot password?</a>
               </div>
 
               {error && (
