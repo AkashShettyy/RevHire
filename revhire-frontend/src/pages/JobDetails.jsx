@@ -178,7 +178,7 @@ function JobDetails() {
               <h2 className="text-xl font-bold text-surface-900 font-display mb-5">Skills Required</h2>
               <div className="flex flex-wrap gap-2.5">
                 {job.skillsRequired?.map((skill, i) => (
-                  <span key={i} className="rounded-xl border border-brand-100 bg-brand-50/50 px-4 py-2 text-sm font-bold text-brand-700">{skill}</span>
+                  <span key={i} className="rounded-xl border border-brand-100 bg-brand-50/60 px-4 py-2 text-sm font-bold text-brand-700 shadow-sm transition-colors hover:border-brand-200 hover:bg-white">{skill}</span>
                 ))}
               </div>
             </div>
