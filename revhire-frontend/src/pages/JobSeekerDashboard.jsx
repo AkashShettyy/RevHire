@@ -130,11 +130,11 @@ function JobSeekerDashboard() {
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-3">
-                <div className="rounded-xl border border-surface-200 bg-white px-4 py-3 shadow-sm">
+                <div className="rounded-xl border border-surface-200 bg-white/95 px-4 py-3 shadow-sm ring-1 ring-white/70">
                   <p className="text-xs font-medium text-surface-500">Upcoming Interviews</p>
                   <p className="mt-1 text-2xl font-semibold text-surface-900">{upcomingInterviews.length}</p>
                 </div>
-                <div className="rounded-xl border border-surface-200 bg-white px-4 py-3 shadow-sm">
+                <div className="rounded-xl border border-surface-200 bg-white/95 px-4 py-3 shadow-sm ring-1 ring-white/70">
                   <p className="text-xs font-medium text-surface-500">Saved Jobs</p>
                   <p className="mt-1 text-2xl font-semibold text-surface-900">{savedJobs.length}</p>
                 </div>
