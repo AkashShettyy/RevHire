@@ -151,11 +151,18 @@
   }
 
   .btn-secondary {
+    box-shadow: 0 10px 22px rgba(16, 28, 45, 0.06);
     @apply inline-flex items-center justify-center rounded-full border border-surface-300 bg-white/90 px-4 py-2.5 text-sm font-semibold text-surface-800 transition duration-200;
   }
 
   .btn-secondary:hover {
+    box-shadow: 0 14px 28px rgba(29, 78, 216, 0.12);
+    transform: translateY(-1px);
     @apply border-brand-200 bg-brand-50/70 text-brand-700;
+  }
+
+  .btn-secondary:active {
+    transform: translateY(0);
   }
 
   .btn-ghost {
