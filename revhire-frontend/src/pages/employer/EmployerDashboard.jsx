@@ -94,17 +94,17 @@ function EmployerDashboard() {
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-3">
-                <div className="rounded-xl border border-surface-200 bg-white px-4 py-3 shadow-sm">
+                <div className="rounded-xl border border-surface-200 bg-white/95 px-4 py-3 shadow-sm ring-1 ring-white/70">
                   <p className="text-xs font-medium text-surface-500">Open Roles</p>
                   <p className="mt-1 text-2xl font-semibold text-surface-900">{jobs.filter((j) => j.status === "open").length}</p>
                 </div>
-                <div className="rounded-xl border border-surface-200 bg-white px-4 py-3 shadow-sm">
+                <div className="rounded-xl border border-surface-200 bg-white/95 px-4 py-3 shadow-sm ring-1 ring-white/70">
                   <p className="text-xs font-medium text-surface-500">Applications</p>
                   <p className="mt-1 text-2xl font-semibold text-surface-900">{analytics?.summary?.totalApplications || 0}</p>
                 </div>
               </div>
               {user?.organization && (
-                <div className="rounded-xl border border-surface-200 bg-white px-4 py-3 text-sm text-surface-700 shadow-sm md:col-span-2">
+                <div className="rounded-xl border border-surface-200 bg-white/95 px-4 py-3 text-sm text-surface-700 shadow-sm ring-1 ring-white/70 md:col-span-2">
                   <p className="font-semibold text-surface-900">{user.organization.name}</p>
                   <p className="mt-1">Join code: <span className="font-mono font-semibold text-brand-700">{user.organization.joinCode}</span></p>
                 </div>
