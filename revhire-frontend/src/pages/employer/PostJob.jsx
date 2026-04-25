@@ -64,11 +64,11 @@ function PostJob() {
                 <p className="mt-3 text-[17px] font-medium text-surface-700">Fill in the details to attract the right candidates.</p>
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
-                <div className="metric-tile rounded-xl p-4 text-center sm:text-left">
+                <div className="metric-tile rounded-xl p-4 text-center ring-1 ring-white/70 sm:text-left">
                   <p className="text-[11px] font-bold uppercase tracking-normal text-surface-600">Template</p>
                   <p className="mt-1.5 text-[15px] font-bold text-surface-900">Structured form</p>
                 </div>
-                <div className="metric-tile rounded-xl p-4 text-center sm:text-left">
+                <div className="metric-tile rounded-xl p-4 text-center ring-1 ring-white/70 sm:text-left">
                   <p className="text-[11px] font-bold uppercase tracking-normal text-surface-600">Optional</p>
                   <p className="mt-1.5 text-[15px] font-bold text-surface-900">Screening Qs</p>
                 </div>
