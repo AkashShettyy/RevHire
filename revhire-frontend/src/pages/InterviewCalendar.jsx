@@ -258,10 +258,10 @@ function InterviewCalendar() {
                       key={dayKey}
                       type="button"
                       onClick={() => setSelectedDayKey(dayKey)}
-                      className={`min-h-28 rounded-3xl border p-3 text-left transition-all ${
+                      className={`min-h-28 rounded-3xl border p-3 text-left shadow-sm transition-all ${
                         isSelected
                           ? "border-blue-600 bg-gradient-to-br from-blue-100 to-indigo-100 shadow-lg shadow-blue-100/60"
-                          : "border-surface-300 bg-white hover:-translate-y-0.5 hover:border-blue-300 hover:bg-blue-50/60"
+                          : "border-surface-300 bg-white hover:-translate-y-0.5 hover:border-blue-300 hover:bg-blue-50/60 hover:shadow-md"
                       } ${!isCurrentMonth ? "opacity-45" : ""}`}
                     >
                       <div className="flex items-center justify-between">
