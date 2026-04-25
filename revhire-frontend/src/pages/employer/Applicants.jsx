@@ -11,7 +11,7 @@ const STATUSES = ["applied", "shortlisted", "interviewing", "offered", "hired", 
 function DroppableColumn({ id, title, applications, onCardClick, interviewMap }) {
   const { setNodeRef } = useDroppable({ id });
   return (
-    <div ref={setNodeRef} className="flex min-w-[320px] w-[320px] flex-col rounded-xl border border-surface-300 bg-white p-4 shadow-sm">
+    <div ref={setNodeRef} className="flex min-w-[320px] w-[320px] flex-col rounded-xl border border-surface-300 bg-white/95 p-4 shadow-sm ring-1 ring-white/70">
       <div className="flex justify-between items-center mb-5 px-1">
         <h3 className="font-bold text-surface-900 capitalize font-display">{title}</h3>
         <span className="rounded-full border border-surface-300 bg-surface-100 px-2.5 py-1 text-[11px] font-bold text-surface-700 shadow-sm">{applications.length}</span>
