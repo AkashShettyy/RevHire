@@ -174,7 +174,7 @@ function AccountSettings() {
               {passwordChecks.map((item) => (
                 <div
                   key={item.label}
-                  className={`flex items-center gap-3 rounded-[1rem] border px-4 py-3 ${
+                  className={`flex items-center gap-3 rounded-[1rem] border px-4 py-3 shadow-sm transition-colors ${
                     item.passed
                       ? "border-emerald-200 bg-emerald-50 text-emerald-800"
                       : "border-surface-200 bg-white text-surface-600"
