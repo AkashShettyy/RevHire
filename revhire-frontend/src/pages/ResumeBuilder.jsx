@@ -23,7 +23,7 @@ const createEmptyResume = () => ({
 
 function Section({ title, children }) {
   return (
-    <div className="premium-card bg-white p-6 sm:p-8 shadow-sm">
+    <div className="premium-card bg-white p-6 shadow-sm ring-1 ring-white/70 sm:p-8">
       <h2 className="font-display mb-6 text-xl font-bold text-surface-900">{title}</h2>
       {children}
     </div>
