@@ -131,15 +131,15 @@ function JobDetails() {
             </div>
             
             <div className="grid gap-4 sm:grid-cols-3 md:min-w-[360px]">
-              <div className="rounded-2xl border border-brand-100 bg-white/80 p-5 shadow-sm backdrop-blur-sm">
+              <div className="rounded-2xl border border-brand-100 bg-white/90 p-5 shadow-sm ring-1 ring-white/70 backdrop-blur-sm">
                 <p className="text-[11px] font-bold uppercase tracking-normal text-surface-500">Location</p>
                 <p className="mt-2 truncate text-sm font-bold text-surface-900">{job.location}</p>
               </div>
-              <div className="rounded-2xl border border-brand-100 bg-white/80 p-5 shadow-sm backdrop-blur-sm">
+              <div className="rounded-2xl border border-brand-100 bg-white/90 p-5 shadow-sm ring-1 ring-white/70 backdrop-blur-sm">
                 <p className="text-[11px] font-bold uppercase tracking-normal text-surface-500">Type</p>
                 <p className="mt-2 text-sm font-bold capitalize text-surface-900">{job.jobType}</p>
               </div>
-              <div className="rounded-2xl border border-brand-100 bg-white/80 p-5 shadow-sm backdrop-blur-sm">
+              <div className="rounded-2xl border border-brand-100 bg-white/90 p-5 shadow-sm ring-1 ring-white/70 backdrop-blur-sm">
                 <p className="text-[11px] font-bold uppercase tracking-normal text-surface-500">Deadline</p>
                 <p className="mt-2 text-sm font-bold text-surface-900">{new Date(job.deadline).toLocaleDateString()}</p>
               </div>
