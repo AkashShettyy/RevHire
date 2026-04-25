@@ -264,7 +264,7 @@ function JobSearch() {
                         key={item.label}
                         type="button"
                         onClick={() => handleQuickFilter(item.changes)}
-                        className="rounded-full border border-white/80 bg-white px-4 py-2 text-sm font-semibold text-surface-700 transition-colors hover:border-brand-200 hover:text-brand-700"
+                        className="rounded-full border border-white/80 bg-white px-4 py-2 text-sm font-semibold text-surface-700 shadow-sm transition-all hover:-translate-y-0.5 hover:border-brand-200 hover:text-brand-700 hover:shadow-md"
                       >
                         {item.label}
                       </button>
@@ -272,7 +272,7 @@ function JobSearch() {
                   </div>
                 </div>
 
-                <div className="rounded-[1.25rem] border border-brand-100 bg-brand-50/60 px-4 py-3">
+                <div className="rounded-[1.25rem] border border-brand-100 bg-brand-50/70 px-4 py-3 shadow-sm">
                   <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-700">Search summary</p>
                   <p className="mt-1 text-sm font-semibold text-surface-800">
                     {isLoading ? "Refreshing results..." : `${pagination.total} roles across ${pagination.totalPages} page${pagination.totalPages !== 1 ? "s" : ""}`}
