@@ -192,7 +192,7 @@ function ResumeBuilder() {
                 Manage multiple resume versions, upload a PDF copy, and export the current draft.
               </p>
             </div>
-            <div className="flex flex-wrap items-center gap-3">
+            <div className="flex flex-wrap items-center gap-3 rounded-[1.5rem] border border-white/70 bg-white/70 p-2 shadow-sm backdrop-blur-sm">
               <button type="button" onClick={handleCreateVersion} className="btn-secondary">
                 New Version
               </button>
