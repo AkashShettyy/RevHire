@@ -75,14 +75,14 @@ function AccountSettings() {
               Update your sign-in password with live checks so you can see strength and confirmation state before submitting.
             </p>
           </div>
-          <div className="grid gap-3 sm:grid-cols-2">
-            <div className="metric-tile">
+            <div className="grid gap-3 sm:grid-cols-2">
+            <div className="metric-tile ring-1 ring-white/70">
               <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-surface-500">Password strength</p>
               <p className={`mt-3 font-display text-3xl font-semibold ${formData.newPassword ? passwordStrength.text : "text-surface-900"}`}>
                 {formData.newPassword ? passwordStrength.label : "Not set"}
               </p>
             </div>
-            <div className="metric-tile">
+            <div className="metric-tile ring-1 ring-white/70">
               <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-surface-500">Confirmation</p>
               <p className={`mt-3 font-display text-3xl font-semibold ${passwordsMatch ? "text-emerald-700" : "text-surface-900"}`}>
                 {formData.confirmPassword ? (passwordsMatch ? "Matched" : "Pending") : "Waiting"}
