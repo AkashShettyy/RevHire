@@ -157,11 +157,11 @@ function InterviewCalendar() {
             </div>
 
             <div className="grid min-w-full gap-3 sm:grid-cols-3 lg:min-w-[470px]">
-              <div className="metric-tile px-4 py-4">
+              <div className="metric-tile px-4 py-4 ring-1 ring-white/70">
                 <p className="text-xs font-semibold uppercase tracking-normal text-surface-600">Upcoming</p>
                 <p className="mt-3 text-3xl font-bold text-surface-900">{upcomingInterviews.length}</p>
               </div>
-              <div className="metric-tile px-4 py-4">
+              <div className="metric-tile px-4 py-4 ring-1 ring-white/70">
                 <p className="text-xs font-semibold uppercase tracking-normal text-surface-600">This Month</p>
                 <p className="mt-3 text-3xl font-bold text-surface-900">
                   {
@@ -173,7 +173,7 @@ function InterviewCalendar() {
                   }
                 </p>
               </div>
-              <div className="metric-tile px-4 py-4">
+              <div className="metric-tile px-4 py-4 ring-1 ring-white/70">
                 <p className="text-xs font-semibold uppercase tracking-normal text-surface-600">Accepted</p>
                 <p className="mt-3 text-3xl font-bold text-surface-900">{acceptedCount}</p>
               </div>
