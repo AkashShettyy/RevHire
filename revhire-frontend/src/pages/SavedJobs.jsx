@@ -72,11 +72,11 @@ function SavedJobs() {
               </p>
             </div>
             <div className="grid gap-4 sm:grid-cols-2">
-              <div className="metric-tile text-center sm:text-left">
+              <div className="metric-tile text-center ring-1 ring-white/70 sm:text-left">
                 <p className="text-[11px] font-bold uppercase tracking-normal text-surface-600">Saved</p>
                 <p className="mt-1.5 font-display text-2xl font-semibold text-surface-900">{savedJobs.length}</p>
               </div>
-              <div className="metric-tile text-center sm:text-left">
+              <div className="metric-tile text-center ring-1 ring-white/70 sm:text-left">
                 <p className="text-[11px] font-bold uppercase tracking-normal text-surface-600">Status</p>
                 <p className="mt-1.5 font-display text-2xl font-semibold text-surface-900">{savedJobs.length > 0 ? "Tracked" : "Empty"}</p>
               </div>
@@ -102,7 +102,7 @@ function SavedJobs() {
         ) : (
           <div className="space-y-4">
             {savedJobs.map((entry) => (
-              <article key={entry._id} className="premium-card p-6 bg-white overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-brand-200 group relative">
+              <article key={entry._id} className="premium-card group relative overflow-hidden bg-white p-6 transition-all duration-300 hover:border-brand-200 hover:shadow-lg hover:ring-1 hover:ring-brand-100">
                 <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-brand-400 to-indigo-500 opacity-0 transition-opacity group-hover:opacity-100"></div>
                 <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between ml-2">
                   <div className="min-w-0 flex-1">
