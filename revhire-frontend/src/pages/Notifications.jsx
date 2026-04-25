@@ -184,10 +184,10 @@ function Notifications() {
                     key={filter.value}
                     type="button"
                     onClick={() => setStatusFilter(filter.value)}
-                    className={`rounded-md border px-3 py-2 text-sm font-medium transition-colors ${
+                    className={`rounded-full border px-3.5 py-2 text-sm font-semibold transition-all ${
                       isActive
-                        ? "border-brand-600 bg-brand-600 text-white"
-                        : "border-surface-300 bg-white text-surface-700 hover:border-brand-200 hover:text-brand-700"
+                        ? "border-brand-600 bg-brand-600 text-white shadow-md shadow-brand-500/20"
+                        : "border-surface-300 bg-white text-surface-700 hover:-translate-y-0.5 hover:border-brand-200 hover:text-brand-700 hover:shadow-sm"
                     }`}
                   >
                     {filter.label}
@@ -204,10 +204,10 @@ function Notifications() {
                     key={filter.value}
                     type="button"
                     onClick={() => setCategoryFilter(filter.value)}
-                    className={`rounded-md border px-3 py-2 text-sm font-medium transition-colors ${
+                    className={`rounded-full border px-3.5 py-2 text-sm font-semibold transition-all ${
                       isActive
-                        ? "border-surface-900 bg-surface-900 text-white"
-                        : "border-surface-300 bg-white text-surface-700 hover:border-surface-400 hover:text-surface-900"
+                        ? "border-surface-900 bg-surface-900 text-white shadow-md shadow-surface-900/10"
+                        : "border-surface-300 bg-white text-surface-700 hover:-translate-y-0.5 hover:border-surface-400 hover:text-surface-900 hover:shadow-sm"
                     }`}
                   >
                     {filter.label}
