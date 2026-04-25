@@ -60,7 +60,7 @@ function Landing() {
                   { label: "Resumes", value: "Build and export", accent: "from-emerald-500 to-emerald-700", note: "Structured resume flow" },
                   { label: "Hiring", value: "Post and review", accent: "from-amber-500 to-orange-600", note: "Applicants + interviews" },
                 ].map((item) => (
-                  <div key={item.label} className="premium-card border-white/80 bg-white/95 px-5 py-5 shadow-sm">
+                  <div key={item.label} className="premium-card border-white/80 bg-white/95 px-5 py-5 shadow-sm ring-1 ring-white/70">
                     <div className="flex items-center gap-3 mb-2">
                        <div className={`flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br text-white ${item.accent}`}>
                           <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 13l4 4L19 7"></path></svg>
@@ -68,7 +68,7 @@ function Landing() {
                        <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-surface-400">{item.label}</p>
                     </div>
                     <p className="text-base font-bold text-surface-900">{item.value}</p>
-                    <p className="mt-2 text-sm text-surface-500">{item.note}</p>
+                    <p className="mt-2 text-sm font-medium text-surface-500">{item.note}</p>
                   </div>
                 ))}
               </div>
