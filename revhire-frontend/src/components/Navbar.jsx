@@ -88,7 +88,7 @@ function Navbar() {
           to={user ? (user.role === "employer" ? "/employer/dashboard" : "/dashboard") : "/"}
           className="inline-flex items-center gap-3 text-surface-900 group"
         >
-          <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-surface-950 via-brand-700 to-brand-500 text-xs font-bold text-white shadow-[0_14px_30px_rgba(29,78,216,0.22)]">
+          <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-surface-950 via-brand-700 to-brand-500 text-xs font-bold text-white shadow-[0_14px_30px_rgba(29,78,216,0.22)] ring-1 ring-white/50">
             RH
           </span>
           <span className="block font-display text-lg font-semibold tracking-tight">RevHire</span>
@@ -97,9 +97,9 @@ function Navbar() {
         <div className="hidden items-center gap-3 xl:flex">
           {user ? (
             <>
-              <div className="flex items-center gap-1 rounded-full border border-white/70 bg-white/80 p-1.5 shadow-[0_14px_30px_rgba(16,28,45,0.08)] backdrop-blur-sm">
+              <div className="flex items-center gap-1 rounded-full border border-white/80 bg-white/90 p-1.5 shadow-[0_14px_30px_rgba(16,28,45,0.08)] backdrop-blur-sm">
                 {navItems.map((item) => (
-                  <Link key={item.to} to={item.to} onClick={() => { setShowNotifications(false); setShowMobileMenu(false); }} className={`rounded-full px-4 py-2 text-sm font-semibold transition-all duration-150 ${location.pathname === item.to ? "bg-surface-950 text-white shadow-[0_10px_20px_rgba(16,28,45,0.18)]" : "text-surface-600 hover:bg-white hover:text-surface-900"}`}>
+                  <Link key={item.to} to={item.to} onClick={() => { setShowNotifications(false); setShowMobileMenu(false); }} className={`rounded-full px-4 py-2 text-sm font-semibold transition-all duration-150 ${location.pathname === item.to ? "bg-surface-950 text-white shadow-[0_10px_20px_rgba(16,28,45,0.18)] ring-1 ring-surface-900/10" : "text-surface-600 hover:bg-white hover:text-surface-900"}`}>
                     {item.label}
                   </Link>
                 ))}
