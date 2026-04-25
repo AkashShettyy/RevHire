@@ -83,7 +83,7 @@ function Register() {
               <p className="mt-1.5 text-sm text-surface-500">Choose your account type to get started.</p>
             </div>
 
-            <div className="mb-6 flex rounded-xl bg-surface-100/80 p-1.5 border border-surface-200">
+            <div className="mb-6 flex rounded-xl border border-surface-200 bg-surface-100/80 p-1.5 shadow-inner">
               {["jobseeker", "employer"].map((r) => (
                 <button
                   key={r}
@@ -91,7 +91,7 @@ function Register() {
                   onClick={() => setFormData({ ...formData, role: r })}
                   className={`flex-1 rounded-lg py-2.5 text-sm font-bold transition-all duration-300 ${
                     formData.role === r
-                      ? "bg-white text-brand-700 shadow shadow-surface-200/50"
+                      ? "bg-white text-brand-700 shadow shadow-surface-200/60 ring-1 ring-white"
                       : "text-surface-500 hover:text-surface-800"
                   }`}
                 >
