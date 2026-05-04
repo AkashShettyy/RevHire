@@ -65,7 +65,7 @@ function ApplicationHistory() {
   if (isLoading)
     return (
       <div className="app-page flex items-center justify-center">
-        <div className="flex items-center gap-3 text-stone-500">
+        <div className="flex items-center gap-3 text-surface-500">
           <div className="h-5 w-5 animate-spin rounded-full border-2 border-blue-600 border-t-transparent" />
           Loading...
         </div>
@@ -74,9 +74,7 @@ function ApplicationHistory() {
 
   return (
     <div className="app-shell">
-      <div className="absolute top-0 right-0 -mr-40 h-[600px] w-[600px] rounded-full bg-brand-300/20 blur-[100px] pointer-events-none"></div>
-
-      <div className="pt-10 pb-10 border-b border-surface-200/60 bg-white/50 backdrop-blur-md relative z-10">
+      <div className="pt-10 pb-10 border-b border-brand-100 bg-white/70 backdrop-blur-md relative z-10">
         <div className="layout-container max-w-5xl">
           <div className="page-hero grid gap-6 lg:grid-cols-[1.15fr,0.85fr] lg:items-end">
             <div>
@@ -115,9 +113,7 @@ function ApplicationHistory() {
 
         {applications.length === 0 ? (
             <div className="premium-card border-none bg-white p-16 text-center shadow-sm">
-            <div className="inline-flex w-24 h-24 rounded-full bg-surface-50 items-center justify-center mb-6">
-              <span className="text-4xl">📭</span>
-            </div>
+            <div className="mx-auto mb-6 h-1 w-24 rounded-full bg-brand-200" />
             <h3 className="text-2xl font-bold text-surface-900 font-display mb-2">No applications yet</h3>
             <p className="mb-8 mt-1 text-[15px] font-medium text-surface-700">Start applying to jobs to track them here</p>
             <button onClick={() => navigate("/jobs")} className="btn-primary">Browse Jobs</button>
@@ -132,7 +128,7 @@ function ApplicationHistory() {
                     key={filter.value}
                     type="button"
                     onClick={() => setActiveFilter(filter.value)}
-                    className={`rounded-full border px-5 py-2 text-sm font-bold transition-all ${
+                    className={`rounded-lg border px-5 py-2 text-sm font-bold transition-all ${
                       isActive
                         ? "border-brand-600 bg-brand-600 text-white shadow-md shadow-brand-500/20 hover:bg-brand-700"
                         : "border-surface-300 bg-white text-surface-700 hover:-translate-y-0.5 hover:border-brand-300 hover:text-brand-700 hover:shadow-sm"
@@ -162,8 +158,8 @@ function ApplicationHistory() {
                           {app.job?.title}
                         </h3>
                         <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-[14px] font-medium text-surface-700">
-                          <span className="flex items-center gap-1.5"><span className="text-surface-400">📍</span> {app.job?.location}</span>
-                          <span className="flex items-center gap-1.5"><span className="text-surface-400">📅</span> Applied {new Date(app.createdAt).toLocaleDateString()}</span>
+                          <span>Location: {app.job?.location}</span>
+                          <span>Applied: {new Date(app.createdAt).toLocaleDateString()}</span>
                           {app.job?.jobType && (
                             <span className={`badge ml-1 ${jobTypeColors[app.job.jobType] || 'badge-neutral'}`}>
                               {app.job.jobType}
