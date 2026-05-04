@@ -73,7 +73,7 @@ export default function ApplicationModal({
 
   return (
     <div className="fixed inset-0 z-[80] overflow-y-auto bg-surface-950/60 backdrop-blur-sm flex items-start justify-center p-4 sm:p-6 lg:p-8">
-      <div className="bg-white max-w-4xl w-full rounded-2xl shadow-md overflow-hidden flex flex-col max-h-[90vh] border border-surface-200">
+      <div className="bg-white max-w-4xl w-full rounded-lg shadow-md overflow-hidden flex flex-col max-h-[90vh] border border-brand-100">
         {/* Header */}
         <div className="flex shrink-0 items-center justify-between border-b border-surface-300 bg-white px-6 py-5">
           <div>
@@ -93,7 +93,7 @@ export default function ApplicationModal({
                 <option key={s} value={s}>{s.charAt(0).toUpperCase() + s.slice(1)}</option>
               ))}
             </select>
-            <button onClick={onClose} className="p-2 text-surface-400 hover:text-surface-600 hover:bg-surface-100 rounded-full transition-colors flex items-center justify-center min-w-[36px] min-h-[36px]">
+            <button onClick={onClose} className="p-2 text-surface-400 hover:text-brand-600 hover:bg-brand-50 rounded-lg transition-colors flex items-center justify-center min-w-[36px] min-h-[36px]">
               <span className="text-lg leading-none">✕</span>
             </button>
           </div>
@@ -124,10 +124,10 @@ export default function ApplicationModal({
                   <h3 className="mb-4 text-[12px] font-bold uppercase tracking-normal text-surface-600">Screening Answers</h3>
                   <div className="space-y-4">
                     {application.answers.map((a, i) => (
-                      <div key={i} className="rounded-xl border border-surface-300 bg-surface-100 p-4">
+                      <div key={i} className="rounded-lg border border-brand-100 bg-brand-50/40 p-4">
                         <p className="text-[14px] font-bold text-surface-800">{a.question}</p>
                         <p className="mt-2 flex items-start gap-2 text-[14px] font-medium text-surface-700">
-                          <span className="text-surface-400 font-bold">↳</span> {a.answer}
+                          <span className="text-brand-500 font-bold">Answer:</span> {a.answer}
                         </p>
                       </div>
                     ))}
@@ -140,7 +140,7 @@ export default function ApplicationModal({
                   <p className="text-[15px] font-medium text-surface-700 leading-relaxed whitespace-pre-wrap">{application.coverLetter}</p>
                 </div>
               ) : (
-                <p className="rounded-xl border border-surface-300 bg-surface-100 p-4 text-center text-[14px] font-medium italic text-surface-700">No cover letter provided.</p>
+                <p className="rounded-lg border border-brand-100 bg-brand-50/40 p-4 text-center text-[14px] font-medium italic text-surface-700">No cover letter provided.</p>
               )}
             </div>
           )}
@@ -168,7 +168,7 @@ export default function ApplicationModal({
                   </div>
                 </>
               ) : (
-                <p className="rounded-xl border border-surface-300 bg-surface-100 p-6 text-center text-[14px] font-medium text-surface-700">Applicant has not provided a resume builder profile.</p>
+                <p className="rounded-lg border border-brand-100 bg-brand-50/40 p-6 text-center text-[14px] font-medium text-surface-700">Applicant has not provided a resume builder profile.</p>
               )}
             </div>
           )}
@@ -206,7 +206,7 @@ export default function ApplicationModal({
                     {interview?.status === "scheduled" ? "Confirm Reschedule" : "Confirm Schedule"}
                   </button>
                   {interview?.status === "scheduled" && (
-                    <button onClick={handleCancelInterview} className="px-5 py-2 text-[14px] font-bold text-error-600 border border-error-200 bg-error-50 hover:bg-error-100 transition-colors rounded-xl shadow-sm">
+                    <button onClick={handleCancelInterview} className="px-5 py-2 text-[14px] font-bold text-error-600 border border-error-200 bg-error-50 hover:bg-error-100 transition-colors rounded-lg shadow-sm">
                       Cancel
                     </button>
                   )}
@@ -270,7 +270,7 @@ export default function ApplicationModal({
                     </div>
                   ))
                 ) : (
-                  <p className="text-[14px] font-medium text-surface-500 italic text-center py-6 bg-surface-50 border border-surface-200 rounded-xl">No internal notes yet. Leave one to help your team!</p>
+                <p className="text-[14px] font-medium text-surface-500 italic text-center py-6 bg-brand-50/40 border border-brand-100 rounded-lg">No internal notes yet. Leave one to help your team.</p>
                 )}
               </div>
             </div>
