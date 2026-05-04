@@ -100,7 +100,7 @@ function JobDetails() {
   if (!job)
     return (
       <div className="app-page flex items-center justify-center">
-        <div className="flex items-center gap-3 text-stone-500">
+        <div className="flex items-center gap-3 text-surface-500">
           <div className="h-5 w-5 animate-spin rounded-full border-2 border-blue-600 border-t-transparent" />
           Loading...
         </div>
@@ -109,9 +109,7 @@ function JobDetails() {
 
   return (
     <div className="app-shell">
-      <div className="absolute top-0 right-0 -mr-40 h-[600px] w-[600px] rounded-full bg-brand-300/20 blur-[110px] pointer-events-none"></div>
-
-      <div className="relative border-b border-surface-200/60 bg-white/50 pb-12 pl-8 pr-8 pt-8 backdrop-blur-md">
+      <div className="relative border-b border-brand-100 bg-white/70 pb-12 pl-8 pr-8 pt-8 backdrop-blur-md">
         <div className="layout-container max-w-5xl">
           <button onClick={() => navigate("/jobs")} className="flex items-center gap-1.5 text-sm font-bold text-surface-500 hover:text-brand-700 transition-colors mb-6">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" /></svg>
@@ -131,15 +129,15 @@ function JobDetails() {
             </div>
             
             <div className="grid gap-4 sm:grid-cols-3 md:min-w-[360px]">
-              <div className="rounded-2xl border border-brand-100 bg-white/90 p-5 shadow-sm ring-1 ring-white/70 backdrop-blur-sm">
+              <div className="rounded-lg border border-brand-100 bg-white p-5 shadow-sm ring-1 ring-white/70 backdrop-blur-sm">
                 <p className="text-[11px] font-bold uppercase tracking-normal text-surface-500">Location</p>
                 <p className="mt-2 truncate text-sm font-bold text-surface-900">{job.location}</p>
               </div>
-              <div className="rounded-2xl border border-brand-100 bg-white/90 p-5 shadow-sm ring-1 ring-white/70 backdrop-blur-sm">
+              <div className="rounded-lg border border-brand-100 bg-white p-5 shadow-sm ring-1 ring-white/70 backdrop-blur-sm">
                 <p className="text-[11px] font-bold uppercase tracking-normal text-surface-500">Type</p>
                 <p className="mt-2 text-sm font-bold capitalize text-surface-900">{job.jobType}</p>
               </div>
-              <div className="rounded-2xl border border-brand-100 bg-white/90 p-5 shadow-sm ring-1 ring-white/70 backdrop-blur-sm">
+              <div className="rounded-lg border border-brand-100 bg-white p-5 shadow-sm ring-1 ring-white/70 backdrop-blur-sm">
                 <p className="text-[11px] font-bold uppercase tracking-normal text-surface-500">Deadline</p>
                 <p className="mt-2 text-sm font-bold text-surface-900">{new Date(job.deadline).toLocaleDateString()}</p>
               </div>
@@ -161,15 +159,15 @@ function JobDetails() {
                 </div>
               </div>
               <div className="flex flex-wrap gap-x-8 gap-y-4 pt-6 border-t border-surface-100 text-[15px] font-medium text-surface-600">
-                <span className="flex items-center gap-2"><span className="text-xl">📍</span> {job.location}</span>
-                {job.salaryRange?.min && <span className="flex items-center gap-2"><span className="text-xl">💰</span> ₹{job.salaryRange.min.toLocaleString()} – ₹{job.salaryRange.max?.toLocaleString()}</span>}
-                <span className="flex items-center gap-2"><span className="text-xl">📅</span> Deadline: {new Date(job.deadline).toLocaleDateString()}</span>
+                <span>Location: {job.location}</span>
+                {job.salaryRange?.min && <span>Salary: ₹{job.salaryRange.min.toLocaleString()} - ₹{job.salaryRange.max?.toLocaleString()}</span>}
+                <span>Deadline: {new Date(job.deadline).toLocaleDateString()}</span>
               </div>
             </div>
 
             <div className="premium-card p-8 bg-white shadow-sm border-surface-200">
               <h2 className="text-xl font-bold text-surface-900 font-display mb-4">Job Description</h2>
-              <div className="prose prose-stone text-[15px] leading-relaxed text-surface-600 max-w-none whitespace-pre-line">
+              <div className="text-[15px] leading-relaxed text-surface-600 max-w-none whitespace-pre-line">
                 {job.description}
               </div>
             </div>
@@ -178,7 +176,7 @@ function JobDetails() {
               <h2 className="text-xl font-bold text-surface-900 font-display mb-5">Skills Required</h2>
               <div className="flex flex-wrap gap-2.5">
                 {job.skillsRequired?.map((skill, i) => (
-                  <span key={i} className="rounded-xl border border-brand-100 bg-brand-50/60 px-4 py-2 text-sm font-bold text-brand-700 shadow-sm transition-colors hover:border-brand-200 hover:bg-white">{skill}</span>
+                  <span key={i} className="rounded-lg border border-brand-100 bg-brand-50/60 px-4 py-2 text-sm font-bold text-brand-700 shadow-sm transition-colors hover:border-brand-200 hover:bg-white">{skill}</span>
                 ))}
               </div>
             </div>
@@ -186,13 +184,13 @@ function JobDetails() {
             <div className="premium-card p-8 bg-white shadow-sm border-surface-200">
               <h2 className="text-xl font-bold text-surface-900 font-display mb-5">Requirements</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  <div className="rounded-2xl border border-surface-100 bg-surface-50/50 p-5">
-                  <div className="w-10 h-10 rounded-xl bg-surface-200 text-surface-600 flex items-center justify-center mb-3 text-lg font-bold">⏱</div>
+                  <div className="rounded-lg border border-brand-100 bg-brand-50/40 p-5">
+                  <div className="w-10 h-10 rounded-lg bg-brand-100 text-brand-700 flex items-center justify-center mb-3 text-sm font-bold">EX</div>
                   <p className="mb-1 text-[11px] font-bold uppercase tracking-normal text-surface-400">Experience</p>
                   <p className="text-[15px] font-bold text-surface-800">{job.experienceRequired}</p>
                 </div>
-                  <div className="rounded-2xl border border-surface-100 bg-surface-50/50 p-5">
-                  <div className="w-10 h-10 rounded-xl bg-surface-200 text-surface-600 flex items-center justify-center mb-3 text-lg font-bold">🎓</div>
+                  <div className="rounded-lg border border-brand-100 bg-brand-50/40 p-5">
+                  <div className="w-10 h-10 rounded-lg bg-brand-100 text-brand-700 flex items-center justify-center mb-3 text-sm font-bold">ED</div>
                   <p className="mb-1 text-[11px] font-bold uppercase tracking-normal text-surface-400">Education</p>
                   <p className="text-[15px] font-bold text-surface-800">{job.educationRequired}</p>
                 </div>
@@ -225,7 +223,6 @@ function JobDetails() {
               ) : user?.role === "jobseeker" ? (
                 isApplied ? (
                   <div className="rounded-2xl border border-success-200 bg-success-50 p-6 text-center shadow-inner">
-                    <p className="text-4xl mb-3">🎉</p>
                     <p className="font-bold text-lg text-success-800 tracking-tight">Application Submitted!</p>
                     <p className="text-[13px] font-medium text-success-700 mt-2">You can track the status in your dashboard.</p>
                   </div>
