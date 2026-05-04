@@ -29,13 +29,13 @@ function getNotificationCategory(message) {
 function getCategoryStyles(category) {
   switch (category) {
     case "interview":
-      return "bg-violet-50 text-violet-700 border border-violet-100";
+      return "bg-brand-50 text-brand-700 border border-brand-100";
     case "application":
       return "bg-blue-50 text-blue-700 border border-blue-100";
     case "job":
-      return "bg-amber-50 text-amber-700 border border-amber-100";
+      return "bg-blue-50 text-blue-700 border border-blue-100";
     default:
-      return "bg-stone-100 text-stone-700 border border-stone-200";
+      return "bg-surface-100 text-surface-700 border border-surface-200";
   }
 }
 
@@ -135,7 +135,7 @@ function Notifications() {
   if (isLoading) {
     return (
       <div className="app-page flex items-center justify-center">
-        <div className="flex items-center gap-3 text-stone-500">
+        <div className="flex items-center gap-3 text-surface-500">
           <div className="h-5 w-5 animate-spin rounded-full border-2 border-blue-600 border-t-transparent" />
           Loading...
         </div>
@@ -184,7 +184,7 @@ function Notifications() {
                     key={filter.value}
                     type="button"
                     onClick={() => setStatusFilter(filter.value)}
-                    className={`rounded-full border px-3.5 py-2 text-sm font-semibold transition-all ${
+                    className={`rounded-lg border px-3.5 py-2 text-sm font-semibold transition-all ${
                       isActive
                         ? "border-brand-600 bg-brand-600 text-white shadow-md shadow-brand-500/20"
                         : "border-surface-300 bg-white text-surface-700 hover:-translate-y-0.5 hover:border-brand-200 hover:text-brand-700 hover:shadow-sm"
@@ -204,7 +204,7 @@ function Notifications() {
                     key={filter.value}
                     type="button"
                     onClick={() => setCategoryFilter(filter.value)}
-                    className={`rounded-full border px-3.5 py-2 text-sm font-semibold transition-all ${
+                    className={`rounded-lg border px-3.5 py-2 text-sm font-semibold transition-all ${
                       isActive
                         ? "border-surface-900 bg-surface-900 text-white shadow-md shadow-surface-900/10"
                         : "border-surface-300 bg-white text-surface-700 hover:-translate-y-0.5 hover:border-surface-400 hover:text-surface-900 hover:shadow-sm"
@@ -234,20 +234,20 @@ function Notifications() {
                   notification.status === "unread" ? "border-blue-200 shadow-md shadow-blue-100/40" : ""
                 }`}
               >
-                <div className={`absolute inset-y-5 left-0 w-1 rounded-full ${notification.status === "unread" ? "bg-blue-500" : "bg-stone-200"}`} />
+                <div className={`absolute inset-y-5 left-0 w-1 rounded-full ${notification.status === "unread" ? "bg-brand-500" : "bg-surface-200"}`} />
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                   <div className="min-w-0 flex-1 pl-3">
                     <div className="flex flex-wrap items-center gap-2">
                       <span
-                        className={`rounded-full px-2.5 py-1 text-xs font-semibold capitalize ${getCategoryStyles(notification.category)}`}
+                        className={`rounded-lg px-2.5 py-1 text-xs font-semibold capitalize ${getCategoryStyles(notification.category)}`}
                       >
                         {notification.category}
                       </span>
                       <span
-                        className={`rounded-full px-2.5 py-1 text-xs font-semibold capitalize ${
+                        className={`rounded-lg px-2.5 py-1 text-xs font-semibold capitalize ${
                           notification.status === "unread"
                             ? "bg-blue-50 text-blue-700 border border-blue-100"
-                            : "bg-stone-100 text-stone-600 border border-stone-200"
+                            : "bg-surface-100 text-surface-600 border border-surface-200"
                         }`}
                       >
                         {notification.status}
