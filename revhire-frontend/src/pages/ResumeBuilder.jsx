@@ -40,7 +40,7 @@ function AddButton({ onClick, label }) {
 
 function RemoveButton({ onClick }) {
   return (
-    <button type="button" onClick={onClick} className="text-[13px] font-bold text-error-500 transition-colors hover:text-error-600 bg-error-50 px-3 py-1.5 rounded-lg hover:bg-error-100">
+    <button type="button" onClick={onClick} className="text-[13px] font-bold text-error-600 transition-colors hover:text-error-700 bg-error-50 px-3 py-1.5 rounded-lg hover:bg-error-100">
       Remove
     </button>
   );
@@ -178,9 +178,7 @@ function ResumeBuilder() {
 
   return (
     <div className="app-shell">
-      <div className="absolute top-0 right-0 -mr-40 h-[600px] w-[600px] rounded-full bg-brand-300/20 blur-[100px] pointer-events-none"></div>
-
-      <div className="pt-10 pb-10 border-b border-surface-200/60 bg-white/50 backdrop-blur-md relative z-10">
+      <div className="pt-10 pb-10 border-b border-brand-100 bg-white/70 backdrop-blur-md relative z-10">
         <div className="layout-container max-w-4xl">
           <div className="page-hero flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
             <div>
@@ -192,7 +190,7 @@ function ResumeBuilder() {
                 Manage multiple resume versions, upload a PDF copy, and export the current draft.
               </p>
             </div>
-            <div className="flex flex-wrap items-center gap-3 rounded-[1.5rem] border border-white/70 bg-white/70 p-2 shadow-sm backdrop-blur-sm">
+            <div className="flex flex-wrap items-center gap-3 rounded-lg border border-brand-100 bg-white p-2 shadow-sm backdrop-blur-sm">
               <button type="button" onClick={handleCreateVersion} className="btn-secondary">
                 New Version
               </button>
@@ -229,7 +227,7 @@ function ResumeBuilder() {
           <Section title="Resume Version">
             <div className="grid gap-5 sm:grid-cols-[1fr,auto]">
               <div>
-                <label className="mb-2 block text-[13px] font-bold uppercase tracking-normal text-surface-700">Version Name</label>
+                <label className="label-text">Version Name</label>
                 <input
                   type="text"
                   value={resume.title || ""}
@@ -255,11 +253,11 @@ function ResumeBuilder() {
             </div>
             <div className="mt-5 grid gap-5 sm:grid-cols-2">
               <div>
-                <label className="mb-2 block text-[13px] font-bold uppercase tracking-normal text-surface-700">Upload Resume File</label>
+                <label className="label-text">Upload Resume File</label>
                 <input type="file" accept=".pdf,.doc,.docx" onChange={handleFileUpload} className={`${inputClass} !py-2`} />
                 {resume.uploadedFile?.fileName && (
-                  <p className="mt-3 inline-flex items-center gap-2 rounded-lg border border-surface-300 bg-surface-100 px-3 py-1.5 text-[13px] font-medium text-surface-700">
-                    <span className="text-lg">📎</span> {resume.uploadedFile.fileName}
+                  <p className="mt-3 inline-flex items-center gap-2 rounded-lg border border-brand-100 bg-brand-50 px-3 py-1.5 text-[13px] font-medium text-brand-700">
+                    Attached: {resume.uploadedFile.fileName}
                   </p>
                 )}
               </div>
@@ -274,7 +272,7 @@ function ResumeBuilder() {
           </Section>
 
           {/* Objective */}
-          <Section title="🎯 Professional Objective">
+          <Section title="Professional Objective">
             <textarea
               placeholder="Write a short professional summary..."
               value={resume.objective}
@@ -285,7 +283,7 @@ function ResumeBuilder() {
           </Section>
 
           {/* Skills */}
-          <Section title="⚡ Skills">
+          <Section title="Skills">
             <div className="flex flex-wrap gap-3 mb-4">
               {resume.skills.map((skill, i) => (
                 <div key={i} className="flex items-center gap-2 rounded-xl border border-brand-200 bg-brand-50 px-3 py-2 shadow-sm focus-within:ring-2 focus-within:ring-brand-500 focus-within:ring-offset-1">
@@ -308,7 +306,7 @@ function ResumeBuilder() {
           </Section>
 
           {/* Education */}
-          <Section title="🎓 Education">
+          <Section title="Education">
             <div className="space-y-5">
               {resume.education.map((edu, i) => (
                 <div key={i} className="space-y-4 rounded-xl border border-surface-200 bg-surface-50 p-5 transition-colors focus-within:bg-white focus-within:border-brand-200 focus-within:shadow-sm">
@@ -327,7 +325,7 @@ function ResumeBuilder() {
           </Section>
 
           {/* Experience */}
-          <Section title="💼 Experience">
+          <Section title="Experience">
             <div className="space-y-5">
               {resume.experience.map((exp, i) => (
                 <div key={i} className="space-y-4 rounded-xl border border-surface-200 bg-surface-50 p-5 transition-colors focus-within:bg-white focus-within:border-brand-200 focus-within:shadow-sm">
@@ -347,7 +345,7 @@ function ResumeBuilder() {
           </Section>
 
           {/* Projects */}
-          <Section title="🚀 Projects">
+          <Section title="Projects">
             <div className="space-y-5">
               {resume.projects.map((proj, i) => (
                 <div key={i} className="space-y-4 rounded-xl border border-surface-200 bg-surface-50 p-5 transition-colors focus-within:bg-white focus-within:border-brand-200 focus-within:shadow-sm">
@@ -364,7 +362,7 @@ function ResumeBuilder() {
           </Section>
 
           {/* Certifications */}
-          <Section title="🏆 Certifications">
+          <Section title="Certifications">
             <div className="space-y-4">
               {resume.certifications.map((cert, i) => (
                 <div key={i} className="flex items-center gap-4">
