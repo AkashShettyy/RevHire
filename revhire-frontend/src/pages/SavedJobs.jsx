@@ -57,9 +57,7 @@ function SavedJobs() {
 
   return (
     <div className="app-shell">
-      <div className="absolute top-0 right-0 -mr-40 h-[600px] w-[600px] rounded-full bg-amber-300/20 blur-[100px] pointer-events-none"></div>
-
-      <div className="pt-10 pb-10 border-b border-surface-200/60 bg-white/50 backdrop-blur-md relative z-10">
+      <div className="pt-10 pb-10 border-b border-brand-100 bg-white/70 backdrop-blur-md relative z-10">
         <div className="layout-container max-w-5xl">
           <div className="page-hero grid gap-6 lg:grid-cols-[1.2fr,0.8fr] lg:items-end">
             <div>
@@ -90,9 +88,7 @@ function SavedJobs() {
 
         {savedJobs.length === 0 ? (
           <div className="premium-card p-16 text-center bg-white border-none shadow-sm">
-            <div className="inline-flex w-24 h-24 rounded-full bg-surface-50 items-center justify-center mb-6">
-              <span className="text-4xl">🔖</span>
-            </div>
+            <div className="mx-auto mb-6 h-1 w-24 rounded-full bg-brand-200" />
             <h3 className="text-2xl font-bold text-surface-900 font-display mb-2">No saved jobs yet</h3>
             <p className="mb-8 mt-1 text-[15px] font-medium text-surface-700">Save interesting roles from search or job details.</p>
             <button onClick={() => navigate("/jobs")} className="btn-primary">
@@ -120,11 +116,11 @@ function SavedJobs() {
                     </div>
                     <p className="mt-1.5 text-sm font-medium text-surface-700">{entry.job?.organization?.name}</p>
                     <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-[14px] font-medium text-surface-700">
-                      <span className="flex items-center gap-1.5"><span className="text-surface-400">📍</span> {entry.job?.location}</span>
+                      <span>Location: {entry.job?.location}</span>
                       {entry.job?.salaryRange?.min && (
-                        <span className="flex items-center gap-1.5"><span className="text-surface-400">💰</span> ₹{entry.job.salaryRange.min.toLocaleString()} - ₹{entry.job.salaryRange.max?.toLocaleString()}</span>
+                        <span>Salary: ₹{entry.job.salaryRange.min.toLocaleString()} - ₹{entry.job.salaryRange.max?.toLocaleString()}</span>
                       )}
-                      <span className="flex items-center gap-1.5"><span className="text-surface-400">📅</span> Deadline {new Date(entry.job?.deadline).toLocaleDateString()}</span>
+                      <span>Deadline: {new Date(entry.job?.deadline).toLocaleDateString()}</span>
                     </div>
                   </div>
 
@@ -135,7 +131,7 @@ function SavedJobs() {
                     <button
                       type="button"
                       onClick={() => handleRemove(entry.job?._id)}
-                      className="px-4 py-2 rounded-xl text-[13px] font-bold text-error-600 border border-error-200 bg-error-50 hover:bg-error-100 transition-colors"
+                      className="px-4 py-2 rounded-lg text-[13px] font-bold text-error-600 border border-error-200 bg-error-50 hover:bg-error-100 transition-colors"
                     >
                       Remove
                     </button>
