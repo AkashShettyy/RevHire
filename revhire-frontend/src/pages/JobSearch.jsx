@@ -160,7 +160,7 @@ function JobSearch() {
 
   return (
     <div className="app-shell">
-      <div className="border-b border-white/50 bg-white/45 pt-8 pb-10 backdrop-blur-sm">
+      <div className="border-b border-brand-100 bg-white/70 pt-8 pb-10 backdrop-blur-sm">
         <div className="layout-container">
           <div className="mx-auto max-w-7xl">
             <div className="page-hero grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
@@ -264,7 +264,7 @@ function JobSearch() {
                         key={item.label}
                         type="button"
                         onClick={() => handleQuickFilter(item.changes)}
-                        className="rounded-full border border-white/80 bg-white px-4 py-2 text-sm font-semibold text-surface-700 shadow-sm transition-all hover:-translate-y-0.5 hover:border-brand-200 hover:text-brand-700 hover:shadow-md"
+                        className="rounded-lg border border-brand-100 bg-white px-4 py-2 text-sm font-semibold text-surface-700 shadow-sm transition-all hover:-translate-y-0.5 hover:border-brand-200 hover:text-brand-700 hover:shadow-md"
                       >
                         {item.label}
                       </button>
@@ -272,7 +272,7 @@ function JobSearch() {
                   </div>
                 </div>
 
-                <div className="rounded-[1.25rem] border border-brand-100 bg-brand-50/70 px-4 py-3 shadow-sm">
+                <div className="rounded-lg border border-brand-100 bg-brand-50/70 px-4 py-3 shadow-sm">
                   <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-700">Search summary</p>
                   <p className="mt-1 text-sm font-semibold text-surface-800">
                     {isLoading ? "Refreshing results..." : `${pagination.total} roles across ${pagination.totalPages} page${pagination.totalPages !== 1 ? "s" : ""}`}
@@ -289,7 +289,7 @@ function JobSearch() {
                         key={filter.key}
                         type="button"
                         onClick={() => handleRemoveFilter(filter.key)}
-                        className="inline-flex items-center gap-2 rounded-full border border-brand-200 bg-white px-3 py-1.5 text-sm font-semibold text-surface-700 transition-colors hover:border-brand-300 hover:text-brand-700"
+                        className="inline-flex items-center gap-2 rounded-lg border border-brand-200 bg-white px-3 py-1.5 text-sm font-semibold text-surface-700 transition-colors hover:border-brand-300 hover:text-brand-700"
                       >
                         <span>{filter.label}</span>
                         <span className="text-surface-400">×</span>
@@ -311,7 +311,7 @@ function JobSearch() {
               {isLoading ? "Searching..." : `${pagination.total} job${pagination.total !== 1 ? "s" : ""} found`}
             </p>
           </div>
-          <div className="hidden rounded-full border border-white/80 bg-white/85 px-4 py-2 text-sm font-semibold text-surface-600 shadow-sm sm:block">
+          <div className="hidden rounded-lg border border-brand-100 bg-white px-4 py-2 text-sm font-semibold text-surface-600 shadow-sm sm:block">
             Page {pagination.page} of {pagination.totalPages}
           </div>
         </div>
@@ -323,8 +323,8 @@ function JobSearch() {
                 <div className="mb-4 h-5 w-1/3 rounded-lg bg-surface-200" />
                 <div className="mb-5 h-4 w-1/4 rounded-lg bg-surface-200" />
                 <div className="flex gap-3">
-                  <div className="h-8 w-20 rounded-full bg-surface-200" />
-                  <div className="h-8 w-24 rounded-full bg-surface-200" />
+                  <div className="h-8 w-20 rounded-lg bg-surface-200" />
+                  <div className="h-8 w-24 rounded-lg bg-surface-200" />
                 </div>
               </div>
             ))}
@@ -345,7 +345,7 @@ function JobSearch() {
                 <div className="flex flex-col sm:flex-row items-start justify-between gap-6">
                   <div className="flex-1 min-w-0">
                     <div className="mb-4 flex items-start gap-4">
-                      <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[1.25rem] bg-gradient-to-br from-brand-50 via-white to-cyan-50 text-lg font-bold text-brand-700 shadow-sm">
+                      <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-brand-50 via-white to-brand-100 text-lg font-bold text-brand-700 shadow-sm">
                         {(job.organization?.name || job.title || "J").charAt(0)}
                       </div>
                       <div className="min-w-0">
@@ -364,16 +364,16 @@ function JobSearch() {
                     </div>
                     
                     <div className="mb-5 flex flex-wrap gap-2 text-sm font-medium text-surface-700">
-                      <span className="rounded-full border border-surface-200 bg-surface-50 px-3 py-1.5">
+                      <span className="rounded-lg border border-surface-200 bg-surface-50 px-3 py-1.5">
                         {job.location || "Location flexible"}
                       </span>
-                      <span className="rounded-full border border-surface-200 bg-surface-50 px-3 py-1.5">
+                      <span className="rounded-lg border border-surface-200 bg-surface-50 px-3 py-1.5">
                         {formatSalaryRange(job.salaryRange)}
                       </span>
-                      <span className="rounded-full border border-surface-200 bg-surface-50 px-3 py-1.5">
+                      <span className="rounded-lg border border-surface-200 bg-surface-50 px-3 py-1.5">
                         Deadline: {new Date(job.deadline).toLocaleDateString()}
                       </span>
-                      <span className={`rounded-full px-3 py-1.5 ${formatDeadline(job.deadline) === "Closed" ? "border border-error-200 bg-error-50 text-error-700" : "border border-amber-200 bg-amber-50 text-amber-800"}`}>
+                      <span className={`rounded-lg px-3 py-1.5 ${formatDeadline(job.deadline) === "Closed" ? "border border-error-200 bg-error-50 text-error-700" : "border border-brand-200 bg-brand-50 text-brand-700"}`}>
                         {formatDeadline(job.deadline)}
                       </span>
                     </div>
@@ -383,20 +383,20 @@ function JobSearch() {
                     </p>
                     <div className="mt-5 flex flex-wrap gap-2">
                       {job.skillsRequired?.slice(0, 6).map((skill, i) => (
-                        <span key={i} className="rounded-full border border-surface-300 bg-white px-3 py-1 text-[13px] font-semibold text-surface-700 shadow-sm">{skill}</span>
+                        <span key={i} className="rounded-lg border border-brand-100 bg-white px-3 py-1 text-[13px] font-semibold text-surface-700 shadow-sm">{skill}</span>
                       ))}
                     </div>
                   </div>
 
                   <div className="flex w-full shrink-0 flex-row items-center gap-3 border-t border-surface-100 pt-4 sm:mt-0 sm:w-auto sm:flex-col sm:items-end sm:border-0 sm:pt-0">
-                    <span className="rounded-full bg-surface-950 px-6 py-2.5 text-sm font-semibold text-white shadow-[0_12px_24px_rgba(16,28,45,0.18)]">
+                    <span className="rounded-lg bg-brand-600 px-6 py-2.5 text-sm font-semibold text-white shadow-[0_12px_24px_rgba(29,78,216,0.18)]">
                       View details
                     </span>
                     {user?.role === "jobseeker" && (
                       <button
                         type="button"
                         onClick={(event) => handleToggleSave(event, job._id)}
-                        className={`w-full sm:w-auto rounded-full px-5 py-2 text-sm font-bold border transition-colors ${
+                        className={`w-full sm:w-auto rounded-lg px-5 py-2 text-sm font-bold border transition-colors ${
                           savedJobIds.includes(job._id)
                             ? "bg-brand-50 border-brand-200 text-brand-700"
                             : "bg-white border-surface-200 text-surface-600 hover:bg-surface-50"
