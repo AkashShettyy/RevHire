@@ -37,7 +37,7 @@ function formatInterviewType(value) {
 function getInterviewAccent(interviewType) {
   return interviewType === "online"
     ? "from-sky-500/18 via-blue-500/10 to-transparent"
-    : "from-amber-500/18 via-orange-400/10 to-transparent";
+    : "from-brand-300/30 via-blue-200/20 to-transparent";
 }
 
 function getResponsePill(responseStatus) {
@@ -47,7 +47,7 @@ function getResponsePill(responseStatus) {
     case "declined":
       return "bg-red-50 text-red-600 border border-red-100";
     default:
-      return "bg-amber-50 text-amber-700 border border-amber-100";
+      return "bg-brand-50 text-brand-700 border border-brand-100";
   }
 }
 
@@ -131,7 +131,7 @@ function InterviewCalendar() {
   if (isLoading) {
     return (
       <div className="app-page flex items-center justify-center">
-        <div className="flex items-center gap-3 text-stone-500">
+        <div className="flex items-center gap-3 text-surface-500">
           <div className="h-5 w-5 animate-spin rounded-full border-2 border-blue-600 border-t-transparent" />
           Loading...
         </div>
@@ -191,7 +191,7 @@ function InterviewCalendar() {
 
         {normalizedInterviews.length === 0 ? (
           <div className="premium-card p-16 text-center">
-            <p className="mb-4 text-5xl">🗓️</p>
+            <div className="mx-auto mb-6 h-1 w-24 rounded-full bg-brand-200" />
             <p className="font-medium text-surface-800">No interviews scheduled yet</p>
             <p className="mt-1 text-sm text-surface-700">
               {user?.role === "employer"
@@ -258,7 +258,7 @@ function InterviewCalendar() {
                       key={dayKey}
                       type="button"
                       onClick={() => setSelectedDayKey(dayKey)}
-                      className={`min-h-28 rounded-3xl border p-3 text-left shadow-sm transition-all ${
+                      className={`min-h-28 rounded-lg border p-3 text-left shadow-sm transition-all ${
                         isSelected
                           ? "border-blue-600 bg-gradient-to-br from-blue-100 to-indigo-100 shadow-lg shadow-blue-100/60"
                           : "border-surface-300 bg-white hover:-translate-y-0.5 hover:border-blue-300 hover:bg-blue-50/60 hover:shadow-md"
@@ -320,7 +320,7 @@ function InterviewCalendar() {
                 </p>
 
                 {selectedDayInterviews.length === 0 ? (
-                  <div className="mt-5 rounded-3xl border border-dashed border-surface-300 px-4 py-8 text-center text-sm text-surface-700">
+                  <div className="mt-5 rounded-lg border border-dashed border-brand-200 bg-brand-50/30 px-4 py-8 text-center text-sm text-surface-700">
                     No interviews on this date.
                   </div>
                 ) : (
@@ -348,17 +348,17 @@ function InterviewCalendar() {
                         <div className="mt-4 grid gap-2 text-sm text-surface-700">
                           {user?.role === "employer" ? (
                             <>
-                              <p className="rounded-2xl bg-surface-100 px-3 py-2">{interview.job?.title}</p>
-                              <p className="rounded-2xl bg-surface-100 px-3 py-2">{interview.jobSeeker?.email}</p>
+                              <p className="rounded-lg bg-surface-100 px-3 py-2">{interview.job?.title}</p>
+                              <p className="rounded-lg bg-surface-100 px-3 py-2">{interview.jobSeeker?.email}</p>
                             </>
                           ) : (
                             <>
-                              <p className="rounded-2xl bg-surface-100 px-3 py-2">{interview.employer?.name}</p>
-                              <p className="rounded-2xl bg-surface-100 px-3 py-2">{interview.employer?.email}</p>
+                              <p className="rounded-lg bg-surface-100 px-3 py-2">{interview.employer?.name}</p>
+                              <p className="rounded-lg bg-surface-100 px-3 py-2">{interview.employer?.email}</p>
                             </>
                           )}
-                          <p className="rounded-2xl bg-surface-100 px-3 py-2">{formatInterviewType(interview.interviewType)}</p>
-                          <p className="rounded-2xl bg-surface-100 px-3 py-2 break-all">{interview.interviewType === "online" ? interview.meetingLink : interview.location}</p>
+                          <p className="rounded-lg bg-surface-100 px-3 py-2">{formatInterviewType(interview.interviewType)}</p>
+                          <p className="rounded-lg bg-surface-100 px-3 py-2 break-all">{interview.interviewType === "online" ? interview.meetingLink : interview.location}</p>
                         </div>
 
                         {user?.role === "jobseeker" && interview.responseStatus !== "accepted" && (
