@@ -207,7 +207,7 @@ function JobDetails() {
                     <button
                       type="button"
                       onClick={handleToggleSavedJob}
-                      className={`flex-1 rounded-xl py-2.5 text-sm font-bold border transition-colors ${
+                      className={`flex-1 rounded-lg py-2.5 text-sm font-bold border transition-colors ${
                         isSaved ? "bg-brand-50 border-brand-200 text-brand-700" : "bg-white border-surface-200 text-surface-600 hover:bg-surface-50"
                       }`}
                     >
@@ -217,12 +217,12 @@ function JobDetails() {
               </div>
 
               {job.status === "closed" ? (
-                <div className="rounded-xl border border-error-200 bg-error-50 p-5 text-center font-bold text-error-700">
+                <div className="rounded-lg border border-error-200 bg-error-50 p-5 text-center font-bold text-error-700">
                   This position is currently closed
                 </div>
               ) : user?.role === "jobseeker" ? (
                 isApplied ? (
-                  <div className="rounded-2xl border border-success-200 bg-success-50 p-6 text-center shadow-inner">
+                  <div className="rounded-lg border border-success-200 bg-success-50 p-6 text-center shadow-inner">
                     <p className="font-bold text-lg text-success-800 tracking-tight">Application Submitted!</p>
                     <p className="text-[13px] font-medium text-success-700 mt-2">You can track the status in your dashboard.</p>
                   </div>
@@ -285,7 +285,7 @@ function JobDetails() {
                       />
                     </div>
                     {message && (
-                      <div className="flex items-center gap-2 rounded-xl border border-error-200 bg-error-50 px-4 py-3 text-sm font-semibold text-error-700 animate-fade-in">
+                      <div className="flex items-center gap-2 rounded-lg border border-error-200 bg-error-50 px-4 py-3 text-sm font-semibold text-error-700 animate-fade-in">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" /></svg>
                         {message}
                       </div>
@@ -296,7 +296,7 @@ function JobDetails() {
                   </form>
                 )
               ) : (
-                <div className="rounded-2xl border border-surface-100 bg-surface-50 p-6 text-center">
+                <div className="rounded-lg border border-brand-100 bg-brand-50/40 p-6 text-center">
                   <p className="mb-5 text-[15px] font-medium text-surface-600">You must be signed in as a job seeker to apply for this role.</p>
                   <button onClick={() => navigate("/login")} className="btn-primary w-full shadow-brand-500/20">Sign In to Apply</button>
                 </div>

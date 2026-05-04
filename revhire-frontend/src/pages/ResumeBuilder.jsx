@@ -410,7 +410,7 @@ function ResumeBuilder() {
             </div>
 
             <div className="flex-1 overflow-auto px-3 py-4 sm:px-6 sm:py-6">
-              <div className="mx-auto w-full max-w-7xl rounded-xl bg-[#e9edf3] p-3 shadow-md sm:p-6">
+              <div className="mx-auto w-full max-w-7xl rounded-lg bg-brand-50 p-3 shadow-md sm:p-6">
                 <ResumePreview user={user} resume={resume} />
               </div>
             </div>

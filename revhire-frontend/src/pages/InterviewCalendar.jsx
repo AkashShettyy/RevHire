@@ -280,7 +280,7 @@ function InterviewCalendar() {
                       </div>
                       <div className="mt-3 space-y-2">
                         {dayInterviews.slice(0, 2).map((interview) => (
-                          <div key={interview._id} className={`rounded-2xl bg-gradient-to-r ${getInterviewAccent(interview.interviewType)} px-2.5 py-2 text-xs text-surface-700`}>
+                          <div key={interview._id} className={`rounded-lg bg-gradient-to-r ${getInterviewAccent(interview.interviewType)} px-2.5 py-2 text-xs text-surface-700`}>
                             <p className="font-semibold text-surface-900">
                               {interview.scheduledDate.toLocaleTimeString([], {
                                 hour: "numeric",

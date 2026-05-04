@@ -261,7 +261,7 @@ export default function ApplicationModal({
                           <p className="text-[11px] font-bold uppercase tracking-normal text-surface-400 mt-0.5">{new Date(note.createdAt).toLocaleString()}</p>
                         </div>
                         {note.rating > 0 && (
-                          <div className="flex gap-0.5 text-amber-400 text-lg">
+                          <div className="flex gap-0.5 text-brand-500 text-lg">
                             {Array.from({length: note.rating}).map((_, j) => <span key={j}>★</span>)}
                           </div>
                         )}

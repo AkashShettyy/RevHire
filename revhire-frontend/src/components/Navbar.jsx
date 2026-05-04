@@ -108,7 +108,7 @@ function Navbar() {
               <div className="relative ml-2">
                 <button
                   onClick={() => { setShowNotifications(!showNotifications); if (!showNotifications) fetchNotifications(); }}
-                  className={`relative flex h-10 w-10 items-center justify-center rounded-2xl border transition-colors duration-150 ${
+                  className={`relative flex h-10 w-10 items-center justify-center rounded-lg border transition-colors duration-150 ${
                     unreadCount > 0
                       ? "border-brand-300 bg-brand-50 text-brand-700 shadow-[0_12px_24px_rgba(29,78,216,0.14)]"
                       : "border-brand-100 bg-white text-surface-600 hover:border-brand-200 hover:text-brand-700"
