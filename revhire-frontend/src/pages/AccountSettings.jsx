@@ -13,7 +13,7 @@ function getPasswordStrength(password) {
   if (/[^A-Za-z0-9]/.test(password)) score += 1;
 
   if (score <= 1) return { label: "Weak", color: "bg-error-500", text: "text-error-700", bars: 1 };
-  if (score <= 3) return { label: "Medium", color: "bg-amber-500", text: "text-amber-700", bars: 3 };
+  if (score <= 3) return { label: "Medium", color: "bg-brand-500", text: "text-brand-700", bars: 3 };
   return { label: "Strong", color: "bg-emerald-500", text: "text-emerald-700", bars: 5 };
 }
 
@@ -119,7 +119,7 @@ function AccountSettings() {
                 className="input-field"
                 required
               />
-              <div className="rounded-[1.25rem] border border-surface-200 bg-surface-50/80 p-4">
+              <div className="rounded-lg border border-brand-100 bg-brand-50/40 p-4">
                 <div className="flex items-center justify-between gap-4">
                   <p className="text-sm font-semibold text-surface-800">Strength</p>
                   <p className={`text-sm font-semibold ${formData.newPassword ? passwordStrength.text : "text-surface-500"}`}>
@@ -174,7 +174,7 @@ function AccountSettings() {
               {passwordChecks.map((item) => (
                 <div
                   key={item.label}
-                  className={`flex items-center gap-3 rounded-[1rem] border px-4 py-3 shadow-sm transition-colors ${
+                  className={`flex items-center gap-3 rounded-lg border px-4 py-3 shadow-sm transition-colors ${
                     item.passed
                       ? "border-emerald-200 bg-emerald-50 text-emerald-800"
                       : "border-surface-200 bg-white text-surface-600"
@@ -190,7 +190,7 @@ function AccountSettings() {
               ))}
             </div>
 
-            <div className="mt-6 rounded-[1.25rem] border border-brand-100 bg-brand-50/70 p-4">
+            <div className="mt-6 rounded-lg border border-brand-100 bg-brand-50/70 p-4">
               <p className="text-sm font-semibold text-surface-800">Security note</p>
               <p className="mt-2 text-sm leading-6 text-surface-700">
                 Longer passwords with a mix of letters, numbers, and symbols are harder to guess and easier to keep secure over time.
