@@ -1,109 +1,44 @@
 import { Link } from "react-router-dom";
 
-const capabilityGroups = [
-  {
-    title: "For job seekers",
-    items: ["Search openings by title, location, and job type", "Track submitted applications in one place", "Build a resume and export it as PDF"],
-  },
-  {
-    title: "For employers",
-    items: ["Post new roles with structured requirements", "Review applicants and their cover letters", "Shortlist, reject, close, or reopen positions"],
-  },
-];
-
-const productNotes = [
-  {
-    title: "Single workspace",
-    desc: "The product brings job discovery, resume building, application history, and hiring workflows into one interface.",
-  },
-  {
-    title: "Role-based experience",
-    desc: "Job seekers and employers each get their own dashboards, actions, and navigation.",
-  },
-  {
-    title: "Practical flows",
-    desc: "Every screen is focused on the actions already available in this project instead of placeholder marketing promises.",
-  },
+const highlights = [
+  { label: "Job seekers", text: "Search jobs, save roles, apply, and manage resumes." },
+  { label: "Employers", text: "Post openings, review applicants, and schedule interviews." },
+  { label: "Workflows", text: "Role-based dashboards keep the product focused after login." },
 ];
 
 function Landing() {
   return (
     <div className="app-shell">
-      <section className="relative pt-8 pb-16 sm:pt-12 sm:pb-24">
+      <section className="relative py-12 sm:py-16 lg:py-20">
         <div className="layout-container">
-          <div className="grid items-center gap-12 lg:grid-cols-[1.04fr_0.96fr]">
-            <div className="relative z-10">
-                <span className="mb-6 inline-flex items-center gap-2 rounded-md border border-brand-100 bg-white px-4 py-1.5 shadow-sm">
-                <span className="flex h-2 w-2 rounded-full bg-brand-600 animate-pulse"></span>
-                <span className="text-xs font-bold uppercase tracking-[0.18em] text-brand-700">Hiring Platform</span>
-              </span>
-              <h1 className="heading-hero leading-[1.08]">
-                A sharper hiring workspace for candidates and employers.
+          <div className="page-hero grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
+            <div>
+              <span className="eyebrow">Hiring Platform</span>
+              <h1 className="heading-hero mt-6 leading-[1.08]">
+                RevHire
               </h1>
-              <p className="mt-6 max-w-2xl text-[17px] leading-relaxed text-surface-700">
-                RevHire brings search, resumes, applications, interview tracking, and hiring workflows into a single product surface that feels more like software and less like a template.
+              <p className="mt-5 max-w-xl text-lg leading-7 text-surface-700">
+                A clean hiring workspace for candidates and employers to manage jobs, applications, resumes, and interviews.
               </p>
-              <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-                <Link to="/register" className="btn-primary px-8 py-3.5 text-base shadow-brand-500/30">
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <Link to="/register" className="btn-primary px-8 py-3.5 text-base">
                   Create an account
                 </Link>
-                <Link to="/login" className="btn-secondary px-8 py-3.5 text-base shadow-sm">
+                <Link to="/login" className="btn-secondary px-8 py-3.5 text-base">
                   Sign in
                 </Link>
               </div>
-              <div className="mt-12 grid gap-4 sm:grid-cols-3">
-                {[
-                  { label: "Jobs", value: "Search and apply", accent: "from-brand-500 to-brand-700", note: "Filters + job details" },
-                  { label: "Resumes", value: "Build and export", accent: "from-brand-400 to-brand-600", note: "Structured resume flow" },
-                  { label: "Hiring", value: "Post and review", accent: "from-blue-500 to-blue-700", note: "Applicants + interviews" },
-                ].map((item) => (
-                  <div key={item.label} className="premium-card border-white/80 bg-white/95 px-5 py-5 shadow-sm ring-1 ring-white/70">
-                    <div className="flex items-center gap-3 mb-2">
-                       <div className={`flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br text-white ${item.accent}`}>
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 13l4 4L19 7"></path></svg>
-                       </div>
-                       <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-surface-400">{item.label}</p>
-                    </div>
-                    <p className="text-base font-bold text-surface-900">{item.value}</p>
-                    <p className="mt-2 text-sm font-medium text-surface-500">{item.note}</p>
-                  </div>
-                ))}
-              </div>
             </div>
 
-            <div className="relative z-10 w-full lg:ml-auto">
-              <div className="glass-panel overflow-hidden p-3">
-                <div className="relative overflow-hidden rounded-lg bg-gradient-to-br from-surface-950 via-brand-900 to-brand-700 p-9 text-white">
-                  <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-brand-100">Current workflow</p>
-                  <h2 className="mt-3 text-[30px] font-bold font-display leading-tight">Built for the real product flows already in this repo</h2>
-                  <p className="mt-3 max-w-lg text-[15px] leading-relaxed text-white/78 font-medium">
-                    The platform already supports protected routes, job discovery, saved jobs, resume export, job posting, applicant review, and interview scheduling.
-                  </p>
-                  <div className="mt-8 grid gap-3 sm:grid-cols-3">
-                    {[
-                      { label: "Protected", value: "Role aware" },
-                      { label: "Dashboard", value: "Action driven" },
-                      { label: "Hiring", value: "End to end" },
-                    ].map((item) => (
-                      <div key={item.label} className="rounded-lg border border-white/10 bg-white/10 px-4 py-4 backdrop-blur-sm">
-                        <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/55">{item.label}</p>
-                        <p className="mt-2 font-display text-lg font-semibold text-white">{item.value}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <div className="mt-3 space-y-3 p-5">
-                  {capabilityGroups.map((group) => (
-                    <div key={group.title} className="rounded-lg border border-brand-100 bg-white p-5 shadow-sm transition-all duration-300 hover:border-brand-200 hover:shadow-md">
-                      <h3 className="text-[15px] font-bold text-surface-900 font-display">{group.title}</h3>
-                      <ul className="mt-4 space-y-3 text-sm leading-relaxed text-surface-700">
-                        {group.items.map((item) => (
-                          <li key={item} className="flex items-start gap-3">
-                            <span className="mt-1 flex shrink-0 h-1.5 w-1.5 rounded-full bg-brand-500" />
-                            <span className="font-medium">{item}</span>
-                          </li>
-                        ))}
-                      </ul>
+            <div className="glass-panel p-5">
+              <div className="rounded-lg bg-gradient-to-br from-surface-950 via-brand-900 to-brand-700 p-7 text-white">
+                <p className="text-xs font-semibold uppercase tracking-normal text-brand-100">One product surface</p>
+                <h2 className="mt-3 font-display text-2xl font-bold">Built around real hiring tasks.</h2>
+                <div className="mt-6 grid gap-3">
+                  {highlights.map((item) => (
+                    <div key={item.label} className="rounded-lg border border-white/10 bg-white/10 p-4">
+                      <p className="text-sm font-semibold text-white">{item.label}</p>
+                      <p className="mt-1 text-sm leading-6 text-white/75">{item.text}</p>
                     </div>
                   ))}
                 </div>
@@ -113,50 +48,20 @@ function Landing() {
         </div>
       </section>
 
-      <section className="relative border-y border-brand-100 bg-white/70 py-24 backdrop-blur-sm">
+      <section className="border-y border-brand-100 bg-white/70 py-14">
         <div className="layout-container">
-          <div className="max-w-2xl mx-auto text-center">
-            <span className="inline-flex rounded-md border border-brand-100 bg-white px-3 py-1 text-xs font-bold uppercase tracking-normal text-brand-700">Product Overview</span>
-            <h2 className="heading-section mt-6">A more intentional visual layer around the existing feature set</h2>
-            <p className="mt-4 text-[17px] leading-relaxed text-surface-700 font-medium">
-              The redesign leans into clarity, stronger contrast, and better visual grouping without inventing features that the product does not have.
-            </p>
-          </div>
-          <div className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {productNotes.map((item, i) => (
-              <article key={item.title} className="premium-card bg-white/92 p-8">
-                <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-lg bg-brand-50 text-brand-700">
-                  <span className="font-display text-xl font-bold">0{i+1}</span>
-                </div>
-                <h3 className="text-lg font-bold text-surface-900 font-display">{item.title}</h3>
-                <p className="mt-3 text-[15px] leading-relaxed text-surface-700 font-medium">{item.desc}</p>
+          <div className="grid gap-4 md:grid-cols-3">
+            {highlights.map((item) => (
+              <article key={item.label} className="premium-card p-6">
+                <h3 className="font-display text-lg font-bold text-surface-900">{item.label}</h3>
+                <p className="mt-2 text-sm leading-6 text-surface-700">{item.text}</p>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="relative py-24">
-        <div className="layout-container">
-          <div className="relative overflow-hidden rounded-lg border border-brand-100 bg-gradient-to-br from-white via-brand-50 to-brand-100 px-8 py-18 text-center text-surface-900 shadow-[0_18px_52px_rgba(29,78,216,0.12)] sm:px-14">
-            <p className="relative z-10 text-[11px] font-bold uppercase tracking-[0.18em] text-brand-700">Start with the real workflow</p>
-            <h2 className="relative z-10 heading-section mt-5 max-w-2xl mx-auto leading-tight">Choose the side of the marketplace you need and move directly into the product.</h2>
-            <p className="relative z-10 mx-auto mt-5 max-w-xl text-[17px] leading-relaxed text-surface-700 font-medium">
-              Create an account to explore the refreshed interface, or sign in and continue from your dashboard.
-            </p>
-            <div className="relative z-10 mt-10 flex flex-col justify-center gap-4 sm:flex-row">
-              <Link to="/register" className="btn-primary px-8 py-3.5 shadow-brand-200/60">
-                Get started
-              </Link>
-              <Link to="/login" className="btn-secondary px-8 py-3.5">
-                Sign in
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <footer className="border-t border-brand-100 bg-white/75 py-10 text-center text-sm font-medium text-surface-500 backdrop-blur-sm">
+      <footer className="border-t border-brand-100 bg-white/75 py-8 text-center text-sm font-medium text-surface-500">
         © {new Date().getFullYear()} RevHire Platform
       </footer>
     </div>
