@@ -30,10 +30,7 @@ function Layout({ children }) {
 
   return (
     <div className="min-h-screen w-full relative">
-      <div className="pointer-events-none fixed inset-x-0 top-0 z-0 h-[560px] bg-gradient-to-b from-white/75 via-white/10 to-transparent" />
-      <div className="pointer-events-none fixed left-[-10rem] top-[-8rem] z-0 h-[30rem] w-[30rem] rounded-full bg-brand-300/15 blur-[120px]" />
-      <div className="pointer-events-none fixed right-[-8rem] top-[10rem] z-0 h-[24rem] w-[24rem] rounded-full bg-amber-200/20 blur-[120px]" />
-      <div className="pointer-events-none fixed bottom-[-12rem] left-[18%] z-0 h-[26rem] w-[26rem] rounded-full bg-cyan-300/15 blur-[140px]" />
+      <div className="pointer-events-none fixed inset-x-0 top-0 z-0 h-48 bg-gradient-to-b from-white to-transparent" />
       <Navbar />
       <main className={isAuthPage ? "relative w-full" : "relative w-full pb-12"}>
         {children}
