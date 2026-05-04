@@ -63,7 +63,7 @@ function EmployerDashboard() {
     { label: "Active Jobs", value: jobs.filter((j) => j.status === "open").length, accent: "from-emerald-400 to-emerald-600" },
     { label: "Closed Jobs", value: jobs.filter((j) => j.status === "closed").length, accent: "from-surface-400 to-surface-600" },
     { label: "Applications", value: analytics?.summary?.totalApplications || 0, accent: "from-cyan-400 to-cyan-600" },
-    { label: "Shortlisted", value: analytics?.summary?.shortlistedCandidates || 0, accent: "from-amber-400 to-amber-600" },
+    { label: "Shortlisted", value: analytics?.summary?.shortlistedCandidates || 0, accent: "from-blue-300 to-brand-500" },
     { label: "Saved by Candidates", value: analytics?.summary?.savedByCandidates || 0, accent: "from-indigo-400 to-indigo-600" },
   ];
 
@@ -80,9 +80,9 @@ function EmployerDashboard() {
 
   return (
     <div className="app-shell">
-      <div className="pt-8 pb-6 border-b border-surface-200/60 bg-white relative z-10">
+      <div className="pt-8 pb-6 border-b border-brand-100 bg-white/70 relative z-10">
         <div className="layout-container max-w-6xl">
-          <div className="section-card border-brand-100 bg-gradient-to-br from-white via-brand-50/40 to-cyan-50/30 px-6 py-6 sm:px-8">
+          <div className="page-hero px-6 py-6 sm:px-8">
             <div className="grid gap-6 md:grid-cols-[1.2fr,0.8fr] md:items-end">
               <div>
                 <h1 className="text-2xl font-semibold tracking-tight text-surface-900 sm:text-3xl">Employer Dashboard</h1>
@@ -94,17 +94,17 @@ function EmployerDashboard() {
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-3">
-                <div className="rounded-xl border border-surface-200 bg-white/95 px-4 py-3 shadow-sm ring-1 ring-white/70">
+                <div className="rounded-lg border border-brand-100 bg-white px-4 py-3 shadow-sm ring-1 ring-white/70">
                   <p className="text-xs font-medium text-surface-500">Open Roles</p>
                   <p className="mt-1 text-2xl font-semibold text-surface-900">{jobs.filter((j) => j.status === "open").length}</p>
                 </div>
-                <div className="rounded-xl border border-surface-200 bg-white/95 px-4 py-3 shadow-sm ring-1 ring-white/70">
+                <div className="rounded-lg border border-brand-100 bg-white px-4 py-3 shadow-sm ring-1 ring-white/70">
                   <p className="text-xs font-medium text-surface-500">Applications</p>
                   <p className="mt-1 text-2xl font-semibold text-surface-900">{analytics?.summary?.totalApplications || 0}</p>
                 </div>
               </div>
               {user?.organization && (
-                <div className="rounded-xl border border-surface-200 bg-white/95 px-4 py-3 text-sm text-surface-700 shadow-sm ring-1 ring-white/70 md:col-span-2">
+                <div className="rounded-lg border border-brand-100 bg-white px-4 py-3 text-sm text-surface-700 shadow-sm ring-1 ring-white/70 md:col-span-2">
                   <p className="font-semibold text-surface-900">{user.organization.name}</p>
                   <p className="mt-1">Join code: <span className="font-mono font-semibold text-brand-700">{user.organization.joinCode}</span></p>
                 </div>
@@ -153,7 +153,7 @@ function EmployerDashboard() {
 
             <div className="mt-6 grid gap-5 xl:grid-cols-2">
               {analytics.jobs?.slice(0, 6).map((job) => (
-                <div key={job.jobId} className="rounded-2xl border border-surface-200 bg-surface-50/50 p-6 transition-colors hover:bg-white hover:border-brand-200 hover:shadow-sm">
+                <div key={job.jobId} className="rounded-lg border border-brand-100 bg-brand-50/30 p-6 transition-colors hover:bg-white hover:border-brand-200 hover:shadow-sm">
                   <div className="flex items-start justify-between gap-3">
                     <div>
                       <p className="font-bold text-lg text-surface-900 font-display">{job.title}</p>
@@ -164,19 +164,19 @@ function EmployerDashboard() {
                     </div>
                   </div>
                   <div className="mt-6 grid grid-cols-2 gap-4 text-sm">
-                    <div className="rounded-xl border border-surface-100 bg-white px-4 py-3 shadow-sm">
+                    <div className="rounded-lg border border-brand-100 bg-white px-4 py-3 shadow-sm">
                       <p className="text-[12px] font-bold uppercase tracking-normal text-surface-400">Saved</p>
                       <p className="mt-1.5 text-xl font-semibold text-surface-900 font-display">{job.savedCount}</p>
                     </div>
-                    <div className="rounded-xl border border-surface-100 bg-white px-4 py-3 shadow-sm">
+                    <div className="rounded-lg border border-brand-100 bg-white px-4 py-3 shadow-sm">
                       <p className="text-[12px] font-bold uppercase tracking-normal text-surface-400">Shortlist Rate</p>
                       <p className="mt-1.5 text-xl font-semibold text-surface-900 font-display">{job.shortlistRate}%</p>
                     </div>
-                    <div className="rounded-xl border border-surface-100 bg-white px-4 py-3 shadow-sm">
+                    <div className="rounded-lg border border-brand-100 bg-white px-4 py-3 shadow-sm">
                       <p className="text-[12px] font-bold uppercase tracking-normal text-surface-400">Interviews</p>
                       <p className="mt-1.5 text-xl font-semibold text-surface-900 font-display">{job.interviewCount}</p>
                     </div>
-                    <div className="rounded-xl border border-surface-100 bg-white px-4 py-3 shadow-sm">
+                    <div className="rounded-lg border border-brand-100 bg-white px-4 py-3 shadow-sm">
                       <p className="text-[12px] font-bold uppercase tracking-normal text-surface-400">Hire Rate</p>
                       <p className="mt-1.5 text-xl font-semibold text-surface-900 font-display">{job.hireRate}%</p>
                     </div>
