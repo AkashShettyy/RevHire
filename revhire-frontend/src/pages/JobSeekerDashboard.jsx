@@ -89,7 +89,7 @@ function JobSeekerDashboard() {
   const stats = [
     { label: "Total Applied", value: applications.length, accent: "from-brand-400 to-brand-600" },
     { label: "Shortlisted", value: applications.filter((a) => a.status === "shortlisted").length, accent: "from-emerald-400 to-emerald-600" },
-    { label: "Pending", value: applications.filter((a) => a.status === "applied").length, accent: "from-amber-400 to-amber-600" },
+    { label: "Pending", value: applications.filter((a) => a.status === "applied").length, accent: "from-blue-300 to-brand-500" },
     { label: "Interviews", value: interviews.length, accent: "from-cyan-400 to-cyan-600" },
   ];
 
@@ -116,9 +116,9 @@ function JobSeekerDashboard() {
 
   return (
     <div className="app-shell">
-      <div className="pt-8 pb-6 border-b border-surface-200/60 bg-white">
+      <div className="pt-8 pb-6 border-b border-brand-100 bg-white/70">
         <div className="layout-container mx-auto max-w-6xl">
-          <div className="section-card border-brand-100 bg-gradient-to-br from-white via-brand-50/40 to-cyan-50/30 px-6 py-6 sm:px-8">
+          <div className="page-hero px-6 py-6 sm:px-8">
             <div className="grid gap-6 md:grid-cols-[1.2fr,0.8fr] md:items-end">
               <div>
                 <h1 className="text-2xl font-semibold tracking-tight text-surface-900 sm:text-3xl">Job Seeker Dashboard</h1>
@@ -130,11 +130,11 @@ function JobSeekerDashboard() {
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-3">
-                <div className="rounded-xl border border-surface-200 bg-white/95 px-4 py-3 shadow-sm ring-1 ring-white/70">
+                <div className="rounded-lg border border-brand-100 bg-white px-4 py-3 shadow-sm ring-1 ring-white/70">
                   <p className="text-xs font-medium text-surface-500">Upcoming Interviews</p>
                   <p className="mt-1 text-2xl font-semibold text-surface-900">{upcomingInterviews.length}</p>
                 </div>
-                <div className="rounded-xl border border-surface-200 bg-white/95 px-4 py-3 shadow-sm ring-1 ring-white/70">
+                <div className="rounded-lg border border-brand-100 bg-white px-4 py-3 shadow-sm ring-1 ring-white/70">
                   <p className="text-xs font-medium text-surface-500">Saved Jobs</p>
                   <p className="mt-1 text-2xl font-semibold text-surface-900">{savedJobs.length}</p>
                 </div>
