@@ -42,9 +42,6 @@ function Register() {
 
   return (
     <div className="auth-shell">
-      <div className="absolute left-[-8rem] top-[-6rem] h-[24rem] w-[24rem] rounded-full bg-brand-300/20 blur-[120px] pointer-events-none"></div>
-      <div className="absolute bottom-[-8rem] right-[-6rem] h-[20rem] w-[20rem] rounded-full bg-cyan-300/20 blur-[120px] pointer-events-none"></div>
-
       <div className="mx-auto grid w-full max-w-6xl items-center gap-10 lg:grid-cols-[1.1fr_0.9fr] z-10">
         <div className="hidden lg:block pr-10">
           <div className="inline-flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-4 py-1.5 mb-6">
@@ -60,14 +57,14 @@ function Register() {
           
           <div className="mt-10 grid grid-cols-2 gap-6">
             <div className="premium-card p-5">
-              <div className="w-10 h-10 rounded-xl bg-brand-100 text-brand-600 flex items-center justify-center mb-4">
+              <div className="w-10 h-10 rounded-lg bg-brand-100 text-brand-600 flex items-center justify-center mb-4">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
               </div>
               <h3 className="font-bold text-surface-900 mb-1 text-sm">Job Seekers</h3>
               <p className="text-xs text-surface-500 leading-relaxed">Search jobs, save roles, submit applications, and manage resume versions.</p>
             </div>
             <div className="premium-card p-5">
-              <div className="w-10 h-10 rounded-xl bg-cyan-100 text-cyan-700 flex items-center justify-center mb-4">
+              <div className="w-10 h-10 rounded-lg bg-brand-50 text-brand-700 flex items-center justify-center mb-4">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 21h18"></path><path d="M9 8h1"></path><path d="M9 12h1"></path><path d="M9 16h1"></path><path d="M14 8h1"></path><path d="M14 12h1"></path><path d="M14 16h1"></path><path d="M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16"></path></svg>
               </div>
               <h3 className="font-bold text-surface-900 mb-1 text-sm">Employers</h3>
@@ -83,7 +80,7 @@ function Register() {
               <p className="mt-1.5 text-sm text-surface-500">Choose your account type to get started.</p>
             </div>
 
-            <div className="mb-6 flex rounded-xl border border-surface-200 bg-surface-100/80 p-1.5 shadow-inner">
+            <div className="mb-6 flex rounded-lg border border-brand-100 bg-brand-50 p-1.5 shadow-inner">
               {["jobseeker", "employer"].map((r) => (
                 <button
                   key={r}
@@ -91,7 +88,7 @@ function Register() {
                   onClick={() => setFormData({ ...formData, role: r })}
                   className={`flex-1 rounded-lg py-2.5 text-sm font-bold transition-all duration-300 ${
                     formData.role === r
-                      ? "bg-white text-brand-700 shadow shadow-surface-200/60 ring-1 ring-white"
+                      ? "bg-white text-brand-700 shadow shadow-brand-100/60 ring-1 ring-white"
                       : "text-surface-500 hover:text-surface-800"
                   }`}
                 >
@@ -131,7 +128,7 @@ function Register() {
               </div>
               
               {formData.role === "employer" && (
-                <div className="space-y-4 rounded-2xl border border-brand-100 bg-brand-50/40 p-5 mt-2 transition-all">
+                <div className="space-y-4 rounded-lg border border-brand-100 bg-brand-50/40 p-5 mt-2 transition-all">
                   <div className="flex gap-5 mb-1">
                     <label className="flex items-center gap-2.5 text-sm font-semibold text-surface-700 cursor-pointer">
                       <input type="radio" checked={orgFlow === "create"} onChange={() => setOrgFlow("create")} name="orgFlow" className="w-4 h-4 text-brand-600 focus:ring-brand-500 border-surface-300" />
@@ -168,7 +165,7 @@ function Register() {
               />
 
               {error && (
-                <div className="flex items-center gap-3 mt-2 rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm font-medium text-rose-700 animate-fade-in">
+                <div className="flex items-center gap-3 mt-2 rounded-lg border border-error-200 bg-error-50 px-4 py-3 text-sm font-medium text-error-700 animate-fade-in">
                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 shrink-0" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
                   </svg>

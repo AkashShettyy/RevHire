@@ -34,9 +34,6 @@ function Login() {
 
   return (
     <div className="auth-shell">
-      <div className="absolute right-[-8rem] top-[-6rem] h-[24rem] w-[24rem] rounded-full bg-brand-300/20 blur-[120px] pointer-events-none"></div>
-      <div className="absolute bottom-[-8rem] left-[-6rem] h-[20rem] w-[20rem] rounded-full bg-cyan-300/20 blur-[120px] pointer-events-none"></div>
-      
       <div className="mx-auto grid w-full max-w-6xl items-center gap-10 lg:grid-cols-[1.1fr_0.9fr] z-10">
         <div className="hidden lg:block pr-10">
           <div className="inline-flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-4 py-1.5 mb-6">
@@ -103,7 +100,7 @@ function Login() {
               </div>
 
               {error && (
-                <div className="flex items-center gap-3 rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm font-medium text-rose-700 animate-fade-in">
+                <div className="flex items-center gap-3 rounded-lg border border-error-200 bg-error-50 px-4 py-3 text-sm font-medium text-error-700 animate-fade-in">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 shrink-0" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
                   </svg>
