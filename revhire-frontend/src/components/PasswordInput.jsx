@@ -23,7 +23,7 @@ function PasswordInput({ label, name, value, onChange, placeholder, required = f
 
   return (
     <div>
-      {label && <label htmlFor={inputId} className="block text-sm font-medium text-slate-700 mb-1.5">{label}</label>}
+      {label && <label htmlFor={inputId} className="label-text">{label}</label>}
       <div className="relative">
         <input
           id={inputId}
@@ -40,7 +40,7 @@ function PasswordInput({ label, name, value, onChange, placeholder, required = f
         <button
           type="button"
           onClick={() => setShowPassword((current) => !current)}
-          className="absolute inset-y-0 right-0 flex items-center px-3 text-slate-400 hover:text-slate-600"
+          className="absolute inset-y-0 right-0 flex items-center px-3 text-surface-400 hover:text-brand-600"
           aria-label={showPassword ? "Hide password" : "Show password"}
         >
           {showPassword ? eyeOffIcon : eyeIcon}

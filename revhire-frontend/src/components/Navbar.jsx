@@ -68,10 +68,10 @@ function Navbar() {
 
   if (isAuthPage) {
     return (
-      <nav className="sticky top-0 z-50 border-b border-white/50 bg-white/60 backdrop-blur-xl">
+      <nav className="sticky top-0 z-50 border-b border-brand-100 bg-white/90 backdrop-blur-xl">
         <div className="layout-container flex h-20 items-center">
           <Link to="/" className="inline-flex items-center gap-3 text-surface-900 group">
-            <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-surface-950 via-brand-700 to-brand-500 text-sm font-semibold text-white shadow-[0_18px_35px_rgba(29,78,216,0.24)] transition-transform duration-300 group-hover:scale-105">
+            <span className="flex h-11 w-11 items-center justify-center rounded-lg bg-gradient-to-br from-surface-950 via-brand-700 to-brand-500 text-sm font-semibold text-white shadow-[0_14px_28px_rgba(29,78,216,0.22)] transition-transform duration-300 group-hover:scale-105">
               RH
             </span>
             <span className="block font-display text-xl font-bold tracking-tight">RevHire</span>
@@ -82,13 +82,13 @@ function Navbar() {
   }
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-white/50 bg-[#f7f3ec]/75 backdrop-blur-xl">
+    <nav className="sticky top-0 z-50 border-b border-brand-100 bg-white/90 backdrop-blur-xl">
       <div className="layout-container flex h-[4.65rem] items-center justify-between">
         <Link
           to={user ? (user.role === "employer" ? "/employer/dashboard" : "/dashboard") : "/"}
           className="inline-flex items-center gap-3 text-surface-900 group"
         >
-          <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-surface-950 via-brand-700 to-brand-500 text-xs font-bold text-white shadow-[0_14px_30px_rgba(29,78,216,0.22)] ring-1 ring-white/50">
+          <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-surface-950 via-brand-700 to-brand-500 text-xs font-bold text-white shadow-[0_14px_30px_rgba(29,78,216,0.22)] ring-1 ring-white/50">
             RH
           </span>
           <span className="block font-display text-lg font-semibold tracking-tight">RevHire</span>
@@ -97,9 +97,9 @@ function Navbar() {
         <div className="hidden items-center gap-3 xl:flex">
           {user ? (
             <>
-              <div className="flex items-center gap-1 rounded-full border border-white/80 bg-white/90 p-1.5 shadow-[0_14px_30px_rgba(16,28,45,0.08)] backdrop-blur-sm">
+              <div className="flex items-center gap-1 rounded-lg border border-brand-100 bg-white p-1.5 shadow-[0_14px_30px_rgba(29,78,216,0.08)] backdrop-blur-sm">
                 {navItems.map((item) => (
-                  <Link key={item.to} to={item.to} onClick={() => { setShowNotifications(false); setShowMobileMenu(false); }} className={`rounded-full px-4 py-2 text-sm font-semibold transition-all duration-150 ${location.pathname === item.to ? "bg-surface-950 text-white shadow-[0_10px_20px_rgba(16,28,45,0.18)] ring-1 ring-surface-900/10" : "text-surface-600 hover:bg-white hover:text-surface-900"}`}>
+                  <Link key={item.to} to={item.to} onClick={() => { setShowNotifications(false); setShowMobileMenu(false); }} className={`rounded-md px-4 py-2 text-sm font-semibold transition-all duration-150 ${location.pathname === item.to ? "bg-brand-600 text-white shadow-[0_10px_20px_rgba(29,78,216,0.18)] ring-1 ring-brand-700/10" : "text-surface-600 hover:bg-brand-50 hover:text-brand-700"}`}>
                     {item.label}
                   </Link>
                 ))}
@@ -111,7 +111,7 @@ function Navbar() {
                   className={`relative flex h-10 w-10 items-center justify-center rounded-2xl border transition-colors duration-150 ${
                     unreadCount > 0
                       ? "border-brand-300 bg-brand-50 text-brand-700 shadow-[0_12px_24px_rgba(29,78,216,0.14)]"
-                      : "border-white/80 bg-white/85 text-surface-600 hover:border-brand-200 hover:text-brand-700"
+                      : "border-brand-100 bg-white text-surface-600 hover:border-brand-200 hover:text-brand-700"
                   }`}
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -125,7 +125,7 @@ function Navbar() {
                 </button>
 
                 {showNotifications && (
-                  <div className="absolute right-0 z-50 mt-3 w-80 overflow-hidden rounded-[1.5rem] border border-white/70 bg-white/95 shadow-[0_28px_60px_rgba(16,28,45,0.16)] animate-fade-in backdrop-blur-xl">
+                  <div className="absolute right-0 z-50 mt-3 w-80 overflow-hidden rounded-lg border border-brand-100 bg-white/95 shadow-[0_24px_54px_rgba(29,78,216,0.14)] animate-fade-in backdrop-blur-xl">
                     <div className="flex items-center justify-between border-b border-surface-100 px-5 py-4">
                       <p className="text-sm font-semibold text-surface-900">Notifications</p>
                       <div className="flex items-center gap-3">
@@ -161,8 +161,8 @@ function Navbar() {
                 )}
               </div>
 
-              <div className="flex items-center gap-2 rounded-full border border-white/80 bg-white/85 py-1.5 pl-1.5 pr-4 shadow-[0_14px_30px_rgba(16,28,45,0.08)]">
-                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-brand-50 to-cyan-50 text-sm font-semibold text-brand-700">
+              <div className="flex items-center gap-2 rounded-lg border border-brand-100 bg-white py-1.5 pl-1.5 pr-4 shadow-[0_14px_30px_rgba(29,78,216,0.08)]">
+                <div className="flex h-9 w-9 items-center justify-center rounded-md bg-brand-50 text-sm font-semibold text-brand-700">
                   {user.name?.charAt(0).toUpperCase()}
                 </div>
                 <div className="leading-tight">
@@ -191,7 +191,7 @@ function Navbar() {
           <button
             type="button"
             onClick={() => setShowMobileMenu((current) => !current)}
-            className="flex h-10 w-10 items-center justify-center rounded-2xl border border-white/80 bg-white/85 text-surface-700 transition-colors hover:bg-white"
+            className="flex h-10 w-10 items-center justify-center rounded-lg border border-brand-100 bg-white text-surface-700 transition-colors hover:bg-brand-50"
             aria-label="Toggle navigation menu"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -202,12 +202,12 @@ function Navbar() {
       </div>
 
       {showMobileMenu && (
-        <div className="animate-fade-in rounded-b-[1.75rem] border-t border-white/60 bg-[#f8f5ef]/95 pb-5 shadow-[0_30px_60px_rgba(16,28,45,0.16)] xl:hidden backdrop-blur-xl">
+        <div className="animate-fade-in border-t border-brand-100 bg-white/95 pb-5 shadow-[0_24px_54px_rgba(29,78,216,0.14)] xl:hidden backdrop-blur-xl">
           <div className="layout-container py-6">
             {user ? (
               <div className="space-y-4">
-                <div className="flex items-center gap-4 rounded-[1.5rem] border border-white/70 bg-white/80 p-4 shadow-sm">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-50 to-cyan-50 text-lg font-bold text-brand-700 shadow-sm">
+                <div className="flex items-center gap-4 rounded-lg border border-brand-100 bg-white p-4 shadow-sm">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-brand-50 text-lg font-bold text-brand-700 shadow-sm">
                     {user.name?.charAt(0).toUpperCase()}
                   </div>
                   <div>
@@ -218,7 +218,7 @@ function Navbar() {
                 
                 <div className="grid grid-cols-2 gap-2">
                   {navItems.map((item) => (
-                    <Link key={item.to} to={item.to} onClick={() => { setShowMobileMenu(false); setShowNotifications(false); }} className={`flex flex-col items-center justify-center rounded-[1.25rem] border p-4 text-sm font-bold transition-all ${location.pathname === item.to ? "border-surface-950 bg-surface-950 text-white" : "border-white/70 bg-white/85 text-surface-700 hover:bg-white"}`}>
+                    <Link key={item.to} to={item.to} onClick={() => { setShowMobileMenu(false); setShowNotifications(false); }} className={`flex flex-col items-center justify-center rounded-lg border p-4 text-sm font-bold transition-all ${location.pathname === item.to ? "border-brand-600 bg-brand-600 text-white" : "border-brand-100 bg-white text-surface-700 hover:bg-brand-50"}`}>
                       {item.label}
                     </Link>
                   ))}
@@ -227,7 +227,7 @@ function Navbar() {
                 <button
                   type="button"
                   onClick={handleLogout}
-                  className="mt-4 w-full rounded-2xl border border-rose-200 bg-rose-50 p-4 text-center text-sm font-bold text-rose-600 transition-colors hover:bg-rose-100"
+                  className="mt-4 w-full rounded-lg border border-error-200 bg-error-50 p-4 text-center text-sm font-bold text-error-600 transition-colors hover:bg-error-100"
                 >
                   Logout
                 </button>
