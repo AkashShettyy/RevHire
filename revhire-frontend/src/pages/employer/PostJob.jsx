@@ -49,12 +49,10 @@ function PostJob() {
 
   return (
     <div className="app-shell">
-      <div className="absolute top-0 right-0 -mr-40 h-[600px] w-[600px] rounded-full bg-brand-300/20 blur-[110px] pointer-events-none"></div>
-
-      <div className="pt-10 pb-10 border-b border-surface-200/60 bg-white/50 backdrop-blur-md relative z-10">
+      <div className="pt-10 pb-10 border-b border-brand-100 bg-white/70 backdrop-blur-md relative z-10">
         <div className="layout-container max-w-4xl">
           <div className="page-hero">
-            <button onClick={() => navigate("/employer/dashboard")} className="mb-6 flex items-center gap-1.5 text-sm font-bold text-surface-700 transition-colors hover:text-brand-700"><span>←</span> Back</button>
+            <button onClick={() => navigate("/employer/dashboard")} className="mb-6 flex items-center gap-1.5 text-sm font-bold text-surface-700 transition-colors hover:text-brand-700">Back</button>
             <div className="grid gap-6 lg:grid-cols-[1.15fr,0.85fr] lg:items-end">
               <div>
                 <span className="eyebrow mb-4">
@@ -88,7 +86,7 @@ function PostJob() {
 
         <form onSubmit={handleSubmit} className="space-y-8">
           <div className="premium-card bg-white p-6 sm:p-8 shadow-sm">
-            <h2 className="flex items-center gap-2 text-xl font-bold text-surface-900 font-display mb-6">📋 Basic Information</h2>
+            <h2 className="flex items-center gap-2 text-xl font-bold text-surface-900 font-display mb-6">Basic Information</h2>
             <div className="space-y-5">
               <div>
                 <label className="block text-[13px] font-bold uppercase tracking-normal text-surface-500 mb-2">Job Title</label>
@@ -107,7 +105,7 @@ function PostJob() {
           </div>
 
           <div className="premium-card bg-white p-6 sm:p-8 shadow-sm">
-            <h2 className="text-xl font-bold text-surface-900 font-display mb-6">📚 Requirements</h2>
+            <h2 className="text-xl font-bold text-surface-900 font-display mb-6">Requirements</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div>
                 <label className="block text-[13px] font-bold uppercase tracking-normal text-surface-500 mb-2">Experience Required</label>
@@ -121,7 +119,7 @@ function PostJob() {
           </div>
 
           <div className="premium-card bg-white p-6 sm:p-8 shadow-sm">
-            <h2 className="text-xl font-bold text-surface-900 font-display mb-6">💼 Job Details</h2>
+            <h2 className="text-xl font-bold text-surface-900 font-display mb-6">Job Details</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div>
                 <label className="block text-[13px] font-bold uppercase tracking-normal text-surface-500 mb-2">Location</label>
@@ -153,7 +151,7 @@ function PostJob() {
 
           <div className="premium-card bg-white p-6 sm:p-8 shadow-sm">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-bold text-surface-900 font-display flex items-center gap-2">🤖 Screening Qs <span className="text-[13px] font-bold uppercase tracking-normal text-surface-400 bg-surface-100 px-2 py-0.5 rounded ml-2">(Optional)</span></h2>
+              <h2 className="text-xl font-bold text-surface-900 font-display flex items-center gap-2">Screening Questions <span className="text-[13px] font-bold uppercase tracking-normal text-surface-500 bg-brand-50 px-2 py-0.5 rounded ml-2">(Optional)</span></h2>
               <button type="button" onClick={addQuestion} className="text-[14px] font-bold text-brand-600 hover:text-brand-800 transition-colors flex items-center gap-1.5">
                 <span className="text-lg leading-none">+</span> Add Question
               </button>
@@ -163,7 +161,7 @@ function PostJob() {
             ) : (
               <div className="space-y-4">
                 {screeningQuestions.map((q, i) => (
-                  <div key={i} className="flex gap-4 items-start border border-surface-200 p-5 rounded-2xl bg-surface-50 transition-colors focus-within:bg-white focus-within:border-brand-200">
+                  <div key={i} className="flex gap-4 items-start border border-brand-100 p-5 rounded-lg bg-brand-50/30 transition-colors focus-within:bg-white focus-within:border-brand-200">
                     <div className="flex-1 space-y-4">
                       <div>
                         <label className="block text-[13px] font-bold uppercase tracking-normal text-surface-500 mb-2">Question</label>
