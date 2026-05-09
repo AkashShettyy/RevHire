@@ -93,12 +93,21 @@ function Landing() {
         </div>
       </section>
 
-      <footer className="border-t border-surface-200 bg-surface-50 py-12 text-center text-sm font-medium text-surface-500">
-        <div className="layout-container flex flex-col items-center justify-between gap-4 sm:flex-row">
-          <p>© {new Date().getFullYear()} RevHire. All rights reserved.</p>
+      <footer className="border-t border-surface-200/60 bg-white py-12 text-center text-sm font-medium text-surface-500 relative overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-brand-200 to-transparent"></div>
+        <div className="layout-container relative z-10 flex flex-col items-center justify-between gap-6 sm:flex-row">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-500 to-violet-600 flex items-center justify-center text-white shadow-lg">
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <span className="font-display font-bold text-surface-900 text-lg tracking-tight">RevHire</span>
+          </div>
+          <p className="text-surface-500">© {new Date().getFullYear()} RevHire. All rights reserved.</p>
           <div className="flex gap-6">
-            <a href="#" className="hover:text-surface-900 transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-surface-900 transition-colors">Terms of Service</a>
+            <a href="#" className="hover:text-brand-600 transition-colors duration-300">Privacy Policy</a>
+            <a href="#" className="hover:text-brand-600 transition-colors duration-300">Terms of Service</a>
           </div>
         </div>
       </footer>
