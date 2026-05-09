@@ -45,16 +45,18 @@ function Landing() {
               </div>
             </div>
 
-            <div className="glass-panel group relative rounded-2xl p-2 shadow-2xl transition-transform duration-500 hover:-translate-y-2">
-              <div className="absolute inset-0 -z-10 rounded-2xl bg-gradient-to-tr from-brand-500/10 to-brand-300/10 blur-2xl transition-all duration-500 group-hover:from-brand-500/20 group-hover:to-brand-300/20"></div>
-              <div className="rounded-xl bg-gradient-to-br from-surface-900 via-surface-800 to-brand-900 p-8 text-white shadow-inner ring-1 ring-white/10">
-                <p className="text-xs font-semibold uppercase tracking-widest text-brand-300">Elevated Workflows</p>
-                <h2 className="mt-4 font-display text-3xl font-bold tracking-tight">Recruitment, refined.</h2>
-                <div className="mt-8 grid gap-4">
+            <div className="glass-panel group relative rounded-2xl p-2 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_40px_70px_-15px_rgba(37,99,235,0.3)]">
+              <div className="absolute inset-0 -z-10 rounded-2xl bg-gradient-to-tr from-brand-500/20 to-violet-500/20 blur-2xl transition-all duration-500 group-hover:from-brand-500/30 group-hover:to-violet-500/30 group-hover:blur-3xl"></div>
+              <div className="rounded-xl bg-gradient-to-br from-surface-900 via-surface-900 to-[#1e1b4b] p-8 text-white shadow-inner ring-1 ring-white/10 relative overflow-hidden">
+                <div className="absolute -top-24 -right-24 w-48 h-48 bg-brand-500 rounded-full mix-blend-screen filter blur-[60px] opacity-20"></div>
+                <p className="text-xs font-bold uppercase tracking-widest text-brand-300 mb-2">Elevated Workflows</p>
+                <h2 className="mt-2 font-display text-3xl font-extrabold tracking-tight drop-shadow-sm">Recruitment, refined.</h2>
+                <div className="mt-8 grid gap-4 relative z-10">
                   {highlights.map((item) => (
-                    <div key={item.label} className="rounded-xl border border-white/5 bg-white/5 p-5 transition-all duration-300 hover:bg-white/10">
-                      <p className="text-base font-bold text-white mb-1.5">{item.label}</p>
-                      <p className="text-sm leading-relaxed text-surface-300">{item.text}</p>
+                    <div key={item.label} className="group/item relative overflow-hidden rounded-xl border border-white/10 bg-white/5 p-5 transition-all duration-300 hover:bg-white/10 hover:border-brand-400/30 hover:scale-[1.02]">
+                      <div className="absolute inset-0 opacity-0 group-hover/item:opacity-100 bg-gradient-to-r from-brand-400/10 to-transparent transition-opacity duration-300"></div>
+                      <p className="relative text-base font-bold text-white mb-1.5 drop-shadow-sm">{item.label}</p>
+                      <p className="relative text-sm leading-relaxed text-surface-300">{item.text}</p>
                     </div>
                   ))}
                 </div>
@@ -64,18 +66,27 @@ function Landing() {
         </div>
       </section>
 
-      <section className="border-y border-surface-200 bg-white py-20 relative">
-        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-5 mix-blend-overlay"></div>
+      <section className="bg-white py-24 sm:py-32 relative overflow-hidden">
+        <div className="absolute inset-0 bg-surface-50"></div>
+        <div className="absolute inset-y-0 w-full h-full bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
         <div className="layout-container relative z-10">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <h2 className="text-3xl font-bold tracking-tight text-surface-900 sm:text-4xl">Everything you need to scale your team</h2>
-            <p className="mt-4 text-lg text-surface-600">A powerful suite of tools designed to remove operational overhead and let you focus on finding the perfect fit.</p>
+          <div className="text-center max-w-2xl mx-auto mb-20 fade-in-up">
+            <h2 className="text-3xl font-extrabold tracking-tight text-surface-900 sm:text-5xl">Everything you need to <span className="bg-gradient-to-r from-brand-600 to-violet-500 bg-clip-text text-transparent">scale your team</span></h2>
+            <p className="mt-6 text-lg leading-relaxed text-surface-600">A powerful suite of tools designed to remove operational overhead and let you focus on finding the perfect fit.</p>
           </div>
           <div className="grid gap-8 md:grid-cols-3">
-            {highlights.map((item) => (
-              <article key={item.label} className="premium-card group rounded-2xl border border-surface-200 bg-surface-50/50 p-8 shadow-sm transition-all duration-300 hover:shadow-lg hover:bg-white hover:-translate-y-1 hover:border-brand-100">
-                <h3 className="font-display text-xl font-bold text-surface-900 group-hover:text-brand-700 transition-colors">{item.label}</h3>
+            {highlights.map((item, idx) => (
+              <article key={item.label} className="premium-card group rounded-2xl border border-surface-200/60 bg-white/60 backdrop-blur-xl p-8 shadow-lg transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 hover:border-brand-200">
+                <div className="w-12 h-12 rounded-xl bg-brand-50 flex items-center justify-center mb-6 text-brand-600 group-hover:scale-110 transition-transform duration-500">
+                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    {idx === 0 ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /> : 
+                     idx === 1 ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /> :
+                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />}
+                  </svg>
+                </div>
+                <h3 className="font-display text-xl font-bold text-surface-900 group-hover:text-brand-700 transition-colors duration-300">{item.label}</h3>
                 <p className="mt-4 text-base leading-relaxed text-surface-600">{item.text}</p>
+                <div className="absolute bottom-0 left-0 h-1 w-0 bg-gradient-to-r from-brand-500 to-violet-500 transition-all duration-500 group-hover:w-full"></div>
               </article>
             ))}
           </div>
