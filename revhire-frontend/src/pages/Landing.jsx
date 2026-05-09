@@ -9,7 +9,7 @@ const highlights = [
 function Landing() {
   return (
     <div className="app-shell min-h-screen bg-surface-50 font-sans">
-      <section className="relative overflow-hidden py-10 sm:py-16 lg:py-20">
+      <section className="relative overflow-hidden py-10 sm:py-16 lg:py-10">
         <div className="layout-container relative z-10">
           <div className="page-hero grid items-center gap-16 lg:grid-cols-[1.1fr_0.9fr] relative backdrop-blur-2xl bg-white/70 border border-brand-100 shadow-[0_20px_60px_-15px_rgba(37,99,235,0.15)] overflow-visible">
             <div className="absolute top-0 left-0 w-72 h-72 bg-brand-400 rounded-full mix-blend-multiply filter blur-[80px] opacity-30 animate-[pulse_6s_ease-in-out_infinite]"></div>
