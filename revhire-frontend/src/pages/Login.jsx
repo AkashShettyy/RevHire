@@ -33,7 +33,7 @@ function Login() {
   }
 
   return (
-    <div className="auth-shell !pt-4 sm:!pt-8">
+    <div className="auth-shell !items-start pt-16 sm:pt-24">
       <div className="mx-auto grid w-full max-w-6xl items-center gap-10 lg:grid-cols-[1.1fr_0.9fr] z-10">
         <div className="hidden lg:block pr-10">
           <div className="inline-flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-4 py-1.5 mb-6">
@@ -46,7 +46,7 @@ function Login() {
           <p className="mt-6 max-w-lg text-lg leading-relaxed text-surface-600">
             Use your existing account to reach the dashboard for your role, continue job search, review applications, or manage openings.
           </p>
-          
+
           <div className="mt-10 grid gap-4 sm:grid-cols-2">
             {[
               "Job seekers can continue saved jobs, applications, and resume work.",
