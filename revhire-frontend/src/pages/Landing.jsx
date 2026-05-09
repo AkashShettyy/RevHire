@@ -11,21 +11,35 @@ function Landing() {
     <div className="app-shell min-h-screen bg-surface-50 font-sans">
       <section className="relative overflow-hidden pt-20 pb-24 sm:py-32 lg:pb-32 lg:pt-40">
         <div className="layout-container relative z-10">
-          <div className="page-hero grid items-center gap-16 lg:grid-cols-[1.1fr_0.9fr]">
-            <div className="relative">
-              <span className="eyebrow inline-block rounded-full bg-brand-100/50 px-3 py-1 text-xs font-semibold tracking-wider text-brand-700 ring-1 ring-inset ring-brand-200/50">Next-Gen Hiring Platform</span>
-              <h1 className="heading-hero mt-8 text-5xl font-extrabold tracking-tight text-surface-900 sm:text-6xl lg:text-7xl leading-[1.1]">
-                Hire the best. <br />
-                <span className="bg-gradient-to-r from-brand-600 to-brand-400 bg-clip-text text-transparent">Zero friction.</span>
+          <div className="page-hero grid items-center gap-16 lg:grid-cols-[1.1fr_0.9fr] relative backdrop-blur-2xl bg-white/70 border border-brand-100 shadow-[0_20px_60px_-15px_rgba(37,99,235,0.15)] overflow-visible">
+            <div className="absolute top-0 left-0 w-72 h-72 bg-brand-400 rounded-full mix-blend-multiply filter blur-[80px] opacity-30 animate-[pulse_6s_ease-in-out_infinite]"></div>
+            <div className="absolute bottom-0 right-0 w-72 h-72 bg-violet-400 rounded-full mix-blend-multiply filter blur-[80px] opacity-30 animate-[pulse_6s_ease-in-out_infinite_2s]"></div>
+            <div className="relative z-10 space-y-8">
+              <div className="inline-flex items-center gap-2.5 rounded-full border border-brand-200/80 bg-brand-50/80 backdrop-blur-md px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-brand-700 shadow-sm ring-1 ring-inset ring-brand-300/20 transition-all hover:scale-105 hover:shadow-md">
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-500"></span>
+                </span>
+                Next-Gen Hiring Platform
+              </div>
+              <h1 className="text-5xl font-extrabold tracking-tight sm:text-6xl lg:text-7xl leading-[1.1]">
+                <span className="block text-surface-900 drop-shadow-sm">Hire the best.</span>
+                <span className="block mt-2 bg-gradient-to-r from-brand-600 via-brand-500 to-violet-500 bg-clip-text text-transparent pb-2 drop-shadow-sm">Zero friction.</span>
               </h1>
-              <p className="mt-6 max-w-xl text-lg leading-relaxed text-surface-600 sm:text-xl">
+              <p className="max-w-xl text-lg leading-relaxed text-surface-600 sm:text-xl font-medium">
                 RevHire is the unified workspace where ambitious teams collaborate seamlessly to source, evaluate, and hire extraordinary talent at scale.
               </p>
-              <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
-                <Link to="/register" className="btn-primary flex items-center justify-center rounded-xl bg-brand-600 px-8 py-4 text-base font-semibold text-white shadow-sm transition-all hover:bg-brand-500 hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600">
-                  Create Account
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-center pt-2">
+                <Link to="/register" className="group relative flex items-center justify-center rounded-xl px-8 py-4 text-base font-bold text-white transition-all overflow-hidden bg-brand-600 hover:shadow-[0_8px_30px_rgb(37,99,235,0.3)] hover:-translate-y-0.5 border border-transparent">
+                  <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-brand-600 to-violet-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <span className="relative z-10 flex items-center gap-2 drop-shadow-md">
+                    Create Account
+                    <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                  </span>
                 </Link>
-                <Link to="/login" className="btn-secondary flex items-center justify-center rounded-xl border border-surface-200 bg-white px-8 py-4 text-base font-semibold text-surface-900 shadow-sm transition-all hover:bg-surface-50 hover:border-surface-300">
+                <Link to="/login" className="flex items-center justify-center rounded-xl border-2 border-surface-200 bg-white/50 backdrop-blur-sm px-8 py-4 text-base font-bold text-surface-900 shadow-sm transition-all hover:bg-white hover:border-surface-300 hover:shadow-md hover:-translate-y-0.5">
                   Sign in
                 </Link>
               </div>
