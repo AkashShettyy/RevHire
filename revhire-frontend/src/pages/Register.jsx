@@ -41,7 +41,7 @@ function Register() {
   }
 
   return (
-    <div className="auth-shell">
+    <div className="auth-shell !pt-4 sm:!pt-8">
       <div className="mx-auto grid w-full max-w-6xl items-center gap-10 lg:grid-cols-[1.1fr_0.9fr] z-10">
         <div className="hidden lg:block pr-10">
           <div className="inline-flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-4 py-1.5 mb-6">
