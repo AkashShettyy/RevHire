@@ -93,7 +93,7 @@ function Landing() {
         </div>
       </section>
 
-      <footer className="border-t border-surface-200/60 bg-white py-12 text-center text-sm font-medium text-surface-500 relative overflow-hidden">
+      <footer className="border-t border-surface-200/60 bg-white py-6 text-center text-sm font-medium text-surface-500 relative overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-brand-200 to-transparent"></div>
         <div className="layout-container relative z-10 flex flex-col items-center justify-between gap-6 sm:flex-row">
           <div className="flex items-center gap-2">
