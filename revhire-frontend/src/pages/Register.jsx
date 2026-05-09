@@ -41,7 +41,7 @@ function Register() {
   }
 
   return (
-    <div className="auth-shell !items-start pt-16 sm:pt-24">
+    <div className="auth-shell !items-start pt-4 sm:pt-8">
       <div className="mx-auto grid w-full max-w-6xl items-center gap-10 lg:grid-cols-[1.1fr_0.9fr] z-10">
         <div className="hidden lg:block pr-10">
           <div className="inline-flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-4 py-1.5 mb-6">
@@ -54,7 +54,7 @@ function Register() {
           <p className="mt-6 max-w-lg text-lg leading-relaxed text-surface-600">
             Register as a job seeker to manage resumes and applications, or as an employer to post jobs and review candidates.
           </p>
-          
+
           <div className="mt-10 grid grid-cols-2 gap-6">
             <div className="premium-card p-5">
               <div className="w-10 h-10 rounded-lg bg-brand-100 text-brand-600 flex items-center justify-center mb-4">
@@ -86,11 +86,10 @@ function Register() {
                   key={r}
                   type="button"
                   onClick={() => setFormData({ ...formData, role: r })}
-                  className={`flex-1 rounded-lg py-2.5 text-sm font-bold transition-all duration-300 ${
-                    formData.role === r
-                      ? "bg-white text-brand-700 shadow shadow-brand-100/60 ring-1 ring-white"
-                      : "text-surface-500 hover:text-surface-800"
-                  }`}
+                  className={`flex-1 rounded-lg py-2.5 text-sm font-bold transition-all duration-300 ${formData.role === r
+                    ? "bg-white text-brand-700 shadow shadow-brand-100/60 ring-1 ring-white"
+                    : "text-surface-500 hover:text-surface-800"
+                    }`}
                 >
                   {r === "jobseeker" ? "Job Seeker" : "Employer"}
                 </button>
@@ -126,7 +125,7 @@ function Register() {
                   className="input-field"
                 />
               </div>
-              
+
               {formData.role === "employer" && (
                 <div className="space-y-4 rounded-lg border border-brand-100 bg-brand-50/40 p-5 mt-2 transition-all">
                   <div className="flex gap-5 mb-1">
@@ -139,7 +138,7 @@ function Register() {
                       Join Existing
                     </label>
                   </div>
-                  
+
                   {orgFlow === "create" ? (
                     <div className="animate-fade-in">
                       <label className="label-text">Company Name</label>
@@ -166,7 +165,7 @@ function Register() {
 
               {error && (
                 <div className="flex items-center gap-3 mt-2 rounded-lg border border-error-200 bg-error-50 px-4 py-3 text-sm font-medium text-error-700 animate-fade-in">
-                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 shrink-0" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
                   </svg>
                   {error}
