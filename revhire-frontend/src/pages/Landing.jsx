@@ -9,7 +9,7 @@ const highlights = [
 function Landing() {
   return (
     <div className="app-shell min-h-screen bg-surface-50 font-sans">
-      <section className="relative overflow-hidden pt-20 pb-24 sm:py-32 lg:pb-32 lg:pt-40">
+      <section className="relative overflow-hidden pt-4 pb-24">
         <div className="layout-container relative z-10">
           <div className="page-hero grid items-center gap-16 lg:grid-cols-[1.1fr_0.9fr] relative backdrop-blur-2xl bg-white/70 border border-brand-100 shadow-[0_20px_60px_-15px_rgba(37,99,235,0.15)] overflow-visible">
             <div className="absolute top-0 left-0 w-72 h-72 bg-brand-400 rounded-full mix-blend-multiply filter blur-[80px] opacity-30 animate-[pulse_6s_ease-in-out_infinite]"></div>
@@ -79,9 +79,9 @@ function Landing() {
               <article key={item.label} className="premium-card group rounded-2xl border border-surface-200/60 bg-white/60 backdrop-blur-xl p-8 shadow-lg transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 hover:border-brand-200">
                 <div className="w-12 h-12 rounded-xl bg-brand-50 flex items-center justify-center mb-6 text-brand-600 group-hover:scale-110 transition-transform duration-500">
                   <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    {idx === 0 ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /> : 
-                     idx === 1 ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /> :
-                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />}
+                    {idx === 0 ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /> :
+                      idx === 1 ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /> :
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />}
                   </svg>
                 </div>
                 <h3 className="font-display text-xl font-bold text-surface-900 group-hover:text-brand-700 transition-colors duration-300">{item.label}</h3>
