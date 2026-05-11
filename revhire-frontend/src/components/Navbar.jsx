@@ -99,8 +99,11 @@ function Navbar() {
             <>
               <div className="flex items-center gap-1 rounded-lg border border-brand-100 bg-white p-1.5 shadow-[0_14px_30px_rgba(29,78,216,0.08)] backdrop-blur-sm">
                 {navItems.map((item) => (
-                  <Link key={item.to} to={item.to} onClick={() => { setShowNotifications(false); setShowMobileMenu(false); }} className={`rounded-md px-4 py-2 text-sm font-semibold transition-all duration-150 ${location.pathname === item.to ? "bg-brand-600 text-white shadow-[0_10px_20px_rgba(29,78,216,0.18)] ring-1 ring-brand-700/10" : "text-surface-600 hover:bg-brand-50 hover:text-brand-700"}`}>
+                  <Link key={item.to} to={item.to} onClick={() => { setShowNotifications(false); setShowMobileMenu(false); }} className={`relative rounded-md px-4 py-2 text-sm font-semibold transition-all duration-150 ${location.pathname === item.to ? "bg-brand-600 text-white shadow-[0_10px_20px_rgba(29,78,216,0.18)] ring-1 ring-brand-700/10" : "text-surface-600 hover:bg-brand-50 hover:text-brand-700"}`}>
                     {item.label}
+                    {location.pathname === item.to && (
+                      <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-white/70" />
+                    )}
                   </Link>
                 ))}
               </div>
