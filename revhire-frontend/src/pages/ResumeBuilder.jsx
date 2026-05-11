@@ -272,7 +272,7 @@ function ResumeBuilder() {
           </Section>
 
           {/* Objective */}
-          <Section title="Professional Objective">
+          <Section title="🎯 Professional Objective">
             <textarea
               placeholder="Write a short professional summary..."
               value={resume.objective}
@@ -283,7 +283,7 @@ function ResumeBuilder() {
           </Section>
 
           {/* Skills */}
-          <Section title="Skills">
+          <Section title="⚡ Skills">
             <div className="flex flex-wrap gap-3 mb-4">
               {resume.skills.map((skill, i) => (
                 <div key={i} className="flex items-center gap-2 rounded-xl border border-brand-200 bg-brand-50 px-3 py-2 shadow-sm focus-within:ring-2 focus-within:ring-brand-500 focus-within:ring-offset-1">
@@ -306,7 +306,7 @@ function ResumeBuilder() {
           </Section>
 
           {/* Education */}
-          <Section title="Education">
+          <Section title="🎓 Education">
             <div className="space-y-5">
               {resume.education.map((edu, i) => (
                 <div key={i} className="space-y-4 rounded-xl border border-surface-200 bg-surface-50 p-5 transition-colors focus-within:bg-white focus-within:border-brand-200 focus-within:shadow-sm">
@@ -325,7 +325,7 @@ function ResumeBuilder() {
           </Section>
 
           {/* Experience */}
-          <Section title="Experience">
+          <Section title="💼 Experience">
             <div className="space-y-5">
               {resume.experience.map((exp, i) => (
                 <div key={i} className="space-y-4 rounded-xl border border-surface-200 bg-surface-50 p-5 transition-colors focus-within:bg-white focus-within:border-brand-200 focus-within:shadow-sm">
@@ -345,7 +345,7 @@ function ResumeBuilder() {
           </Section>
 
           {/* Projects */}
-          <Section title="Projects">
+          <Section title="🚀 Projects">
             <div className="space-y-5">
               {resume.projects.map((proj, i) => (
                 <div key={i} className="space-y-4 rounded-xl border border-surface-200 bg-surface-50 p-5 transition-colors focus-within:bg-white focus-within:border-brand-200 focus-within:shadow-sm">
@@ -362,7 +362,7 @@ function ResumeBuilder() {
           </Section>
 
           {/* Certifications */}
-          <Section title="Certifications">
+          <Section title="🏆 Certifications">
             <div className="space-y-4">
               {resume.certifications.map((cert, i) => (
                 <div key={i} className="flex items-center gap-4">
