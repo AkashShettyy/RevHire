@@ -359,6 +359,9 @@ function JobSearch() {
                           <span className={`badge ${jobTypeColors[job.jobType] || "badge-neutral"}`}>
                             {job.jobType}
                           </span>
+                          {(Date.now() - new Date(job.createdAt).getTime()) < 86400000 && (
+                            <span className="badge bg-emerald-50 text-emerald-700 border border-emerald-200">New</span>
+                          )}
                         </div>
                         <div className="flex items-center gap-2">
                           <p className="text-[15px] font-bold text-surface-700">
