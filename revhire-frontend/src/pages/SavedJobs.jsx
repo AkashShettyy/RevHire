@@ -120,7 +120,10 @@ function SavedJobs() {
                       {entry.job?.salaryRange?.min && (
                         <span>Salary: ₹{entry.job.salaryRange.min.toLocaleString()} - ₹{entry.job.salaryRange.max?.toLocaleString()}</span>
                       )}
-                      <span>Deadline: {new Date(entry.job?.deadline).toLocaleDateString()}</span>
+                      <span className={`${new Date(entry.job?.deadline) < new Date() ? "text-error-600 font-bold" : ""}`}>
+                        Deadline: {new Date(entry.job?.deadline).toLocaleDateString()}
+                        {new Date(entry.job?.deadline) < new Date() && " ⚠️ Expired"}
+                      </span>
                     </div>
                   </div>
 
