@@ -267,7 +267,7 @@ function InterviewCalendar() {
                       <div className="flex items-center justify-between">
                         <span
                           className={`text-sm font-semibold ${
-                            isToday ? "rounded-full bg-surface-900 px-2 py-1 text-white" : "text-surface-800"
+                            isToday ? "rounded-full bg-brand-600 px-2 py-1 text-white shadow-sm shadow-brand-500/30" : "text-surface-800"
                           }`}
                         >
                           {day.getDate()}
