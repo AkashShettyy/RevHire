@@ -85,6 +85,18 @@ function PostJob() {
         )}
 
         <form onSubmit={handleSubmit} className="space-y-8">
+          {/* Step progress */}
+          <div className="flex items-center gap-2 mb-2">
+            {["Basic Info", "Requirements", "Job Details", "Screening"].map((step, i) => (
+              <div key={step} className="flex items-center gap-2">
+                <div className="flex items-center gap-1.5">
+                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand-600 text-[11px] font-bold text-white">{i + 1}</span>
+                  <span className="hidden text-[13px] font-semibold text-surface-600 sm:block">{step}</span>
+                </div>
+                {i < 3 && <div className="h-px w-6 bg-surface-200" />}
+              </div>
+            ))}
+          </div>
           <div className="premium-card bg-white p-6 sm:p-8 shadow-sm">
             <h2 className="flex items-center gap-2 text-xl font-bold text-surface-900 font-display mb-6">Basic Information</h2>
             <div className="space-y-5">
