@@ -160,7 +160,11 @@ function JobDetails() {
               </div>
               <div className="flex flex-wrap gap-x-8 gap-y-4 pt-6 border-t border-surface-100 text-[15px] font-medium text-surface-600">
                 <span>Location: {job.location}</span>
-                {job.salaryRange?.min && <span>Salary: ₹{job.salaryRange.min.toLocaleString()} - ₹{job.salaryRange.max?.toLocaleString()}</span>}
+                {job.salaryRange?.min && (
+                  <span className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-50 border border-emerald-100 px-3 py-1 text-sm font-bold text-emerald-700">
+                    💰 ₹{job.salaryRange.min.toLocaleString()} – ₹{job.salaryRange.max?.toLocaleString()}
+                  </span>
+                )}
                 <span>Deadline: {new Date(job.deadline).toLocaleDateString()}</span>
               </div>
             </div>
