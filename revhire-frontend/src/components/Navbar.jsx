@@ -122,7 +122,8 @@ function Navbar() {
                   </svg>
                   {unreadCount > 0 && (
                     <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-brand-600 outline outline-2 outline-white text-[10px] font-bold text-white">
-                      {unreadCount}
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-400 opacity-60"></span>
+                      <span className="relative">{unreadCount}</span>
                     </span>
                   )}
                 </button>
