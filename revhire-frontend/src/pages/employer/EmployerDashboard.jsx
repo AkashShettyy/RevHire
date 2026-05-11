@@ -220,7 +220,9 @@ function EmployerDashboard() {
                         {job.salaryRange?.min && (
                            <span><span className="font-semibold text-surface-700">Salary:</span> ₹{job.salaryRange.min.toLocaleString()} – ₹{job.salaryRange.max?.toLocaleString()}</span>
                         )}
-                        <span className="font-semibold text-brand-700">{job.applicantCount || 0} Applicants</span>
+                        <span className="inline-flex items-center gap-1 rounded-full bg-brand-50 border border-brand-100 px-2.5 py-0.5 text-xs font-bold text-brand-700">
+                          👥 {job.applicantCount || 0} Applicants
+                        </span>
                       </div>
                       <div className="flex flex-wrap gap-2 mt-4">
                         {job.skillsRequired?.slice(0, 5).map((skill, i) => (
