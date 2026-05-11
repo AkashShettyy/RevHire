@@ -18,7 +18,7 @@ function getPasswordStrength(password) {
 }
 
 function AccountSettings() {
-  const { token } = useAuth();
+  const { token, user } = useAuth();
   const [formData, setFormData] = useState({ currentPassword: "", newPassword: "", confirmPassword: "" });
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState({ type: "", text: "" });
@@ -92,6 +92,17 @@ function AccountSettings() {
         </div>
 
         <div className="mx-auto grid max-w-5xl gap-6 lg:grid-cols-[1fr,0.8fr]">
+          {/* Profile info card */}
+          <div className="lg:col-span-2 section-card p-5 flex items-center gap-5">
+            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-brand-100 text-xl font-bold text-brand-700">
+              {user?.name?.charAt(0).toUpperCase()}
+            </div>
+            <div>
+              <p className="font-bold text-surface-900 text-lg">{user?.name}</p>
+              <p className="text-sm text-surface-500">{user?.email}</p>
+              <span className="mt-1 inline-flex items-center rounded-full border border-brand-100 bg-brand-50 px-2.5 py-0.5 text-xs font-semibold text-brand-700 capitalize">{user?.role}</span>
+            </div>
+          </div>
           <section className="section-card p-6 sm:p-8">
             <div className="mb-6 border-b border-surface-200 pb-4">
               <h2 className="text-lg font-semibold text-surface-900">Change Password</h2>
