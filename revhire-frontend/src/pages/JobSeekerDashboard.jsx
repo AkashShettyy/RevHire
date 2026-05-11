@@ -87,10 +87,10 @@ function JobSeekerDashboard() {
   }
 
   const stats = [
-    { label: "Total Applied", value: applications.length, accent: "from-brand-400 to-brand-600" },
-    { label: "Shortlisted", value: applications.filter((a) => a.status === "shortlisted").length, accent: "from-emerald-400 to-emerald-600" },
-    { label: "Pending", value: applications.filter((a) => a.status === "applied").length, accent: "from-blue-300 to-brand-500" },
-    { label: "Interviews", value: interviews.length, accent: "from-cyan-400 to-cyan-600" },
+    { label: "Total Applied", value: applications.length, accent: "from-brand-400 to-brand-600", icon: "📨" },
+    { label: "Shortlisted", value: applications.filter((a) => a.status === "shortlisted").length, accent: "from-emerald-400 to-emerald-600", icon: "✅" },
+    { label: "Pending", value: applications.filter((a) => a.status === "applied").length, accent: "from-blue-300 to-brand-500", icon: "⏳" },
+    { label: "Interviews", value: interviews.length, accent: "from-cyan-400 to-cyan-600", icon: "🗓️" },
   ];
 
   const now = Date.now();
@@ -165,7 +165,7 @@ function JobSeekerDashboard() {
                   <p className="text-[12px] font-medium uppercase tracking-normal text-surface-500">{s.label}</p>
                   <p className="mt-2 text-3xl font-semibold font-display text-surface-900">{s.value}</p>
                 </div>
-                <span className="rounded-full border border-surface-200 bg-surface-50 px-2.5 py-1 text-[11px] font-medium text-surface-500">Live</span>
+                <span className="text-2xl mt-0.5">{s.icon}</span>
               </div>
             </div>
           ))}
