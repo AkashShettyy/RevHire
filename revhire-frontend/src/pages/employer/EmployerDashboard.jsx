@@ -59,12 +59,12 @@ function EmployerDashboard() {
   }
 
   const stats = [
-    { label: "Total Jobs", value: jobs.length, accent: "from-brand-400 to-brand-600" },
-    { label: "Active Jobs", value: jobs.filter((j) => j.status === "open").length, accent: "from-emerald-400 to-emerald-600" },
-    { label: "Closed Jobs", value: jobs.filter((j) => j.status === "closed").length, accent: "from-surface-400 to-surface-600" },
-    { label: "Applications", value: analytics?.summary?.totalApplications || 0, accent: "from-cyan-400 to-cyan-600" },
-    { label: "Shortlisted", value: analytics?.summary?.shortlistedCandidates || 0, accent: "from-blue-300 to-brand-500" },
-    { label: "Saved by Candidates", value: analytics?.summary?.savedByCandidates || 0, accent: "from-indigo-400 to-indigo-600" },
+    { label: "Total Jobs", value: jobs.length, accent: "from-brand-400 to-brand-600", icon: "📋" },
+    { label: "Active Jobs", value: jobs.filter((j) => j.status === "open").length, accent: "from-emerald-400 to-emerald-600", icon: "✅" },
+    { label: "Closed Jobs", value: jobs.filter((j) => j.status === "closed").length, accent: "from-surface-400 to-surface-600", icon: "🔒" },
+    { label: "Applications", value: analytics?.summary?.totalApplications || 0, accent: "from-cyan-400 to-cyan-600", icon: "📨" },
+    { label: "Shortlisted", value: analytics?.summary?.shortlistedCandidates || 0, accent: "from-blue-300 to-brand-500", icon: "⭐" },
+    { label: "Saved by Candidates", value: analytics?.summary?.savedByCandidates || 0, accent: "from-indigo-400 to-indigo-600", icon: "🔖" },
   ];
 
   if (isLoading) {
@@ -129,7 +129,7 @@ function EmployerDashboard() {
                   <p className="text-[12px] font-medium uppercase tracking-normal text-surface-500">{s.label}</p>
                   <p className="mt-2 text-3xl font-semibold font-display text-surface-900">{s.value}</p>
                 </div>
-                <span className="rounded-full border border-surface-200 bg-surface-50 px-2.5 py-1 text-[11px] font-medium text-surface-500">Live</span>
+                <span className="text-2xl mt-0.5">{s.icon}</span>
               </div>
             </div>
           ))}
