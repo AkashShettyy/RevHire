@@ -93,6 +93,29 @@ function Landing() {
         </div>
       </section>
 
+      {/* How it works */}
+      <section className="bg-surface-50 py-20 border-t border-surface-100">
+        <div className="layout-container">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-extrabold tracking-tight text-surface-900">How it works</h2>
+            <p className="mt-3 text-surface-600">Get started in three simple steps.</p>
+          </div>
+          <div className="grid gap-8 md:grid-cols-3">
+            {[
+              { step: "01", title: "Create Account", desc: "Sign up as a job seeker or employer in under a minute. No credit card needed." },
+              { step: "02", title: "Set Up Profile", desc: "Build your resume or post your first job listing with all the details." },
+              { step: "03", title: "Connect & Hire", desc: "Apply to jobs or review applicants and move them through your hiring pipeline." },
+            ].map((s) => (
+              <div key={s.step} className="flex flex-col items-center text-center">
+                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-brand-600 text-lg font-extrabold text-white shadow-lg shadow-brand-500/25 mb-5">{s.step}</div>
+                <h3 className="font-bold text-surface-900 text-lg">{s.title}</h3>
+                <p className="mt-2 text-sm text-surface-600 leading-relaxed max-w-xs">{s.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Testimonials */}
       <section className="bg-white py-20 border-t border-surface-100">
         <div className="layout-container">
