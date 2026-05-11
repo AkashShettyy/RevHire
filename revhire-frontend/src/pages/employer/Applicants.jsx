@@ -8,12 +8,21 @@ import { DndContext, closestCorners, useDroppable, useDraggable, DragOverlay, us
 
 const STATUSES = ["applied", "shortlisted", "interviewing", "offered", "hired", "rejected"];
 
+const STATUS_COLORS = {
+  applied: "bg-brand-50 text-brand-700 border-brand-200",
+  shortlisted: "bg-emerald-50 text-emerald-700 border-emerald-200",
+  interviewing: "bg-cyan-50 text-cyan-700 border-cyan-200",
+  offered: "bg-violet-50 text-violet-700 border-violet-200",
+  hired: "bg-green-50 text-green-700 border-green-200",
+  rejected: "bg-red-50 text-red-600 border-red-200",
+};
+
 function DroppableColumn({ id, title, applications, onCardClick, interviewMap }) {
   const { setNodeRef } = useDroppable({ id });
   return (
     <div ref={setNodeRef} className="flex min-w-[320px] w-[320px] flex-col rounded-lg border border-brand-100 bg-white p-4 shadow-sm ring-1 ring-white/70">
       <div className="flex justify-between items-center mb-5 px-1">
-        <h3 className="font-bold text-surface-900 capitalize font-display">{title}</h3>
+        <h3 className={`font-bold text-surface-900 capitalize font-display px-2.5 py-1 rounded-lg border text-sm ${STATUS_COLORS[id] || "bg-surface-100 text-surface-700 border-surface-200"}`}>{title}</h3>
         <span className="rounded-lg border border-brand-100 bg-brand-50 px-2.5 py-1 text-[11px] font-bold text-brand-700 shadow-sm">{applications.length}</span>
       </div>
       <div className="flex-1 space-y-4 min-h-[150px]">
