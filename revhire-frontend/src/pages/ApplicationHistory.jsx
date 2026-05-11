@@ -25,6 +25,13 @@ const jobTypeColors = {
   remote: "badge-brand",
 };
 
+const statusBorderColors = {
+  applied: "border-l-brand-500",
+  shortlisted: "border-l-emerald-500",
+  rejected: "border-l-error-500",
+  withdrawn: "border-l-surface-400",
+};
+
 function ApplicationHistory() {
   const { token } = useAuth();
   const navigate = useNavigate();
@@ -147,7 +154,7 @@ function ApplicationHistory() {
             ) : (
               <div className="grid gap-4">
                 {filteredApplications.map((app) => (
-                  <div key={app._id} className="premium-card p-6 bg-white overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-brand-200 group relative">
+                  <div key={app._id} className={`premium-card p-6 bg-white overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-brand-200 group relative border-l-4 ${statusBorderColors[app.status]}`}>
                     <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-brand-400 to-indigo-500 opacity-0 transition-opacity group-hover:opacity-100"></div>
                     <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between ml-2">
                       <div className="flex-1 min-w-0">
