@@ -308,7 +308,12 @@ function JobSearch() {
           <div>
             <h2 className="heading-section">Jobs</h2>
             <p className="mt-2 text-sm text-surface-600">
-              {isLoading ? "Searching..." : `${pagination.total} job${pagination.total !== 1 ? "s" : ""} found`}
+              {isLoading ? "Searching..." : (
+                <span className="inline-flex items-center gap-2">
+                  <span className="inline-flex items-center rounded-full bg-brand-50 border border-brand-100 px-3 py-0.5 text-sm font-bold text-brand-700">{pagination.total}</span>
+                  job{pagination.total !== 1 ? "s" : ""} found
+                </span>
+              )}
             </p>
           </div>
           <div className="hidden rounded-lg border border-brand-100 bg-white px-4 py-2 text-sm font-semibold text-surface-600 shadow-sm sm:block">
