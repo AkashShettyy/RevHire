@@ -150,6 +150,9 @@ function Notifications() {
           <span className="eyebrow">Notification center</span>
           <h1 className="mt-4 font-display text-3xl font-bold tracking-tight text-surface-900 sm:text-4xl">
             {user?.role === "employer" ? "Hiring updates" : "Notifications"}
+            {unreadCount > 0 && (
+              <span className="ml-3 inline-flex items-center rounded-full bg-brand-600 px-2.5 py-0.5 text-sm font-bold text-white align-middle">{unreadCount} unread</span>
+            )}
           </h1>
           <p className="mt-3 max-w-xl text-sm leading-6 text-surface-700">
             Review application changes, interview activity, and platform updates.
