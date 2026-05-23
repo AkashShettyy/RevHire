@@ -27,7 +27,7 @@ function Landing() {
                 <span className="block mt-2 bg-gradient-to-r from-brand-600 via-brand-500 to-violet-500 bg-clip-text text-transparent pb-2 drop-shadow-sm">Zero friction.</span>
               </h1>
               <p className="max-w-xl text-lg leading-relaxed text-surface-600 sm:text-xl font-medium">
-                RevHire is the unified workspace where ambitious teams collaborate seamlessly to source, evaluate, and hire extraordinary talent at scale.
+                RevHire helps teams source, evaluate, and hire strong candidates from one focused workspace.
               </p>
               <div className="flex flex-col gap-4 sm:flex-row sm:items-center pt-2">
                 <Link to="/register" className="group relative flex items-center justify-center rounded-xl px-8 py-4 text-base font-bold text-white transition-all overflow-hidden bg-brand-600 hover:shadow-[0_8px_30px_rgb(37,99,235,0.3)] hover:-translate-y-0.5 border border-transparent">
