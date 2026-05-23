@@ -116,34 +116,6 @@ function Landing() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="bg-white py-20 border-t border-surface-100">
-        <div className="layout-container">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-extrabold tracking-tight text-surface-900">Trusted by professionals</h2>
-            <p className="mt-3 text-surface-600">Here's what our users say about RevHire.</p>
-          </div>
-          <div className="grid gap-6 md:grid-cols-3">
-            {[
-              { name: "Priya S.", role: "Software Engineer", text: "Found my dream job in 2 weeks. The resume builder and application tracking made everything so easy." },
-              { name: "Rahul M.", role: "HR Manager", text: "Posting jobs and reviewing applicants is seamless. The kanban board for applicants is a game changer." },
-              { name: "Ananya K.", role: "Product Designer", text: "The interview calendar kept me organized across multiple companies. Highly recommend RevHire." },
-            ].map((t) => (
-              <div key={t.name} className="premium-card p-6 bg-white">
-                <p className="text-surface-700 text-sm leading-relaxed">&ldquo;{t.text}&rdquo;</p>
-                <div className="mt-5 flex items-center gap-3">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-100 text-sm font-bold text-brand-700">{t.name.charAt(0)}</div>
-                  <div>
-                    <p className="text-sm font-bold text-surface-900">{t.name}</p>
-                    <p className="text-xs text-surface-500">{t.role}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       <footer className="border-t border-surface-200/60 bg-white py-6 text-center text-sm font-medium text-surface-500 relative overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-brand-200 to-transparent"></div>
         <div className="layout-container relative z-10 flex flex-col items-center justify-between gap-6 sm:flex-row">
