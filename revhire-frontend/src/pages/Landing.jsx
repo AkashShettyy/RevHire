@@ -33,7 +33,7 @@ function Landing() {
                 <Link to="/register" className="group relative flex items-center justify-center rounded-xl px-8 py-4 text-base font-bold text-white transition-all overflow-hidden bg-brand-600 hover:shadow-[0_8px_30px_rgb(37,99,235,0.3)] hover:-translate-y-0.5 border border-transparent">
                   <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-brand-600 to-violet-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   <span className="relative z-10 flex items-center gap-2 drop-shadow-md">
-                    Create Account
+                    Get started
                     <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                     </svg>
