@@ -20,7 +20,7 @@ function Landing() {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-500"></span>
                 </span>
-                Next-Gen Hiring Platform
+                Hiring workspace for modern teams
               </div>
               <h1 className="text-5xl font-extrabold tracking-tight sm:text-6xl lg:text-7xl leading-[1.1]">
                 <span className="block text-surface-900 drop-shadow-sm">Hire the best.</span>
