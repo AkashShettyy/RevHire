@@ -72,7 +72,7 @@ function Landing() {
         <div className="layout-container relative z-10">
           <div className="text-center max-w-2xl mx-auto mb-20 fade-in-up">
             <h2 className="text-3xl font-extrabold tracking-tight text-surface-900 sm:text-5xl">Everything you need to <span className="bg-gradient-to-r from-brand-600 to-violet-500 bg-clip-text text-transparent">scale your team</span></h2>
-            <p className="mt-6 text-lg leading-relaxed text-surface-600">A powerful suite of tools designed to remove operational overhead and let you focus on finding the perfect fit.</p>
+            <p className="mt-6 text-lg leading-relaxed text-surface-600">A focused suite of tools that keeps hiring operations organized from first search to final offer.</p>
           </div>
           <div className="grid gap-8 md:grid-cols-3">
             {highlights.map((item, idx) => (
