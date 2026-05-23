@@ -104,7 +104,7 @@ function Landing() {
             {[
               { step: "01", title: "Create Account", desc: "Sign up as a job seeker or employer and choose the workflow that fits your hiring goals." },
               { step: "02", title: "Set Up Profile", desc: "Build a resume, add role details, or prepare your first opening with clear requirements." },
-              { step: "03", title: "Connect & Hire", desc: "Apply to jobs or review applicants and move them through your hiring pipeline." },
+              { step: "03", title: "Connect & Hire", desc: "Apply, review, schedule, and move each candidate through the next stage with context." },
             ].map((s) => (
               <div key={s.step} className="flex flex-col items-center text-center">
                 <div className="flex h-14 w-14 items-center justify-center rounded-full bg-brand-600 text-lg font-extrabold text-white shadow-lg shadow-brand-500/25 mb-5">{s.step}</div>
