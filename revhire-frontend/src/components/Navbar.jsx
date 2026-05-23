@@ -222,7 +222,7 @@ function Navbar() {
                 
                 <div className="grid grid-cols-2 gap-2">
                   {navItems.map((item) => (
-                    <Link key={item.to} to={item.to} onClick={() => { setShowMobileMenu(false); setShowNotifications(false); }} className={`flex flex-col items-center justify-center rounded-lg border p-4 text-sm font-bold transition-all ${location.pathname === item.to ? "border-brand-600 bg-brand-600 text-white" : "border-brand-100 bg-white text-surface-700 hover:bg-brand-50"}`}>
+                    <Link key={item.to} to={item.to} aria-current={location.pathname === item.to ? "page" : undefined} onClick={() => { setShowMobileMenu(false); setShowNotifications(false); }} className={`flex flex-col items-center justify-center rounded-lg border p-4 text-sm font-bold transition-all ${location.pathname === item.to ? "border-brand-600 bg-brand-600 text-white" : "border-brand-100 bg-white text-surface-700 hover:bg-brand-50"}`}>
                       {item.label}
                     </Link>
                   ))}
