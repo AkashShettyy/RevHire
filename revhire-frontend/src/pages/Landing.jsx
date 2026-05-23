@@ -103,7 +103,7 @@ function Landing() {
           <div className="grid gap-8 md:grid-cols-3">
             {[
               { step: "01", title: "Create Account", desc: "Sign up as a job seeker or employer and choose the workflow that fits your hiring goals." },
-              { step: "02", title: "Set Up Profile", desc: "Build your resume or post your first job listing with all the details." },
+              { step: "02", title: "Set Up Profile", desc: "Build a resume, add role details, or prepare your first opening with clear requirements." },
               { step: "03", title: "Connect & Hire", desc: "Apply to jobs or review applicants and move them through your hiring pipeline." },
             ].map((s) => (
               <div key={s.step} className="flex flex-col items-center text-center">
