@@ -18,7 +18,12 @@ export const getResume = async (req, res) => {
 
 export const createOrUpdateResume = async (req, res) => {
   try {
-    const { resumeId, setAsDefault = false, uploadedFile, ...resumePayload } = req.body;
+    const {
+      resumeId,
+      setAsDefault = false,
+      uploadedFile,
+      ...resumePayload
+    } = req.body;
 
     if (uploadedFile?.dataUrl && uploadedFile.dataUrl.length > 3_000_000) {
       return res.status(400).json({ message: "Uploaded file is too large" });
@@ -51,7 +56,9 @@ export const createOrUpdateResume = async (req, res) => {
         { returnDocument: "after" },
       );
     } else {
-      const existingCount = await Resume.countDocuments({ jobSeeker: req.user.id });
+      const existingCount = await Resume.countDocuments({
+        jobSeeker: req.user.id,
+      });
       const normalizedTitle = resumePayload.title?.trim();
       resume = await Resume.create({
         ...resumePayload,
@@ -93,7 +100,9 @@ export const deleteResume = async (req, res) => {
       return res.status(404).json({ message: "Resume not found" });
     }
 
-    const fallbackResume = await Resume.findOne({ jobSeeker: req.user.id }).sort({
+    const fallbackResume = await Resume.findOne({
+      jobSeeker: req.user.id,
+    }).sort({
       updatedAt: -1,
     });
 
